@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Faculty | LEADS Higher Secondary School</title>
+    <link rel="icon" type="image/jpeg" href="images/school-logo.jpg">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap');
+        body { font-family: 'Inter', sans-serif; }
+
+        /* Custom Mobile Menu Fix - Improvised for consistent expansion */
+        @media (max-width: 1023px) {
+            #mobile-menu.active {
+                display: flex !important;
+                flex-direction: column;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: white;
+                padding: 2rem;
+                gap: 1.5rem;
+                box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+                border-top: 1px solid #f1f5f9;
+                z-index: 100;
+            }
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-900">
+
+    <div class="bg-emerald-700 text-white py-2 text-xs md:text-sm">
+        <div class="container mx-auto flex justify-between px-4">
+            <div class="flex space-x-4">
+                <span><i class="fas fa-phone mr-1"></i> +91 94854 34534</span>
+                <span class="hidden sm:inline"><i class="fas fa-envelope mr-1"></i> support@leadsshillong.com</span>
+            </div>
+            <div><i class="fas fa-map-marker-alt mr-1"></i> Langkerding, Shillong</div>
+        </div>
+    </div>
+
+    <nav class="bg-white shadow-sm sticky top-0 z-50 min-h-[90px] md:min-h-[110px] flex items-center">
+        <div class="container mx-auto px-4 py-3 flex justify-between items-center w-full relative">
+            
+            <a href="index.html" class="flex items-center gap-3 md:gap-4 group shrink min-w-0">
+                <img src="images/school-logo.jpg" alt="LEADS Logo" class="h-16 md:h-20 w-auto object-contain flex-shrink-0 transition-transform group-hover:scale-105 duration-300"> 
+                
+                <div class="flex flex-col justify-center border-l-2 border-gray-100 pl-3 md:pl-4 min-w-0">
+                    <span class="block text-xl md:text-3xl font-black text-blue-900 leading-none uppercase tracking-tighter truncate">LEADS</span>
+                    <span class="text-[9px] md:text-sm font-bold text-emerald-600 tracking-wider md:tracking-[0.15em] uppercase mt-1 truncate">Higher Secondary School</span>
+                </div>
+            </a>
+
+            <ul id="mobile-menu" class="hidden lg:flex items-center space-x-8 font-extrabold text-gray-600 text-[13px] uppercase">
+                <li><a href="index.html" class="nav-link py-2 hover:text-emerald-600 transition-all">Home</a></li>
+                <li><a href="about.html" class="nav-link py-2 hover:text-emerald-600 transition-all">About Us</a></li>
+                <li><a href="faculty.html" class="nav-link py-2 hover:text-emerald-600 transition-all">Faculty</a></li>
+                <li><a href="admissions.html" class="nav-link py-2 hover:text-emerald-600 transition-all">Admissions</a></li>
+                <li><a href="insights.html" class="nav-link py-2 hover:text-emerald-600 transition-all">Insights</a></li>
+                <li><a href="gallery.html" class="nav-link py-2 hover:text-emerald-600 transition-all">Gallery</a></li>
+                <li><a href="contact.html" class="nav-link py-2 hover:text-emerald-600 transition-all">Contact</a></li>
+            </ul>
+
+            <button id="menu-btn" class="lg:hidden text-blue-900 focus:outline-none p-2 flex-shrink-0 relative z-[70]">
+                <i class="fas fa-bars text-3xl" id="menu-icon"></i>
+            </button>
+        </div>
+    </nav>
+
+    <header class="bg-blue-900 py-16 text-center text-white">
+        <h1 class="text-4xl font-black uppercase tracking-tight">Our <span class="text-emerald-400">Team</span></h1>
+        <p class="mt-2 text-gray-300">Dedicated professionals committed to excellence since 2010.</p>
+    </header>
+
+    <main class="container mx-auto py-16 px-4">
+        
+        <section class="mb-20">
+            <h2 class="text-2xl font-black text-blue-900 mb-8 uppercase flex items-center">
+                <span class="w-8 h-1 bg-emerald-500 mr-3"></span> Administrators
+            </h2>
+            <div id="admin-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"></div>
+        </section>
+
+        <section class="mb-20">
+            <h2 class="text-2xl font-black text-blue-900 mb-8 uppercase flex items-center">
+                <span class="w-8 h-1 bg-emerald-500 mr-3"></span> Pre-Primary Section
+            </h2>
+            <div id="preprimary-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"></div>
+        </section>
+
+        <section class="mb-20">
+            <h2 class="text-2xl font-black text-blue-900 mb-8 uppercase flex items-center">
+                <span class="w-8 h-1 bg-emerald-500 mr-3"></span> Primary Section
+            </h2>
+            <div id="primary-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"></div>
+        </section>
+
+        <section class="mb-20">
+            <h2 class="text-2xl font-black text-blue-900 mb-8 uppercase flex items-center">
+                <span class="w-8 h-1 bg-emerald-500 mr-3"></span> Middle & Secondary
+            </h2>
+            <div id="secondary-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"></div>
+        </section>
+
+        <section class="mb-20">
+            <h2 class="text-2xl font-black text-blue-900 mb-8 uppercase flex items-center">
+                <span class="w-8 h-1 bg-emerald-500 mr-3"></span> Higher Secondary
+            </h2>
+            <div id="higher-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"></div>
+        </section>
+
+        <section class="mb-20">
+            <h2 class="text-2xl font-black text-blue-900 mb-8 uppercase flex items-center">
+                <span class="w-8 h-1 bg-emerald-500 mr-3"></span> Accounts & Support Staff
+            </h2>
+            <div id="support-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"></div>
+        </section>
+
+    </main>
+
+       <footer class="bg-gray-100 pt-16 pb-8 border-t border-gray-200">
+        <div class="container mx-auto px-4 grid md:grid-cols-4 gap-12 text-sm text-gray-600">
+            <div class="col-span-1 md:col-span-2">
+                <h4 class="text-xl font-black text-blue-900 mb-6 uppercase">LEADS <span class="text-emerald-600">SCHOOL</span></h4>
+                <p class="mb-4">Langkerding, Shillong - 793019, Meghalaya.</p>
+                <p class="italic text-xs">"Leadership is the capacity to translate vision into reality."</p>
+            </div>
+            <div>
+                <h5 class="font-bold text-blue-900 mb-6 uppercase text-xs tracking-widest">Navigation</h5>
+                <ul class="space-y-3">
+                    <li><a href="about.html" class="hover:text-emerald-600 transition">About Us</a></li>
+                    <li><a href="admissions.html" class="hover:text-emerald-600 transition">Admissions</a></li>
+                    <li><a href="insights.html" class="hover:text-emerald-600 transition">Insights</a></li>
+                    <li><a href="terms.html" class="hover:text-emerald-600 transition font-bold">Terms & Conditions</a></li>
+                </ul>
+            </div>
+            <div>
+                <h5 class="font-bold text-blue-900 mb-6 uppercase text-xs tracking-widest">Connect</h5>
+                <div class="flex space-x-4 text-xl">
+                    <a href="https://www.facebook.com/leadsshillong" class="hover:text-emerald-600"><i class="fab fa-facebook"></i></a>
+                    <a href="#" class="hover:text-emerald-600"><i class="fab fa-instagram"></i></a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="text-center mt-16 pt-8 border-t border-gray-200 text-gray-400 text-xs">
+            <p>&copy; 2026 LEADS Higher Secondary School (A Unit of LEADS Educational Trust).</p>
+            <div class="mt-2">
+                <a href="terms.html" class="hover:text-emerald-600 transition underline decoration-dotted">Terms & Conditions</a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            if (typeof loadFaculty === 'function') {
+                loadFaculty();
+            }
+        });
+    </script>
+</body>
+</html>

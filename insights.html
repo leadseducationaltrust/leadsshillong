@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Insights | LEADS Higher Secondary School</title>
+    <link rel="icon" type="image/jpeg" href="images/school-logo.jpg">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap');
+        body { font-family: 'Inter', sans-serif; }
+
+        /* Custom Mobile Menu Fix (Standardized) */
+        @media (max-width: 1023px) {
+            #mobile-menu.active {
+                display: flex !important;
+                flex-direction: column;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: white;
+                padding: 2rem;
+                gap: 1.5rem;
+                box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+                border-top: 1px solid #f1f5f9;
+                z-index: 100;
+            }
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-900 leading-relaxed">
+
+    <div class="bg-emerald-700 text-white py-2 text-xs md:text-sm">
+        <div class="container mx-auto flex justify-between px-4">
+            <div class="flex space-x-4">
+                <span><i class="fas fa-phone mr-1"></i> +91 94854 34534</span>
+                <span class="hidden sm:inline"><i class="fas fa-envelope mr-1"></i> support@leadsshillong.com</span>
+            </div>
+            <div><i class="fas fa-map-marker-alt mr-1"></i> Langkerding, Shillong</div>
+        </div>
+    </div>
+
+    <nav class="bg-white shadow-sm sticky top-0 z-50 min-h-[90px] md:min-h-[110px] flex items-center">
+        <div class="container mx-auto px-4 py-3 flex justify-between items-center w-full relative">
+            
+            <a href="index.html" class="flex items-center gap-3 md:gap-4 group shrink min-w-0">
+                <img src="images/school-logo.jpg" alt="LEADS Logo" class="h-16 md:h-20 w-auto object-contain flex-shrink-0 transition-transform group-hover:scale-105 duration-300"> 
+                
+                <div class="flex flex-col justify-center border-l-2 border-gray-100 pl-3 md:pl-4 min-w-0">
+                    <span class="block text-xl md:text-3xl font-black text-blue-900 leading-none uppercase tracking-tighter truncate">LEADS</span>
+                    <span class="text-[9px] md:text-sm font-bold text-emerald-600 tracking-wider md:tracking-[0.15em] uppercase mt-1 truncate">Higher Secondary School</span>
+                </div>
+            </a>
+
+            <ul id="mobile-menu" class="hidden lg:flex items-center space-x-8 font-extrabold text-gray-600 text-[13px] uppercase">
+                <li><a href="index.html" class="nav-link block py-2 hover:text-emerald-600 transition-all">Home</a></li>
+                <li><a href="about.html" class="nav-link block py-2 hover:text-emerald-600 transition-all">About Us</a></li>
+                <li><a href="faculty.html" class="nav-link block py-2 hover:text-emerald-600 transition-all">Faculty</a></li>
+                <li><a href="admissions.html" class="nav-link block py-2 hover:text-emerald-600 transition-all">Admissions</a></li>
+                <li><a href="insights.html" class="nav-link block py-2 text-emerald-600 lg:underline lg:decoration-2 lg:underline-offset-8">Insights</a></li>
+                <li><a href="gallery.html" class="nav-link block py-2 hover:text-emerald-600 transition-all">Gallery</a></li>
+                <li><a href="contact.html" class="nav-link block py-2 hover:text-emerald-600 transition-all">Contact</a></li>
+            </ul>
+
+            <button id="menu-btn" class="lg:hidden text-blue-900 focus:outline-none p-2 flex-shrink-0 relative z-[70]">
+                <i class="fas fa-bars text-3xl" id="menu-icon"></i>
+            </button>
+        </div>
+    </nav>
+
+    <header class="bg-blue-900 py-16 text-center text-white">
+        <h1 class="text-4xl md:text-5xl font-black uppercase tracking-tight">Academic <span class="text-emerald-400">Insights</span></h1>
+        <p class="mt-4 text-gray-300 font-medium max-w-2xl mx-auto px-4 italic">"Empowering voices from the classroom to the community."</p>
+    </header>
+
+    <main class="container mx-auto py-16 px-4 max-w-4xl">
+        <div id="insights-feed" class="space-y-12">
+            </div>
+
+        <div class="mt-16 text-center">
+            <button id="load-more" class="bg-white border-2 border-emerald-600 text-emerald-600 hover:bg-emerald-600 hover:text-white font-black px-10 py-4 rounded-full transition-all uppercase tracking-widest text-sm shadow-md">
+                Load Older Articles
+            </button>
+        </div>
+    </main>
+
+    <footer class="bg-gray-100 pt-16 pb-8 border-t border-gray-200">
+        <div class="container mx-auto px-4 grid md:grid-cols-4 gap-12 text-sm text-gray-600">
+            <div class="col-span-1 md:col-span-2">
+                <h4 class="text-xl font-black text-blue-900 mb-6 uppercase">LEADS <span class="text-emerald-600">SCHOOL</span></h4>
+                <p class="mb-4">Langkerding, Shillong - 793019, Meghalaya.</p>
+                <p class="italic text-xs">"Leadership is the capacity to translate vision into reality."</p>
+            </div>
+            <div>
+                <h5 class="font-bold text-blue-900 mb-6 uppercase text-xs tracking-widest">Navigation</h5>
+                <ul class="space-y-3">
+                    <li><a href="about.html" class="hover:text-emerald-600 transition">About Us</a></li>
+                    <li><a href="admissions.html" class="hover:text-emerald-600 transition">Admissions</a></li>
+                    <li><a href="insights.html" class="hover:text-emerald-600 transition">Insights</a></li>
+                    <li><a href="terms.html" class="hover:text-emerald-600 transition font-bold">Terms & Conditions</a></li>
+                </ul>
+            </div>
+            <div>
+                <h5 class="font-bold text-blue-900 mb-6 uppercase text-xs tracking-widest">Connect</h5>
+                <div class="flex space-x-4 text-xl">
+                    <a href="https://www.facebook.com/leadsshillong" class="hover:text-emerald-600"><i class="fab fa-facebook"></i></a>
+                    <a href="#" class="hover:text-emerald-600"><i class="fab fa-instagram"></i></a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="text-center mt-16 pt-8 border-t border-gray-200 text-gray-400 text-xs">
+            <p>&copy; 2026 LEADS Higher Secondary School (A Unit of LEADS Educational Trust).</p>
+            <div class="mt-2">
+                <a href="terms.html" class="hover:text-emerald-600 transition underline decoration-dotted">Terms & Conditions</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // ARTICLE DATABASE
+        const articles = [
+            {
+                title: "The Future of AI in Modern Classrooms",
+                image: "insights/article_1/ai-edu.png", 
+                description: "Exploring how artificial intelligence is moving from a tool for homework to a partner in personalised learning.",
+                author: "Sharat Singh",
+                role: "IT Engineer",
+                category: "Technology",
+                date: "Feb 03, 2026",
+                link: "insights/article_1/article_1_ai_education.html"
+            }
+        ];
+
+        let visibleCount = 5;
+        const feed = document.getElementById('insights-feed');
+        const loadMoreBtn = document.getElementById('load-more');
+
+        function renderArticles() {
+            feed.innerHTML = '';
+            const toShow = articles.slice(0, visibleCount);
+            
+            toShow.forEach(art => {
+                const card = document.createElement('article');
+                card.className = "bg-white rounded-3xl overflow-hidden shadow-sm border border-gray-100 hover:shadow-xl transition-all duration-300 flex flex-col md:flex-row group cursor-pointer";
+                card.onclick = () => window.location.href = art.link;
+
+                card.innerHTML = `
+                    <div class="md:w-1/3 overflow-hidden relative">
+                        <img src="${art.image}" class="h-64 md:h-full w-full object-cover group-hover:scale-110 transition-transform duration-700">
+                        <div class="absolute top-4 left-4">
+                            <span class="px-3 py-1 bg-emerald-600 text-white text-[9px] font-black uppercase tracking-widest rounded-full shadow-lg">
+                                ${art.category}
+                            </span>
+                        </div>
+                    </div>
+                    <div class="p-8 md:w-2/3 flex flex-col justify-center">
+                        <span class="text-gray-400 text-[10px] font-bold uppercase tracking-[0.2em] mb-2">${art.date}</span>
+                        <h2 class="text-2xl font-black text-blue-900 group-hover:text-emerald-600 transition-colors mb-4 leading-tight">${art.title}</h2>
+                        <p class="text-gray-600 text-sm mb-6 leading-relaxed line-clamp-2">${art.description}</p>
+                        <div class="flex items-center gap-3">
+                            <div class="w-10 h-10 rounded-full bg-slate-100 border border-emerald-100 flex items-center justify-center text-emerald-700 font-bold text-sm">
+                                ${art.author.charAt(0)}
+                            </div>
+                            <div>
+                                <p class="text-sm font-black text-slate-900 leading-none">${art.author}</p>
+                                <p class="text-[10px] text-gray-500 font-bold uppercase mt-1 tracking-tighter">${art.role}</p>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                feed.appendChild(card);
+            });
+
+            if (visibleCount >= articles.length || visibleCount >= 20) {
+                loadMoreBtn.style.display = 'none';
+            }
+        }
+
+        // Standardized Mobile Menu Logic (Uses .active class)
+        const menuBtn = document.getElementById('menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const menuIcon = document.getElementById('menu-icon');
+
+        if(menuBtn && mobileMenu) {
+            menuBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                // Toggle the 'active' class
+                mobileMenu.classList.toggle('active');
+                
+                // Icon Logic checking active class
+                if (!mobileMenu.classList.contains('active')) {
+                    menuIcon.classList.remove('fa-times');
+                    menuIcon.classList.add('fa-bars');
+                } else {
+                    menuIcon.classList.remove('fa-bars');
+                    menuIcon.classList.add('fa-times');
+                }
+            });
+
+            document.addEventListener('click', (e) => {
+                if (!mobileMenu.contains(e.target) && !menuBtn.contains(e.target)) {
+                    if(mobileMenu.classList.contains('active')) {
+                        mobileMenu.classList.remove('active');
+                        menuIcon.classList.remove('fa-times');
+                        menuIcon.classList.add('fa-bars');
+                    }
+                }
+            });
+        }
+
+        window.onload = renderArticles;
+    </script>
+</body>
+</html>

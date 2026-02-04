@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gallery | LEADS Higher Secondary School</title>
+    <link rel="icon" type="image/jpeg" href="images/school-logo.jpg">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap');
+        body { font-family: 'Inter', sans-serif; }
+
+        /* Custom Mobile Menu Fix (Standardized) */
+        @media (max-width: 1023px) {
+            #mobile-menu.active {
+                display: flex !important;
+                flex-direction: column;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: white;
+                padding: 2rem;
+                gap: 1.5rem;
+                box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+                border-top: 1px solid #f1f5f9;
+                z-index: 100;
+            }
+        }
+
+        /* Masonry Layout */
+        .masonry-grid {
+            column-count: 1;
+            column-gap: 1.5rem;
+        }
+        @media (min-width: 768px) { .masonry-grid { column-count: 2; } }
+        @media (min-width: 1024px) { .masonry-grid { column-count: 3; } }
+
+        .masonry-item {
+            break-inside: avoid;
+            margin-bottom: 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        /* Lightbox Styling */
+        #lightbox {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.95);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+        }
+        
+        #lightbox img {
+            max-width: 95%;
+            max-height: 85vh;
+            border-radius: 0.5rem;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            object-fit: contain;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-900">
+
+    <div class="bg-emerald-700 text-white py-2 text-xs md:text-sm">
+        <div class="container mx-auto flex justify-between px-4">
+            <div class="flex space-x-4">
+                <span><i class="fas fa-phone mr-1"></i> +91 94854 34534</span>
+                <span class="hidden sm:inline"><i class="fas fa-envelope mr-1"></i> support@leadsshillong.com</span>
+            </div>
+            <div><i class="fas fa-map-marker-alt mr-1"></i> Langkerding, Shillong</div>
+        </div>
+    </div>
+
+    <nav class="bg-white shadow-sm sticky top-0 z-50 min-h-[90px] md:min-h-[110px] flex items-center">
+        <div class="container mx-auto px-4 py-3 flex justify-between items-center w-full relative">
+            
+            <a href="index.html" class="flex items-center gap-3 md:gap-4 group shrink min-w-0">
+                <img src="images/school-logo.jpg" alt="LEADS Logo" class="h-16 md:h-20 w-auto object-contain flex-shrink-0 transition-transform group-hover:scale-105 duration-300"> 
+                
+                <div class="flex flex-col justify-center border-l-2 border-gray-100 pl-3 md:pl-4 min-w-0">
+                    <span class="block text-xl md:text-3xl font-black text-blue-900 leading-none uppercase tracking-tighter truncate">LEADS</span>
+                    <span class="text-[9px] md:text-sm font-bold text-emerald-600 tracking-wider md:tracking-[0.15em] uppercase mt-1 truncate">Higher Secondary School</span>
+                </div>
+            </a>
+
+            <ul id="mobile-menu" class="hidden lg:flex items-center space-x-8 font-extrabold text-gray-600 text-[13px] uppercase">
+                <li><a href="index.html" class="nav-link block py-2 hover:text-emerald-600 transition-all">Home</a></li>
+                <li><a href="about.html" class="nav-link block py-2 hover:text-emerald-600 transition-all">About Us</a></li>
+                <li><a href="faculty.html" class="nav-link block py-2 hover:text-emerald-600 transition-all">Faculty</a></li>
+                <li><a href="admissions.html" class="nav-link block py-2 hover:text-emerald-600 transition-all">Admissions</a></li>
+                <li><a href="insights.html" class="nav-link block py-2 hover:text-emerald-600 transition-all">Insights</a></li>
+                <li><a href="gallery.html" class="nav-link block py-2 text-emerald-600 lg:underline lg:decoration-2 lg:underline-offset-8">Gallery</a></li>
+                <li><a href="contact.html" class="nav-link block py-2 hover:text-emerald-600 transition-all">Contact</a></li>
+            </ul>
+
+            <button id="menu-btn" class="lg:hidden text-blue-900 focus:outline-none p-2 flex-shrink-0 relative z-[70]">
+                <i class="fas fa-bars text-3xl" id="menu-icon"></i>
+            </button>
+        </div>
+    </nav>
+
+    <header class="bg-blue-900 py-16 text-center text-white">
+        <h1 class="text-4xl font-black uppercase tracking-tight">School <span class="text-emerald-400">Gallery</span></h1>
+        <p class="mt-2 text-gray-300">Capturing moments of excellence and joy.</p>
+    </header>
+
+    <main class="container mx-auto py-16 px-4">
+        <div id="gallery-container" class="masonry-grid">
+            </div>
+    </main>
+
+    <div id="lightbox" role="dialog" aria-modal="true">
+        <span class="absolute top-5 right-10 text-white text-5xl cursor-pointer hover:text-emerald-400 transition" onclick="closeLightbox()">&times;</span>
+        <img id="lightbox-img" src="" alt="Enlarged view">
+        <p id="lightbox-caption" class="absolute bottom-10 text-white text-sm md:text-lg font-medium bg-black/60 backdrop-blur-md px-6 py-2 rounded-full"></p>
+    </div>
+
+    <footer class="bg-gray-100 pt-16 pb-8 border-t border-gray-200">
+        <div class="container mx-auto px-4 grid md:grid-cols-4 gap-12 text-sm text-gray-600">
+            <div class="col-span-1 md:col-span-2">
+                <h4 class="text-xl font-black text-blue-900 mb-6 uppercase">LEADS <span class="text-emerald-600">SCHOOL</span></h4>
+                <p class="mb-4">Langkerding, Shillong - 793019, Meghalaya.</p>
+                <p class="italic text-xs">"Leadership is the capacity to translate vision into reality."</p>
+            </div>
+            <div>
+                <h5 class="font-bold text-blue-900 mb-6 uppercase text-xs tracking-widest">Navigation</h5>
+                <ul class="space-y-3">
+                    <li><a href="about.html" class="hover:text-emerald-600 transition">About Us</a></li>
+                    <li><a href="admissions.html" class="hover:text-emerald-600 transition">Admissions</a></li>
+                    <li><a href="insights.html" class="hover:text-emerald-600 transition">Insights</a></li>
+                    <li><a href="terms.html" class="hover:text-emerald-600 transition font-bold">Terms & Conditions</a></li>
+                </ul>
+            </div>
+            <div>
+                <h5 class="font-bold text-blue-900 mb-6 uppercase text-xs tracking-widest">Connect</h5>
+                <div class="flex space-x-4 text-xl">
+                    <a href="https://www.facebook.com/leadsshillong" class="hover:text-emerald-600"><i class="fab fa-facebook"></i></a>
+                    <a href="#" class="hover:text-emerald-600"><i class="fab fa-instagram"></i></a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="text-center mt-16 pt-8 border-t border-gray-200 text-gray-400 text-xs">
+            <p>&copy; 2026 LEADS Higher Secondary School (A Unit of LEADS Educational Trust).</p>
+            <div class="mt-2">
+                <a href="terms.html" class="hover:text-emerald-600 transition underline decoration-dotted">Terms & Conditions</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const galleryImages = [
+            { url: 'images/gallery/photo_1_general_proficiency.jpg', desc: 'General Proficiency Award 2025' },
+            { url: 'images/gallery/photo_2_student_visiting_art_gallery.jpg', desc: 'Students Visiting Art Gallery' },
+            { url: 'images/gallery/photo_3_release_of_mosaic.jpg', desc: 'Release of School Magazine - The Mosaic' },
+            { url: 'images/gallery/photo_4_independence_celebration.jpg', desc: 'Independence Day Celebration' },
+            { url: 'images/gallery/photo_5_activity_kindergarten.jpg', desc: 'Activity with Kindergarten Students' },
+            { url: 'images/gallery/photo_6_school_football_team.jpg', desc: 'School Football Team' },
+            { url: 'images/gallery/photo_7_school_trip.jpg', desc: 'Students in School Trip to Kaziranga' },
+            { url: 'images/gallery/photo_8_kidpreneurship.jpg', desc: 'Kidpreneurship 2025' },
+            { url: 'images/gallery/photo_9_traditional_dress.jpg', desc: 'Children in Traditional Attire' },
+            { url: 'images/gallery/photo_10_march_past.jpg', desc: 'Students in March Past Formation' },
+        ];
+
+        const container = document.getElementById('gallery-container');
+        const lightbox = document.getElementById('lightbox');
+        const lightboxImg = document.getElementById('lightbox-img');
+        const lightboxCap = document.getElementById('lightbox-caption');
+
+        function loadGallery() {
+            galleryImages.forEach(imgData => {
+                const item = document.createElement('div');
+                item.className = 'masonry-item group cursor-pointer relative overflow-hidden rounded-xl shadow-md hover:shadow-2xl bg-gray-200';
+                
+                item.innerHTML = `
+                    <img src="${imgData.url}" alt="${imgData.desc}" class="w-full h-auto transform group-hover:scale-105 transition duration-700 ease-in-out">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
+                        <p class="text-white text-sm font-bold tracking-wide">${imgData.desc}</p>
+                    </div>
+                `;
+
+                item.onclick = () => openLightbox(imgData.url, imgData.desc);
+                container.appendChild(item);
+            });
+        }
+
+        function openLightbox(url, desc) {
+            lightboxImg.src = url;
+            lightboxCap.innerText = desc;
+            lightbox.style.display = 'flex';
+            document.body.style.overflow = 'hidden'; // Stop scrolling
+        }
+
+        function closeLightbox() {
+            lightbox.style.display = 'none';
+            document.body.style.overflow = 'auto'; // Re-enable scrolling
+        }
+
+        lightbox.onclick = (e) => {
+            if (e.target === lightbox) closeLightbox();
+        };
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === "Escape") closeLightbox();
+        });
+
+        // STANDARD MOBILE MENU LOGIC (Uses .active class)
+        const menuBtn = document.getElementById('menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const menuIcon = document.getElementById('menu-icon');
+
+        if(menuBtn && mobileMenu) {
+            menuBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                // Toggle the 'active' class
+                mobileMenu.classList.toggle('active');
+                
+                // Icon Logic checking active class
+                if (!mobileMenu.classList.contains('active')) {
+                    menuIcon.classList.remove('fa-times');
+                    menuIcon.classList.add('fa-bars');
+                } else {
+                    menuIcon.classList.remove('fa-bars');
+                    menuIcon.classList.add('fa-times');
+                }
+            });
+
+            document.addEventListener('click', (e) => {
+                if (!mobileMenu.contains(e.target) && !menuBtn.contains(e.target)) {
+                    if(mobileMenu.classList.contains('active')) {
+                        mobileMenu.classList.remove('active');
+                        menuIcon.classList.remove('fa-times');
+                        menuIcon.classList.add('fa-bars');
+                    }
+                }
+            });
+        }
+
+        window.onload = loadGallery;
+    </script>
+</body>
+</html>

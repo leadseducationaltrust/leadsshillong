@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us | LEADS Higher Secondary School</title>
+    <link rel="icon" type="image/jpeg" href="images/school-logo.jpg">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap');
+        body { font-family: 'Inter', sans-serif; }
+
+        /* Custom Mobile Menu Fix (Standardized) */
+        @media (max-width: 1023px) {
+            #mobile-menu.active {
+                display: flex !important;
+                flex-direction: column;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: white;
+                padding: 2rem;
+                gap: 1.5rem;
+                box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+                border-top: 1px solid #f1f5f9;
+                z-index: 100;
+            }
+        }
+
+        /* Mandatory Asterisk Styling */
+        .required-star { color: #ef4444; margin-left: 2px; }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-900 leading-relaxed">
+
+    <div class="bg-emerald-700 text-white py-2 text-xs md:text-sm">
+        <div class="container mx-auto flex justify-between px-4">
+            <div class="flex space-x-4">
+                <span><i class="fas fa-phone mr-1"></i> +91 94854 34534</span>
+                <span class="hidden sm:inline"><i class="fas fa-envelope mr-1"></i> support@leadsshillong.com</span>
+            </div>
+            <div><i class="fas fa-map-marker-alt mr-1"></i> Langkerding, Shillong</div>
+        </div>
+    </div>
+
+    <nav class="bg-white shadow-sm sticky top-0 z-50 min-h-[90px] md:min-h-[110px] flex items-center">
+        <div class="container mx-auto px-4 py-3 flex justify-between items-center w-full relative">
+            
+            <a href="index.html" class="flex items-center gap-3 md:gap-4 group shrink min-w-0">
+                <img src="images/school-logo.jpg" alt="LEADS Logo" class="h-16 md:h-20 w-auto object-contain flex-shrink-0 transition-transform group-hover:scale-105 duration-300"> 
+                
+                <div class="flex flex-col justify-center border-l-2 border-gray-100 pl-3 md:pl-4 min-w-0">
+                    <span class="block text-xl md:text-3xl font-black text-blue-900 leading-none uppercase tracking-tighter truncate">LEADS</span>
+                    <span class="text-[9px] md:text-sm font-bold text-emerald-600 tracking-wider md:tracking-[0.15em] uppercase mt-1 truncate">Higher Secondary School</span>
+                </div>
+            </a>
+
+            <ul id="mobile-menu" class="hidden lg:flex items-center space-x-8 font-extrabold text-gray-600 text-[13px] uppercase">
+                <li><a href="index.html" class="nav-link block py-2 hover:text-emerald-600 transition-all">Home</a></li>
+                <li><a href="about.html" class="nav-link block py-2 hover:text-emerald-600 transition-all">About Us</a></li>
+                <li><a href="faculty.html" class="nav-link block py-2 hover:text-emerald-600 transition-all">Faculty</a></li>
+                <li><a href="admissions.html" class="nav-link block py-2 hover:text-emerald-600 transition-all">Admissions</a></li>
+                <li><a href="insights.html" class="nav-link block py-2 hover:text-emerald-600 transition-all">Insights</a></li>
+                <li><a href="gallery.html" class="nav-link block py-2 hover:text-emerald-600 transition-all">Gallery</a></li>
+                <li><a href="contact.html" class="nav-link block py-2 text-emerald-600 lg:underline lg:decoration-2 lg:underline-offset-8">Contact</a></li>
+            </ul>
+
+            <button id="menu-btn" class="lg:hidden text-blue-900 focus:outline-none p-2 flex-shrink-0 relative z-[70]">
+                <i class="fas fa-bars text-3xl" id="menu-icon"></i>
+            </button>
+        </div>
+    </nav>
+
+    <header class="bg-blue-900 py-16 text-center text-white relative overflow-hidden">
+        <div class="container mx-auto px-4 relative z-10">
+            <h1 class="text-4xl md:text-5xl font-black uppercase tracking-tight">Get In <span class="text-emerald-400">Touch</span></h1>
+            <p class="mt-4 text-gray-300 font-medium">Have questions? We are here to help you.</p>
+        </div>
+    </header>
+
+    <main class="container mx-auto py-16 px-4">
+        <div class="grid lg:grid-cols-2 gap-12">
+            
+            <div class="bg-white p-8 rounded-3xl shadow-xl border border-gray-100">
+                <form action="https://api.web3forms.com/submit" method="POST" id="contact-form">
+                    <input type="hidden" name="access_key" value="0b9ccc7b-410a-414c-b0f8-70b8c343bee3">
+                    <input type="hidden" name="from_name" value="LEADS School Website">
+                    <input type="checkbox" name="botcheck" class="hidden" style="display: none;">
+
+                    <div class="space-y-6">
+                        <div>
+                            <label class="block text-sm font-bold text-blue-900 uppercase mb-2">
+                                Full Name<span class="required-star">*</span>
+                            </label>
+                            <input type="text" name="name" required class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-emerald-500 focus:ring-2 focus:ring-emerald-200 outline-none transition" placeholder="Enter your name">
+                        </div>
+
+                        <div class="grid md:grid-cols-2 gap-6">
+                            <div>
+                                <label class="block text-sm font-bold text-blue-900 uppercase mb-2">
+                                    Email Address<span class="required-star">*</span>
+                                </label>
+                                <input type="email" name="email" required class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-emerald-500 focus:ring-2 focus:ring-emerald-200 outline-none transition" placeholder="email@example.com">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-bold text-blue-900 uppercase mb-2">
+                                    Phone Number<span class="required-star">*</span>
+                                </label>
+                                <input type="tel" name="phone" required class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-emerald-500 focus:ring-2 focus:ring-emerald-200 outline-none transition" placeholder="00000 00000">
+                            </div>
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-bold text-blue-900 uppercase mb-2">
+                                Subject<span class="required-star">*</span>
+                            </label>
+                            <div class="relative">
+                                <select name="subject" required class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-emerald-500 focus:ring-2 focus:ring-emerald-200 outline-none transition appearance-none bg-white">
+                                    <option value="" disabled selected>Select an option</option>
+                                    <option value="Admission Inquiry">Admission Inquiry</option>
+                                    <option value="Job Application">Job Application</option>
+                                    <option value="General Information">General Information</option>
+                                    <option value="Sales and Vendors">Sales and Information</option>
+                                    <option value="Feedback/Complaints">Feedback</option>
+                                    <option value="Other">Other School Work</option>
+                                </select>
+                                <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-4 text-gray-400">
+                                    <i class="fas fa-chevron-down text-xs"></i>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-bold text-blue-900 uppercase mb-2">
+                                Message<span class="required-star">*</span>
+                            </label>
+                            <textarea name="message" rows="5" required class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-emerald-500 focus:ring-2 focus:ring-emerald-200 outline-none transition" placeholder="How can we help you?"></textarea>
+                        </div>
+
+                        <button type="submit" class="w-full bg-blue-900 hover:bg-emerald-600 text-white font-black py-4 rounded-xl shadow-lg transition-all uppercase tracking-widest text-sm">
+                            Send Message
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+            <div class="space-y-8">
+                <div class="bg-emerald-600 p-8 rounded-3xl text-white shadow-xl">
+                    <h3 class="text-2xl font-black mb-6 uppercase">Visit Our Campus</h3>
+                    <div class="space-y-4">
+                        <p class="flex items-start gap-4">
+                            <i class="fas fa-map-marker-alt mt-1 text-emerald-300"></i>
+                            <span>LEADS Higher Secondary School, Langkerding, Nongmensong, Shillong - 793019, Meghalaya</span>
+                        </p>
+                        <p class="flex items-center gap-4">
+                            <i class="fas fa-phone text-emerald-300"></i>
+                            <span>+91 94854 34534</span>
+                        </p>
+                        <p class="flex items-center gap-4">
+                            <i class="fas fa-clock text-emerald-300"></i>
+                            <span>Mon - Fri: 9:00 AM - 3:00 PM</span>
+                        </p>
+                    </div>
+                </div>
+
+                <div class="rounded-3xl overflow-hidden shadow-xl border border-gray-200 h-[450px] relative bg-gray-200">
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3598.419033678317!2d91.9067664!3d25.590988499999995!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x37507fd0a24eb3dd%3A0x9d32cb52d67507b9!2sLeads%20Higher%20Secondary%20School!5e0!3m2!1sen!2sin!4v1770129373388!5m2!1sen!2sin" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <footer class="bg-gray-100 pt-16 pb-8 border-t border-gray-200">
+        <div class="container mx-auto px-4 grid md:grid-cols-4 gap-12 text-sm text-gray-600">
+            <div class="col-span-1 md:col-span-2">
+                <h4 class="text-xl font-black text-blue-900 mb-6 uppercase">LEADS <span class="text-emerald-600">SCHOOL</span></h4>
+                <p class="mb-4">Langkerding, Shillong - 793019, Meghalaya.</p>
+                <p class="italic text-xs">"Leadership is the capacity to translate vision into reality."</p>
+            </div>
+            <div>
+                <h5 class="font-bold text-blue-900 mb-6 uppercase text-xs tracking-widest">Navigation</h5>
+                <ul class="space-y-3">
+                    <li><a href="about.html" class="hover:text-emerald-600 transition">About Us</a></li>
+                    <li><a href="admissions.html" class="hover:text-emerald-600 transition">Admissions</a></li>
+                    <li><a href="insights.html" class="hover:text-emerald-600 transition">Insights</a></li>
+                    <li><a href="terms.html" class="hover:text-emerald-600 transition font-bold">Terms & Conditions</a></li>
+                </ul>
+            </div>
+            <div>
+                <h5 class="font-bold text-blue-900 mb-6 uppercase text-xs tracking-widest">Connect</h5>
+                <div class="flex space-x-4 text-xl">
+                    <a href="https://www.facebook.com/leadsshillong" class="hover:text-emerald-600"><i class="fab fa-facebook"></i></a>
+                    <a href="#" class="hover:text-emerald-600"><i class="fab fa-instagram"></i></a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="text-center mt-16 pt-8 border-t border-gray-200 text-gray-400 text-xs">
+            <p>&copy; 2026 LEADS Higher Secondary School (A Unit of LEADS Educational Trust).</p>
+            <div class="mt-2">
+                <a href="terms.html" class="hover:text-emerald-600 transition underline decoration-dotted">Terms & Conditions</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // STANDARD MOBILE MENU LOGIC (Uses .active class)
+        const menuBtn = document.getElementById('menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const menuIcon = document.getElementById('menu-icon');
+
+        if(menuBtn && mobileMenu) {
+            menuBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                // Toggle the 'active' class
+                mobileMenu.classList.toggle('active');
+                
+                // Icon Logic checking active class
+                if (!mobileMenu.classList.contains('active')) {
+                    menuIcon.classList.remove('fa-times');
+                    menuIcon.classList.add('fa-bars');
+                } else {
+                    menuIcon.classList.remove('fa-bars');
+                    menuIcon.classList.add('fa-times');
+                }
+            });
+
+            document.addEventListener('click', (e) => {
+                if (!mobileMenu.contains(e.target) && !menuBtn.contains(e.target)) {
+                    if(mobileMenu.classList.contains('active')) {
+                        mobileMenu.classList.remove('active');
+                        menuIcon.classList.remove('fa-times');
+                        menuIcon.classList.add('fa-bars');
+                    }
+                }
+            });
+        }
+    </script>
+</body>
+</html>

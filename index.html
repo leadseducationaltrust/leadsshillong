@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LEADS Higher Secondary School | Shillong, Meghalaya</title>
+    <link rel="icon" type="image/jpeg" href="images/school-logo.jpg">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800;900&display=swap');
+        body { font-family: 'Inter', sans-serif; }
+        .hero-gradient { background: linear-gradient(rgba(15, 23, 42, 0.8), rgba(15, 23, 42, 0.8)); }
+
+        /* Custom Mobile Menu Fix (Standardized) */
+        @media (max-width: 1023px) {
+            #mobile-menu.active {
+                display: flex !important;
+                flex-direction: column;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: white;
+                padding: 2rem;
+                gap: 1.5rem;
+                box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+                border-top: 1px solid #f1f5f9;
+                z-index: 100;
+            }
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-slate-900">
+
+    <div class="bg-emerald-700 text-white py-2 text-xs md:text-sm">
+        <div class="container mx-auto flex justify-between px-4">
+            <div class="flex space-x-4">
+                <span><i class="fas fa-phone mr-1"></i> +91 94854 34534</span>
+                <span class="hidden sm:inline"><i class="fas fa-envelope mr-1"></i> support@leadsshillong.com</span>
+            </div>
+            <div><i class="fas fa-map-marker-alt mr-1"></i> Langkerding, Shillong</div>
+        </div>
+    </div>
+
+    <nav class="bg-white shadow-sm sticky top-0 z-50 min-h-[90px] md:min-h-[110px] flex items-center">
+        <div class="container mx-auto px-4 py-3 flex justify-between items-center w-full relative">
+            
+            <a href="index.html" class="flex items-center gap-3 md:gap-4 group shrink min-w-0">
+                <img src="images/school-logo.jpg" alt="LEADS Logo" class="h-16 md:h-20 w-auto object-contain flex-shrink-0 transition-transform group-hover:scale-105 duration-300"> 
+                
+                <div class="flex flex-col justify-center border-l-2 border-gray-100 pl-3 md:pl-4 min-w-0">
+                    <span class="block text-xl md:text-3xl font-black text-blue-900 leading-none uppercase tracking-tighter truncate">LEADS</span>
+                    <span class="text-[9px] md:text-sm font-bold text-emerald-600 tracking-wider md:tracking-[0.15em] uppercase mt-1 truncate">Higher Secondary School</span>
+                </div>
+            </a>
+
+            <ul id="mobile-menu" class="hidden lg:flex items-center space-x-8 font-extrabold text-gray-600 text-[13px] uppercase">
+                <li><a href="index.html" class="nav-link py-2 text-emerald-600 transition-all">Home</a></li>
+                <li><a href="about.html" class="nav-link py-2 hover:text-emerald-600 transition-all">About Us</a></li>
+                <li><a href="faculty.html" class="nav-link py-2 hover:text-emerald-600 transition-all">Faculty</a></li>
+                <li><a href="admissions.html" class="nav-link py-2 hover:text-emerald-600 transition-all">Admissions</a></li>
+                <li><a href="insights.html" class="nav-link py-2 hover:text-emerald-600 transition-all">Insights</a></li>
+                <li><a href="gallery.html" class="nav-link py-2 hover:text-emerald-600 transition-all">Gallery</a></li>
+                <li><a href="contact.html" class="nav-link py-2 hover:text-emerald-600 transition-all">Contact</a></li>
+                <li class="mt-2 lg:mt-0">
+                    <a href="https://rzp.io/l/Ze17MQO3sa" target="_blank" class="flex items-center gap-2 bg-emerald-600 text-white px-6 py-3 rounded-full hover:bg-blue-900 transition-all shadow-md hover:shadow-lg transform hover:-translate-y-0.5">
+                        <i class="fas fa-credit-card text-sm"></i>
+                        <span>Pay Fees</span>
+                    </a>
+                </li>
+            </ul>
+
+            <button id="menu-btn" class="lg:hidden text-blue-900 focus:outline-none p-2 flex-shrink-0 relative z-[70]">
+                <i class="fas fa-bars text-3xl" id="menu-icon"></i>
+            </button>
+        </div>
+    </nav>
+
+    <header class="relative min-h-[550px] md:h-[650px] flex items-center overflow-hidden pt-32 md:pt-0">
+        <img src="https://images.unsplash.com/photo-1546410531-bb4caa6b424d?auto=format&fit=crop&w=1600" 
+             class="absolute inset-0 w-full h-full object-cover" alt="School Campus">
+        <div class="absolute inset-0 hero-gradient"></div>
+        
+        <div class="container mx-auto px-6 md:px-12 relative z-10 text-white">
+            <div class="max-w-3xl py-12 md:py-0">
+                <h2 class="text-emerald-400 font-bold tracking-[0.3em] mb-4 uppercase text-xs md:text-base">
+                    Excellence in Shillong
+                </h2>
+                <h1 class="text-4xl md:text-7xl font-black mb-8 leading-[1.1]">
+                    Shaping the Leaders of <span class="text-emerald-500">Tomorrow</span>
+                </h1>
+                <p class="text-lg md:text-xl text-gray-300 mb-10 max-w-xl leading-relaxed">
+                    LEADS Higher Secondary School provides a nurturing environment where students achieve academic mastery and personal integrity.
+                </p>
+                <div class="flex flex-wrap gap-4">
+                    <a href="admissions.html" class="bg-emerald-600 hover:bg-emerald-700 px-10 py-4 rounded font-bold transition shadow-lg text-center min-w-[160px]">Apply Now</a>
+                    <a href="contact.html" class="bg-white/10 hover:bg-white/20 border border-white/30 px-10 py-4 rounded font-bold transition text-center min-w-[160px]">Visit Campus</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="bg-blue-900 text-white py-3 border-b border-white/10 relative z-20">
+        <div class="container mx-auto px-4 flex items-center">
+            <span class="font-bold bg-emerald-600 px-3 py-1 text-xs rounded uppercase mr-4 shrink-0">Alert</span>
+            <marquee class="font-medium text-sm italic">
+                Admissions for the 2026-27 session are now open. Visit the Admissions office in Langkerding, Nongmensong for details. 
+                | Books and Uniforms are available from the 27th January, 2026 in Langkerding, Nongmensong.
+            </marquee>
+        </div>
+    </div>
+
+    <section class="py-20 bg-white">
+        <div class="container mx-auto px-4 text-center">
+            <h2 class="text-3xl font-black text-blue-900 uppercase tracking-tighter">Our Academic Programs</h2>
+            <div class="w-20 h-1 bg-emerald-500 mx-auto mt-4 mb-16"></div>
+
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="p-8 border border-gray-100 rounded-3xl hover:shadow-2xl transition-all group hover:-translate-y-2">
+                    <div class="w-16 h-16 bg-emerald-100 text-emerald-600 flex items-center justify-center rounded-2xl mb-6 mx-auto group-hover:bg-emerald-600 group-hover:text-white transition">
+                        <i class="fas fa-child text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3 text-blue-900">Pre-Primary & Primary</h3>
+                    <p class="text-gray-500 text-sm leading-relaxed">Focusing on foundational literacy and social development in a playful environment.</p>
+                </div>
+                <div class="p-8 border border-gray-100 rounded-3xl hover:shadow-2xl transition-all group hover:-translate-y-2">
+                    <div class="w-16 h-16 bg-blue-100 text-blue-600 flex items-center justify-center rounded-2xl mb-6 mx-auto group-hover:bg-blue-900 group-hover:text-white transition">
+                        <i class="fas fa-book text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3 text-blue-900">Secondary Education</h3>
+                    <p class="text-gray-500 text-sm leading-relaxed">A rigorous curriculum built for critical thinking and MBOSE board preparation.</p>
+                </div>
+                <div class="p-8 border border-gray-100 rounded-3xl hover:shadow-2xl transition-all group hover:-translate-y-2">
+                    <div class="w-16 h-16 bg-emerald-100 text-emerald-600 flex items-center justify-center rounded-2xl mb-6 mx-auto group-hover:bg-emerald-600 group-hover:text-white transition">
+                        <i class="fas fa-graduation-cap text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3 text-blue-900">Higher Secondary</h3>
+                    <p class="text-gray-500 text-sm leading-relaxed">Specialized streams (Arts, Commerce) focusing on university placement and leadership.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-20 bg-slate-50 border-t border-gray-100">
+        <div class="container mx-auto px-4">
+            <div class="flex items-center justify-between mb-12">
+                <div>
+                    <h2 class="text-3xl font-black text-blue-900 uppercase tracking-tighter">Latest Insight</h2>
+                    <div class="w-16 h-1 bg-emerald-500 mt-2"></div>
+                </div>
+                <a href="insights.html" class="text-emerald-600 font-bold text-xs uppercase tracking-widest hover:text-blue-900 transition">View All <i class="fas fa-arrow-right ml-1"></i></a>
+            </div>
+
+            <div id="latest-article-highlight">
+                </div>
+        </div>
+    </section>
+
+    <footer class="bg-gray-100 pt-16 pb-8 border-t border-gray-200">
+        <div class="container mx-auto px-4 grid md:grid-cols-4 gap-12 text-sm text-gray-600">
+            <div class="col-span-1 md:col-span-2">
+                <h4 class="text-xl font-black text-blue-900 mb-6 uppercase">LEADS <span class="text-emerald-600">SCHOOL</span></h4>
+                <p class="mb-4">Langkerding, Shillong - 793019, Meghalaya.</p>
+                <p class="italic text-xs">"Leadership is the capacity to translate vision into reality."</p>
+            </div>
+            <div>
+                <h5 class="font-bold text-blue-900 mb-6 uppercase text-xs tracking-widest">Navigation</h5>
+                <ul class="space-y-3">
+                    <li><a href="about.html" class="hover:text-emerald-600 transition">About Us</a></li>
+                    <li><a href="admissions.html" class="hover:text-emerald-600 transition">Admissions</a></li>
+                    <li><a href="insights.html" class="hover:text-emerald-600 transition">Insights</a></li>
+                    <li><a href="terms.html" class="hover:text-emerald-600 transition font-bold">Terms & Conditions</a></li>
+                </ul>
+            </div>
+            <div>
+                <h5 class="font-bold text-blue-900 mb-6 uppercase text-xs tracking-widest">Connect</h5>
+                <div class="flex space-x-4 text-xl">
+                    <a href="https://www.facebook.com/leadsshillong" class="hover:text-emerald-600"><i class="fab fa-facebook"></i></a>
+                    <a href="#" class="hover:text-emerald-600"><i class="fab fa-instagram"></i></a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="text-center mt-16 pt-8 border-t border-gray-200 text-gray-400 text-xs">
+            <p>&copy; 2026 LEADS Higher Secondary School (A Unit of LEADS Educational Trust).</p>
+            <div class="mt-2">
+                <a href="terms.html" class="hover:text-emerald-600 transition underline decoration-dotted">Terms & Conditions</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // MOBILE MENU LOGIC (UPDATED TO MATCH STANDARD CSS)
+        const menuBtn = document.getElementById('menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const menuIcon = document.getElementById('menu-icon');
+
+        if(menuBtn && mobileMenu) {
+            menuBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                // Toggle the 'active' class instead of hidden/flex
+                mobileMenu.classList.toggle('active');
+                
+                // Icon Logic remains similar but checking active class
+                if (!mobileMenu.classList.contains('active')) {
+                    menuIcon.classList.remove('fa-times');
+                    menuIcon.classList.add('fa-bars');
+                } else {
+                    menuIcon.classList.remove('fa-bars');
+                    menuIcon.classList.add('fa-times');
+                }
+            });
+
+            document.addEventListener('click', (e) => {
+                if (!mobileMenu.contains(e.target) && !menuBtn.contains(e.target)) {
+                    if(mobileMenu.classList.contains('active')) {
+                        mobileMenu.classList.remove('active');
+                        menuIcon.classList.remove('fa-times');
+                        menuIcon.classList.add('fa-bars');
+                    }
+                }
+            });
+        }
+
+        // LATEST ARTICLE LOGIC
+        const articles = [
+            {
+                title: "The Future of AI in Modern Classrooms",
+                image: "insights/article_1/ai-edu.png", 
+                description: "Exploring how artificial intelligence is moving from a tool for homework to a partner in personalised learning. Sharat Singh discusses the shift from encyclopaedias to digital assistants.",
+                author: "Sharat Singh",
+                category: "Technology",
+                date: "Feb 03, 2026",
+                link: "insights/article_1/article_1_ai_education.html"
+            }
+        ];
+
+        function renderLatestHighlight() {
+            const container = document.getElementById('latest-article-highlight');
+            if(!container) return;
+
+            const art = articles[0]; 
+
+            if(!art) return;
+
+            container.innerHTML = `
+                <div onclick="location.href='${art.link}'" class="bg-white rounded-[2rem] shadow-sm border border-gray-100 overflow-hidden hover:shadow-2xl transition-all duration-500 cursor-pointer flex flex-col md:flex-row group">
+                    <div class="md:w-1/2 overflow-hidden">
+                        <img src="${art.image}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 min-h-[300px]" alt="Latest Article">
+                    </div>
+                    <div class="md:w-1/2 p-8 md:p-12 flex flex-col justify-center">
+                        <div class="flex items-center gap-4 mb-6">
+                            <span class="px-3 py-1 bg-blue-100 text-blue-800 text-[10px] font-black uppercase tracking-widest rounded-full">${art.category}</span>
+                            <span class="text-gray-400 text-[10px] font-bold uppercase tracking-widest">${art.date}</span>
+                        </div>
+                        <h3 class="text-2xl md:text-4xl font-black text-blue-900 mb-6 group-hover:text-emerald-600 transition-colors leading-tight">
+                            ${art.title}
+                        </h3>
+                        <p class="text-gray-600 text-sm md:text-base mb-8 leading-relaxed line-clamp-3">
+                            ${art.description}
+                        </p>
+                        <div class="flex items-center gap-3">
+                            <div class="w-10 h-10 rounded-full bg-emerald-600 flex items-center justify-center text-white font-bold text-sm">
+                                ${art.author.charAt(0)}
+                            </div>
+                            <span class="text-sm font-bold text-slate-800">${art.author}</span>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+        
+        window.addEventListener('DOMContentLoaded', renderLatestHighlight);
+    </script>
+</body>
+</html>
