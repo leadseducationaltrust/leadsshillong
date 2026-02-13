@@ -153,7 +153,7 @@
         </div>
     </footer>
 
-    // 1. YOUR ORIGINAL DATA LIST
+    // Image Gallery to show only the latest 12 images in a masonry layout with lightbox functionality
  <script>
         const galleryImages = [
             { url: 'images/gallery/photo_1_general_proficiency.jpg', desc: 'General Proficiency Award 2025' },
@@ -177,7 +177,10 @@
         const lightboxCap = document.getElementById('lightbox-caption');
 
         function loadGallery() {
-            galleryImages.forEach(imgData => {
+            // Reverse the array to get the latest first, then slice to get only the top 12
+            const latestImages = galleryImages.slice().reverse().slice(0, 12);
+
+            latestImages.forEach(imgData => {
                 const item = document.createElement('div');
                 item.className = 'masonry-item group cursor-pointer relative overflow-hidden rounded-xl shadow-md hover:shadow-2xl bg-gray-200';
                 
