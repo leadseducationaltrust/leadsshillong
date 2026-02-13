@@ -7,18 +7,19 @@
 const staffMembers = [
     { name: "Mrs. Barrilyne Lyngdoh", role: "Principal", bio: "Leading with vision and academic excellence since 2010.", img: "images/faculty/principal.jpg", category: "admin" },
     { name: "Mrs. Euginia Diana Mukhim", role: "Vice Principal", bio: "Specializing in student welfare and disciplinary management.", img: "images/faculty/euginia.jpg", category: "admin" },
+    { name: "Mr. Makarious Sohlang", role: "Chief-Coordinator", bio: "Overseeing school coordination and students' welfare.", img: "images/faculty/makarious_sohlang.jpg", category: "admin" },
     { name: "Mrs. Heather Laureat Pyrbot", role: "Upper-Primary Coordinator", bio: "Overseeing curriculum alignment and teacher training.", img: "images/faculty/heather.jpg", category: "admin" },
     { name: "Mrs. Mayoranda Sohlang", role: "Primary Coordinator", bio: "Managing school administrative logistics and records.", img: "images/faculty/mayoranda.jpg", category: "admin" },
     { name: "Ms. Phriemtilin Wahlang", role: "Nursery Educator", bio: "Creating a joyful learning environment for our youngest learners.", img: "images/faculty/phriemtilin.jpg", category: "preprimary" },
-    { name: "Mrs. Jenita Warjri", role: "KG V Educator", bio: "Focusing on early literacy and motor skill development.", img: "images/faculty/jenita.jpg", category: "preprimary" },
-    { name: "Ms. Teacher Three", role: "Assistant Teacher", bio: "Supporting classroom activities and individual child care.", img: "https://ui-avatars.com/api/?name=Teacher+Three", category: "preprimary" },
-    { name: "Ms. Teacher Four", role: "Art & Play Specialist", bio: "Encouraging creativity through hands-on learning.", img: "https://ui-avatars.com/api/?name=Teacher+Four", category: "preprimary" },
-    { name: "Ms. Teacher Five", role: "Nursery Assistant", bio: "Dedicated to the comfort and safety of our toddlers.", img: "https://ui-avatars.com/api/?name=Teacher+Five", category: "preprimary" },
-    { name: "Mr. Primary One", role: "Grade 1 Teacher", bio: "Building strong foundations in Mathematics and English.", img: "https://ui-avatars.com/api/?name=Primary+One", category: "primary" },
-    { name: "Mr. Secondary One", role: "Mathematics HOD", bio: "Specializing in advanced algebra and MBOSE board prep.", img: "https://ui-avatars.com/api/?name=Secondary+One", category: "secondary" },
-    { name: "Ms. Higher Sec One", role: "Physics Lecturer", bio: "Preparing students for competitive exams and higher education.", img: "https://ui-avatars.com/api/?name=Higher+Sec+One", category: "higher" },
-    { name: "Mr. S. Kharkongor", role: "Head of Accounts", bio: "Ensuring transparent financial operations.", img: "https://ui-avatars.com/api/?name=S+Kharkongor", category: "support" },
-    { name: "Mr. Staff Two", role: "Estate Manager", bio: "Overseeing campus maintenance and housekeeper teams.", img: "https://ui-avatars.com/api/?name=Staff+Two", category: "support" }
+    { name: "Mrs. Jenita Warjri", role: "Kindergarten Educator", bio: "Focusing on early literacy and motor skill development.", img: "images/faculty/jenita.jpg", category: "preprimary" },
+    { name: "Mrs. Kmendahun Khriam", role: "Kindergarten Educator", bio: "Supporting classroom activities and individual child care.", img: "images/faculty/kmendahun_khriam.jpg", category: "preprimary" },
+    { name: "Ms. Wanadeimaya Mukhim", role: "Art & Play Specialist", bio: "Encouraging creativity through hands-on learning.", img: "images/faculty/wanadeimaya_mukhim.jpg", category: "preprimary" },
+    { name: "Ms. Ibawanhun Lyngdoh", role: "Kindergarten Educator", bio: "Dedicated to the comfort and safety of our kindergarten students.", img: "images/faculty/ibawanhun_lyngdoh.jpg", category: "preprimary" },
+    { name: "Mrs. Annie Memory Khonglah", role: "Senior Primary Teacher", bio: "Building strong foundations in Social Science.", img: "images/faculty/annie_khonglah.jpg", category: "primary" },
+    { name: "Mrs. Bandarishisha Dkhar", role: "Geography and Health Education Teacher", bio: "Specializing in Geography/Physical & Health Educations and MBOSE board prep.", img: "images/faculty/bandarishisha_dkhar.jpg", category: "secondary" },
+    { name: "Mrs. Michellyne Syiem", role: "Biology Lecturer", bio: "Preparing students for competitive exams and higher education.", img: "images/faculty/michellyne_syiem.jpg", category: "higher" },
+    { name: "Mrs. Badaaiphylla Kharmuti", role: "Head of Accounts", bio: "Ensuring transparent financial operations.", img: "images/faculty/badaaiphylla_kharmuti.jpg", category: "support" },
+    { name: "Mrs.  Balarishisha Sohlang", role: "Account Manager", bio: "Overseeing account maintenance and financial teams.", img: "images/faculty/balarishisha_sohlang.jpg", category: "support" }
 ];
 
 //menu toggle in mobile-ui
