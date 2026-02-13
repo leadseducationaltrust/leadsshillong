@@ -35,11 +35,20 @@
 
     <div class="bg-emerald-700 text-white py-2 text-xs md:text-sm">
         <div class="container mx-auto flex justify-between px-4">
+            
             <div class="flex space-x-4">
-                <span><i class="fas fa-phone mr-1"></i> +91 94854 34534</span>
-                <span class="hidden sm:inline"><i class="fas fa-envelope mr-1"></i> support@leadsshillong.com</span>
+                <a id="global-link-phone-1" href="#" class="hover:text-emerald-200 transition-colors flex items-center cursor-pointer">
+                    <i class="fas fa-phone mr-1"></i> <span id="global-phone-1"></span>
+                </a>
+                <a id="global-link-email-general" href="#" class="hidden sm:flex items-center hover:text-emerald-200 transition-colors cursor-pointer">
+                    <i class="fas fa-envelope mr-1"></i> <span id="global-email-general"></span>
+                </a>
             </div>
-            <div><i class="fas fa-map-marker-alt mr-1"></i> Langkerding, Shillong</div>
+            
+            <a id="global-link-maps" href="#" target="_blank" class="hover:text-emerald-200 transition-colors flex items-center cursor-pointer">
+                <i class="fas fa-map-marker-alt mr-1"></i> <span id="global-address-street"></span>
+            </a>
+            
         </div>
     </div>
 
@@ -50,7 +59,7 @@
                 <img src="images/school-logo.jpg" alt="LEADS Logo" class="h-16 md:h-20 w-auto object-contain flex-shrink-0 transition-transform group-hover:scale-105 duration-300"> 
                 
                 <div class="flex flex-col justify-center border-l-2 border-gray-100 pl-3 md:pl-4 min-w-0">
-                    <span class="block text-xl md:text-3xl font-black text-blue-900 leading-none uppercase tracking-tighter truncate">LEADS</span>
+                    <span id="global-school-shortname" class="block text-xl md:text-3xl font-black text-blue-900 leading-none uppercase tracking-tighter truncate">LEADS</span>
                     <span class="text-[9px] md:text-sm font-bold text-emerald-600 tracking-wider md:tracking-[0.15em] uppercase mt-1 truncate">Higher Secondary School</span>
                 </div>
             </a>
@@ -59,12 +68,12 @@
                 <li><a href="index.html" class="nav-link py-2 text-emerald-600 transition-all">Home</a></li>
                 <li><a href="about.html" class="nav-link py-2 hover:text-emerald-600 transition-all">About Us</a></li>
                 <li><a href="faculty.html" class="nav-link py-2 hover:text-emerald-600 transition-all">Faculty</a></li>
-                <li><a href="admissions.html" class="nav-link py-2 hover:text-emerald-600 transition-all">Admissions</a></li>
+                <li><a id="global-link-admissions-nav" href="admissions.html" class="nav-link py-2 hover:text-emerald-600 transition-all">Admissions</a></li>
                 <li><a href="insights.html" class="nav-link py-2 hover:text-emerald-600 transition-all">Insights</a></li>
                 <li><a href="gallery.html" class="nav-link py-2 hover:text-emerald-600 transition-all">Gallery</a></li>
                 <li><a href="contact.html" class="nav-link py-2 hover:text-emerald-600 transition-all">Contact</a></li>
                 <li class="mt-2 lg:mt-0">
-                    <a href="https://rzp.io/l/Ze17MQO3sa" target="_blank" class="flex items-center gap-2 bg-emerald-600 text-white px-6 py-3 rounded-full hover:bg-blue-900 transition-all shadow-md hover:shadow-lg transform hover:-translate-y-0.5">
+                    <a id="global-payment-regular" href="#" target="_blank" class="flex items-center gap-2 bg-emerald-600 text-white px-6 py-3 rounded-full hover:bg-blue-900 transition-all shadow-md hover:shadow-lg transform hover:-translate-y-0.5">
                         <i class="fas fa-credit-card text-sm"></i>
                         <span>Pay Fees</span>
                     </a>
@@ -94,22 +103,22 @@
                     LEADS Higher Secondary School provides a nurturing environment where students achieve academic mastery and personal integrity.
                 </p>
                 <div class="flex flex-wrap gap-4">
-                    <a href="admissions.html" class="bg-emerald-600 hover:bg-emerald-700 px-10 py-4 rounded font-bold transition shadow-lg text-center min-w-[160px]">Apply Now</a>
+                    <a id="global-link-admissions-hero" href="admissions.html" class="bg-emerald-600 hover:bg-emerald-700 px-10 py-4 rounded font-bold transition shadow-lg text-center min-w-[160px]">Apply Now</a>
                     <a href="contact.html" class="bg-white/10 hover:bg-white/20 border border-white/30 px-10 py-4 rounded font-bold transition text-center min-w-[160px]">Visit Campus</a>
                 </div>
             </div>
         </div>
     </header>
 
-<div class="bg-blue-900 text-white py-3 border-b border-white/10 relative z-20">
-    <div class="container mx-auto px-4 flex items-center">
-        <span class="font-bold bg-emerald-600 px-3 py-1 text-xs rounded uppercase mr-4 shrink-0">Alert</span>
-        <marquee id="news-marquee" class="font-medium text-sm italic">
-            </marquee>
+    <div class="bg-blue-900 text-white py-3 border-b border-white/10 relative z-20">
+        <div class="container mx-auto px-4 flex items-center">
+            <span class="font-bold bg-emerald-600 px-3 py-1 text-xs rounded uppercase mr-4 shrink-0">Alert</span>
+            <marquee id="news-marquee" class="font-medium text-sm italic">
+                </marquee>
+        </div>
     </div>
-</div>
 
-<script src="js/news.js"></script>
+    <script src="js/news.js"></script>
 
     <section class="py-20 bg-white">
         <div class="container mx-auto px-4 text-center">
@@ -160,38 +169,53 @@
     <footer class="bg-gray-100 pt-16 pb-8 border-t border-gray-200">
         <div class="container mx-auto px-4 grid md:grid-cols-4 gap-12 text-sm text-gray-600">
             <div class="col-span-1 md:col-span-2">
-                <h4 class="text-xl font-black text-blue-900 mb-6 uppercase">LEADS <span class="text-emerald-600">SCHOOL</span></h4>
-                <p class="mb-4">Langkerding, Shillong - 793019, Meghalaya.</p>
-                <p class="italic text-xs">"Leadership is the capacity to translate vision into reality."</p>
+                <h4 class="text-xl font-black text-blue-900 mb-6 uppercase"><span id="global-school-shortname-footer">LEADS</span> <span class="text-emerald-600">SCHOOL</span></h4>
+                <p class="mb-4"><span id="global-address-street-footer"></span>, <span id="global-address-city"></span></p>
+                <p id="global-tagline" class="italic text-xs"></p>
+                
+                <div class="mt-6 space-y-3 font-medium">
+                    <a id="global-link-phone-footer" href="#" class="flex items-center gap-3 hover:text-emerald-600 transition-colors w-fit">
+                        <i class="fas fa-phone text-emerald-600"></i> <span id="global-phone-1-footer"></span>
+                    </a>
+                    <a id="global-link-email-footer" href="#" class="flex items-center gap-3 hover:text-emerald-600 transition-colors w-fit">
+                        <i class="fas fa-envelope text-emerald-600"></i> <span id="global-email-general-footer"></span>
+                    </a>
+                </div>
             </div>
+            
             <div>
                 <h5 class="font-bold text-blue-900 mb-6 uppercase text-xs tracking-widest">Navigation</h5>
                 <ul class="space-y-3">
                     <li><a href="about.html" class="hover:text-emerald-600 transition">About Us</a></li>
-                    <li><a href="admissions.html" class="hover:text-emerald-600 transition">Admissions</a></li>
+                    <li><a id="global-link-admissions-footer" href="admissions.html" class="hover:text-emerald-600 transition">Admissions</a></li>
                     <li><a href="insights.html" class="hover:text-emerald-600 transition">Insights</a></li>
                     <li><a href="terms.html" class="hover:text-emerald-600 transition font-bold">Terms & Conditions</a></li>
                 </ul>
             </div>
+            
             <div>
                 <h5 class="font-bold text-blue-900 mb-6 uppercase text-xs tracking-widest">Connect</h5>
                 <div class="flex space-x-4 text-xl">
-                    <a href="https://www.facebook.com/leadsshillong" class="hover:text-emerald-600"><i class="fab fa-facebook"></i></a>
-                    <a href="#" class="hover:text-emerald-600"><i class="fab fa-instagram"></i></a>
+                    <a id="global-link-fb" href="#" target="_blank" class="hover:text-emerald-600"><i class="fab fa-facebook"></i></a>
+                    <a id="global-link-ig" href="#" target="_blank" class="hover:text-emerald-600"><i class="fab fa-instagram"></i></a>
+                    <a id="global-link-yt" href="#" target="_blank" class="hover:text-emerald-600 hidden"><i class="fab fa-youtube"></i></a>
                 </div>
             </div>
         </div>
         
         <div class="text-center mt-16 pt-8 border-t border-gray-200 text-gray-400 text-xs">
-            <p>&copy; 2026 LEADS Higher Secondary School (A Unit of LEADS Educational Trust).</p>
+            <p id="global-copyright"></p>
             <div class="mt-2">
                 <a href="terms.html" class="hover:text-emerald-600 transition underline decoration-dotted">Terms & Conditions</a>
             </div>
         </div>
     </footer>
 
+    <script src="js/config.js"></script>
+    <script src="js/articles.js"></script>
+
     <script>
-        // MOBILE MENU LOGIC (UPDATED TO MATCH STANDARD CSS)
+        // MOBILE MENU LOGIC
         const menuBtn = document.getElementById('menu-btn');
         const mobileMenu = document.getElementById('mobile-menu');
         const menuIcon = document.getElementById('menu-icon');
@@ -199,10 +223,8 @@
         if(menuBtn && mobileMenu) {
             menuBtn.addEventListener('click', (e) => {
                 e.stopPropagation();
-                // Toggle the 'active' class instead of hidden/flex
                 mobileMenu.classList.toggle('active');
                 
-                // Icon Logic remains similar but checking active class
                 if (!mobileMenu.classList.contains('active')) {
                     menuIcon.classList.remove('fa-times');
                     menuIcon.classList.add('fa-bars');
@@ -223,48 +245,38 @@
             });
         }
 
-        // LATEST ARTICLE LOGIC
-        const articles = [
-            {
-                title: "The Future of AI in Modern Classrooms",
-                image: "insights/article_1/ai-edu.png", 
-                description: "Exploring how artificial intelligence is moving from a tool for homework to a partner in personalised learning. Sharat Singh discusses the shift from encyclopaedias to digital assistants.",
-                author: "Sharat Singh",
-                category: "Technology",
-                date: "Feb 03, 2026",
-                link: "insights/article_1/article_1_ai_education.html"
-            }
-        ];
-
+        // DYNAMIC LATEST ARTICLE HIGHLIGHT
         function renderLatestHighlight() {
             const container = document.getElementById('latest-article-highlight');
-            if(!container) return;
+            if(!container || typeof articles === 'undefined' || articles.length === 0) return;
 
-            const art = articles[0]; 
+            // Automatically sort and grab the newest article
+            const latestArt = articles.sort((a, b) => new Date(b.date) - new Date(a.date))[0]; 
 
-            if(!art) return;
+            // Smart fallback for author image
+            const authorDisplay = latestArt.authorImage 
+                ? `<img src="${latestArt.authorImage}" alt="${latestArt.author}" class="w-10 h-10 rounded-full object-cover border border-emerald-200 shadow-sm">`
+                : `<div class="w-10 h-10 rounded-full bg-emerald-600 flex items-center justify-center text-white font-bold text-sm">${latestArt.author.charAt(0)}</div>`;
 
             container.innerHTML = `
-                <div onclick="location.href='${art.link}'" class="bg-white rounded-[2rem] shadow-sm border border-gray-100 overflow-hidden hover:shadow-2xl transition-all duration-500 cursor-pointer flex flex-col md:flex-row group">
-                    <div class="md:w-1/2 overflow-hidden">
-                        <img src="${art.image}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 min-h-[300px]" alt="Latest Article">
+                <div onclick="location.href='${latestArt.link}'" class="bg-white rounded-[2rem] shadow-sm border border-gray-100 overflow-hidden hover:shadow-2xl transition-all duration-500 cursor-pointer flex flex-col md:flex-row group">
+                    <div class="md:w-1/2 overflow-hidden relative">
+                        <img src="${latestArt.image}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 min-h-[300px]" alt="Latest Article">
                     </div>
                     <div class="md:w-1/2 p-8 md:p-12 flex flex-col justify-center">
                         <div class="flex items-center gap-4 mb-6">
-                            <span class="px-3 py-1 bg-blue-100 text-blue-800 text-[10px] font-black uppercase tracking-widest rounded-full">${art.category}</span>
-                            <span class="text-gray-400 text-[10px] font-bold uppercase tracking-widest">${art.date}</span>
+                            <span class="px-3 py-1 bg-blue-100 text-blue-800 text-[10px] font-black uppercase tracking-widest rounded-full">${latestArt.category}</span>
+                            <span class="text-gray-400 text-[10px] font-bold uppercase tracking-widest">${latestArt.date}</span>
                         </div>
                         <h3 class="text-2xl md:text-4xl font-black text-blue-900 mb-6 group-hover:text-emerald-600 transition-colors leading-tight">
-                            ${art.title}
+                            ${latestArt.title}
                         </h3>
                         <p class="text-gray-600 text-sm md:text-base mb-8 leading-relaxed line-clamp-3">
-                            ${art.description}
+                            ${latestArt.description}
                         </p>
                         <div class="flex items-center gap-3">
-                            <div class="w-10 h-10 rounded-full bg-emerald-600 flex items-center justify-center text-white font-bold text-sm">
-                                ${art.author.charAt(0)}
-                            </div>
-                            <span class="text-sm font-bold text-slate-800">${art.author}</span>
+                            ${authorDisplay}
+                            <span class="text-sm font-bold text-slate-800">${latestArt.author}</span>
                         </div>
                     </div>
                 </div>

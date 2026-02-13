@@ -11,7 +11,7 @@
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap');
         body { font-family: 'Inter', sans-serif; }
 
-        /* Custom Mobile Menu Fix (Standardized) */
+        /* Custom Mobile Menu Fix */
         @media (max-width: 1023px) {
             #mobile-menu.active {
                 display: flex !important;
@@ -68,11 +68,20 @@
 
     <div class="bg-emerald-700 text-white py-2 text-xs md:text-sm">
         <div class="container mx-auto flex justify-between px-4">
+            
             <div class="flex space-x-4">
-                <span><i class="fas fa-phone mr-1"></i> +91 94854 34534</span>
-                <span class="hidden sm:inline"><i class="fas fa-envelope mr-1"></i> support@leadsshillong.com</span>
+                <a id="global-link-phone-1" href="#" class="hover:text-emerald-200 transition-colors flex items-center cursor-pointer">
+                    <i class="fas fa-phone mr-1"></i> <span id="global-phone-1"></span>
+                </a>
+                <a id="global-link-email-general" href="#" class="hidden sm:flex items-center hover:text-emerald-200 transition-colors cursor-pointer">
+                    <i class="fas fa-envelope mr-1"></i> <span id="global-email-general"></span>
+                </a>
             </div>
-            <div><i class="fas fa-map-marker-alt mr-1"></i> Langkerding, Shillong</div>
+            
+            <a id="global-link-maps" href="#" target="_blank" class="hover:text-emerald-200 transition-colors flex items-center cursor-pointer">
+                <i class="fas fa-map-marker-alt mr-1"></i> <span id="global-address-street"></span>
+            </a>
+            
         </div>
     </div>
 
@@ -83,19 +92,25 @@
                 <img src="images/school-logo.jpg" alt="LEADS Logo" class="h-16 md:h-20 w-auto object-contain flex-shrink-0 transition-transform group-hover:scale-105 duration-300"> 
                 
                 <div class="flex flex-col justify-center border-l-2 border-gray-100 pl-3 md:pl-4 min-w-0">
-                    <span class="block text-xl md:text-3xl font-black text-blue-900 leading-none uppercase tracking-tighter truncate">LEADS</span>
+                    <span id="global-school-shortname" class="block text-xl md:text-3xl font-black text-blue-900 leading-none uppercase tracking-tighter truncate">LEADS</span>
                     <span class="text-[9px] md:text-sm font-bold text-emerald-600 tracking-wider md:tracking-[0.15em] uppercase mt-1 truncate">Higher Secondary School</span>
                 </div>
             </a>
 
             <ul id="mobile-menu" class="hidden lg:flex items-center space-x-8 font-extrabold text-gray-600 text-[13px] uppercase">
-                <li><a href="index.html" class="nav-link block py-2 hover:text-emerald-600 transition-all">Home</a></li>
-                <li><a href="about.html" class="nav-link block py-2 hover:text-emerald-600 transition-all">About Us</a></li>
-                <li><a href="faculty.html" class="nav-link block py-2 hover:text-emerald-600 transition-all">Faculty</a></li>
-                <li><a href="admissions.html" class="nav-link block py-2 hover:text-emerald-600 transition-all">Admissions</a></li>
-                <li><a href="insights.html" class="nav-link block py-2 hover:text-emerald-600 transition-all">Insights</a></li>
-                <li><a href="gallery.html" class="nav-link block py-2 text-emerald-600 lg:underline lg:decoration-2 lg:underline-offset-8">Gallery</a></li>
-                <li><a href="contact.html" class="nav-link block py-2 hover:text-emerald-600 transition-all">Contact</a></li>
+                <li><a href="index.html" class="nav-link py-2 hover:text-emerald-600 transition-all">Home</a></li>
+                <li><a href="about.html" class="nav-link py-2 hover:text-emerald-600 transition-all">About Us</a></li>
+                <li><a href="faculty.html" class="nav-link py-2 hover:text-emerald-600 transition-all">Faculty</a></li>
+                <li><a id="global-link-admissions-nav" href="admissions.html" class="nav-link py-2 hover:text-emerald-600 transition-all">Admissions</a></li>
+                <li><a href="insights.html" class="nav-link py-2 hover:text-emerald-600 transition-all">Insights</a></li>
+                <li><a href="gallery.html" class="nav-link py-2 text-emerald-600 lg:underline lg:decoration-2 lg:underline-offset-8 transition-all">Gallery</a></li>
+                <li><a href="contact.html" class="nav-link py-2 hover:text-emerald-600 transition-all">Contact</a></li>
+                <li class="mt-2 lg:mt-0">
+                    <a id="global-payment-regular" href="#" target="_blank" class="flex items-center gap-2 bg-emerald-600 text-white px-6 py-3 rounded-full hover:bg-blue-900 transition-all shadow-md hover:shadow-lg transform hover:-translate-y-0.5">
+                        <i class="fas fa-credit-card text-sm"></i>
+                        <span>Pay Fees</span>
+                    </a>
+                </li>
             </ul>
 
             <button id="menu-btn" class="lg:hidden text-blue-900 focus:outline-none p-2 flex-shrink-0 relative z-[70]">
@@ -123,138 +138,50 @@
     <footer class="bg-gray-100 pt-16 pb-8 border-t border-gray-200">
         <div class="container mx-auto px-4 grid md:grid-cols-4 gap-12 text-sm text-gray-600">
             <div class="col-span-1 md:col-span-2">
-                <h4 class="text-xl font-black text-blue-900 mb-6 uppercase">LEADS <span class="text-emerald-600">SCHOOL</span></h4>
-                <p class="mb-4">Langkerding, Shillong - 793019, Meghalaya.</p>
-                <p class="italic text-xs">"Leadership is the capacity to translate vision into reality."</p>
+                <h4 class="text-xl font-black text-blue-900 mb-6 uppercase"><span id="global-school-shortname-footer">LEADS</span> <span class="text-emerald-600">SCHOOL</span></h4>
+                <p class="mb-4"><span id="global-address-street-footer"></span>, <span id="global-address-city"></span></p>
+                <p id="global-tagline" class="italic text-xs"></p>
+                
+                <div class="mt-6 space-y-3 font-medium">
+                    <a id="global-link-phone-footer" href="#" class="flex items-center gap-3 hover:text-emerald-600 transition-colors w-fit">
+                        <i class="fas fa-phone text-emerald-600"></i> <span id="global-phone-1-footer"></span>
+                    </a>
+                    <a id="global-link-email-footer" href="#" class="flex items-center gap-3 hover:text-emerald-600 transition-colors w-fit">
+                        <i class="fas fa-envelope text-emerald-600"></i> <span id="global-email-general-footer"></span>
+                    </a>
+                </div>
             </div>
+            
             <div>
                 <h5 class="font-bold text-blue-900 mb-6 uppercase text-xs tracking-widest">Navigation</h5>
                 <ul class="space-y-3">
                     <li><a href="about.html" class="hover:text-emerald-600 transition">About Us</a></li>
-                    <li><a href="admissions.html" class="hover:text-emerald-600 transition">Admissions</a></li>
+                    <li><a id="global-link-admissions-footer" href="admissions.html" class="hover:text-emerald-600 transition">Admissions</a></li>
                     <li><a href="insights.html" class="hover:text-emerald-600 transition">Insights</a></li>
                     <li><a href="terms.html" class="hover:text-emerald-600 transition font-bold">Terms & Conditions</a></li>
                 </ul>
             </div>
+            
             <div>
                 <h5 class="font-bold text-blue-900 mb-6 uppercase text-xs tracking-widest">Connect</h5>
                 <div class="flex space-x-4 text-xl">
-                    <a href="https://www.facebook.com/leadsshillong" class="hover:text-emerald-600"><i class="fab fa-facebook"></i></a>
-                    <a href="#" class="hover:text-emerald-600"><i class="fab fa-instagram"></i></a>
+                    <a id="global-link-fb" href="#" target="_blank" class="hover:text-emerald-600"><i class="fab fa-facebook"></i></a>
+                    <a id="global-link-ig" href="#" target="_blank" class="hover:text-emerald-600"><i class="fab fa-instagram"></i></a>
+                    <a id="global-link-yt" href="#" target="_blank" class="hover:text-emerald-600 hidden"><i class="fab fa-youtube"></i></a>
                 </div>
             </div>
         </div>
         
         <div class="text-center mt-16 pt-8 border-t border-gray-200 text-gray-400 text-xs">
-            <p>&copy; 2026 LEADS Higher Secondary School (A Unit of LEADS Educational Trust).</p>
+            <p id="global-copyright"></p>
             <div class="mt-2">
                 <a href="terms.html" class="hover:text-emerald-600 transition underline decoration-dotted">Terms & Conditions</a>
             </div>
         </div>
     </footer>
 
- 
- <script>
-    //Image Gallery to show only the latest 12 images in a masonry layout with lightbox functionality
-    const galleryImages = [
- 	{ url: 'images/gallery/photo_1_general_proficiency.jpg', desc: 'General Proficiency Award 2025', date: '2025-12-17' },
-        { url: 'images/gallery/photo_2_student_visiting_art_gallery.jpg', desc: 'Students Visiting Art Gallery', date: '2025-11-17' },
-        { url: 'images/gallery/photo_3_release_of_mosaic.jpg', desc: 'Release of School Magazine - The Mosaic', date: '2025-12-05' },
-        { url: 'images/gallery/photo_4_independence_celebration.jpg', desc: 'Independence Day Celebration', date: '2025-08-14' },
-        { url: 'images/gallery/photo_5_activity_kindergarten.jpg', desc: 'Activity with Kindergarten Students', date: '2025-10-17' },
-        { url: 'images/gallery/photo_6_school_football_team.jpg', desc: 'School Football Team', date: '2025-07-17' },
-        { url: 'images/gallery/photo_7_school_trip.jpg', desc: 'Students in School Trip to Kaziranga', date: '2025-11-22' },
-        { url: 'images/gallery/photo_8_kidpreneurship.jpg', desc: 'Kidspreneurship 2025', date: '2025-10-28' },
-        { url: 'images/gallery/photo_9_traditional_dress.jpg', desc: 'Children in Traditional Attire', date: '2025-08-15' },
-        { url: 'images/gallery/photo_10_march_past.jpg', desc: 'Students in March Past Formation', date: '2025-03-17' },
-        { url: 'images/gallery/photo_11_investiture.jpg', desc: 'Newly appointed Captains and Vice-Captains with the guest of honour', date: '2025-03-16' },
-            { url: 'images/gallery/photo_12_school_achievements.jpg', desc: 'School Achievements Recognition: Mrs Miracle Syiem Awarded Teacher of the Year 2025', date: '2025-12-06' },
-        { url: 'images/gallery/photo_13_student_in_custome.jpg', desc: 'Brewing big ideas! Creative costumes and clever business at Kidspreneurship', date: '2025-10-17' },
-        
-    ];
+    <script src="js/config.js"></script>
+    <script src="js/gallery.js"></script>
 
-    const container = document.getElementById('gallery-container');
-    const lightbox = document.getElementById('lightbox');
-    const lightboxImg = document.getElementById('lightbox-img');
-    const lightboxCap = document.getElementById('lightbox-caption');
-
-
-    function loadGallery() {
-        // 1. Sort the array by the 'date' property (Newest first)
-        // 2. Slice to get only the top 12
-        const latestImages = galleryImages
-            .sort((a, b) => new Date(b.date) - new Date(a.date))
-            .slice(0, 12);
-
-        latestImages.forEach(imgData => {
-            const item = document.createElement('div');
-            item.className = 'masonry-item group cursor-pointer relative overflow-hidden rounded-xl shadow-md hover:shadow-2xl bg-gray-200';
-            
-            item.innerHTML = `
-                <img src="${imgData.url}" alt="${imgData.desc}" class="w-full h-auto transform group-hover:scale-105 transition duration-700 ease-in-out">
-                <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
-                    <p class="text-white text-sm font-bold tracking-wide">${imgData.desc}</p>
-                </div>
-            `;
-
-            item.onclick = () => openLightbox(imgData.url, imgData.desc);
-            container.appendChild(item);
-        });
-    }
-    
-     function openLightbox(url, desc) {
-            lightboxImg.src = url;
-            lightboxCap.innerText = desc;
-            lightbox.style.display = 'flex';
-            document.body.style.overflow = 'hidden'; // Stop scrolling
-        }
-
-        function closeLightbox() {
-            lightbox.style.display = 'none';
-            document.body.style.overflow = 'auto'; // Re-enable scrolling
-        }
-
-        lightbox.onclick = (e) => {
-            if (e.target === lightbox) closeLightbox();
-        };
-
-        document.addEventListener('keydown', (e) => {
-            if (e.key === "Escape") closeLightbox();
-        });
-
-        // STANDARD MOBILE MENU LOGIC (Uses .active class)
-        const menuBtn = document.getElementById('menu-btn');
-        const mobileMenu = document.getElementById('mobile-menu');
-        const menuIcon = document.getElementById('menu-icon');
-
-        if(menuBtn && mobileMenu) {
-            menuBtn.addEventListener('click', (e) => {
-                e.stopPropagation();
-                // Toggle the 'active' class
-                mobileMenu.classList.toggle('active');
-                
-                // Icon Logic checking active class
-                if (!mobileMenu.classList.contains('active')) {
-                    menuIcon.classList.remove('fa-times');
-                    menuIcon.classList.add('fa-bars');
-                } else {
-                    menuIcon.classList.remove('fa-bars');
-                    menuIcon.classList.add('fa-times');
-                }
-            });
-
-            document.addEventListener('click', (e) => {
-                if (!mobileMenu.contains(e.target) && !menuBtn.contains(e.target)) {
-                    if(mobileMenu.classList.contains('active')) {
-                        mobileMenu.classList.remove('active');
-                        menuIcon.classList.remove('fa-times');
-                        menuIcon.classList.add('fa-bars');
-                    }
-                }
-            });
-        }
-
-        window.onload = loadGallery;
-    </script>
 </body>
 </html>
