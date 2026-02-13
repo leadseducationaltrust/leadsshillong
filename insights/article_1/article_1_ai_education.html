@@ -125,7 +125,7 @@
                     <img id="dyn-author-img-bottom" src="" alt="Author Photo">
                 </div>
                 <div>
-                    <h4 class="text-xl font-black text-blue-900 mb-2 uppercase">About the Author</h4>
+                    <h4 class="text-xl font-black text-blue-900 mb-2 uppercase">About <span id="dyn-about-author-name">the Author</span></h4>
                     <p id="dyn-author-bio" class="text-gray-600 text-sm leading-relaxed"></p>
                 </div>
             </div>
@@ -154,7 +154,12 @@
                 document.getElementById('dyn-category').innerText = articleData.category;
                 document.getElementById('dyn-date').innerText = articleData.date;
                 document.getElementById('dyn-author-name').innerText = articleData.author;
+                document.getElementById('dyn-about-author-name').innerText = articleData.author; // Personalizes "About John Doe"
                 document.getElementById('dyn-author-role').innerText = articleData.role;
+                
+                // ADDED: Inject Author Bio (with a fallback just in case)
+                document.getElementById('dyn-author-bio').innerText = articleData.authorBio || "Educator and contributor at LEADS Higher Secondary School.";
+                
                 document.getElementById('dyn-hero-image').src = articleData.image;
 
                 // Extract initials for fallback (e.g. "Sharat Singh" -> "SS")
