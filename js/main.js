@@ -9,7 +9,11 @@ const staffMembers = [
     { name: "Mrs. Euginia Diana Mukhim", role: "Vice Principal", bio: "Specializing in student welfare and disciplinary management.", img: "images/faculty/euginia.jpg", category: "admin" },
     { name: "Mrs. Heather Laureat Pyrbot", role: "Upper-Primary Coordinator", bio: "Overseeing curriculum alignment and teacher training.", img: "images/faculty/heather.jpg", category: "admin" },
     { name: "Mrs. Mayoranda Sohlang", role: "Primary Coordinator", bio: "Managing school administrative logistics and records.", img: "images/faculty/mayoranda.jpg", category: "admin" },
+<<<<<<< HEAD
     { name: "Ms. Phriemtilin Wahlang", role: "Nursery Teacher", bio: "Creating a joyful learning environment for our youngest learners.", img: "images/faculty/phriemtilin.jpg", category: "preprimary" },
+=======
+    { name: "Ms. Phrimtilin Wahlang", role: "Nursery Teacher", bio: "Creating a joyful learning environment for our youngest learners.", img: "images/faculty/phrimtilin.jpg", category: "preprimary" },
+>>>>>>> 2a0f1afc7cfd59e720c6603e9c38828e6a50f622
     { name: "Ms. Teacher Two", role: "KG Educator", bio: "Focusing on early literacy and motor skill development.", img: "https://ui-avatars.com/api/?name=Teacher+Two", category: "preprimary" },
     { name: "Ms. Teacher Three", role: "Assistant Teacher", bio: "Supporting classroom activities and individual child care.", img: "https://ui-avatars.com/api/?name=Teacher+Three", category: "preprimary" },
     { name: "Ms. Teacher Four", role: "Art & Play Specialist", bio: "Encouraging creativity through hands-on learning.", img: "https://ui-avatars.com/api/?name=Teacher+Four", category: "preprimary" },
