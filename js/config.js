@@ -17,6 +17,7 @@ const schoolData = {
     contact: {
         primaryPhone: "+91 94854 34534",
         secondaryPhone: "+91 94854 34534", // Update if you have a second number
+        website: "https://www.leadsshillong.com", // NEW: Official Website URL
         emailGeneral: "support@leadsschool.com",
         emailAdmissions: "support@leadsschool.com",
         workingDays: "Monday - Friday",    // NEW: Global Working Days
@@ -84,8 +85,12 @@ document.addEventListener("DOMContentLoaded", () => {
     injectText("global-phone-2", schoolData.contact.secondaryPhone);
     injectText(["global-email-general", "global-email-general-footer"], schoolData.contact.emailGeneral);
     injectText("global-email-admissions", schoolData.contact.emailAdmissions);
-    injectText("global-working-days", schoolData.contact.workingDays);   // Injecting Working Days
-    injectText("global-working-hours", schoolData.contact.workingHours); // Injecting Working Hours
+    injectText("global-working-days", schoolData.contact.workingDays);
+    injectText("global-working-hours", schoolData.contact.workingHours);
+    
+    // Website (Strips 'https://' for cleaner text display)
+    const displayWebsite = schoolData.contact.website.replace(/^https?:\/\//, '');
+    injectText("global-website-text", displayWebsite); 
     
     // Location
     injectText(["global-address-street", "global-address-street-footer", "contact-card-street"], schoolData.location.street);
@@ -108,7 +113,8 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     };
 
-    // Social & Map Links
+    // Website & Social Links
+    injectLink("global-link-website", schoolData.contact.website);
     injectLink("global-link-fb", schoolData.socials.facebook);
     injectLink("global-link-ig", schoolData.socials.instagram);
     injectLink("global-link-yt", schoolData.socials.youtube);

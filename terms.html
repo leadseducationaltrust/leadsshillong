@@ -10,137 +10,279 @@
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800;900&display=swap');
         body { font-family: 'Inter', sans-serif; }
+
+        /* Custom Mobile Menu Fix */
+        @media (max-width: 1023px) {
+            #mobile-menu.active {
+                display: flex !important;
+                flex-direction: column;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: white;
+                padding: 2rem;
+                gap: 1.5rem;
+                box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+                border-top: 1px solid #f1f5f9;
+                z-index: 100;
+            }
+        }
     </style>
 </head>
 <body class="bg-slate-50 text-slate-900 leading-relaxed">
 
-    <nav class="bg-white shadow-sm sticky top-0 z-50">
-        <div class="container mx-auto px-4 py-4 flex justify-between items-center">
-            <a href="index.html" class="flex items-center gap-3">
-                <img src="images/school-logo.jpg" alt="LEADS Logo" class="h-12 w-auto">
-                <span class="font-black text-blue-900 uppercase tracking-tighter hidden md:block">LEADS <span class="text-emerald-600">School</span></span>
+    <div class="bg-emerald-700 text-white py-2 text-xs md:text-sm">
+        <div class="container mx-auto flex justify-between px-4">
+            
+            <div class="flex space-x-4">
+                <a id="global-link-phone-1" href="#" class="hover:text-emerald-200 transition-colors flex items-center cursor-pointer">
+                    <i class="fas fa-phone mr-1"></i> <span id="global-phone-1"></span>
+                </a>
+                <a id="global-link-email-general" href="#" class="hidden sm:flex items-center hover:text-emerald-200 transition-colors cursor-pointer">
+                    <i class="fas fa-envelope mr-1"></i> <span id="global-email-general"></span>
+                </a>
+            </div>
+            
+            <a id="global-link-maps" href="#" target="_blank" class="hover:text-emerald-200 transition-colors flex items-center cursor-pointer">
+                <i class="fas fa-map-marker-alt mr-1"></i> <span id="global-address-street"></span>
             </a>
-            <a href="index.html" class="text-xs font-bold text-gray-500 hover:text-emerald-600 uppercase tracking-widest transition">
-                <i class="fas fa-arrow-left mr-2"></i> Back to Home
+            
+        </div>
+    </div>
+
+    <nav class="bg-white shadow-sm sticky top-0 z-50 min-h-[90px] md:min-h-[110px] flex items-center">
+        <div class="container mx-auto px-4 py-3 flex justify-between items-center w-full relative">
+            
+            <a href="index.html" class="flex items-center gap-3 md:gap-4 group shrink min-w-0">
+                <img src="images/school-logo.jpg" alt="LEADS Logo" class="h-16 md:h-20 w-auto object-contain flex-shrink-0 transition-transform group-hover:scale-105 duration-300"> 
+                
+                <div class="flex flex-col justify-center border-l-2 border-gray-100 pl-3 md:pl-4 min-w-0">
+                    <span id="global-school-shortname" class="block text-xl md:text-3xl font-black text-blue-900 leading-none uppercase tracking-tighter truncate">LEADS</span>
+                    <span class="text-[9px] md:text-sm font-bold text-emerald-600 tracking-wider md:tracking-[0.15em] uppercase mt-1 truncate">Higher Secondary School</span>
+                </div>
             </a>
+
+            <ul id="mobile-menu" class="hidden lg:flex items-center space-x-8 font-extrabold text-gray-600 text-[13px] uppercase">
+                <li><a href="index.html" class="nav-link py-2 hover:text-emerald-600 transition-all">Home</a></li>
+                <li><a href="about.html" class="nav-link py-2 hover:text-emerald-600 transition-all">About Us</a></li>
+                <li><a href="faculty.html" class="nav-link py-2 hover:text-emerald-600 transition-all">Faculty</a></li>
+                <li><a id="global-link-admissions-nav" href="admissions.html" class="nav-link py-2 hover:text-emerald-600 transition-all">Admissions</a></li>
+                <li><a href="insights.html" class="nav-link py-2 hover:text-emerald-600 transition-all">Insights</a></li>
+                <li><a href="gallery.html" class="nav-link py-2 hover:text-emerald-600 transition-all">Gallery</a></li>
+                <li><a href="contact.html" class="nav-link py-2 hover:text-emerald-600 transition-all">Contact</a></li>
+                <li class="mt-2 lg:mt-0">
+                    <a id="global-payment-regular" href="#" target="_blank" class="flex items-center gap-2 bg-emerald-600 text-white px-6 py-3 rounded-full hover:bg-blue-900 transition-all shadow-md hover:shadow-lg transform hover:-translate-y-0.5">
+                        <i class="fas fa-credit-card text-sm"></i>
+                        <span>Pay Fees</span>
+                    </a>
+                </li>
+            </ul>
+
+            <button id="menu-btn" class="lg:hidden text-blue-900 focus:outline-none p-2 flex-shrink-0 relative z-[70]">
+                <i class="fas fa-bars text-3xl" id="menu-icon"></i>
+            </button>
         </div>
     </nav>
 
-    <header class="bg-blue-900 py-16 text-center text-white">
-        <h1 class="text-3xl md:text-5xl font-black uppercase tracking-tight mb-4">Terms & Conditions</h1>
-        <p class="text-blue-200 text-sm font-medium uppercase tracking-widest">Last Updated: February 2026</p>
+    <header class="bg-blue-900 py-16 text-center text-white relative overflow-hidden">
+        <div class="container mx-auto px-4 relative z-10">
+            <h1 class="text-4xl md:text-5xl font-black uppercase tracking-tight">Terms & <span class="text-emerald-400">Conditions</span></h1>
+            <p class="mt-4 text-gray-300 font-medium tracking-wide">Please read our policies carefully.</p>
+        </div>
     </header>
 
-    <main class="container mx-auto px-4 py-16 max-w-4xl">
-        
-        <div class="bg-white p-8 md:p-12 rounded-3xl shadow-sm border border-gray-100 space-y-10 text-sm md:text-base text-gray-700">
+    <main class="container mx-auto py-16 px-4 max-w-4xl">
+        <div class="bg-white p-8 md:p-12 rounded-3xl shadow-xl border border-gray-100">
+            
+            <p class="text-sm text-gray-500 mb-8 border-b border-gray-100 pb-4">Last Updated: <span class="font-bold text-gray-700">February 2025</span></p>
 
-            <section>
-                <h2 class="text-xl font-black text-blue-900 uppercase mb-4 flex items-center gap-3">
-                    <span class="bg-emerald-100 text-emerald-700 w-8 h-8 flex items-center justify-center rounded-full text-sm">1</span>
-                    Introduction & Legal Entity
+            <section class="mb-10">
+                <h2 class="text-2xl font-black text-blue-900 mb-4 flex items-center gap-3">
+                    <span class="bg-emerald-100 text-emerald-700 w-8 h-8 rounded-full flex items-center justify-center text-sm">1</span>
+                    General Agreement
                 </h2>
-                <p>Welcome to <strong>https://leadsshillong.com</strong> (the "Website"). LEADS Higher Secondary School is an educational institution functioning under the management, control, and aegis of the <strong>LEADS Educational Trust</strong>.</p>
-                <p class="mt-2">By accessing this website, submitting admission forms, or using our payment gateways, you agree to be bound by these Terms and Conditions. The terms "we," "us," or "our" refer to LEADS Higher Secondary School and LEADS Educational Trust collectively.</p>
+                <p class="text-gray-600 mb-4">By accessing or using the website of LEADS Higher Secondary School (hereinafter referred to as "the School", "we", "us", or "our"), you agree to comply with and be bound by these Terms and Conditions. If you do not agree with any part of these terms, you must not use our website or services.</p>
             </section>
 
-            <section>
-                <h2 class="text-xl font-black text-blue-900 uppercase mb-4 flex items-center gap-3">
-                    <span class="bg-emerald-100 text-emerald-700 w-8 h-8 flex items-center justify-center rounded-full text-sm">2</span>
-                    Disclaimer on Accuracy
+            <section class="mb-10">
+                <h2 class="text-2xl font-black text-blue-900 mb-4 flex items-center gap-3">
+                    <span class="bg-emerald-100 text-emerald-700 w-8 h-8 rounded-full flex items-center justify-center text-sm">2</span>
+                    Admissions and Fee Payments
                 </h2>
-                <p>While we strive to keep the information on this website (including fee structures, admission dates, and faculty lists) accurate and up-to-date, discrepancies may occur due to delays in digital updates.</p>
-                <div class="mt-4 p-4 bg-yellow-50 border-l-4 border-yellow-400 text-yellow-800 text-xs font-bold uppercase tracking-wide">
-                    Note: In the event of a discrepancy between this website and the physical notice board at our office in Langkerding, the physical notice board shall be considered the final and binding authority.
-                </div>
-            </section>
-
-            <section>
-                <h2 class="text-xl font-black text-blue-900 uppercase mb-4 flex items-center gap-3">
-                    <span class="bg-emerald-100 text-emerald-700 w-8 h-8 flex items-center justify-center rounded-full text-sm">3</span>
-                    Online Admissions
-                </h2>
-                <ul class="list-disc pl-6 space-y-2 marker:text-emerald-500">
-                    <li>Submission of an online admission form does not guarantee a seat at LEADS Higher Secondary School. Admission is subject to merit, availability of seats, and verification of original documents.</li>
-                    <li>Any false information provided during the online application process will result in immediate cancellation of the application without refund of the processing fee.</li>
+                <ul class="list-disc pl-5 space-y-2 text-gray-600">
+                    <li>Submission of an online admission form does not guarantee admission. Admissions are subject to eligibility, availability of seats, and fulfillment of the School's criteria.</li>
+                    <li>All fees (admission, tuition, transport, event, etc.) paid through our integrated payment gateways (e.g., Razorpay) are subject to the respective gateway's processing terms.</li>
+                    <li>Any discrepancies in payment must be reported to the school's accounts department within 48 hours of the transaction.</li>
                 </ul>
             </section>
 
-            <section>
-                <h2 class="text-xl font-black text-blue-900 uppercase mb-4 flex items-center gap-3">
-                    <span class="bg-emerald-100 text-emerald-700 w-8 h-8 flex items-center justify-center rounded-full text-sm">4</span>
-                    Online Payments
+            <section class="mb-10">
+                <h2 class="text-2xl font-black text-blue-900 mb-4 flex items-center gap-3">
+                    <span class="bg-emerald-100 text-emerald-700 w-8 h-8 rounded-full flex items-center justify-center text-sm">3</span>
+                    Cancellation & Refund Policy
                 </h2>
-                <p class="mb-4">We use <strong>Razorpay</strong> as our third-party payment gateway for processing application fees and tuition payments. Payments processed via this website are credited directly to the accounts managed by LEADS Educational Trust.</p>
-                <ul class="list-disc pl-6 space-y-2 marker:text-emerald-500">
-                    <li><strong>Security:</strong> The School does not store your credit/debit card or banking login details. All transactions are handled securely by Razorpay.</li>
-                    <li><strong>Transaction Failures:</strong> We are not responsible for transaction failures caused by your bank, internet connectivity, or third-party downtime. If money is deducted but the school does not receive it, please contact your bank for a reversal.</li>
-                    <li><strong>Currency:</strong> All payments must be made in Indian Rupees (INR).</li>
+                <ul class="list-disc pl-5 space-y-2 text-gray-600">
+                    <li><strong class="text-slate-800">Application Fees:</strong> Application/Registration fees are strictly non-refundable under any circumstances.</li>
+                    <li><strong class="text-slate-800">Tuition Fees:</strong> Refunds for tuition fees (if a student withdraws before the academic session begins) will be processed as per the management's discretion and the guidelines issued by the Meghalaya Board of School Education (MBOSE).</li>
+                    <li>In the event of double payment or transaction failure where the amount has been deducted, the school will initiate a refund within 7-10 working days after verification.</li>
                 </ul>
             </section>
 
-            <section>
-                <h2 class="text-xl font-black text-blue-900 uppercase mb-4 flex items-center gap-3">
-                    <span class="bg-emerald-100 text-emerald-700 w-8 h-8 flex items-center justify-center rounded-full text-sm">5</span>
-                    Refund & Cancellation Policy
+            <section class="mb-10">
+                <h2 class="text-2xl font-black text-blue-900 mb-4 flex items-center gap-3">
+                    <span class="bg-emerald-100 text-emerald-700 w-8 h-8 rounded-full flex items-center justify-center text-sm">4</span>
+                    Privacy and Data Security
                 </h2>
-                <div class="space-y-4">
-                    <p><strong>Application Fees:</strong> Fees paid for admission forms or prospectuses are strictly <span class="text-red-600 font-bold">non-refundable</span> and non-transferable under any circumstances.</p>
-                    <p><strong>Tuition/Admission Fees:</strong> Once a student is admitted and the fees are paid, requests for refunds due to withdrawal will be handled solely at the discretion of the Management of LEADS Educational Trust, based on the timing of the withdrawal relative to the academic session.</p>
-                    <p><strong>Double Payments (Technical Errors):</strong> If a technical error causes a parent to be charged twice for the same transaction, the duplicate amount will be refunded. Parents must email proof of both transactions to <a href="mailto:support@leadsshillong.com" class="text-emerald-600 underline">support@leadsshillong.com</a> within 7 days. Refunds will be processed to the original payment source within 10-14 working days.</p>
-                </div>
+                <p class="text-gray-600 mb-4">We respect your privacy. Any personal information collected through our forms (such as names, addresses, Aadhaar numbers, and academic records) is used strictly for administrative, admission, and communication purposes. We do not sell or rent your data to third parties.</p>
+                <p class="text-gray-600">While we implement standard security measures to protect your data, the school cannot be held liable for any unauthorized access resulting from external cyber breaches beyond our reasonable control.</p>
             </section>
 
-            <section>
-                <h2 class="text-xl font-black text-blue-900 uppercase mb-4 flex items-center gap-3">
-                    <span class="bg-emerald-100 text-emerald-700 w-8 h-8 flex items-center justify-center rounded-full text-sm">6</span>
-                    Intellectual Property
+            <section class="mb-10">
+                <h2 class="text-2xl font-black text-blue-900 mb-4 flex items-center gap-3">
+                    <span class="bg-emerald-100 text-emerald-700 w-8 h-8 rounded-full flex items-center justify-center text-sm">5</span>
+                    Intellectual Property Rights
                 </h2>
-                <p>All content on this website—including the school logo, photographs, faculty lists, "Insights" articles, and text—is the exclusive property of LEADS Higher Secondary School and LEADS Educational Trust.</p>
-                <p class="mt-2"><strong>Content Usage:</strong> Visitors may view and print content for personal use only. Copying, reproducing, or using school images/content for commercial purposes or on other public platforms without written permission is strictly prohibited.</p>
+                <p class="text-gray-600">All content on this website, including but not limited to the school logo, text, graphics, images, and digital assets, are the intellectual property of LEADS Higher Secondary School. Unauthorized copying, reproduction, or distribution of this content is strictly prohibited.</p>
             </section>
 
-            <section>
-                <h2 class="text-xl font-black text-blue-900 uppercase mb-4 flex items-center gap-3">
-                    <span class="bg-emerald-100 text-emerald-700 w-8 h-8 flex items-center justify-center rounded-full text-sm">7</span>
-                    User Conduct
+            <section class="mb-10">
+                <h2 class="text-2xl font-black text-blue-900 mb-4 flex items-center gap-3">
+                    <span class="bg-emerald-100 text-emerald-700 w-8 h-8 rounded-full flex items-center justify-center text-sm">6</span>
+                    Student & Parent Code of Conduct
                 </h2>
-                <p>The "Insights" section and other public areas of the site are read-only for the general public. Only authorized personnel appointed by the school administration are permitted to publish content. Unauthorised attempts to log in, upload malicious code, or deface the website will be reported to cyber crime authorities.</p>
+                <p class="text-gray-600">By enrolling in the school, students and parents agree to abide by the school's disciplinary rules, uniform codes, and attendance policies. The Principal reserves the right to take appropriate disciplinary action, including rustication, against any student violating these policies.</p>
             </section>
 
-            <section>
-                <h2 class="text-xl font-black text-blue-900 uppercase mb-4 flex items-center gap-3">
-                    <span class="bg-emerald-100 text-emerald-700 w-8 h-8 flex items-center justify-center rounded-full text-sm">8</span>
+            <section class="mb-10">
+                <h2 class="text-2xl font-black text-blue-900 mb-4 flex items-center gap-3">
+                    <span class="bg-emerald-100 text-emerald-700 w-8 h-8 rounded-full flex items-center justify-center text-sm">7</span>
+                    Modifications
+                </h2>
+                <p class="text-gray-600">The School reserves the right to update or modify these Terms and Conditions at any time without prior notice. Continued use of the website or the school's services following any changes signifies your acceptance of the revised terms.</p>
+            </section>
+
+            <section class="mb-10">
+                <h2 class="text-2xl font-black text-blue-900 mb-4 flex items-center gap-3">
+                    <span class="bg-emerald-100 text-emerald-700 w-8 h-8 rounded-full flex items-center justify-center text-sm">8</span>
                     Governing Law
                 </h2>
-                <p>These terms are governed by the laws of India. Any disputes arising out of the use of this website or school-related payments shall be subject to the exclusive jurisdiction of the courts in <strong>Shillong, Meghalaya</strong>.</p>
+                <p class="text-gray-600">These Terms and Conditions shall be governed by and construed in accordance with the laws of India. Any disputes arising out of or related to these terms shall be subject to the exclusive jurisdiction of the courts located in Shillong, Meghalaya.</p>
             </section>
 
-             <section>
-                <h2 class="text-xl font-black text-blue-900 uppercase mb-4 flex items-center gap-3">
-                    <span class="bg-emerald-100 text-emerald-700 w-8 h-8 flex items-center justify-center rounded-full text-sm">9</span>
+            <section>
+                <h2 class="text-2xl font-black text-blue-900 mb-4 flex items-center gap-3">
+                    <span class="bg-emerald-100 text-emerald-700 w-8 h-8 rounded-full flex items-center justify-center text-sm">9</span>
                     Contact Information
                 </h2>
-                <p class="mb-4">If you have any questions about these Terms and Conditions, please contact us:</p>
+                <p class="text-gray-600 mb-4">If you have any questions about these Terms and Conditions, please contact us:</p>
                 
-                <div class="bg-gray-50 p-6 rounded-xl border border-gray-100 text-sm space-y-3">
-                    <p class="font-bold text-blue-900">LEADS Higher Secondary School</p>
-                    <p class="text-gray-600"><i class="fas fa-map-marker-alt w-5 text-emerald-600"></i> Langkerding, Nongmensong, Shillong - 793019, Meghalaya</p>
-                    <p class="text-gray-600"><i class="fas fa-phone w-5 text-emerald-600"></i> +91-94854-34534</p>
-                    <p class="text-gray-600"><i class="fas fa-envelope w-5 text-emerald-600"></i> <a href="mailto:support@leadsshillong.com" class="hover:text-blue-900">support@leadsshillong.com</a></p>
-                    <p class="text-gray-600"><i class="fas fa-globe w-5 text-emerald-600"></i> <a href="https://leadsshillong.com" target="_blank" class="hover:text-blue-900">https://leadsshillong.com</a></p>
+                <div class="bg-slate-50 p-6 rounded-2xl border border-gray-200 text-sm space-y-3">
+                    <p class="font-bold text-blue-900 text-lg" id="terms-school-name"></p>
+                    <p class="text-gray-600 flex items-start gap-3"><i class="fas fa-map-marker-alt text-emerald-600 mt-1"></i> <span id="terms-address"></span></p>
+                    <p class="text-gray-600 flex items-center gap-3"><i class="fas fa-phone text-emerald-600"></i> <span id="terms-phone"></span></p>
+                    <p class="text-gray-600 flex items-center gap-3"><i class="fas fa-envelope text-emerald-600"></i> <a id="terms-email-link" href="#" class="hover:text-blue-900"><span id="terms-email"></span></a></p>
+                    <p class="text-gray-600 flex items-center gap-3"><i class="fas fa-globe text-emerald-600"></i> <a id="terms-website-link" href="#" target="_blank" class="hover:text-blue-900"><span id="terms-website"></span></a></p>
                 </div>
             </section>
 
         </div>
-
     </main>
 
-    <footer class="bg-gray-100 py-12 border-t border-gray-200">
-        <div class="container mx-auto px-4 text-center text-gray-400 text-xs uppercase font-bold tracking-widest">
-            &copy; 2026 LEADS Higher Secondary School (A Unit of LEADS Educational Trust).
+    <footer class="bg-gray-100 pt-16 pb-8 border-t border-gray-200">
+        <div class="container mx-auto px-4 grid md:grid-cols-4 gap-12 text-sm text-gray-600">
+            <div class="col-span-1 md:col-span-2">
+                <h4 class="text-xl font-black text-blue-900 mb-6 uppercase"><span id="global-school-shortname-footer">LEADS</span> <span class="text-emerald-600">SCHOOL</span></h4>
+                <p class="mb-4"><span id="global-address-street-footer"></span>, <span id="global-address-city"></span></p>
+                <p id="global-tagline" class="italic text-xs"></p>
+                
+                <div class="mt-6 space-y-3 font-medium">
+                    <a id="global-link-phone-footer" href="#" class="flex items-center gap-3 hover:text-emerald-600 transition-colors w-fit">
+                        <i class="fas fa-phone text-emerald-600"></i> <span id="global-phone-1-footer"></span>
+                    </a>
+                    <a id="global-link-email-footer" href="#" class="flex items-center gap-3 hover:text-emerald-600 transition-colors w-fit">
+                        <i class="fas fa-envelope text-emerald-600"></i> <span id="global-email-general-footer"></span>
+                    </a>
+                </div>
+            </div>
+            
+            <div>
+                <h5 class="font-bold text-blue-900 mb-6 uppercase text-xs tracking-widest">Navigation</h5>
+                <ul class="space-y-3">
+                    <li><a href="about.html" class="hover:text-emerald-600 transition">About Us</a></li>
+                    <li><a id="global-link-admissions-footer" href="admissions.html" class="hover:text-emerald-600 transition">Admissions</a></li>
+                    <li><a href="insights.html" class="hover:text-emerald-600 transition">Insights</a></li>
+                    <li><a href="terms.html" class="text-emerald-600 transition font-bold">Terms & Conditions</a></li>
+                </ul>
+            </div>
+            
+            <div>
+                <h5 class="font-bold text-blue-900 mb-6 uppercase text-xs tracking-widest">Connect</h5>
+                <div class="flex space-x-4 text-xl">
+                    <a id="global-link-fb" href="#" target="_blank" class="hover:text-emerald-600"><i class="fab fa-facebook"></i></a>
+                    <a id="global-link-ig" href="#" target="_blank" class="hover:text-emerald-600"><i class="fab fa-instagram"></i></a>
+                    <a id="global-link-yt" href="#" target="_blank" class="hover:text-emerald-600 hidden"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="text-center mt-16 pt-8 border-t border-gray-200 text-gray-400 text-xs">
+            <p id="global-copyright"></p>
+            <div class="mt-2">
+                <a href="terms.html" class="text-emerald-600 transition underline decoration-dotted">Terms & Conditions</a>
+            </div>
         </div>
     </footer>
 
+    <script src="js/config.js"></script>
+
+    <script>
+        // --- Populate Terms Contact Block Dynamically ---
+        document.addEventListener('DOMContentLoaded', () => {
+            if(typeof schoolData !== 'undefined') {
+                document.getElementById('terms-school-name').innerText = schoolData.identity.fullName;
+                document.getElementById('terms-address').innerText = `${schoolData.location.street}, ${schoolData.location.city} - ${schoolData.location.pinCode}, ${schoolData.location.state}`;
+                document.getElementById('terms-phone').innerText = schoolData.contact.primaryPhone;
+                
+                document.getElementById('terms-email').innerText = schoolData.contact.emailGeneral;
+                document.getElementById('terms-email-link').href = `mailto:${schoolData.contact.emailGeneral}`;
+                
+                // Clean the website URL for display
+                const displayWebsite = schoolData.contact.website.replace(/^https?:\/\//, '');
+                document.getElementById('terms-website').innerText = displayWebsite;
+                document.getElementById('terms-website-link').href = schoolData.contact.website;
+            }
+        });
+
+        // --- STANDARD MOBILE MENU LOGIC ---
+        const menuBtn = document.getElementById('menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const menuIcon = document.getElementById('menu-icon');
+
+        if(menuBtn && mobileMenu) {
+            menuBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                mobileMenu.classList.toggle('active');
+                
+                if (!mobileMenu.classList.contains('active')) {
+                    menuIcon.classList.remove('fa-times');
+                    menuIcon.classList.add('fa-bars');
+                } else {
+                    menuIcon.classList.remove('fa-bars');
+                    menuIcon.classList.add('fa-times');
+                }
+            });
+
+            document.addEventListener('click', (e) => {
+                if (!mobileMenu.contains(e.target) && !menuBtn.contains(e.target)) {
+                    if(mobileMenu.classList.contains('active')) {
+                        mobileMenu.classList.remove('active');
+                        menuIcon.classList.remove('fa-times');
+                        menuIcon.classList.add('fa-bars');
+                    }
+                }
+            });
+        }
+    </script>
 </body>
 </html>
