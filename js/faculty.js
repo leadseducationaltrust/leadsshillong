@@ -22,44 +22,6 @@ const staffMembers = [
     { name: "Mrs.  Balarishisha Sohlang", role: "Account Manager", bio: "Overseeing account maintenance and financial teams.", img: "images/faculty/balarishisha_sohlang.jpg", category: "support" }
 ];
 
-//menu toggle in mobile-ui
-document.addEventListener('DOMContentLoaded', () => {
-    const menuBtn = document.getElementById('menu-btn');
-    const mobileMenu = document.getElementById('mobile-menu');
-    const menuIcon = document.getElementById('menu-icon');
-
-    if (menuBtn && mobileMenu) {
-        menuBtn.addEventListener('click', (e) => {
-            e.stopPropagation();
-            
-            // Toggle the 'active' class we defined in CSS
-            mobileMenu.classList.toggle('active');
-            
-            // Swap icons and manage the 'hidden' class for desktop consistency
-            if (mobileMenu.classList.contains('active')) {
-                menuIcon.classList.replace('fa-bars', 'fa-times');
-                mobileMenu.classList.remove('hidden');
-            } else {
-                menuIcon.classList.replace('fa-times', 'fa-bars');
-                // Re-add hidden only if on mobile screens
-                if (window.innerWidth < 1024) {
-                    mobileMenu.classList.add('hidden');
-                }
-            }
-        });
-
-        // Close menu when clicking on a link
-        const links = mobileMenu.querySelectorAll('a');
-        links.forEach(link => {
-            link.addEventListener('click', () => {
-                mobileMenu.classList.remove('active');
-                mobileMenu.classList.add('hidden');
-                menuIcon.classList.replace('fa-times', 'fa-bars');
-            });
-        });
-    }
-});
-
 /**
  * Renders staff cards into their respective category grids
  */
