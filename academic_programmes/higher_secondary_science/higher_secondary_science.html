@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Higher Secondary Science | LEADS Higher Secondary School</title>
+    <link rel="icon" type="image/jpeg" href="../../../images/school-logo.jpg">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap');
+        body { font-family: 'Inter', sans-serif; }
+
+        /* Mobile Menu Fix */
+        @media (max-width: 1023px) {
+            #mobile-menu.active {
+                display: flex !important;
+                flex-direction: column;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: white;
+                padding: 2rem;
+                gap: 1.5rem;
+                box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+                border-top: 1px solid #f1f5f9;
+                z-index: 100;
+            }
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-900 leading-relaxed">
+
+    <div class="bg-emerald-700 text-white py-2 text-xs md:text-sm">
+        <div class="container mx-auto flex justify-between px-4">
+            <div class="flex space-x-4">
+                <a href="#" class="flex items-center"><i class="fas fa-phone mr-1"></i> <span id="global-phone-1"></span></a>
+            </div>
+            <div class="hidden md:block">Science Excellence Since 2010</div>
+        </div>
+    </div>
+
+    <nav class="bg-white shadow-sm sticky top-0 z-[60] min-h-[90px] flex items-center">
+        <div class="container mx-auto px-4 py-3 flex justify-between items-center w-full relative">
+            <a href="../../../index.html" class="flex items-center gap-3 group">
+                <img src="../../../images/school-logo.jpg" alt="LEADS Logo" class="h-16 w-auto object-contain"> 
+                <div class="flex flex-col justify-center border-l-2 border-gray-100 pl-3">
+                    <span class="block text-xl md:text-2xl font-black text-blue-900 leading-none uppercase tracking-tighter">LEADS</span>
+                    <span class="text-[9px] font-bold text-emerald-600 tracking-wider uppercase">Higher Secondary Science (XI-XII)</span>
+                </div>
+            </a>
+
+            <ul id="mobile-menu" class="hidden lg:flex items-center space-x-8 font-extrabold text-gray-600 text-[13px] uppercase">
+                <li><a href="../../../index.html" class="hover:text-emerald-600 transition-all">Home</a></li>
+                <li><a href="../../../about.html" class="hover:text-emerald-600 transition-all">About</a></li>
+                <li><a href="../../../faculty.html" class="hover:text-emerald-600 transition-all">Faculty</a></li>
+                <li><a href="../../../admissions.html" class="hover:text-emerald-600 transition-all">Admissions</a></li>
+                <li><a href="../../../contact.html" class="hover:text-emerald-600 transition-all">Contact</a></li>
+            </ul>
+
+            <button id="menu-btn" class="lg:hidden text-blue-900 p-2 relative z-[70]">
+                <i class="fas fa-bars text-3xl" id="menu-icon"></i>
+            </button>
+        </div>
+    </nav>
+
+    <header class="bg-blue-900 py-20 text-center text-white relative overflow-hidden">
+        <div class="absolute inset-0 opacity-10">
+            <div class="absolute top-10 left-10 w-20 h-20 border-4 border-emerald-400 rounded-full"></div>
+            <div class="absolute bottom-10 right-20 w-32 h-32 border-4 border-white opacity-20 transform rotate-45"></div>
+        </div>
+        <div class="container mx-auto px-4 relative z-10">
+            <span class="bg-emerald-500 text-white px-4 py-1 rounded-full text-xs font-black uppercase tracking-widest mb-4 inline-block">Advanced Stream</span>
+            <h1 class="text-4xl md:text-6xl font-black uppercase tracking-tight">Higher Secondary <span class="text-emerald-400">Science</span></h1>
+            <p class="mt-4 text-gray-300 max-w-2xl mx-auto text-lg">Classes XI-XII: Specialized science education preparing for top universities and professional careers.</p>
+        </div>
+    </header>
+
+    <section class="py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="max-w-4xl mx-auto bg-slate-50 rounded-[2rem] overflow-hidden shadow-xl flex flex-col md:flex-row items-center border border-gray-100">
+                <div class="w-full md:w-1/3 pr-6 flex items-center justify-center">
+                    <div class="rounded-2xl overflow-hidden shadow-lg border-4 border-indigo-100">
+                        <img src="../../../images/faculty/michellyne_syiem.jpg" alt="Biology Lecturer" class="w-full h-full object-cover aspect-square">
+                    </div>
+                </div>
+                <div class="p-8 md:p-12 w-full md:w-2/3">
+                    <h4 class="text-emerald-600 font-black uppercase tracking-widest text-xs mb-2">Expert Educator</h4>
+                    <h2 class="text-3xl font-black text-blue-900 mb-4">Michellyne Syiem</h2>
+                    <p class="text-gray-600 italic mb-6">"Science is not just a subject; it's the gateway to innovation, discovery, and shaping the future."</p>
+                    <div class="flex gap-4">
+                        <div class="bg-white p-4 rounded-xl shadow-sm border border-gray-100 flex-1">
+                            <span class="block text-blue-900 font-black text-xl">2</span>
+                            <span class="text-[10px] text-gray-400 uppercase font-bold">Year Program</span>
+                        </div>
+                        <div class="bg-white p-4 rounded-xl shadow-sm border border-gray-100 flex-1">
+                            <span class="block text-emerald-600 font-black text-xl">PCM</span>
+                            <span class="text-[10px] text-gray-400 uppercase font-bold">Core Subjects</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-20">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-black text-blue-900 uppercase">Core <span class="text-emerald-600">Subjects</span></h2>
+                <div class="w-24 h-1.5 bg-emerald-500 mx-auto mt-4"></div>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-8 mb-8">
+                <div class="bg-white p-8 rounded-3xl shadow-sm border-b-4 border-red-500 hover:-translate-y-2 transition-transform duration-300">
+                    <div class="w-14 h-14 bg-red-50 rounded-2xl flex items-center justify-center text-red-600 text-2xl mb-6">
+                        <i class="fas fa-atom"></i>
+                    </div>
+                    <h3 class="text-2xl font-black text-blue-900 mb-2">Physics</h3>
+                    <p class="text-gray-500 text-sm leading-relaxed">Classical mechanics, thermodynamics, electromagnetism, and modern physics. Advanced lab work and problem-solving.</p>
+                </div>
+
+                <div class="bg-white p-8 rounded-3xl shadow-sm border-b-4 border-blue-500 hover:-translate-y-2 transition-transform duration-300">
+                    <div class="w-14 h-14 bg-blue-50 rounded-2xl flex items-center justify-center text-blue-600 text-2xl mb-6">
+                        <i class="fas fa-flask-vial"></i>
+                    </div>
+                    <h3 class="text-2xl font-black text-blue-900 mb-2">Chemistry</h3>
+                    <p class="text-gray-500 text-sm leading-relaxed">Organic, inorganic, and physical chemistry. Practical lab sessions with emphasis on experimentation and analysis.</p>
+                </div>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-8">
+                <div class="bg-white p-8 rounded-3xl shadow-sm border-b-4 border-green-500 hover:-translate-y-2 transition-transform duration-300">
+                    <div class="w-14 h-14 bg-green-50 rounded-2xl flex items-center justify-center text-green-600 text-2xl mb-6">
+                        <i class="fas fa-leaf"></i>
+                    </div>
+                    <h3 class="text-2xl font-black text-blue-900 mb-2">Biology</h3>
+                    <p class="text-gray-500 text-sm leading-relaxed">Cell biology, genetics, ecology, and physiology. Microscopy labs and specimen study for deeper understanding.</p>
+                </div>
+
+                <div class="bg-white p-8 rounded-3xl shadow-sm border-b-4 border-purple-500 hover:-translate-y-2 transition-transform duration-300">
+                    <div class="w-14 h-14 bg-purple-50 rounded-2xl flex items-center justify-center text-purple-600 text-2xl mb-6">
+                        <i class="fas fa-square-root-alt"></i>
+                    </div>
+                    <h3 class="text-2xl font-black text-blue-900 mb-2">Mathematics</h3>
+                    <p class="text-gray-500 text-sm leading-relaxed">Calculus, algebra, and geometry. Advanced problem-solving essential for engineering and research.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-20 bg-blue-900 text-white">
+        <div class="container mx-auto px-4 flex flex-col lg:flex-row gap-16 items-center">
+            <div class="lg:w-1/2">
+                <h4 class="text-emerald-400 font-black uppercase tracking-widest text-xs mb-4">Why LEADS?</h4>
+                <h2 class="text-4xl font-black mb-8 leading-tight">The LEADS <span class="text-emerald-400">Science</span> Advantage</h2>
+                <p class="text-gray-300 mb-8">We prepare students for:</p>
+                
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                    <div class="flex items-start gap-3">
+                        <i class="fas fa-check-circle text-emerald-400 mt-1"></i>
+                        <div><span class="font-bold block">Entrance Exams</span><span class="text-xs text-gray-400">JEE, NEET Prep</span></div>
+                    </div>
+                    <div class="flex items-start gap-3">
+                        <i class="fas fa-check-circle text-emerald-400 mt-1"></i>
+                        <div><span class="font-bold block">Lab Excellence</span><span class="text-xs text-gray-400">Advanced Experiments</span></div>
+                    </div>
+                    <div class="flex items-start gap-3">
+                        <i class="fas fa-check-circle text-emerald-400 mt-1"></i>
+                        <div><span class="font-bold block">University Ready</span><span class="text-xs text-gray-400">Top Colleges Admission</span></div>
+                    </div>
+                    <div class="flex items-start gap-3">
+                        <i class="fas fa-check-circle text-emerald-400 mt-1"></i>
+                        <div><span class="font-bold block">Research Skills</span><span class="text-xs text-gray-400">Project Development</span></div>
+                    </div>
+                    <div class="flex items-start gap-3">
+                        <i class="fas fa-check-circle text-emerald-400 mt-1"></i>
+                        <div><span class="font-bold block">Career Guidance</span><span class="text-xs text-gray-400">Professional Pathways</span></div>
+                    </div>
+                    <div class="flex items-start gap-3">
+                        <i class="fas fa-check-circle text-emerald-400 mt-1"></i>
+                        <div><span class="font-bold block">Mentorship</span><span class="text-xs text-gray-400">1-on-1 Guidance</span></div>
+                    </div>
+                </div>
+            </div>
+            <div class="lg:w-1/2 grid grid-cols-2 gap-4">
+                <div class="rounded-2xl shadow-2xl mt-8 bg-gradient-to-br from-red-100 to-orange-100 flex items-center justify-center min-h-[250px]">
+                    <div class="text-center">
+                        <i class="fas fa-flask text-6xl text-red-600 mb-4 block"></i>
+                        <p class="font-bold text-blue-900">Research Labs</p>
+                    </div>
+                </div>
+                <div class="rounded-2xl shadow-2xl bg-gradient-to-br from-indigo-100 to-purple-100 flex items-center justify-center min-h-[250px]">
+                    <div class="text-center">
+                        <i class="fas fa-microscope text-6xl text-indigo-600 mb-4 block"></i>
+                        <p class="font-bold text-blue-900">Advanced Equipment</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-20 text-center">
+        <div class="container mx-auto px-4">
+            <div class="bg-emerald-600 p-12 rounded-[3rem] text-white shadow-2xl">
+                <h2 class="text-3xl font-black uppercase mb-4">Shape Your Scientific Future</h2>
+                <p class="mb-8 opacity-90">Admissions now open for Classes XI-XII Science. Prepare for top universities and careers.</p>
+                <a href="../../../admissions.html" class="inline-block bg-white text-emerald-700 font-black px-10 py-4 rounded-full hover:bg-blue-900 hover:text-white transition-all transform hover:scale-105">
+                    Enroll Now
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-gray-100 py-12 border-t border-gray-200">
+        <div class="container mx-auto px-4 text-center">
+            <img src="../../../images/school-logo.jpg" alt="LEADS Logo" class="h-12 mx-auto mb-6 opacity-50 grayscale">
+            <p class="text-gray-400 text-xs uppercase font-bold tracking-widest">© 2024 LEADS Higher Secondary School</p>
+        </div>
+    </footer>
+
+    <script src="../../../js/config.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const menuBtn = document.getElementById('menu-btn');
+            const mobileMenu = document.getElementById('mobile-menu');
+            const menuIcon = document.getElementById('menu-icon');
+
+            if(menuBtn && mobileMenu) {
+                menuBtn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    mobileMenu.classList.toggle('active');
+                    menuIcon.classList.toggle('fa-bars');
+                    menuIcon.classList.toggle('fa-times');
+                });
+            }
+
+            if(window.schoolConfig) {
+                document.getElementById('global-phone-1').innerText = window.schoolConfig.contact.phone1;
+            }
+        });
+    </script>
+</body>
+</html>
