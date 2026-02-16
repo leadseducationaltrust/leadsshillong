@@ -110,11 +110,15 @@
         </div>
     </header>
 
-    <div class="bg-blue-900 text-white py-3 border-b border-white/10 relative z-20">
+    <div class="bg-blue-900 text-white py-3 border-b border-white/10 relative z-20 cursor-pointer hover:bg-blue-800 transition-colors" title="Click to view all news alerts">
         <div class="container mx-auto px-4 flex items-center">
-            <span class="font-bold bg-emerald-600 px-3 py-1 text-xs rounded uppercase mr-4 shrink-0">Alert</span>
-            <marquee id="news-marquee" class="font-medium text-sm italic">
-                </marquee>
+            <span class="font-bold bg-emerald-600 px-3 py-1 text-xs rounded uppercase mr-4 shrink-0 flex items-center gap-1">
+                <i class="fas fa-bell"></i> Alert
+            </span>
+            <marquee id="news-marquee" class="font-medium text-sm italic"></marquee>
+            <div class="ml-4 text-xs text-gray-300 animate-pulse shrink-0">
+                <i class="fas fa-hand-pointer"></i> Click to view
+            </div>
         </div>
     </div>
 
@@ -231,6 +235,37 @@
             </div>
         </div>
     </footer>
+
+    <!-- NEWS ALERTS MODAL -->
+    <div id="news-alerts-modal" class="hidden fixed inset-0 bg-black/50 backdrop-blur-sm z-[9999] flex items-center justify-center p-4 overflow-y-auto">
+        <div class="bg-white rounded-[2rem] shadow-2xl w-full max-w-2xl my-8">
+            <!-- Modal Header -->
+            <div class="sticky top-0 bg-gradient-to-r from-blue-900 to-emerald-600 text-white p-8 rounded-t-[2rem] flex justify-between items-center">
+                <div>
+                    <h2 class="text-3xl font-black uppercase">News & Alerts</h2>
+                    <p class="text-emerald-200 text-sm mt-2">Latest 5 notifications from LEADS School</p>
+                </div>
+                <button id="close-news-modal" class="text-white hover:bg-white/20 p-3 rounded-full transition-colors">
+                    <i class="fas fa-times text-2xl"></i>
+                </button>
+            </div>
+
+            <!-- Modal Content -->
+            <div class="p-8 max-h-[70vh] overflow-y-auto">
+                <div id="news-alerts-container">
+                    <!-- News items will be populated here by news.js -->
+                </div>
+            </div>
+
+            <!-- Modal Footer -->
+            <div class="p-8 bg-gray-50 border-t border-gray-200 rounded-b-[2rem] text-center">
+                <p class="text-gray-600 text-sm">
+                    <i class="fas fa-info-circle text-blue-900 mr-2"></i>
+                    Click the alert banner anytime to view the latest news updates
+                </p>
+            </div>
+        </div>
+    </div>
 
     <script src="js/config.js"></script>
     <script src="js/articles.js"></script>
