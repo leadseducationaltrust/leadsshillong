@@ -40,7 +40,7 @@ const schoolData = {
     socials: {
         facebook: "https://facebook.com/leadsshillong",
         instagram: "https://instagram.com/leadsschool",
-        youtube: "https://youtube.com/leadsschool",
+        youtube: "https://www.youtube.com/@leadsshillong",
         twitter: "https://twitter.com/leadsschool"
     },
 
