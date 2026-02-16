@@ -147,4 +147,11 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     }
+
+    // Close modal when ESC key is pressed
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+            closeNewsModal();
+        }
+    });
 });
