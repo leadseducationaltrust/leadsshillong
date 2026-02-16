@@ -4,14 +4,14 @@ const newsAlerts = [
         date: '2026-02-10 09:30', 
         title: 'Classes Commence',
         message: 'Classes I to X commence on 13th February, 2026.', 
-        description: 'All classes from Class I to X will resume their regular schedule starting from 13th February, 2026. Students should report to their respective classrooms by 9:00 AM. Parents are requested to ensure their children are on time.',
+        description: 'All classes from Class I to X will resume their regular schedule starting from 13th February, 2026. Students should report to their respective classrooms by 8:10 AM. Parents are requested to ensure their children are on time.',
         image: 'https://images.unsplash.com/photo-1427504494785-cdba93c3e6c9?auto=format&fit=crop&w=500&h=300'
     },
     { 
         date: '2026-02-01 14:00', 
         title: 'Teacher Orientation',
-        message: 'Orientation for teachers will be held on 13th February 2026.', 
-        description: 'An orientation session for all teaching staff will be conducted on 13th February, 2026. The session will cover curriculum updates, teaching methodologies, and school policies for the academic year. Attendance is mandatory for all faculty members.',
+        message: 'Orientation for teachers will be held on 11th February 2026.', 
+        description: 'An orientation session for all teaching staff will be conducted on 11th February, 2026. The session will cover curriculum updates, teaching methodologies, and school policies for the academic year. Attendance is mandatory for all faculty members.',
         image: 'https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=500&h=300'
     },
     { 
@@ -44,44 +44,47 @@ const newsAlerts = [
     }
 ];
 
+// Global variable to track current page for pagination
+let currentNewsPage = 0;
+const newsPerPage = 5;
+
+// Sort all news once for consistent ordering
+const sortedNewsAlerts = [...newsAlerts].sort((a, b) => new Date(b.date) - new Date(a.date));
+
 function loadNewsMarquee() {
     const marqueeElement = document.getElementById('news-marquee');
     
     // Safety check in case the element isn't on the current page
     if (!marqueeElement) return;
 
-    const latestNewsString = newsAlerts
-        // 1. Sort by date descending (Newest first)
-        .sort((a, b) => new Date(b.date) - new Date(a.date))
-        
-        // 2. Keep only the top 5
+    const latestNewsString = sortedNewsAlerts
+        // Keep only the top 5
         .slice(0, 5)
         
-        // 3. Extract just the message text from the object
+        // Extract just the message text from the object
         .map(item => item.message)
         
-        // 4. Join them together with the " | " separator
+        // Join them together with the " | " separator
         .join(" | ");
 
     // Inject the combined string into the HTML
     marqueeElement.innerText = latestNewsString;
 }
 
-// Function to populate and open the news alerts modal
-function openNewsModal() {
-    const modal = document.getElementById('news-alerts-modal');
+// Function to render news items at a specific page
+function renderNewsPage(page = 0) {
     const containerDiv = document.getElementById('news-alerts-container');
     
-    if (!modal || !containerDiv) return;
+    if (!containerDiv) return;
 
-    // Sort by date descending (Newest first) and get the top 5
-    const topNews = newsAlerts
-        .sort((a, b) => new Date(b.date) - new Date(a.date))
-        .slice(0, 5);
+    // Calculate start and end indices
+    const startIndex = page * newsPerPage;
+    const endIndex = startIndex + newsPerPage;
+    const pageNews = sortedNewsAlerts.slice(startIndex, endIndex);
 
     // Generate HTML for news alerts
     let newsHTML = '';
-    topNews.forEach((news, index) => {
+    pageNews.forEach((news, index) => {
         const dateObj = new Date(news.date);
         const formattedDate = dateObj.toLocaleDateString('en-US', { 
             year: 'numeric', 
@@ -109,7 +112,82 @@ function openNewsModal() {
         `;
     });
 
+    // Add pagination buttons
+    const totalPages = Math.ceil(sortedNewsAlerts.length / newsPerPage);
+    if (page > 0 || endIndex < sortedNewsAlerts.length) {
+        newsHTML += `<div class="mt-8 flex gap-3 justify-between items-center">`;
+        
+        // Previous button
+        if (page > 0) {
+            newsHTML += `
+                <button onclick="loadPreviousNews()" class="flex-1 py-3 px-6 bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-bold rounded-lg transition-all transform hover:scale-105 flex items-center justify-center gap-2">
+                    <i class="fas fa-arrow-up"></i> Previous
+                </button>
+            `;
+        } else {
+            newsHTML += `<div class="flex-1"></div>`;
+        }
+
+        // Page indicator
+        newsHTML += `
+            <span class="text-sm text-gray-500 font-semibold px-4 text-center whitespace-nowrap">
+                Page ${page + 1} of ${totalPages}
+            </span>
+        `;
+
+        // More News button
+        if (endIndex < sortedNewsAlerts.length) {
+            newsHTML += `
+                <button onclick="loadMoreNews()" class="flex-1 py-3 px-6 bg-gradient-to-r from-emerald-600 to-emerald-700 hover:from-emerald-700 hover:to-emerald-800 text-white font-bold rounded-lg transition-all transform hover:scale-105 flex items-center justify-center gap-2">
+                    More News... <i class="fas fa-arrow-down"></i>
+                </button>
+            `;
+        } else {
+            newsHTML += `<div class="flex-1"></div>`;
+        }
+
+        newsHTML += `</div>`;
+    }
+
     containerDiv.innerHTML = newsHTML;
+}
+
+// Function to load the next page of news
+function loadMoreNews() {
+    currentNewsPage++;
+    renderNewsPage(currentNewsPage);
+    
+    // Scroll to top of container to show new content
+    const containerDiv = document.getElementById('news-alerts-container');
+    if (containerDiv) {
+        containerDiv.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+}
+
+// Function to load the previous page of news
+function loadPreviousNews() {
+    if (currentNewsPage > 0) {
+        currentNewsPage--;
+        renderNewsPage(currentNewsPage);
+        
+        // Scroll to top of container to show new content
+        const containerDiv = document.getElementById('news-alerts-container');
+        if (containerDiv) {
+            containerDiv.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+    }
+}
+
+// Function to populate and open the news alerts modal
+function openNewsModal() {
+    const modal = document.getElementById('news-alerts-modal');
+    const containerDiv = document.getElementById('news-alerts-container');
+    
+    if (!modal || !containerDiv) return;
+
+    // Reset pagination to first page
+    currentNewsPage = 0;
+    renderNewsPage(0);
     modal.classList.remove('hidden');
 }
 
