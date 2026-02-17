@@ -145,4 +145,18 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Inject the Map Embed URL into the iframe
     injectSrc("global-map-iframe", schoolData.location.googleMapsEmbed);
+
+    // ==========================================
+    // TAWK.TO CHAT WIDGET INITIALIZATION
+    // ==========================================
+    // Initialize Tawk.to for live chat support
+    var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+    (function(){
+        var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+        s1.async=true;
+        s1.src='https://embed.tawk.to/5e9d854435bcbb0c9ab2de75/default';
+        s1.charset='UTF-8';
+        s1.setAttribute('crossorigin','*');
+        s0.parentNode.insertBefore(s1,s0);
+    })();
 });
