@@ -4,7 +4,7 @@
 
 const galleryImages = [
     { url: 'images/gallery/chillibreeze_singapore_school.jpeg', desc: 'A Team from Chillibreeze Singapore Team Visited LEADS School', date: '2026-02-17' },
-    { url: 'images/gallery/photo_1_general_proficiency.jpg', desc: 'General Proficiency Award 2025', date: '2025-12-17' },
+    { url: 'images/gallery/photo_1_general_proficiency.jpg', desc: 'Honouring the Outgoing Captains and Assistant-Captains of 2025 for their Outstanding Leadership and Service', date: '2025-12-17' },
     { url: 'images/gallery/photo_2_student_visiting_art_gallery.jpg', desc: 'Students Visiting Art Gallery', date: '2025-11-17' },
     { url: 'images/gallery/photo_3_release_of_mosaic.jpg', desc: 'Release of School Magazine - The Mosaic', date: '2025-12-05' },
     { url: 'images/gallery/photo_4_independence_celebration.jpg', desc: 'Independence Day Celebration', date: '2025-08-14' },
