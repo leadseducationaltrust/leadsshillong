@@ -16,10 +16,10 @@ const staffMembers = [
     { name: "Ms. Wanadeimaya Mukhim", role: "Art & Play Specialist", bio: "Encouraging creativity through hands-on learning.", img: "images/faculty/wanadeimaya_mukhim.jpg", category: "preprimary" },
     { name: "Ms. Ibawanhun Lyngdoh", role: "Kindergarten Educator", bio: "Dedicated to the comfort and safety of our kindergarten students.", img: "images/faculty/ibawanhun_lyngdoh.jpg", category: "preprimary" },
     { name: "Mrs. Annie Memory Khonglah", role: "Senior Primary Teacher", bio: "Building strong foundations in Social Science.", img: "images/faculty/annie_khonglah.jpg", category: "primary" },
-    { name: "Mrs. Bandarishisha Dkhar", role: "Geography and Health Education Teacher", bio: "Specializing in Geography/Physical & Health Educations and MBOSE board prep.", img: "images/faculty/bandarishisha_dkhar.jpg", category: "secondary" },
+    { name: "Ms. Bandarishisha Dkhar", role: "Geography and Health Education Teacher", bio: "Specializing in Geography/Physical & Health Educations and MBOSE board prep.", img: "images/faculty/bandarishisha_dkhar.jpg", category: "secondary" },
     { name: "Mrs. Michellyne Syiem", role: "Biology Lecturer", bio: "Preparing students for competitive exams and higher education.", img: "images/faculty/michellyne_syiem.jpg", category: "higher" },
     { name: "Mrs. Badaaiphylla Kharmuti", role: "Head of Accounts", bio: "Ensuring transparent financial operations.", img: "images/faculty/badaaiphylla_kharmuti.jpg", category: "support" },
-    { name: "Mrs.  Balarishisha Sohlang", role: "Account Manager", bio: "Overseeing account maintenance and financial teams.", img: "images/faculty/balarishisha_sohlang.jpg", category: "support" }
+    { name: "Ms.  Balarishisha Sohlang", role: "Account Manager", bio: "Overseeing account maintenance and financial teams.", img: "images/faculty/balarishisha_sohlang.jpg", category: "support" }
 ];
 
 /**
