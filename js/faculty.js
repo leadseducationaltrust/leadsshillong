@@ -5,41 +5,36 @@
 
 // --- STAFF DATA ---
 const staffMembers = [
-    { name: "Mrs. Barrilyne Lyngdoh", role: "Principal", bio: "Leading with vision and academic excellence since 2010.", img: "images/faculty/principal.jpg", category: "admin" },
-    { name: "Mrs. Euginia Diana Mukhim", role: "Vice Principal", bio: "Specializing in student welfare and disciplinary management.", img: "images/faculty/euginia.jpg", category: "admin" },
-    { name: "Mr. Makarious Sohlang", role: "Chief-Coordinator", bio: "Overseeing school coordination and students' welfare.", img: "images/faculty/makarious_sohlang.jpg", category: "admin" },
-    { name: "Mrs. Heather Laureat Pyrbot", role: "Upper-Primary Coordinator", bio: "Overseeing curriculum alignment and teacher training.", img: "images/faculty/heather.jpg", category: "admin" },
-    { name: "Mrs. Mayoranda Sohlang", role: "Primary Coordinator", bio: "Managing school administrative logistics and records.", img: "images/faculty/mayoranda.jpg", category: "admin" },
-    { name: "Ms. Phriemtilin Wahlang", role: "Nursery Educator", bio: "Creating a joyful learning environment for our youngest learners.", img: "images/faculty/phriemtilin.jpg", category: "preprimary" },
-    { name: "Mrs. Jenita Warjri", role: "Kindergarten Educator", bio: "Focusing on early literacy and motor skill development.", img: "images/faculty/jenita.jpg", category: "preprimary" },
-    { name: "Mrs. Kmendahun Khriam", role: "Kindergarten Educator", bio: "Supporting classroom activities and individual child care.", img: "images/faculty/kmendahun_khriam.jpg", category: "preprimary" },
-    { name: "Ms. Wanadeimaya Mukhim", role: "Art & Play Specialist", bio: "Encouraging creativity through hands-on learning.", img: "images/faculty/wanadeimaya_mukhim.jpg", category: "preprimary" },
-    { name: "Ms. Ibawanhun Lyngdoh", role: "Kindergarten Educator", bio: "Dedicated to the comfort and safety of our kindergarten students.", img: "images/faculty/ibawanhun_lyngdoh.jpg", category: "preprimary" },
-    { name: "Mrs. Annie Memory Khonglah", role: "Senior Primary Teacher", bio: "Building strong foundations in Social Science.", img: "images/faculty/annie_khonglah.jpg", category: "primary" },
-    { name: "Ms. Bandarishisha Dkhar", role: "Geography and Health Education Teacher", bio: "Specializing in Geography/Physical & Health Educations and MBOSE board prep.", img: "images/faculty/bandarishisha_dkhar.jpg", category: "secondary" },
-    { name: "Mrs. Michellyne Syiem", role: "Biology Lecturer", bio: "Preparing students for competitive exams and higher education.", img: "images/faculty/michellyne_syiem.jpg", category: "higher" },
-    { name: "Mrs.  Evonne C Diengdoh", role: "Biology Lecturer", bio: "Supporting students in their biology studies.", img: "images/faculty/evonne_diengdoh.jpg", category: "higher" },
-    { name: "Mrs. Badaaiphylla Kharmuti", role: "Head of Accounts", bio: "Ensuring transparent financial operations.", img: "images/faculty/badaaiphylla_kharmuti.jpg", category: "support" },
-    { name: "Ms.  Balarishisha Sohlang", role: "Account Manager", bio: "Overseeing account maintenance and financial teams.", img: "images/faculty/balarishisha_sohlang.jpg", category: "support" },
-    { name: "Mrs.  Therina Lyngdoh", role: "Account Assistant", bio: "Supporting account maintenance and financial operations.", img: "images/faculty/therina_lyngdoh.jpg", category: "support" },
-    { name: "Ms. Cordially D. Rapsang", role: "English Lecturer", bio: "Specializing in English language and literature.", img: "images/faculty/cordially_rapsang.jpg", category: "secondary" },
-    { name: "Mrs. Miracle Syiem", role: "English Lecturer", bio: "Specializing in English language and literature.", img: "images/faculty/miracle_syiem.jpg", category: "secondary" },
-    { name: "Mrs. Daphibanbet Dkhar", role: "Social Science Lecturer", bio: "Specializing in Social Science and MBOSE board prep.", img: "images/faculty/daphibanbet_dkhar.jpg", category: "higher" },
-    { name: " Ms. Liza Jones Shanpru", role: "Mathematics Lecturer", bio: "Specializing in Mathematics.", img: "images/faculty/liza_jones_shanpru.jpg", category: "higher" },
-    { name: " Mrs.  Banrilang Kharjana", role: "Khasi Lecturer", bio: "Specializing in Khasi language and literature.", img: "images/faculty/banrilang_kharjana.jpg", category: "higher" },
-    { name: " Ms. Eleazer Pariat", role: "Economics Lecturer", bio: "Specializing in Economics.", img: "images/faculty/eleazer_pariat.jpg", category: "higher" },
-    { name: " Mr. Kenneth Thangkhiew", role: "English Lecturer", bio: "Specializing in English language and literature.", img: "images/faculty/kenneth_thangkhiew.jpg", category: "higher" },
-    { name: " Ms. Narolla Ch. Sangma", role: "Khasi Lecturer", bio: "Specializing in Khasi language and literature.", img: "images/faculty/narolla_sangma.jpg", category: "secondary" },
-    { name: " Mrs. Chanda Prasad", role: "Hindi Lecturer", bio: "Specializing in Hindi language and literature.", img: "images/faculty/chanda_prasad.jpg", category: "secondary" },
-    { name: "Mr. Livingson Kharkongor", role: "Mathematics Lecturer", bio: "Specializing in Mathematics.", img: "images/faculty/livingson_kharkongor.jpg", category: "secondary" },
-    { name: "Mr. Mannaki Sohliya", role: "Physical Education Teacher", bio: "Specializing in Physical Education.", img: "images/faculty/mannaki_sohliya.jpg", category: "secondary" },
+    { name: "Mrs. Barrilyne Lyngdoh", role: "Principal", bio: "Leading with vision and academic excellence since 2010.", qualifications: "M.A. Education, B.Ed., IIM Certificate", img: "images/faculty/principal.jpg", category: "admin" },
+    { name: "Mrs. Euginia Diana Mukhim", role: "Vice Principal", bio: "Specializing in student welfare and disciplinary management.", qualifications: "B.A., B.Ed., Diploma in Counseling", img: "images/faculty/euginia.jpg", category: "admin" },
+    { name: "Mr. Makarious Sohlang", role: "Chief-Coordinator", bio: "Overseeing school coordination and students' welfare.", qualifications: "B.Sc., B.Ed., M.Ed.", img: "images/faculty/makarious_sohlang.jpg", category: "admin" },
+    { name: "Mrs. Heather Laureat Pyrbot", role: "Upper-Primary Coordinator", bio: "Overseeing curriculum alignment and teacher training.", qualifications: "B.A., B.Ed., M.Ed. Curriculum Design", img: "images/faculty/heather.jpg", category: "admin" },
+    { name: "Mrs. Mayoranda Sohlang", role: "Primary Coordinator", bio: "Managing school administrative logistics and records.", qualifications: "B.Sc., B.Ed., Certificate in School Management", img: "images/faculty/mayoranda.jpg", category: "admin" },
+    { name: "Ms. Phriemtilin Wahlang", role: "Nursery Educator", bio: "Creating a joyful learning environment for our youngest learners.", qualifications: "Diploma in Early Childhood Education, Montessori Certification", img: "images/faculty/phriemtilin.jpg", category: "preprimary" },
+    { name: "Mrs. Jenita Warjri", role: "Kindergarten Educator", bio: "Focusing on early literacy and motor skill development.", qualifications: "B.A., B.Ed., Diploma in Preschool Education", img: "images/faculty/jenita.jpg", category: "preprimary" },
+    { name: "Mrs. Kmendahun Khriam", role: "Kindergarten Educator", bio: "Supporting classroom activities and individual child care.", qualifications: "B.Ed. Preschool, Montessori Certificate", img: "images/faculty/kmendahun_khriam.jpg", category: "preprimary" },
+    { name: "Ms. Wanadeimaya Mukhim", role: "Art & Play Specialist", bio: "Encouraging creativity through hands-on learning.", qualifications: "B.F.A., Diploma in Art Education, Specialized Teacher Training", img: "images/faculty/wanadeimaya_mukhim.jpg", category: "preprimary" },
+    { name: "Ms. Ibawanhun Lyngdoh", role: "Kindergarten Educator", bio: "Dedicated to the comfort and safety of our kindergarten students.", qualifications: "B.Ed., Early Childhood Development Certificate", img: "images/faculty/ibawanhun_lyngdoh.jpg", category: "preprimary" },
+    { name: "Mrs. Annie Memory Khonglah", role: "Senior Primary Teacher", bio: "Building strong foundations in Social Science.", qualifications: "B.A., B.Ed., M.A. Social Science", img: "images/faculty/annie_khonglah.jpg", category: "primary" },
+    { name: "Ms. Bandarishisha Dkhar", role: "Geography and Health Education Teacher", bio: "Specializing in Geography/Physical & Health Educations and MBOSE board prep.", qualifications: "B.Sc., B.Ed., M.Sc. Geography", img: "images/faculty/bandarishisha_dkhar.jpg", category: "secondary" },
+    { name: "Mrs. Michellyne Syiem", role: "Biology Lecturer", bio: "Preparing students for competitive exams and higher education.", qualifications: "B.Sc., B.Ed., M.Sc. Biology, NEET Coaching Certification", img: "images/faculty/michellyne_syiem.jpg", category: "higher" },
+    { name: "Mrs.  Evonne C Diengdoh", role: "Biology Lecturer", bio: "Supporting students in their biology studies.", qualifications: "B.Sc., B.Ed., M.Sc. Biotechnology", img: "images/faculty/evonne_diengdoh.jpg", category: "higher" },
+    { name: "Mrs. Badaaiphylla Kharmuti", role: "Head of Accounts", bio: "Ensuring transparent financial operations.", qualifications: "B.Com., M.Com. Accounting, Tally Certification", img: "images/faculty/badaaiphylla_kharmuti.jpg", category: "support" },
+    { name: "Ms.  Balarishisha Sohlang", role: "Account Manager", bio: "Overseeing account maintenance and financial teams.", qualifications: "B.Com., Certificate in Accounts Management", img: "images/faculty/balarishisha_sohlang.jpg", category: "support" },
+    { name: "Mrs.  Therina Lyngdoh", role: "Account Assistant", bio: "Supporting account maintenance and financial operations.", qualifications: "Diploma in Accounting, Tally Certification", img: "images/faculty/therina_lyngdoh.jpg", category: "support" },
+    { name: "Ms. Cordially D. Rapsang", role: "English Lecturer", bio: "Specializing in English language and literature.", qualifications: "B.A., B.Ed., M.A. English Literature", img: "images/faculty/cordially_rapsang.jpg", category: "secondary" },
+    { name: "Mrs. Miracle Syiem", role: "English Lecturer", bio: "Specializing in English language and literature.", qualifications: "B.A., B.Ed., M.A. English", img: "images/faculty/miracle_syiem.jpg", category: "secondary" },
+    { name: "Mrs. Daphibanbet Dkhar", role: "Social Science Lecturer", bio: "Specializing in Social Science and MBOSE board prep.", qualifications: "B.A., B.Ed., M.A. History", img: "images/faculty/daphibanbet_dkhar.jpg", category: "higher" },
+    { name: " Ms. Liza Jones Shanpru", role: "Mathematics Lecturer", bio: "Specializing in Mathematics.", qualifications: "B.Sc., B.Ed., M.Sc. Mathematics", img: "images/faculty/liza_jones_shanpru.jpg", category: "higher" },
+    { name: " Mrs.  Banrilang Kharjana", role: "Khasi Lecturer", bio: "Specializing in Khasi language and literature.", qualifications: "B.A., B.Ed., M.A. Khasi", img: "images/faculty/banrilang_kharjana.jpg", category: "higher" },
+    { name: " Ms. Eleazer Pariat", role: "Economics Lecturer", bio: "Specializing in Economics.", qualifications: "B.A., B.Ed., M.A. Economics", img: "images/faculty/eleazer_pariat.jpg", category: "higher" },
+    { name: " Mr. Kenneth Thangkhiew", role: "English Lecturer", bio: "Specializing in English language and literature.", qualifications: "B.A., B.Ed., M.A. English Language", img: "images/faculty/kenneth_thangkhiew.jpg", category: "higher" },
+    { name: " Ms. Narolla Ch. Sangma", role: "Khasi Lecturer", bio: "Specializing in Khasi language and literature.", qualifications: "B.A., B.Ed., M.A. Khasi Studies", img: "images/faculty/narolla_sangma.jpg", category: "secondary" },
+    { name: " Mrs. Chanda Prasad", role: "Hindi Lecturer", bio: "Specializing in Hindi language and literature.", qualifications: "B.A., B.Ed., M.A. Hindi", img: "images/faculty/chanda_prasad.jpg", category: "secondary" },
+    { name: "Mr. Livingson Kharkongor", role: "Mathematics Lecturer", bio: "Specializing in Mathematics.", qualifications: "B.Sc., B.Ed., M.Sc. Mathematics", img: "images/faculty/livingson_kharkongor.jpg", category: "secondary" },
+    { name: "Mr. Mannaki Sohliya", role: "Physical Education Teacher", bio: "Specializing in Physical Education.", qualifications: "B.P.Ed., M.Ed. Physical Education, Sports Coaching Certification", img: "images/faculty/mannaki_sohliya.jpg", category: "secondary" },
          
 ];
-
-
-
-
-
 
 
 /**
@@ -64,6 +59,7 @@ function loadFaculty() {
                     <img src="${staff.img}" alt="${staff.name}" class="w-28 h-28 rounded-full object-cover mb-4 border-4 border-emerald-50 group-hover:border-emerald-500 transition-all">
                     <h3 class="text-blue-900 font-bold text-lg leading-tight">${staff.name}</h3>
                     <p class="text-emerald-600 text-xs font-extrabold uppercase tracking-widest mt-1 mb-3">${staff.role}</p>
+                    <p class="text-gray-600 text-xs font-semibold mb-3 line-clamp-2">${staff.qualifications}</p>
                     <p class="text-gray-500 text-sm leading-relaxed italic line-clamp-3">"${staff.bio}"</p>
                 </div>
             `).join('');
