@@ -188,10 +188,11 @@
         const loadMoreBtn = document.getElementById('load-more-btn');
 
         function renderArticles() {
-            if (!grid || typeof articles === 'undefined') return;
+            const articlesToRender = fullArticles.length > 0 ? fullArticles : articles;
+            if (!grid || typeof articlesToRender === 'undefined') return;
             
             // Sort articles so newest are first
-            const sortedArticles = [...articles].sort((a, b) => new Date(b.date) - new Date(a.date));
+            const sortedArticles = [...articlesToRender].sort((a, b) => new Date(b.date) - new Date(a.date));
             const visibleArticles = sortedArticles.slice(0, visibleCount);
             
             grid.innerHTML = visibleArticles.map(art => {
@@ -209,7 +210,7 @@
                         </div>
                     </div>
                     <div class="p-6 flex flex-col flex-grow">
-                        <span class="text-gray-400 text-[10px] font-bold uppercase tracking-widest mb-2 block">${art.date}</span>
+                        <span class="text-gray-400 text-[10px] font-bold uppercase tracking-widest mb-2 block">${formatArticleDate(art.date)}</span>
                         <h3 class="text-xl font-bold text-blue-900 mb-3 group-hover:text-emerald-600 transition-colors line-clamp-2 leading-snug">${art.title}</h3>
                         <p class="text-gray-600 text-sm mb-6 line-clamp-3 flex-grow leading-relaxed">${art.description}</p>
                         <div class="flex items-center gap-3 mt-auto pt-4 border-t border-gray-50">
@@ -237,7 +238,10 @@
         }
 
         // Render immediately on page load
-        document.addEventListener('DOMContentLoaded', renderArticles);
+        document.addEventListener('DOMContentLoaded', async function() {
+            await loadAllArticlesData();
+            renderArticles();
+        });
     </script>
 </body>
 </html>

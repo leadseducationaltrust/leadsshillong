@@ -304,10 +304,11 @@
         // DYNAMIC LATEST ARTICLE HIGHLIGHT
         function renderLatestHighlight() {
             const container = document.getElementById('latest-article-highlight');
-            if(!container || typeof articles === 'undefined' || articles.length === 0) return;
+            const articlesToUse = fullArticles.length > 0 ? fullArticles : articles;
+            if(!container || typeof articlesToUse === 'undefined' || articlesToUse.length === 0) return;
 
             // Automatically sort and grab the newest article
-            const latestArt = articles.sort((a, b) => new Date(b.date) - new Date(a.date))[0]; 
+            const latestArt = articlesToUse.sort((a, b) => new Date(b.date) - new Date(a.date))[0]; 
 
             // Smart fallback for author image
             const authorDisplay = latestArt.authorImage 
@@ -322,7 +323,7 @@
                     <div class="md:w-1/2 p-8 md:p-12 flex flex-col justify-center">
                         <div class="flex items-center gap-4 mb-6">
                             <span class="px-3 py-1 bg-blue-100 text-blue-800 text-[10px] font-black uppercase tracking-widest rounded-full">${latestArt.category}</span>
-                            <span class="text-gray-400 text-[10px] font-bold uppercase tracking-widest">${latestArt.date}</span>
+                            <span class="text-gray-400 text-[10px] font-bold uppercase tracking-widest">${formatArticleDate(latestArt.date)}</span>
                         </div>
                         <h3 class="text-2xl md:text-4xl font-black text-blue-900 mb-6 group-hover:text-emerald-600 transition-colors leading-tight">
                             ${latestArt.title}
@@ -339,7 +340,10 @@
             `;
         }
         
-        window.addEventListener('DOMContentLoaded', renderLatestHighlight);
+        window.addEventListener('DOMContentLoaded', async function() {
+            await loadAllArticlesData();
+            renderLatestHighlight();
+        });
     </script>
 </body>
 </html>

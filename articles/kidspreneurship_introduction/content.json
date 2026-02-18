@@ -1,0 +1,44 @@
+{
+  "title": "Empowering Future Innovators: My Journey with Kidspreneurship 2025 at LEADS Higher Secondary School",
+  "image": "/articles/kidspreneurship_introduction/chillibreeze_team.jpg",
+  "description": "A firsthand account of the transformative Kidspreneurship 2025 program, where young minds at LEADS Higher Secondary School are learning to innovate, create, and lead in the world of entrepreneurship.",
+  "author": "Miracle Syiem",
+  "authorImage": "/articles/kidspreneurship_introduction/miracle_syiem.jpg",
+  "role": "English Teacher",
+  "category": "Student Entrepreneurship",
+  "date": "2026-02-18T17:09:00",
+  "authorBio": "Mrs. Miracle Syiem is a dedicated educator at LEADS Higher Secondary School, specializing in the \"Kidspreneurship\" program. She focuses on transitioning students from traditional instruction to strategic facilitation, empowering those in Classes VI-X to develop independent thinking, structured problem-solving, and sustainable innovation through hands-on creative projects and entrepreneurial competitions.",
+  "coreArgument": "Entrepreneurship education at a young age cultivates creativity, resilience, and real-world problem-solving skills that traditional academics alone cannot provide.",
+  "keyStatistics": [
+    { "label": "Student Participation in Kidspreneurship 2025", "value": "150+" },
+    { "label": "Successful Student-Led Ventures", "value": "20+" }
+  ],
+  "content": [
+    {
+      "type": "paragraph",
+      "text": "When we launched the Kidspreneurship programme at LEADS Higher Secondary School, our goal was simple yet ambitious: to empower our students to become innovators and leaders in the world of entrepreneurship. We wanted to go beyond traditional classroom learning and provide a platform where young minds could explore their creativity, develop real-world business skills, and learn the value of resilience and adaptability. What we didn't anticipate was just how transformative this program would be—not only for our students but for our entire school community."
+    },
+    {
+      "type": "image",
+      "src": "articles/kidspreneurship_introduction/super_image.jpg",
+      "alt": "Students creating plastic waste creations as part of the SUPER Initiative, showcasing their creativity and sustainability awareness"
+    },
+    {
+      "type": "paragraph",
+      "text": "My classroom approach at LEADS focused on structuring learning around idea exploration, creation, presentation, and reflection, where students owned their ideas and I facilitated the process. A major highlight was the 'SUPER' (Single Use Plastic Eco-Recycle) Initiative, where students reimagined plastic waste into creative outputs, transforming discarded materials into value-driven products. This hands-on activity built sustainability awareness, creative problem-solving, and team collaboration, with students showing immense ownership and pride in presenting their work."
+    },
+    {
+      "type": "paragraph",
+      "text": "The program's success was validated through various recognitions, including the Kidspreneurship Pitching Competition with the theme 'Ecospark,' where students turned e-waste into innovative solutions. Our students also participated in the Shillong Literary Fest and the Grove Festival at Mawphlang, showcasing their entrepreneurial stalls and artworks. These achievements represent more than just awards; they signify confidence building, mindset development, and responsible innovation. From my experience, I learned to step back strategically and trust student capability, moving from instruction-heavy teaching to a facilitation model that celebrates effort and growth."
+    },
+    {
+      "type": "image",
+      "src": "articles/kidspreneurship_introduction/junior_pitch_tank.jpg",
+      "alt": "Students showcasing and pitching their innovative ideas during the Junior Pitch-Tank Competition"
+    },
+    {
+      "type": "paragraph",
+      "text": "Looking ahead to Kidspreneurship 2026 and beyond, we will continue with the same student-centered philosophy while strengthening facilitator collaboration and expanding the structured progression up to Class X. Entrepreneurship education helps students realize they can think critically and create meaningful solutions. When students believe in their ability to innovate and contribute, education becomes truly transformational."
+    }
+  ]
+}
