@@ -15,7 +15,7 @@ const schoolData = {
 
     // 2. Contact Information
     contact: {
-        primaryPhone: "+91 94854 34534",
+        primaryPhone: "+91 88372 48004",
         secondaryPhone: "+91 94854 34534", // Update if you have a second number
         website: "https://www.leadsshillong.com", // NEW: Official Website URL
         emailGeneral: "support@leadsschool.com",

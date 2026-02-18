@@ -5,11 +5,14 @@
 
 // --- STAFF DATA ---
 const staffMembers = [
-    { name: "Mrs. Barrilyne Lyngdoh", role: "Principal", bio: "Leading with vision and academic excellence since 2010.", qualifications: "M.A. Education, B.Ed., IIM Certificate", img: "images/faculty/principal.jpg", category: "admin" },
-    { name: "Mrs. Euginia Diana Mukhim", role: "Vice Principal", bio: "Specializing in student welfare and disciplinary management.", qualifications: "B.A., B.Ed., Diploma in Counseling", img: "images/faculty/euginia.jpg", category: "admin" },
-    { name: "Mr. Makarious Sohlang", role: "Chief-Coordinator", bio: "Overseeing school coordination and students' welfare.", qualifications: "B.Sc., B.Ed., M.Ed.", img: "images/faculty/makarious_sohlang.jpg", category: "admin" },
-    { name: "Mrs. Heather Laureat Pyrbot", role: "Upper-Primary Coordinator", bio: "Overseeing curriculum alignment and teacher training.", qualifications: "B.A., B.Ed., M.Ed. Curriculum Design", img: "images/faculty/heather.jpg", category: "admin" },
-    { name: "Mrs. Mayoranda Sohlang", role: "Primary Coordinator", bio: "Managing school administrative logistics and records.", qualifications: "B.Sc., B.Ed., Certificate in School Management", img: "images/faculty/mayoranda.jpg", category: "admin" },
+    { name: "Mrs. Barrilyne Lyngdoh", role: "Principal", bio: "Leading with vision and academic excellence since 2010.", qualifications: "M.A. Education, B.Ed., M.Ed., NEHU", img: "images/faculty/principal.jpg", category: "admin" },
+    { name: "Mrs. Euginia Diana Mukhim", role: "Vice Principal", bio: "Specializing in student welfare and disciplinary management.", qualifications: "B.Sc., B.Ed., M.Sc., Ph.D. (Environmental Science)", img: "images/faculty/euginia.jpg", category: "admin" },
+    { name: "Mr. Makarious Sohlang", role: "Chief-Coordinator", bio: "Overseeing school coordination and students' welfare.", qualifications: "B.Sc., Diploma in Electronics, Diploma in Music", img: "images/faculty/makarious_sohlang.jpg", category: "admin" },
+    { name: "Mrs. Heather Laureat Pyrbot", 
+            role: "Upper-Primary Coordinator", 
+            bio: "Overseeing curriculum alignment and teacher training.", 
+            qualifications: "B.A., B.Ed., D.El.Ed", img: "images/faculty/heather.jpg", category: "admin" },
+    { name: "Mrs. Mayoranda Sohlang", role: "Primary Coordinator", bio: "Managing school administrative logistics and records.", qualifications: "B.A., B.Ed. (Special Education)", img: "images/faculty/mayoranda.jpg", category: "admin" },
     { name: "Ms. Phriemtilin Wahlang", role: "Nursery Educator", bio: "Creating a joyful learning environment for our youngest learners.", qualifications: "Diploma in Early Childhood Education, Montessori Certification", img: "images/faculty/phriemtilin.jpg", category: "preprimary" },
     { name: "Mrs. Jenita Warjri", role: "Kindergarten Educator", bio: "Focusing on early literacy and motor skill development.", qualifications: "B.A., B.Ed., Diploma in Preschool Education", img: "images/faculty/jenita.jpg", category: "preprimary" },
     { name: "Mrs. Kmendahun Khriam", role: "Kindergarten Educator", bio: "Supporting classroom activities and individual child care.", qualifications: "B.Ed. Preschool, Montessori Certificate", img: "images/faculty/kmendahun_khriam.jpg", category: "preprimary" },
