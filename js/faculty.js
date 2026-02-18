@@ -18,9 +18,29 @@ const staffMembers = [
     { name: "Mrs. Annie Memory Khonglah", role: "Senior Primary Teacher", bio: "Building strong foundations in Social Science.", img: "images/faculty/annie_khonglah.jpg", category: "primary" },
     { name: "Ms. Bandarishisha Dkhar", role: "Geography and Health Education Teacher", bio: "Specializing in Geography/Physical & Health Educations and MBOSE board prep.", img: "images/faculty/bandarishisha_dkhar.jpg", category: "secondary" },
     { name: "Mrs. Michellyne Syiem", role: "Biology Lecturer", bio: "Preparing students for competitive exams and higher education.", img: "images/faculty/michellyne_syiem.jpg", category: "higher" },
+    { name: "Mrs.  Evonne C Diengdoh", role: "Biology Lecturer", bio: "Supporting students in their biology studies.", img: "images/faculty/evonne_diengdoh.jpg", category: "higher" },
     { name: "Mrs. Badaaiphylla Kharmuti", role: "Head of Accounts", bio: "Ensuring transparent financial operations.", img: "images/faculty/badaaiphylla_kharmuti.jpg", category: "support" },
-    { name: "Ms.  Balarishisha Sohlang", role: "Account Manager", bio: "Overseeing account maintenance and financial teams.", img: "images/faculty/balarishisha_sohlang.jpg", category: "support" }
+    { name: "Ms.  Balarishisha Sohlang", role: "Account Manager", bio: "Overseeing account maintenance and financial teams.", img: "images/faculty/balarishisha_sohlang.jpg", category: "support" },
+    { name: "Mrs.  Therina Lyngdoh", role: "Account Assistant", bio: "Supporting account maintenance and financial operations.", img: "images/faculty/therina_lyngdoh.jpg", category: "support" },
+    { name: "Ms. Cordially D. Rapsang", role: "English Lecturer", bio: "Specializing in English language and literature.", img: "images/faculty/cordially_rapsang.jpg", category: "secondary" },
+    { name: "Mrs. Miracle Syiem", role: "English Lecturer", bio: "Specializing in English language and literature.", img: "images/faculty/miracle_syiem.jpg", category: "secondary" },
+    { name: "Mrs. Daphibanbet Dkhar", role: "Social Science Lecturer", bio: "Specializing in Social Science and MBOSE board prep.", img: "images/faculty/daphibanbet_dkhar.jpg", category: "higher" },
+    { name: " Ms. Liza Jones Shanpru", role: "Mathematics Lecturer", bio: "Specializing in Mathematics.", img: "images/faculty/liza_jones_shanpru.jpg", category: "higher" },
+    { name: " Mrs.  Banrilang Kharjana", role: "Khasi Lecturer", bio: "Specializing in Khasi language and literature.", img: "images/faculty/banrilang_kharjana.jpg", category: "higher" },
+    { name: " Ms. Eleazer Pariat", role: "Economics Lecturer", bio: "Specializing in Economics.", img: "images/faculty/eleazer_pariat.jpg", category: "higher" },
+    { name: " Mr. Kenneth Thangkhiew", role: "English Lecturer", bio: "Specializing in English language and literature.", img: "images/faculty/kenneth_thangkhiew.jpg", category: "higher" },
+    { name: " Ms. Narolla Ch. Sangma", role: "Khasi Lecturer", bio: "Specializing in Khasi language and literature.", img: "images/faculty/narolla_sangma.jpg", category: "secondary" },
+    { name: " Mrs. Chanda Prasad", role: "Hindi Lecturer", bio: "Specializing in Hindi language and literature.", img: "images/faculty/chanda_prasad.jpg", category: "secondary" },
+    { name: "Mr. Livingson Kharkongor", role: "Mathematics Lecturer", bio: "Specializing in Mathematics.", img: "images/faculty/livingson_kharkongor.jpg", category: "secondary" },
+    { name: "Mr. Mannaki Sohliya", role: "Physical Education Teacher", bio: "Specializing in Physical Education.", img: "images/faculty/mannaki_sohliya.jpg", category: "secondary" },
+         
 ];
+
+
+
+
+
+
 
 /**
  * Renders staff cards into their respective category grids
