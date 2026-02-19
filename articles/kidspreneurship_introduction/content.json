@@ -13,10 +13,10 @@
     { "label": "Student Participation in Kidspreneurship 2025", "value": "150+" },
     { "label": "Successful Student-Led Ventures", "value": "20+" }
   ],
-  "content": [
+   "content": [
     {
       "type": "paragraph",
-      "text": "When we launched the Kidspreneurship programme at LEADS Higher Secondary School, our goal was simple yet ambitious: to empower our students to become innovators and leaders in the world of entrepreneurship. We wanted to go beyond traditional classroom learning and provide a platform where young minds could explore their creativity, develop real-world business skills, and learn the value of resilience and adaptability. What we didn't anticipate was just how transformative this program would be—not only for our students but for our entire school community."
+      "text": "When we launched the Kidspreneurship programme at LEADS Higher Secondary School, our goal was simple yet ambitious: to empower our students to become innovators and leaders in the world of entrepreneurship. We wanted to go beyond traditional classroom learning and provide a platform where young minds could explore their creativity, develop real-world business skills and learn the value of resilience and adaptability. What we didn't anticipate was just how transformative this program would be—not only for our students but for our entire school community."
     },
     {
       "type": "image",
@@ -24,18 +24,41 @@
       "alt": "Students creating plastic waste creations as part of the SUPER Initiative, showcasing their creativity and sustainability awareness"
     },
     {
-      "type": "paragraph",
-      "text": "My classroom approach at LEADS focused on structuring learning around idea exploration, creation, presentation, and reflection, where students owned their ideas and I facilitated the process. A major highlight was the 'SUPER' (Single Use Plastic Eco-Recycle) Initiative, where students reimagined plastic waste into creative outputs, transforming discarded materials into value-driven products. This hands-on activity built sustainability awareness, creative problem-solving, and team collaboration, with students showing immense ownership and pride in presenting their work."
-    },
+        "type": "paragraph",
+        "text": "The DOJC (Don't Overthink, Just Chill) movement was born out of a necessity to address the growing culture of perfectionism and anxiety that often hinders creativity. At its core, DOJC is about embracing the process over the result, encouraging students and mentors alike to dive into projects with curiosity rather than fear."
+      },
+      {
+        "type": "paragraph",
+        "text": "A prime example of this philosophy in action is our upcycling initiative, which breathes new life into old clothes through vibrant, creative design. Spearheaded by the talented team of Banribok, Bansan and Natasha, this project proved that chilling out doesn't mean slowing down."
+      },
+      {
+        "type": "image",
+        "src": "articles/kidspreneurship_introduction/dojc.jpg",
+        "alt": "A group of students engaged in a relaxed brainstorming session with Bah Nick - MadBoy, embodying the DOJC spirit of collaborative and stress-free innovation."
+      }, 
     {
       "type": "paragraph",
-      "text": "The program's success was validated through various recognitions, including the Kidspreneurship Pitching Competition with the theme 'Ecospark,' where students turned e-waste into innovative solutions. Our students also participated in the Shillong Literary Fest and the Grove Festival at Mawphlang, showcasing their entrepreneurial stalls and artworks. These achievements represent more than just awards; they signify confidence building, mindset development, and responsible innovation. From my experience, I learned to step back strategically and trust student capability, moving from instruction-heavy teaching to a facilitation model that celebrates effort and growth."
+      "text": "My classroom approach at LEADS focused on structuring learning around idea exploration, creation, presentation and reflection, where students owned their ideas and I facilitated the process. A major highlight was the 'SUPER' (Single Use Plastic Eco-Recycle) Initiative, where students reimagined plastic waste into creative outputs, transforming discarded materials into value-driven products. This hands-on activity built sustainability awareness, creative problem-solving, and team collaboration, with students showing immense ownership and pride in presenting their work."
     },
+      {
+        "type": "paragraph",
+        "text": "The program’s impact was vividly demonstrated through high-profile recognitions and public showcases. At the 'Ecospark' Kidspreneurship Pitching Competition, our students—Mewanpynkmen, Ibatemon, Lingthoi, and Naomi—earned the Runners-Up title by transforming e-waste into sustainable solutions. Beyond the competition circuit, students took their entrepreneurial ventures to the Shillong Literary Fest and the Grove Festival at Mawphlang, managing stalls and presenting original artwork. These milestones go far beyond mere trophies; they reflect a profound shift toward confident, responsible innovation. For me, this journey necessitated a move from traditional instruction to a facilitation model, learning to step back and trust in the students' innate capabilities while celebrating their grit and growth."
+      },
     {
       "type": "image",
       "src": "articles/kidspreneurship_introduction/junior_pitch_tank.jpg",
       "alt": "Students showcasing and pitching their innovative ideas during the Junior Pitch-Tank Competition"
     },
+    {
+        "type": "paragraph",
+        "text": "Gathered at the Chicken Wagon roadside store, Fenny, Miracle, Joelan and Rishot are pictured in the midst of a collaborative brainstorming session. The team is focused on developing environmentally friendly work practices, blending their creative energy with a commitment to sustainability. By stepping out of the traditional workspace and into the local community, they are finding fresh inspiration for ways to ensure their future projects are as eco-conscious as they are innovative."
+      },
+    {
+      "type": "image",
+      "src": "articles/kidspreneurship_introduction/brainstorming.jpg",
+      "alt": "Fenny, Miracle, Joelan and Rishot sitting at a yellow-clothed table under a canopy at the Chicken Wagon roadside store, engaged in a brainstorming session for environmentally-friendly work."
+    },
+    
     {
       "type": "paragraph",
       "text": "Looking ahead to Kidspreneurship 2026 and beyond, we will continue with the same student-centered philosophy while strengthening facilitator collaboration and expanding the structured progression up to Class X. Entrepreneurship education helps students realize they can think critically and create meaningful solutions. When students believe in their ability to innovate and contribute, education becomes truly transformational."
