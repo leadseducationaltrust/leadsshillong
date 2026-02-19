@@ -1,0 +1,77 @@
+{
+  "id": "preprimary",
+  "name": "Pre-Primary",
+  "card": {
+    "title": "Pre-Primary (Play School, Nursery, KG IV & KG V)",
+    "iconColor": "pink",
+    "iconType": "heart",
+    "description": "Nurturing young minds through play-based learning, creativity, and early skill development in a warm, nurturing environment."
+  },
+  "page": {
+    "title": "The Pre-Primary Experience",
+    "subtitle": "Nursery to KG V: Where curiosity meets discovery in a nurturing environment.",
+    "badge": "Foundation Stage",
+    "tagline": "Nurturing Young Minds Since 2010",
+    "headOfDepartment": {
+      "name": "Mrs. Mayoranda Sohlang",
+      "photo": "images/faculty/mayoranda.jpg",
+      "quote": "Our goal is to create a safe haven where children don't just learn to read, but learn to love the process of discovery.",
+      "yearsOfExperience": "14+",
+      "specialization": "Custom Curriculum"
+    },
+    "subPrograms": [
+      {
+        "title": "Play School",
+        "ageGroup": "Age 2-3 Years",
+        "icon": "heart",
+        "iconBg": "pink",
+        "description": "Introduction to classroom environment, basic communication, and early socialization through guided play activities."
+      },
+      {
+        "title": "Nursery",
+        "ageGroup": "Age 3+ Years",
+        "icon": "child",
+        "iconBg": "blue-900",
+        "description": "Focusing on social integration, sensory exploration, and basic motor skill development through play."
+      },
+      {
+        "title": "KG IV",
+        "ageGroup": "Age 4+ Years",
+        "icon": "pencil-alt",
+        "iconBg": "emerald",
+        "description": "Introduction to formal strokes, cursive readiness, and foundational numeracy within the NCERT framework."
+      },
+      {
+        "title": "KG V",
+        "ageGroup": "Age 5+ Years",
+        "icon": "book-reader",
+        "iconBg": "blue-900",
+        "description": "Advanced life skills, cursive writing mastery, and preparation for the Primary transition."
+      }
+    ],
+    "curriculum": {
+      "heading": "The LEADS Custom Curriculum",
+      "intro": "While we align with the NCERT framework, we believe early childhood requires a deeper touch. Our custom curriculum integrates:",
+      "features": [
+        {
+          "title": "Motor Skills",
+          "subtitle": "Fine & Gross motor coordination"
+        },
+        {
+          "title": "Cursive Writing",
+          "subtitle": "Early penmanship excellence"
+        },
+        {
+          "title": "Special Needs",
+          "subtitle": "Dedicated intervention & support"
+        },
+        {
+          "title": "Life Skills",
+          "subtitle": "Emotional intelligence & ethics"
+        }
+      ]
+    },
+    "ctaText": "Start Their Journey Today",
+    "ctaSubtext": "Admissions for the upcoming session are now open for Pre-Primary."
+  }
+}

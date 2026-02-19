@@ -1,0 +1,77 @@
+{
+  "id": "primary",
+  "name": "Primary",
+  "card": {
+    "title": "Primary Education (I-V)",
+    "iconColor": "amber",
+    "iconType": "lightbulb",
+    "description": "Building strong academic foundations with emphasis on literacy, numeracy, science, and holistic development through interactive learning."
+  },
+  "page": {
+    "title": "The Primary Excellence Program",
+    "subtitle": "Classes I-V: Building strong foundations for lifelong learning.",
+    "badge": "Elementary Stage",
+    "tagline": "Shaping Curious Minds Since 2010",
+    "headOfDepartment": {
+      "name": "Mrs. Heather L. Pyrbot",
+      "photo": "images/faculty/heather.jpg",
+      "quote": "We believe that primary education is the foundation for all future learning. Our focus is on developing curious, confident learners.",
+      "yearsOfExperience": "12+",
+      "specialization": "Foundation Building"
+    },
+    "subPrograms": [
+      {
+        "title": "Class I",
+        "ageGroup": "Age 5-6 Years",
+        "icon": "book",
+        "iconBg": "amber",
+        "description": "Transition from kindergarten with focus on reading, writing, and basic mathematics."
+      },
+      {
+        "title": "Class II",
+        "ageGroup": "Age 6-7 Years",
+        "icon": "bookmark",
+        "iconBg": "amber",
+        "description": "Expanding literacy and numeracy skills with introduction to science concepts."
+      },
+      {
+        "title": "Class III",
+        "ageGroup": "Age 7-8 Years",
+        "icon": "scroll",
+        "iconBg": "amber",
+        "description": "Consolidation of core academics with increased focus on comprehension and problem-solving."
+      },
+      {
+        "title": "Class IV-V",
+        "ageGroup": "Age 8-10 Years",
+        "icon": "lightbulb",
+        "iconBg": "amber",
+        "description": "Advanced curriculum introducing scientific thinking and higher-order problem solving."
+      }
+    ],
+    "curriculum": {
+      "heading": "Interactive Learning Approach",
+      "intro": "Our primary curriculum emphasizes experiential learning combined with strong academics:",
+      "features": [
+        {
+          "title": "Literacy Development",
+          "subtitle": "Comprehensive English & Language arts"
+        },
+        {
+          "title": "Mathematical Thinking",
+          "subtitle": "Problem-solving skills"
+        },
+        {
+          "title": "Science Exploration",
+          "subtitle": "Hands-on scientific inquiry"
+        },
+        {
+          "title": "Holistic Growth",
+          "subtitle": "Arts, sports, and values"
+        }
+      ]
+    },
+    "ctaText": "Enroll Your Child Today",
+    "ctaSubtext": "Build a strong foundation for academic success in our engaging Primary program."
+  }
+}

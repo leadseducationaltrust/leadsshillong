@@ -1,0 +1,63 @@
+{
+  "id": "secondary",
+  "name": "Secondary",
+  "card": {
+    "title": "Secondary Education (IX-X)",
+    "iconColor": "blue",
+    "iconType": "flask",
+    "description": "Advanced curriculum with rigorous academics, laboratory work, and competitive exam preparation aligned with MBOSE board standards."
+  },
+  "page": {
+    "title": "The Secondary Excellence Program",
+    "subtitle": "Classes IX-X: MBOSE board preparation with rigorous academics.",
+    "badge": "Board Stage",
+    "tagline": "Achieving Board Excellence Since 2010",
+    "headOfDepartment": {
+      "name": "Ms. Cordially Rapsang",
+      "photo": "images/faculty/cordially_rapsang.jpg",
+      "quote": "Secondary education is critical for student success. We combine rigorous academics with mentorship to ensure board excellence.",
+      "yearsOfExperience": "16+",
+      "specialization": "MBOSE Board Excellence"
+    },
+    "subPrograms": [
+      {
+        "title": "Class IX",
+        "ageGroup": "Age 13-14 Years",
+        "icon": "flask",
+        "iconBg": "blue",
+        "description": "Foundation strengthening with MBOSE curriculum aligned academics and advanced concepts."
+      },
+      {
+        "title": "Class X (Board)",
+        "ageGroup": "Age 14-15 Years",
+        "icon": "trophy",
+        "iconBg": "blue",
+        "description": "Intensive board examination preparation with comprehensive subject mastery and exam strategies."
+      }
+    ],
+    "curriculum": {
+      "heading": "Board-Focused Excellence",
+      "intro": "Our secondary program ensures students achieve excellence in MBOSE board examinations:",
+      "features": [
+        {
+          "title": "Laboratory Practice",
+          "subtitle": "Practical science skills"
+        },
+        {
+          "title": "Board Preparation",
+          "subtitle": "Exam strategies & practice"
+        },
+        {
+          "title": "Subject Mastery",
+          "subtitle": "In-depth concept clarity"
+        },
+        {
+          "title": "Career Guidance",
+          "subtitle": "Stream selection support"
+        }
+      ]
+    },
+    "ctaText": "Achieve Board Excellence",
+    "ctaSubtext": "Join our secondary program for guaranteed success in MBOSE board examinations."
+  }
+}

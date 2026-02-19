@@ -1,0 +1,70 @@
+{
+  "id": "middle",
+  "name": "Middle",
+  "card": {
+    "title": "Middle Education (VI-VIII)",
+    "iconColor": "teal",
+    "iconType": "microscope",
+    "description": "Introducing specialized subjects and logical reasoning with focus on conceptual understanding, MBOSE board preparation, and skill-based learning."
+  },
+  "page": {
+    "title": "The Middle School Journey",
+    "subtitle": "Classes VI-VIII: Preparing for advanced academics with conceptual clarity.",
+    "badge": "Middle Stage",
+    "tagline": "Developing Young Scholars Since 2010",
+    "headOfDepartment": {
+      "name": "Mrs. Euginia Diana Mukhim",
+      "photo": "images/faculty/euginia.jpg",
+      "quote": "Middle school is where students discover their strengths and passions. We support their journey with rigorous academics and mentorship.",
+      "yearsOfExperience": "15+",
+      "specialization": "MBOSE Preparation"
+    },
+    "subPrograms": [
+      {
+        "title": "Class VI",
+        "ageGroup": "Age 10-11 Years",
+        "icon": "microscope",
+        "iconBg": "teal",
+        "description": "Introduction to specialized subjects with emphasis on conceptual clarity and academic rigor."
+      },
+      {
+        "title": "Class VII",
+        "ageGroup": "Age 11-12 Years",
+        "icon": "flask",
+        "iconBg": "teal",
+        "description": "Deepening subject knowledge with practical application and MBOSE board alignment."
+      },
+      {
+        "title": "Class VIII",
+        "ageGroup": "Age 12-13 Years",
+        "icon": "atom",
+        "iconBg": "teal",
+        "description": "Comprehensive board preparation with intensive academics and board exam readiness."
+      }
+    ],
+    "curriculum": {
+      "heading": "MBOSE Aligned Curriculum",
+      "intro": "Our middle school program prepares students for board examinations while fostering conceptual understanding:",
+      "features": [
+        {
+          "title": "Science Lab",
+          "subtitle": "Hands-on practical work"
+        },
+        {
+          "title": "Mathematics Excellence",
+          "subtitle": "Problem-solving mastery"
+        },
+        {
+          "title": "Language Arts",
+          "subtitle": "Communication skills"
+        },
+        {
+          "title": "Competitive Prep",
+          "subtitle": "Olympiad & entrance training"
+        }
+      ]
+    },
+    "ctaText": "Prepare for Excellence",
+    "ctaSubtext": "Our middle school program ensures strong foundation for secondary board examinations."
+  }
+}

@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Academic Programs | LEADS Higher Secondary School</title>
+    <link rel="icon" type="image/jpeg" href="images/school-logo.jpg">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap');
+        body { font-family: 'Inter', sans-serif; }
+
+        /* Mobile Menu Fix */
+        @media (max-width: 1023px) {
+            #mobile-menu.active {
+                display: flex !important;
+                flex-direction: column;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: white;
+                padding: 2rem;
+                gap: 1.5rem;
+                box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+                border-top: 1px solid #f1f5f9;
+                z-index: 100;
+            }
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-900 leading-relaxed">
+
+    <div class="bg-emerald-700 text-white py-2 text-xs md:text-sm">
+        <div class="container mx-auto flex justify-between px-4">
+            <div class="flex space-x-4">
+                <a href="#" class="flex items-center"><i class="fas fa-phone mr-1"></i> <span id="global-phone-1"></span></a>
+            </div>
+            <div class="hidden md:block header-tagline">Nurturing Excellence Since 2010</div>
+        </div>
+    </div>
+
+    <nav class="bg-white shadow-sm sticky top-0 z-[60] min-h-[90px] flex items-center">
+        <div class="container mx-auto px-4 py-3 flex justify-between items-center w-full relative">
+            <a href="index.html" class="flex items-center gap-3 group">
+                <img src="images/school-logo.jpg" alt="LEADS Logo" class="h-16 w-auto object-contain"> 
+                <div class="flex flex-col justify-center border-l-2 border-gray-100 pl-3">
+                    <span class="block text-xl md:text-2xl font-black text-blue-900 leading-none uppercase tracking-tighter">LEADS</span>
+                    <span class="text-[9px] font-bold text-emerald-600 tracking-wider uppercase"><span class="page-program-section">Academic Programs</span></span>
+                </div>
+            </a>
+
+            <ul id="mobile-menu" class="hidden lg:flex items-center space-x-8 font-extrabold text-gray-600 text-[13px] uppercase">
+                <li><a href="index.html" class="hover:text-emerald-600 transition-all">Home</a></li>
+                <li><a href="about.html" class="hover:text-emerald-600 transition-all">About</a></li>
+                <li><a href="faculty.html" class="hover:text-emerald-600 transition-all">Faculty</a></li>
+                <li><a href="admissions.html" class="hover:text-emerald-600 transition-all">Admissions</a></li>
+                <li><a href="contact.html" class="hover:text-emerald-600 transition-all">Contact</a></li>
+            </ul>
+
+            <button id="menu-btn" class="lg:hidden text-blue-900 p-2 relative z-[70]">
+                <i class="fas fa-bars text-3xl" id="menu-icon"></i>
+            </button>
+        </div>
+    </nav>
+
+    <header class="bg-blue-900 py-20 text-center text-white relative overflow-hidden">
+        <div class="absolute inset-0 opacity-10">
+            <div class="absolute top-10 left-10 w-20 h-20 border-4 border-emerald-400 rounded-full"></div>
+            <div class="absolute bottom-10 right-20 w-32 h-32 border-4 border-white opacity-20 transform rotate-45"></div>
+        </div>
+        <div class="container mx-auto px-4 relative z-10">
+            <span class="page-title-badge bg-emerald-500 text-white px-4 py-1 rounded-full text-xs font-black uppercase tracking-widest mb-4 inline-block">Programme</span>
+            <h1 class="text-4xl md:text-6xl font-black uppercase tracking-tight"><span class="text-emerald-400">Programme</span> <span class="page-title-main">Name</span></h1>
+            <p class="page-subtitle mt-4 text-gray-300 max-w-2xl mx-auto text-lg">Programme subtitle goes here</p>
+        </div>
+    </header>
+
+    <section class="py-16 bg-white head-of-department-section">
+        <!-- Head of Department section will be dynamically loaded here -->
+    </section>
+
+    <section class="py-20">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-black text-blue-900 uppercase">Academic <span class="text-emerald-600">Programmes</span></h2>
+                <div class="w-24 h-1.5 bg-emerald-500 mx-auto mt-4"></div>
+            </div>
+
+            <div class="sub-programmes-section">
+                <!-- Sub-programs will be dynamically loaded here -->
+            </div>
+        </div>
+    </section>
+
+    <section class="py-20 bg-blue-900 text-white curriculum-section">
+        <!-- Curriculum section will be dynamically loaded here -->
+    </section>
+
+    <section class="py-20 text-center cta-section">
+        <!-- CTA section will be dynamically loaded here -->
+    </section>
+
+    <footer class="bg-gray-100 py-12 border-t border-gray-200">
+        <div class="container mx-auto px-4 text-center">
+            <img src="images/school-logo.jpg" alt="LEADS Logo" class="h-12 mx-auto mb-6 opacity-50 grayscale">
+            <p id="global-copyright" class="text-gray-400 text-xs uppercase font-bold tracking-widest"></p>
+        </div>
+    </footer>
+
+    <!-- Container to identify this as a program page -->
+    <div class="program-page-container hidden"></div>
+
+    <script src="js/config.js"></script>
+    <script src="js/programs.js"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const menuBtn = document.getElementById('menu-btn');
+            const mobileMenu = document.getElementById('mobile-menu');
+            const menuIcon = document.getElementById('menu-icon');
+
+            if(menuBtn && mobileMenu) {
+                menuBtn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    mobileMenu.classList.toggle('active');
+                    menuIcon.classList.toggle('fa-bars');
+                    menuIcon.classList.toggle('fa-times');
+                });
+
+                document.addEventListener('click', (e) => {
+                    if (!mobileMenu.contains(e.target) && !menuBtn.contains(e.target)) {
+                        if(mobileMenu.classList.contains('active')) {
+                            mobileMenu.classList.remove('active');
+                            menuIcon.classList.remove('fa-times');
+                            menuIcon.classList.add('fa-bars');
+                        }
+                    }
+                });
+            }
+
+            // Sync with Global Config if available
+            if(window.schoolConfig) {
+                const phoneElement = document.getElementById('global-phone-1');
+                if(phoneElement) phoneElement.innerText = window.schoolConfig.contact.phone1;
+            }
+        });
+    </script>
+</body>
+</html>

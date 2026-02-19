@@ -1,0 +1,63 @@
+{
+  "id": "higher_secondary_arts",
+  "name": "Higher Secondary (Arts)",
+  "card": {
+    "title": "Higher Secondary (Arts)",
+    "iconColor": "purple",
+    "iconType": "book-open",
+    "description": "Comprehensive arts curriculum including English, History, Geography, and Economics for students pursuing humanities and social sciences."
+  },
+  "page": {
+    "title": "Higher Secondary Arts Stream",
+    "subtitle": "Classes XI-XII: Exploring humanities and preparing for social sciences careers.",
+    "badge": "Advanced Humanities",
+    "tagline": "Developing Future Leaders Since 2010",
+    "headOfDepartment": {
+      "name": "Ms. Daphibanbet Dkhar",
+      "photo": "images/faculty/daphibanbet_dkhar.jpg",
+      "quote": "Arts education cultivates critical thinking and cultural understanding. We prepare students for leadership in diverse fields.",
+      "yearsOfExperience": "17+",
+      "specialization": "Humanities Excellence"
+    },
+    "subPrograms": [
+      {
+        "title": "Class XI (Arts)",
+        "ageGroup": "Age 15-16 Years",
+        "icon": "book-open",
+        "iconBg": "purple",
+        "description": "Foundation in English, History, Geography, Economics, and Political Science."
+      },
+      {
+        "title": "Class XII (Arts) + Boards",
+        "ageGroup": "Age 16-17 Years",
+        "icon": "pen-fancy",
+        "iconBg": "purple",
+        "description": "Board examinations combined with preparation for competitive exams like UPSC, Civil Services, and university entrance."
+      }
+    ],
+    "curriculum": {
+      "heading": "Humanities & Leadership Excellence",
+      "intro": "Our arts stream develops critical thinkers prepared for diverse career paths:",
+      "features": [
+        {
+          "title": "Language Excellence",
+          "subtitle": "English & regional languages"
+        },
+        {
+          "title": "History & Culture",
+          "subtitle": "Deep historical understanding"
+        },
+        {
+          "title": "Civil Services Prep",
+          "subtitle": "UPSC & competitive exams"
+        },
+        {
+          "title": "Research & Analysis",
+          "subtitle": "Critical thinking skills"
+        }
+      ]
+    },
+    "ctaText": "Explore Humanities Excellence",
+    "ctaSubtext": "Join our arts stream for board success and preparation for humanities careers."
+  }
+}

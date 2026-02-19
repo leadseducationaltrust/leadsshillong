@@ -1,0 +1,63 @@
+{
+  "id": "higher_secondary_science",
+  "name": "Higher Secondary (Science)",
+  "card": {
+    "title": "Higher Secondary (Science)",
+    "iconColor": "indigo",
+    "iconType": "atom",
+    "description": "Specialized science stream with Physics, Chemistry, Biology, and Mathematics for students pursuing science careers and university entrance."
+  },
+  "page": {
+    "title": "Higher Secondary Science Stream",
+    "subtitle": "Classes XI-XII: Preparing for science careers and competitive university entrance.",
+    "badge": "Advanced Science",
+    "tagline": "Nurturing Future Scientists Since 2010",
+    "headOfDepartment": {
+      "name": "Mrs. Michellyne Syiem",
+      "photo": "images/faculty/michellyne_syiem.jpg",
+      "quote": "Science education is about developing critical thinking and research aptitude. We prepare students not just for exams, but for scientific careers.",
+      "yearsOfExperience": "18+",
+      "specialization": "IIT-JEE Prep & Research"
+    },
+    "subPrograms": [
+      {
+        "title": "Class XI (Science)",
+        "ageGroup": "Age 15-16 Years",
+        "icon": "atom",
+        "iconBg": "indigo",
+        "description": "Foundation in Physics, Chemistry, Biology, and Mathematics with experimental learning."
+      },
+      {
+        "title": "Class XII (Science) + Boards",
+        "ageGroup": "Age 16-17 Years",
+        "icon": "microscope",
+        "iconBg": "indigo",
+        "description": "Board examinations combined with advanced preparation for competitive exams like JEE and NEET."
+      }
+    ],
+    "curriculum": {
+      "heading": "Competitive Excellence in Science",
+      "intro": "Our science stream combines board preparation with competitive exam training:",
+      "features": [
+        {
+          "title": "Advanced Labs",
+          "subtitle": "State-of-art research facilities"
+        },
+        {
+          "title": "JEE Preparation",
+          "subtitle": "Engineering entrance coaching"
+        },
+        {
+          "title": "NEET Coaching",
+          "subtitle": "Medical entrance support"
+        },
+        {
+          "title": "Research Project",
+          "subtitle": "Scientific inquiry & innovation"
+        }
+      ]
+    },
+    "ctaText": "Pursue Your Science Dream",
+    "ctaSubtext": "Join our science stream for board excellence and competitive exam success."
+  }
+}
