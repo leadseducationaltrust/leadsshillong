@@ -4,7 +4,7 @@ const newsAlerts = [
         date: '2026-02-18 14:30', 
         title: 'Admission Open for Class XI (Arts and Science Stream)',
         message: 'Admission Open for Class XI (Arts and Science Stream) for the 2026-27 session. Visit the Admissions office in Langkerding, Nongmensong for details.', 
-        description: 'Admissions for Class XI (Arts and Science Stream) for the 2026-27 academic session are actively accepting applications. With classes commencing soon, this is an excellent opportunity for students to join our vibrant learning community. Interested students and parents are encouraged to visit our admissions office at Langkerding, Nongmensong for comprehensive guidance on the application process, eligibility criteria, and available streams. Visit our admissions portal at https://www.leadssshillong.com/admissions.html to apply online or for more information. Limited seats are available, so we recommend completing your application promptly. For any inquiries, contact our admissions team at +91 88372 48004. We are excited to welcome qualified students to LEADS Higher Secondary School.',
+        description: 'Admissions for Class XI (Arts and Science Stream) for the 2026-27 academic session are actively accepting applications. With classes commencing soon, this is an excellent opportunity for students to join our vibrant learning community. Interested students and parents are encouraged to visit our admissions office at Langkerding, Nongmensong for comprehensive guidance on the application process, eligibility criteria, and available streams. Visit our admissions portal at https://www.leadsshillong.com/admissions.html to apply online or for more information. Limited seats are available, so we recommend completing your application promptly. For any inquiries, contact our admissions team at +91 88372 48004. We are excited to welcome qualified students to LEADS Higher Secondary School.',
         image: 'https://images.unsplash.com/photo-1523580494863-6f3031224c94?auto=format&fit=crop&w=500&h=300'
     },
     { 
@@ -57,6 +57,38 @@ const newsPerPage = 5;
 
 // Sort all news once for consistent ordering
 const sortedNewsAlerts = [...newsAlerts].sort((a, b) => new Date(b.date) - new Date(a.date));
+
+/**
+ * Parse text and convert URLs and phone numbers to clickable elements
+ * Returns HTML string with clickable links and phone numbers
+ */
+function parseTextWithLinks(text) {
+    // Regular expressions for URLs and phone numbers
+    const urlRegex = /(https?:\/\/[^\s]+)/g;
+    const phoneRegex = /(\+91\s?\d{5}\s?\d{5}|\+91\s?\d{10})/g;
+
+    let result = text;
+
+    // Replace URLs with clickable buttons
+    result = result.replace(urlRegex, (url) => {
+        // Remove trailing punctuation if present
+        let cleanUrl = url;
+        let trailingChar = '';
+        if (url.match(/[.,;:!?]$/)) {
+            trailingChar = url[url.length - 1];
+            cleanUrl = url.slice(0, -1);
+        }
+        return `<a href="${cleanUrl}" target="_blank" class="inline-block px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white font-bold rounded-lg transition-colors text-sm mx-1" onclick="event.stopPropagation()">Visit Portal</a>${trailingChar}`;
+    });
+
+    // Replace phone numbers with clickable tel: links
+    result = result.replace(phoneRegex, (phone) => {
+        const cleanPhone = phone.replace(/\s/g, '');
+        return `<a href="tel:${cleanPhone}" class="inline-block px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-lg transition-colors text-sm mx-1 cursor-pointer" onclick="event.stopPropagation()">${phone}</a>`;
+    });
+
+    return result;
+}
 
 function loadNewsMarquee() {
     const marqueeElement = document.getElementById('news-marquee');
@@ -113,7 +145,7 @@ function renderNewsPage(page = 0) {
                         <span class="text-xs text-gray-400 font-semibold whitespace-nowrap">${formattedDate} ${formattedTime}</span>
                     </div>
                     <p class="text-gray-700 font-medium mb-3">${news.message}</p>
-                    <p class="text-gray-600 text-sm leading-relaxed">${news.description}</p>
+                    <div class="text-gray-600 text-sm leading-relaxed">${parseTextWithLinks(news.description)}</div>
                 </div>
             </div>
         `;
