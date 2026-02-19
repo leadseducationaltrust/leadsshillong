@@ -39,9 +39,9 @@ const schoolData = {
     // 4. Social Media Links
     socials: {
         facebook: "https://facebook.com/leadsshillong",
-        instagram: "https://instagram.com/leadsschool",
+        instagram: "https://instagram.com/leadsshillong",
         youtube: "https://www.youtube.com/@leadsshillong",
-        twitter: "https://twitter.com/leadsschool"
+        twitter: "https://twitter.com/leadsshillong" // Optional: Add if you have a Twitter account
     },
 
     // 5. Academics & Admissions

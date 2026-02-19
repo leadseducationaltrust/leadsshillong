@@ -8,7 +8,8 @@ const programsList = [
   'middle',
   'secondary',
   'higher_secondary_science',
-  'higher_secondary_arts'
+  'higher_secondary_arts',
+  'intervention'
 ];
 
 let allProgramsData = {};

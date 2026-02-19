@@ -1,0 +1,78 @@
+{
+  "id": "intervention",
+  "name": "Intervention",
+  "card": {
+    "title": "Intervention Program",
+    "iconColor": "purple",
+    "iconType": "heart",
+    "description": "Specialized support and counseling services designed to help students overcome academic and personal challenges through compassionate guidance."
+  },
+  "page": {
+    "title": "Intervention & Support Program",
+    "subtitle": "Comprehensive counseling and psychological support for student wellbeing.",
+    "badge": "Student Support",
+    "tagline": "Empowering Students Through Professional Guidance",
+    "headOfDepartment": {
+      "name": "Benisha Pyngrope",
+      "photo": "images/faculty/benisha_pyngrope.jpg",
+      "quote": "Every student deserves support tailored to their unique needs. Through counseling and psychotherapy, we help students overcome challenges and achieve their full potential.",
+      "yearsOfExperience": "Subject Matter Expert",
+      "specialization": "Clinical Psychology & Counseling"
+    },
+    "qualifications": [
+      "Master of Science in Clinical Psychology",
+      "Bachelor of Arts in Psychology",
+      "Certification in Counseling and Psychotherapy"
+    ],
+    "subPrograms": [
+      {
+        "title": "Academic Support",
+        "description": "Targeted interventions to help students overcome learning challenges and improve academic performance.",
+        "icon": "graduation-cap",
+        "iconBg": "purple"
+      },
+      {
+        "title": "Personal Counseling",
+        "description": "One-on-one sessions to address personal, emotional, and social concerns.",
+        "icon": "comments",
+        "iconBg": "purple"
+      },
+      {
+        "title": "Group Therapy",
+        "description": "Group sessions for peer support and collaborative problem-solving.",
+        "icon": "people-arrows",
+        "iconBg": "purple"
+      },
+      {
+        "title": "Family Guidance",
+        "description": "Support and guidance for families to enhance home-school collaboration.",
+        "icon": "home",
+        "iconBg": "purple"
+      }
+    ],
+    "curriculum": {
+      "heading": "Our Intervention Approach",
+      "intro": "We provide evidence-based psychological interventions and counseling services:",
+      "features": [
+        {
+          "title": "Clinical Psychology",
+          "subtitle": "Professional assessment and treatment"
+        },
+        {
+          "title": "Psychotherapy",
+          "subtitle": "Evidence-based therapeutic techniques"
+        },
+        {
+          "title": "Academic Intervention",
+          "subtitle": "Support for learning difficulties"
+        },
+        {
+          "title": "Holistic Wellbeing",
+          "subtitle": "Mental health and personal development"
+        }
+      ]
+    },
+    "ctaText": "Seek Support Today",
+    "ctaSubtext": "Our intervention team is here to help students thrive both academically and personally."
+  }
+}
