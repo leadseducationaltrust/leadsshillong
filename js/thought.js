@@ -33,6 +33,27 @@ document.addEventListener('DOMContentLoaded', () => {
         return false;
     };
 
+    const parseDateOnly = (value) => {
+        if (!value || typeof value !== 'string') {
+            return null;
+        }
+        const parts = value.split('-').map(Number);
+        if (parts.length !== 3 || parts.some(Number.isNaN)) {
+            return null;
+        }
+        return new Date(parts[0], parts[1] - 1, parts[2]);
+    };
+
+    const isTodayOrFuture = (value) => {
+        const contentDate = parseDateOnly(value);
+        if (!contentDate) {
+            return false;
+        }
+        const today = new Date();
+        today.setHours(0, 0, 0, 0);
+        return contentDate >= today;
+    };
+
     const setListOrHide = (listElement, items, container) => {
         const values = Array.isArray(items) ? items : (items ? [items] : []);
         if (!listElement || values.length === 0) {
@@ -40,12 +61,14 @@ document.addEventListener('DOMContentLoaded', () => {
             return false;
         }
         listElement.innerHTML = '';
-        values.forEach((item) => {
+        values.forEach((item, index) => {
             if (!item || !String(item).trim()) {
                 return;
             }
             const li = document.createElement('li');
-            li.className = 'flex items-start gap-2';
+            li.className = index === 0
+                ? 'flex items-start gap-2 bg-amber-100 border border-amber-300 rounded-lg px-3 py-2 font-bold text-blue-900'
+                : 'flex items-start gap-2';
             li.innerHTML = '<span class="text-emerald-700">•</span><span>' + item + '</span>';
             listElement.appendChild(li);
         });
@@ -87,7 +110,13 @@ document.addEventListener('DOMContentLoaded', () => {
             }
 
             hasContent = setTextOrHide(thoughtText, entry.thought_of_the_day, thoughtText) || hasContent;
-            hasContent = setListOrHide(orderList, entry.order_of_the_day, orderCard) || hasContent;
+
+            if (isTodayOrFuture(entry.date)) {
+                hasContent = setListOrHide(orderList, entry.order_of_the_day, orderCard) || hasContent;
+            } else {
+                hideElement(orderCard);
+            }
+
             hasContent = setTextOrHide(principalMessage, entry.principal_message, principalCard) || hasContent;
             hasContent = setTextOrHide(bibleVerse, entry.bible_verse, bibleCard) || hasContent;
 
