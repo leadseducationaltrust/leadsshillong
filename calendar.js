@@ -87,7 +87,25 @@ document.addEventListener('DOMContentLoaded', () => {
         return { entries, hasHoliday, hasEvent };
     };
 
-    const showDatePopup = (date, entries) => {
+    const getDateTone = (date, hasHoliday, hasEvent) => {
+        const isWeekend = date.getDay() === 0 || date.getDay() === 6;
+
+        if (hasHoliday) {
+            return 'text-red-700';
+        }
+
+        if (hasEvent) {
+            return 'text-blue-700';
+        }
+
+        if (isWeekend) {
+            return 'text-amber-800';
+        }
+
+        return 'text-slate-700';
+    };
+
+    const showDatePopup = (date, entries, toneClass) => {
         const readableDate = date.toLocaleDateString('en-US', {
             weekday: 'long',
             day: 'numeric',
@@ -96,7 +114,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 
         if (!entries || entries.length === 0) {
-            datePopup.innerHTML = `<p class="font-semibold text-slate-700">${readableDate}</p>`;
+            datePopup.innerHTML = `<p class="font-semibold ${toneClass}">${readableDate}</p>`;
             return;
         }
 
@@ -105,7 +123,7 @@ document.addEventListener('DOMContentLoaded', () => {
             .join('');
 
         datePopup.innerHTML = `
-            <p class="font-semibold text-slate-800">${readableDate}</p>
+            <p class="font-semibold ${toneClass}">${readableDate}</p>
             <ul class="mt-1 space-y-1 text-sm">
                 ${titleRows}
             </ul>
@@ -232,13 +250,15 @@ document.addEventListener('DOMContentLoaded', () => {
             cell.textContent = String(day);
 
             cell.addEventListener('click', () => {
-                showDatePopup(date, entries);
+                const toneClass = getDateTone(date, hasHoliday, hasEvent);
+                showDatePopup(date, entries, toneClass);
             });
 
             cell.addEventListener('keydown', (event) => {
                 if (event.key === 'Enter' || event.key === ' ') {
                     event.preventDefault();
-                    showDatePopup(date, entries);
+                    const toneClass = getDateTone(date, hasHoliday, hasEvent);
+                    showDatePopup(date, entries, toneClass);
                 }
             });
 
@@ -250,9 +270,14 @@ document.addEventListener('DOMContentLoaded', () => {
         if (year === today.getFullYear() && monthIndex === today.getMonth()) {
             const todayKey = formatKey(today.getFullYear(), today.getMonth(), today.getDate());
             const todayMeta = getDateMeta(todayKey);
-            showDatePopup(new Date(today.getFullYear(), today.getMonth(), today.getDate()), todayMeta.entries);
+            const todayDate = new Date(today.getFullYear(), today.getMonth(), today.getDate());
+            const toneClass = getDateTone(todayDate, todayMeta.hasHoliday, todayMeta.hasEvent);
+            showDatePopup(todayDate, todayMeta.entries, toneClass);
         } else {
-            showDatePopup(new Date(year, monthIndex, 1), getDateMeta(formatKey(year, monthIndex, 1)).entries);
+            const firstDate = new Date(year, monthIndex, 1);
+            const firstMeta = getDateMeta(formatKey(year, monthIndex, 1));
+            const toneClass = getDateTone(firstDate, firstMeta.hasHoliday, firstMeta.hasEvent);
+            showDatePopup(firstDate, firstMeta.entries, toneClass);
         }
     };
 
