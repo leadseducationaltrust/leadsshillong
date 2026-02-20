@@ -2,10 +2,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const monthLabel = document.getElementById('calendar-month-label');
     const calendarGrid = document.getElementById('calendar-grid');
     const holidayList = document.getElementById('calendar-holiday-list');
+    const datePopup = document.getElementById('calendar-date-popup');
     const prevBtn = document.getElementById('calendar-prev');
     const nextBtn = document.getElementById('calendar-next');
 
-    if (!monthLabel || !calendarGrid || !holidayList || !prevBtn || !nextBtn) {
+    if (!monthLabel || !calendarGrid || !holidayList || !datePopup || !prevBtn || !nextBtn) {
         return;
     }
 
@@ -84,6 +85,31 @@ document.addEventListener('DOMContentLoaded', () => {
         const hasHoliday = entries.some((entry) => holidayCategories.has(entry.category) || entry.dayType === 'non_working_day');
         const hasEvent = entries.some((entry) => eventCategories.has(entry.category) || entry.dayType === 'working_day');
         return { entries, hasHoliday, hasEvent };
+    };
+
+    const showDatePopup = (date, entries) => {
+        const readableDate = date.toLocaleDateString('en-US', {
+            weekday: 'long',
+            day: 'numeric',
+            month: 'long',
+            year: 'numeric'
+        });
+
+        if (!entries || entries.length === 0) {
+            datePopup.innerHTML = `<p class="font-semibold text-slate-700">${readableDate}</p>`;
+            return;
+        }
+
+        const titleRows = entries
+            .map((entry) => `<li class="list-disc ml-5 text-slate-700">${entry.title}</li>`)
+            .join('');
+
+        datePopup.innerHTML = `
+            <p class="font-semibold text-slate-800">${readableDate}</p>
+            <ul class="mt-1 space-y-1 text-sm">
+                ${titleRows}
+            </ul>
+        `;
     };
 
     const getEntryTheme = (entry) => {
@@ -184,6 +210,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
             const cell = document.createElement('div');
             cell.className = 'h-9 rounded-md border text-xs font-bold flex items-center justify-center';
+            cell.setAttribute('role', 'button');
+            cell.setAttribute('tabindex', '0');
 
             if (hasHoliday) {
                 cell.className += ' bg-red-100 border-red-300 text-red-700';
@@ -202,10 +230,30 @@ document.addEventListener('DOMContentLoaded', () => {
             }
 
             cell.textContent = String(day);
+
+            cell.addEventListener('click', () => {
+                showDatePopup(date, entries);
+            });
+
+            cell.addEventListener('keydown', (event) => {
+                if (event.key === 'Enter' || event.key === ' ') {
+                    event.preventDefault();
+                    showDatePopup(date, entries);
+                }
+            });
+
             calendarGrid.appendChild(cell);
         }
 
         renderHolidayList(year, monthIndex);
+
+        if (year === today.getFullYear() && monthIndex === today.getMonth()) {
+            const todayKey = formatKey(today.getFullYear(), today.getMonth(), today.getDate());
+            const todayMeta = getDateMeta(todayKey);
+            showDatePopup(new Date(today.getFullYear(), today.getMonth(), today.getDate()), todayMeta.entries);
+        } else {
+            showDatePopup(new Date(year, monthIndex, 1), getDateMeta(formatKey(year, monthIndex, 1)).entries);
+        }
     };
 
     prevBtn.addEventListener('click', () => {
