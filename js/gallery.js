@@ -19,20 +19,31 @@ const galleryImages = [
     { url: 'images/gallery/photo_13_student_in_custome.jpg', desc: 'Brewing big ideas! Creative costumes and clever business at Kidspreneurship', date: '2025-10-17' }
 ];
 
-function loadGallery() {
+const GALLERY_BATCH_SIZE = 12;
+let galleryCursor = 0;
+let sortedGalleryImages = [];
+
+function updateLoadMoreButton() {
+    const loadMoreBtn = document.getElementById('load-more-gallery');
+    if (!loadMoreBtn) return;
+
+    if (galleryCursor >= sortedGalleryImages.length) {
+        loadMoreBtn.classList.add('hidden');
+    } else {
+        loadMoreBtn.classList.remove('hidden');
+    }
+}
+
+function renderGalleryBatch() {
     const container = document.getElementById('gallery-container');
     if (!container) return;
 
-    // 1. Sort the array by the 'date' property (Newest first)
-    // 2. Slice to get only the top 12
-    const latestImages = galleryImages
-        .sort((a, b) => new Date(b.date) - new Date(a.date))
-        .slice(0, 12);
+    const nextBatch = sortedGalleryImages.slice(galleryCursor, galleryCursor + GALLERY_BATCH_SIZE);
 
-    latestImages.forEach(imgData => {
+    nextBatch.forEach((imgData) => {
         const item = document.createElement('div');
         item.className = 'masonry-item group cursor-pointer relative overflow-hidden rounded-xl shadow-md hover:shadow-2xl bg-gray-200';
-        
+
         item.innerHTML = `
             <img src="${imgData.url}" alt="${imgData.desc}" class="w-full h-auto transform group-hover:scale-105 transition duration-700 ease-in-out">
             <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
@@ -43,6 +54,22 @@ function loadGallery() {
         item.onclick = () => openLightbox(imgData.url, imgData.desc);
         container.appendChild(item);
     });
+
+    galleryCursor += nextBatch.length;
+    updateLoadMoreButton();
+}
+
+function loadGallery() {
+    const container = document.getElementById('gallery-container');
+    if (!container) return;
+
+    container.innerHTML = '';
+    galleryCursor = 0;
+    sortedGalleryImages = galleryImages
+        .slice()
+        .sort((a, b) => new Date(b.date) - new Date(a.date));
+
+    renderGalleryBatch();
 }
 
 // Lightbox Functions
@@ -71,6 +98,11 @@ function closeLightbox() {
 document.addEventListener('DOMContentLoaded', () => {
     // Load Gallery
     loadGallery();
+
+    const loadMoreBtn = document.getElementById('load-more-gallery');
+    if (loadMoreBtn) {
+        loadMoreBtn.addEventListener('click', renderGalleryBatch);
+    }
 
     // Lightbox click-to-close listener
     const lightbox = document.getElementById('lightbox');
