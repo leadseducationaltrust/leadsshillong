@@ -87,6 +87,52 @@
         </div>
     </nav>
 
+    <section id="thought-panel" class="bg-amber-50 border-b border-amber-200">
+        <div class="container mx-auto px-4 py-8">
+            <div class="bg-white/95 rounded-2xl shadow-lg border border-amber-200 p-6 md:p-8">
+                <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+                    <div>
+                        <p class="text-xs font-black tracking-widest text-amber-700 uppercase">Daily Focus</p>
+                        <h2 class="text-2xl md:text-4xl font-black text-blue-900">Thought & Order of the Day</h2>
+                        <p id="thought-date" class="text-sm text-gray-500 mt-2"></p>
+                    </div>
+                    <div class="flex items-center gap-3 text-emerald-700 bg-emerald-50 px-4 py-2 rounded-full text-sm font-bold">
+                        <i class="fas fa-sun"></i>
+                        <span>Check daily before classes</span>
+                    </div>
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-6 mt-6">
+                    <div class="bg-amber-50 rounded-xl p-5 border border-amber-200">
+                        <h3 class="text-lg font-black text-blue-900 mb-2">Thought of the Day</h3>
+                        <p id="thought-text" class="text-gray-700 text-base leading-relaxed"></p>
+                    </div>
+                    <div id="order-card" class="bg-emerald-50 rounded-xl p-5 border border-emerald-200">
+                        <h3 class="text-lg font-black text-blue-900 mb-2">Order of the Day</h3>
+                        <ul id="order-list" class="space-y-2 text-gray-700 text-sm font-medium"></ul>
+                    </div>
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-6 mt-6">
+                    <div id="principal-message-card" class="bg-slate-50 rounded-xl p-5 border border-slate-200">
+                        <h3 class="text-lg font-black text-blue-900 mb-2">Principal's Message</h3>
+                        <p id="principal-message" class="text-gray-700 text-sm leading-relaxed"></p>
+                    </div>
+                    <div id="bible-verse-card" class="bg-blue-50 rounded-xl p-5 border border-blue-200">
+                        <h3 class="text-lg font-black text-blue-900 mb-2">Bible Verse</h3>
+                        <p id="bible-verse" class="text-gray-700 text-sm leading-relaxed"></p>
+                        <p id="bible-reference" class="text-xs text-blue-700 font-bold mt-2"></p>
+                    </div>
+                </div>
+
+                <div id="additional-notes-card" class="mt-6 bg-white rounded-xl p-5 border border-gray-200">
+                    <h3 class="text-lg font-black text-blue-900 mb-2">Additional Notes</h3>
+                    <p id="additional-notes" class="text-gray-700 text-sm leading-relaxed"></p>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <header class="relative min-h-[550px] md:h-[650px] flex items-center overflow-hidden pt-32 md:pt-0">
         <img src="https://images.unsplash.com/photo-1546410531-bb4caa6b424d?auto=format&fit=crop&w=1600" 
              class="absolute inset-0 w-full h-full object-cover" alt="School Campus">
@@ -229,6 +275,7 @@
     </div>
 
     <script src="js/config.js"></script>
+    <script src="js/thought.js"></script>
     <script src="js/articles.js"></script>
     <script src="js/programs.js"></script>
 
