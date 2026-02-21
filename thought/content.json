@@ -40,10 +40,14 @@
       "additional_notes": "Uniform checks will be conducted this week."
     },
     {
-      "date": "2026-02-21",
-      "additional_notes": "Class I : 8:15 AM to 12:30 PM\nClass II: 8:15 AM to 1:10 PM\nClasses  III, IV and V: 8:15 AM to 1:50 PM\nClasses VI to X: 8:15 AM to 2:30 PM",
+      "date": "2026-02-23",
+      "additional_notes": "",
       "order_of_the_day": [
-        "Kindly follow Day Order 1 on Monday, 23rd February, 2026"
+        "Kindly follow Day Order 1 on Monday, 23rd February, 2026",
+        "Class I : 8:15 AM to 12:30 PM",
+        "Class II: 8:15 AM to 1:10 PM",
+        "Classes  III, IV and V: 8:15 AM to 1:50 PM",
+        "Classes VI to X: 8:15 AM to 2:30 PM"
       ]
     }
   ]
