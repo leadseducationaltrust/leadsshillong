@@ -54,6 +54,36 @@ document.addEventListener('DOMContentLoaded', () => {
         return contentDate >= today;
     };
 
+    const getEntryTime = (entry) => {
+        const time = new Date(entry && entry.date ? entry.date : '').getTime();
+        return Number.isNaN(time) ? 0 : time;
+    };
+
+    const hasRenderableText = (value) => {
+        return typeof value === 'string' && value.trim().length > 0;
+    };
+
+    const hasRenderableList = (value) => {
+        if (!Array.isArray(value)) {
+            return false;
+        }
+        return value.some((item) => hasRenderableText(String(item || '')));
+    };
+
+    const hasRenderableContent = (entry) => {
+        if (!entry || typeof entry !== 'object') {
+            return false;
+        }
+        return (
+            hasRenderableText(entry.thought_of_the_day) ||
+            hasRenderableList(entry.order_of_the_day) ||
+            hasRenderableText(entry.principal_message) ||
+            hasRenderableText(entry.bible_verse) ||
+            hasRenderableText(entry.bible_reference) ||
+            hasRenderableText(entry.additional_notes)
+        );
+    };
+
     const setListOrHide = (listElement, items, container) => {
         const values = Array.isArray(items) ? items : (items ? [items] : []);
         if (!listElement || values.length === 0) {
@@ -96,10 +126,13 @@ document.addEventListener('DOMContentLoaded', () => {
                 return;
             }
 
-            const sorted = entries.slice().sort((a, b) => {
-                return new Date(b.date) - new Date(a.date);
-            });
-            const entry = sorted[0] || {};
+            const sorted = entries.slice().sort((a, b) => getEntryTime(b) - getEntryTime(a));
+            const entry = sorted.find(hasRenderableContent) || {};
+
+            if (!hasRenderableContent(entry)) {
+                hideElement(section);
+                return;
+            }
 
             let hasContent = false;
 
@@ -111,6 +144,8 @@ document.addEventListener('DOMContentLoaded', () => {
                     day: 'numeric'
                 });
                 thoughtDate.textContent = formatted;
+            } else {
+                hideElement(thoughtDate);
             }
 
             hasContent = setTextOrHide(thoughtText, entry.thought_of_the_day, thoughtText) || hasContent;

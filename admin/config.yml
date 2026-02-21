@@ -64,12 +64,13 @@ collections:
             summary: "{{fields.date}}"
             fields:
               - { label: "Date", name: "date", widget: "date", format: "YYYY-MM-DD" }
-              - { label: "Thought", name: "thought_of_the_day", widget: "text" }
+              - { label: "Thought", name: "thought_of_the_day", widget: "text", required: false }
               - label: "Order of the Day"
                 name: "order_of_the_day"
                 widget: "list"
+                required: false
                 field: { label: "Item", name: "item", widget: "string" }
-              - { label: "Principal Message", name: "principal_message", widget: "text" }
+              - { label: "Principal Message", name: "principal_message", widget: "text", required: false }
               - { label: "Bible Verse", name: "bible_verse", widget: "text", required: false }
               - { label: "Bible Reference", name: "bible_reference", widget: "string", required: false }
               - { label: "Additional Notes", name: "additional_notes", widget: "text", required: false }
