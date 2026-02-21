@@ -1,4 +1,5 @@
-[
+{
+  "items": [
   {
     "heading": "Academic Calendar 2025-2026",
     "description": "Complete academic schedule including terms, holidays, examination dates, and important events for the upcoming academic year.",
@@ -125,4 +126,5 @@
     "timestamp": "2025-11-20T11:30:00Z",
     "pdf_url": "downloads/pdfs/hs-arts-curriculum.pdf"
   }
-]
+  ]
+}

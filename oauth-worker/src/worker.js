@@ -140,12 +140,49 @@ export default {
         githubAuthUrl.searchParams.set('scope', 'repo');
         githubAuthUrl.searchParams.set('state', state);
 
-        const response = new Response(null, {
-          status: 302,
-          headers: {
-            location: githubAuthUrl.toString()
+        const authUrlJson = JSON.stringify(githubAuthUrl.toString());
+        const provider = url.searchParams.get('provider') || 'github';
+        const providerJson = JSON.stringify(provider);
+        const handshakeHtml = `
+<!doctype html>
+<html>
+  <body>
+    <script>
+      (function() {
+        const provider = ${providerJson};
+        const authUrl = ${authUrlJson};
+        const message = 'authorizing:' + provider;
+        let redirected = false;
+
+        function proceed() {
+          if (redirected) return;
+          redirected = true;
+          window.location.assign(authUrl);
+        }
+
+        function onMessage(event) {
+          if (event.data === message) {
+            window.removeEventListener('message', onMessage, false);
+            proceed();
           }
-        });
+        }
+
+        window.addEventListener('message', onMessage, false);
+
+        if (window.opener) {
+          try {
+            window.opener.postMessage(message, '*');
+          } catch (error) {}
+        }
+
+        setTimeout(proceed, 1200);
+      })();
+    </script>
+    <p>Connecting to GitHub…</p>
+  </body>
+</html>`;
+
+        const response = htmlResponse(handshakeHtml);
         response.headers.append('Set-Cookie', `cms_oauth_state=${encodeURIComponent(state)}; Path=/; HttpOnly; Secure; SameSite=Lax; Max-Age=600`);
         response.headers.append('Set-Cookie', `cms_oauth_origin=${encodeURIComponent(normalizedOrigin)}; Path=/; HttpOnly; Secure; SameSite=Lax; Max-Age=600`);
         return response;

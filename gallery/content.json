@@ -1,4 +1,5 @@
-[
+{
+  "images": [
   { "url": "images/gallery/chillibreeze_singapore_school.jpeg", "desc": "Chillibreeze Solutions Pvt. Ltd and Kidspreneurship Team Visited LEADS School", "date": "2026-02-17" },
   { "url": "images/gallery/photo_1_general_proficiency.jpg", "desc": "Honouring the Outgoing Captains and Assistant-Captains of 2025 for their Outstanding Leadership and Service", "date": "2025-12-17" },
   { "url": "images/gallery/photo_2_student_visiting_art_gallery.jpg", "desc": "Students Visiting Art Gallery", "date": "2025-11-17" },
@@ -13,4 +14,5 @@
   { "url": "images/gallery/photo_11_investiture.jpg", "desc": "Newly appointed Captains and Vice-Captains with the guest of honour", "date": "2025-03-16" },
   { "url": "images/gallery/photo_12_school_achievements.jpg", "desc": "School Achievements Recognition: Mrs Miracle Syiem Awarded Teacher of the Year 2025", "date": "2025-12-06" },
   { "url": "images/gallery/photo_13_student_in_custome.jpg", "desc": "Brewing big ideas! Creative costumes and clever business at Kidspreneurship", "date": "2025-10-17" }
-]
+  ]
+}

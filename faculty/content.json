@@ -1,4 +1,5 @@
-[
+{
+  "members": [
   { "name": "Mrs. Barrilyne Lyngdoh", "role": "Principal", "bio": "Leading with vision and academic excellence since 2010.", "qualifications": "M.A. Education, B.Ed., M.Ed., NEHU", "img": "images/faculty/principal.jpg", "category": "admin" },
   { "name": "Mrs. Euginia Diana Mukhim", "role": "Vice Principal", "bio": "Specializing in student welfare and disciplinary management.", "qualifications": "B.Sc., B.Ed., M.Sc., Ph.D. (Environmental Science)", "img": "images/faculty/euginia.jpg", "category": "admin" },
   { "name": "Mr. Makarious Sohlang", "role": "Chief-Coordinator", "bio": "Overseeing school coordination and students' welfare.", "qualifications": "B.Sc., Diploma in Electronics, Diploma in Music", "img": "images/faculty/makarious_sohlang.jpg", "category": "admin" },
@@ -27,4 +28,5 @@
   { "name": " Mrs. Chanda Prasad", "role": "Hindi Lecturer", "bio": "Specializing in Hindi language and literature.", "qualifications": "B.A., B.Ed., M.A. Hindi", "img": "images/faculty/chanda_prasad.jpg", "category": "secondary" },
   { "name": "Mr. Livingson Kharkongor", "role": "Mathematics Lecturer", "bio": "Specializing in Mathematics.", "qualifications": "B.Sc., B.Ed., M.Sc. Mathematics", "img": "images/faculty/livingson_kharkongor.jpg", "category": "secondary" },
   { "name": "Mr. Mannaki Sohliya", "role": "Physical Education Teacher", "bio": "Specializing in Physical Education.", "qualifications": "B.P.Ed., M.Ed. Physical Education, Sports Coaching Certification", "img": "images/faculty/mannaki_sohliya.jpg", "category": "secondary" }
-]
+  ]
+}
