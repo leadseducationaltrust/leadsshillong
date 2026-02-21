@@ -1,45 +1,50 @@
 {
   "entries": [
-
-  {
-    "date": "2026-02-20",
-    "thought_of_the_day": "Small steps done daily become big achievements over time.",
-    "order_of_the_day": [
-     "Today is Day 5 of the week",
-      "Morning assembly at 8:15 AM",
-      "House March-Past practice at 9:30 AM"
-    ],
-    "principal_message": "As we begin the new session, please prioritize punctuality and respectful conduct. Starting this Monday, we will resume a full-day schedule; ensure you bring all required textbooks and notebooks. Please note that new houses will be assigned to all students.",
-    "bible_verse": "For you were once darkness, but now you are light in the Lord. Live as children of light.",
-    "bible_reference": "Ephesians 5:8",
-    "additional_notes": "Additionally, march past practice will take place after the first period. Finally, a reminder for Class X students: Board Exams are scheduled for the first week of December."
-  },
-  {
-    "date": "2026-02-19",
-    "thought_of_the_day": "Discipline is choosing between what you want now and what you want most.",
-    "order_of_the_day": [
-     
-      "Morning assembly at 8:30 AM",
-      "Class XI Career counseling session",
-      "Library hour for Classes VI-VIII"
-    ],
-    "principal_message": "We appreciate the steady improvement in attendance. Keep the momentum.",
-    "bible_verse": "Let all that you do be done in love.",
-    "bible_reference": "1 Corinthians 16:14",
-    "additional_notes": "Inter-house quiz registrations close today."
-  },
-  {
-    "date": "2026-02-18",
-    "thought_of_the_day": "Kindness and effort are never wasted.",
-    "order_of_the_day": [
-      "Morning assembly at 8:30 AM",
-      "Class XII mock test - English",
-      "Music club rehearsal after school"
-    ],
-    "principal_message": "Thank you to parents for the strong turnout at the orientation session.",
-    "bible_verse": "Trust in the Lord with all your heart.",
-    "bible_reference": "Proverbs 3:5",
-    "additional_notes": "Uniform checks will be conducted this week."
-  }
+    {
+      "date": "2026-02-20",
+      "thought_of_the_day": "Small steps done daily become big achievements over time.",
+      "order_of_the_day": [
+        "Today is Day 5 of the week",
+        "Morning assembly at 8:15 AM",
+        "House March-Past practice at 9:30 AM"
+      ],
+      "principal_message": "As we begin the new session, please prioritize punctuality and respectful conduct. Starting this Monday, we will resume a full-day schedule; ensure you bring all required textbooks and notebooks. Please note that new houses will be assigned to all students.",
+      "bible_verse": "For you were once darkness, but now you are light in the Lord. Live as children of light.",
+      "bible_reference": "Ephesians 5:8",
+      "additional_notes": "Additionally, march past practice will take place after the first period. Finally, a reminder for Class X students: Board Exams are scheduled for the first week of December."
+    },
+    {
+      "date": "2026-02-19",
+      "thought_of_the_day": "Discipline is choosing between what you want now and what you want most.",
+      "order_of_the_day": [
+        "Morning assembly at 8:30 AM",
+        "Class XI Career counseling session",
+        "Library hour for Classes VI-VIII"
+      ],
+      "principal_message": "We appreciate the steady improvement in attendance. Keep the momentum.",
+      "bible_verse": "Let all that you do be done in love.",
+      "bible_reference": "1 Corinthians 16:14",
+      "additional_notes": "Inter-house quiz registrations close today."
+    },
+    {
+      "date": "2026-02-18",
+      "thought_of_the_day": "Kindness and effort are never wasted.",
+      "order_of_the_day": [
+        "Morning assembly at 8:30 AM",
+        "Class XII mock test - English",
+        "Music club rehearsal after school"
+      ],
+      "principal_message": "Thank you to parents for the strong turnout at the orientation session.",
+      "bible_verse": "Trust in the Lord with all your heart.",
+      "bible_reference": "Proverbs 3:5",
+      "additional_notes": "Uniform checks will be conducted this week."
+    },
+    {
+      "date": "2026-02-21",
+      "additional_notes": "Class I : 8:15 AM to 12:30 PM\nClass II: 8:15 AM to 1:10 PM\nClasses  III, IV and V: 8:15 AM to 1:50 PM\nClasses VI to X: 8:15 AM to 2:30 PM",
+      "order_of_the_day": [
+        "Kindly follow Day Order 1 on Monday, 23rd February, 2026"
+      ]
+    }
   ]
 }
