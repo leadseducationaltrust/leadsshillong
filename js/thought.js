@@ -22,10 +22,39 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     };
 
+    const normalizeText = (value) => {
+        if (value === null || value === undefined) {
+            return '';
+        }
+        const text = String(value).trim();
+        if (!text) {
+            return '';
+        }
+        const lowered = text.toLowerCase();
+        if (lowered === 'null' || lowered === 'undefined') {
+            return '';
+        }
+        return text;
+    };
+
+    const getListItemText = (item) => {
+        if (item && typeof item === 'object') {
+            if ('item' in item) {
+                return normalizeText(item.item);
+            }
+            if ('value' in item) {
+                return normalizeText(item.value);
+            }
+            return '';
+        }
+        return normalizeText(item);
+    };
+
     const setTextOrHide = (element, value, container) => {
-        if (value && String(value).trim().length > 0) {
+        const text = normalizeText(value);
+        if (text.length > 0) {
             if (element) {
-                element.textContent = value;
+                element.textContent = text;
             }
             return true;
         }
@@ -59,15 +88,13 @@ document.addEventListener('DOMContentLoaded', () => {
         return Number.isNaN(time) ? 0 : time;
     };
 
-    const hasRenderableText = (value) => {
-        return typeof value === 'string' && value.trim().length > 0;
-    };
+    const hasRenderableText = (value) => normalizeText(value).length > 0;
 
     const hasRenderableList = (value) => {
         if (!Array.isArray(value)) {
             return false;
         }
-        return value.some((item) => hasRenderableText(String(item || '')));
+        return value.some((item) => getListItemText(item).length > 0);
     };
 
     const hasRenderableContent = (entry) => {
@@ -92,14 +119,15 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         listElement.innerHTML = '';
         values.forEach((item, index) => {
-            if (!item || !String(item).trim()) {
+            const text = getListItemText(item);
+            if (!text) {
                 return;
             }
             const li = document.createElement('li');
             li.className = index === 0
                 ? 'flex items-start gap-2 bg-amber-100 border border-amber-300 rounded-lg px-3 py-2 font-bold text-blue-900'
                 : 'flex items-start gap-2';
-            li.innerHTML = '<span class="text-emerald-700">•</span><span>' + item + '</span>';
+            li.innerHTML = '<span class="text-emerald-700">•</span><span>' + text + '</span>';
             listElement.appendChild(li);
         });
         if (listElement.children.length === 0) {
@@ -127,7 +155,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
 
             const sorted = entries.slice().sort((a, b) => getEntryTime(b) - getEntryTime(a));
-            const entry = sorted.find(hasRenderableContent) || {};
+            const entry = sorted[0] || {};
 
             if (!hasRenderableContent(entry)) {
                 hideElement(section);
