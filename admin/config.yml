@@ -1,0 +1,158 @@
+backend:
+  name: github
+  repo: leadseducationaltrust/leadsshillong
+  branch: main
+  base_url: https://YOUR-OAUTH-WORKER.workers.dev
+  auth_endpoint: auth
+
+local_backend: true
+
+media_folder: "images/uploads"
+public_folder: "/images/uploads"
+
+site_url: "https://www.leadsshillong.com"
+display_url: "https://www.leadsshillong.com"
+logo_url: "/images/school-logo.jpg"
+
+collections:
+  - name: "news"
+    label: "News"
+    files:
+      - label: "News Items"
+        name: "news_items"
+        file: "news/content.json"
+        format: "json"
+        fields:
+          - label: "Items"
+            name: "items"
+            widget: "list"
+            summary: "{{fields.date}} - {{fields.title}}"
+            fields:
+              - { label: "Date Time", name: "date", widget: "string", hint: "YYYY-MM-DD HH:mm" }
+              - { label: "Title", name: "title", widget: "string" }
+              - { label: "Message", name: "message", widget: "text" }
+              - { label: "Description", name: "description", widget: "text" }
+              - { label: "Image URL", name: "image", widget: "string", required: false }
+
+  - name: "thought"
+    label: "Thought of the Day"
+    files:
+      - label: "Thought Entries"
+        name: "thought_entries"
+        file: "thought/content.json"
+        format: "json"
+        fields:
+          - label: "Entries"
+            name: "entries"
+            widget: "list"
+            summary: "{{fields.date}}"
+            fields:
+              - { label: "Date", name: "date", widget: "date", format: "YYYY-MM-DD" }
+              - { label: "Thought", name: "thought_of_the_day", widget: "text" }
+              - label: "Order of the Day"
+                name: "order_of_the_day"
+                widget: "list"
+                field: { label: "Item", name: "item", widget: "string" }
+              - { label: "Principal Message", name: "principal_message", widget: "text" }
+              - { label: "Bible Verse", name: "bible_verse", widget: "text", required: false }
+              - { label: "Bible Reference", name: "bible_reference", widget: "string", required: false }
+              - { label: "Additional Notes", name: "additional_notes", widget: "text", required: false }
+
+  - name: "downloads"
+    label: "Downloads"
+    files:
+      - label: "Download Items"
+        name: "download_items"
+        file: "downloads/content.json"
+        format: "json"
+        fields:
+          - label: "Items"
+            name: "items"
+            widget: "list"
+            summary: "{{fields.heading}}"
+            fields:
+              - { label: "Heading", name: "heading", widget: "string" }
+              - { label: "Description", name: "description", widget: "text" }
+              - { label: "Audience", name: "audience", widget: "string" }
+              - { label: "Timestamp", name: "timestamp", widget: "datetime", format: "YYYY-MM-DDTHH:mm:ss[Z]", date_format: "YYYY-MM-DD", time_format: "HH:mm" }
+              - { label: "PDF URL", name: "pdf_url", widget: "string" }
+
+  - name: "calendar"
+    label: "Academic Calendar"
+    files:
+      - label: "Calendar Entries"
+        name: "calendar_entries"
+        file: "calendar/content.json"
+        format: "json"
+        fields:
+          - label: "Entries"
+            name: "entries"
+            widget: "list"
+            summary: "{{fields.title}}"
+            fields:
+              - label: "Category"
+                name: "category"
+                widget: "select"
+                options:
+                  - { label: "School Event", value: "school_event" }
+                  - { label: "School Holiday", value: "school_holiday" }
+                  - { label: "State Holiday", value: "state_holiday" }
+                  - { label: "National Holiday", value: "national_holiday" }
+                  - { label: "Examination", value: "examination" }
+                  - { label: "Other Event", value: "other_event" }
+              - label: "Day Type"
+                name: "dayType"
+                widget: "select"
+                options:
+                  - { label: "Working Day", value: "working_day" }
+                  - { label: "Non Working Day", value: "non_working_day" }
+              - { label: "Title", name: "title", widget: "string" }
+              - { label: "Single Date", name: "date", widget: "date", format: "YYYY-MM-DD", required: false }
+              - { label: "Start Date", name: "startDate", widget: "date", format: "YYYY-MM-DD", required: false }
+              - { label: "End Date", name: "endDate", widget: "date", format: "YYYY-MM-DD", required: false }
+
+  - name: "faculty"
+    label: "Faculty"
+    files:
+      - label: "Faculty Members"
+        name: "faculty_members"
+        file: "faculty/content.json"
+        format: "json"
+        fields:
+          - label: "Members"
+            name: "members"
+            widget: "list"
+            summary: "{{fields.name}} - {{fields.role}}"
+            fields:
+              - { label: "Name", name: "name", widget: "string" }
+              - { label: "Role", name: "role", widget: "string" }
+              - { label: "Bio", name: "bio", widget: "text" }
+              - { label: "Qualifications", name: "qualifications", widget: "string" }
+              - { label: "Image Path", name: "img", widget: "string" }
+              - label: "Category"
+                name: "category"
+                widget: "select"
+                options:
+                  - { label: "Admin", value: "admin" }
+                  - { label: "Preprimary", value: "preprimary" }
+                  - { label: "Primary", value: "primary" }
+                  - { label: "Secondary", value: "secondary" }
+                  - { label: "Higher", value: "higher" }
+                  - { label: "Support", value: "support" }
+
+  - name: "gallery"
+    label: "Gallery"
+    files:
+      - label: "Gallery Images"
+        name: "gallery_images"
+        file: "gallery/content.json"
+        format: "json"
+        fields:
+          - label: "Images"
+            name: "images"
+            widget: "list"
+            summary: "{{fields.date}} - {{fields.desc}}"
+            fields:
+              - { label: "Image Path", name: "url", widget: "string" }
+              - { label: "Description", name: "desc", widget: "text" }
+              - { label: "Date", name: "date", widget: "date", format: "YYYY-MM-DD" }

@@ -87,12 +87,16 @@ document.addEventListener('DOMContentLoaded', () => {
             return response.json();
         })
         .then((data) => {
-            if (!Array.isArray(data) || data.length === 0) {
+            const entries = Array.isArray(data)
+                ? data
+                : (Array.isArray(data.entries) ? data.entries : []);
+
+            if (!Array.isArray(entries) || entries.length === 0) {
                 hideElement(section);
                 return;
             }
 
-            const sorted = data.slice().sort((a, b) => {
+            const sorted = entries.slice().sort((a, b) => {
                 return new Date(b.date) - new Date(a.date);
             });
             const entry = sorted[0] || {};

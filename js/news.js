@@ -1,62 +1,31 @@
-// Array of news objects with dates (YYYY-MM-DD HH:MM format) and expanded details
-const newsAlerts = [
-    { 
-        date: '2026-02-18 14:30', 
-        title: 'Admission Open for Class XI (Arts and Science Stream)',
-        message: 'Admission Open for Class XI (Arts and Science Stream) for the 2026-27 session. Visit the Admissions office in Langkerding, Nongmensong for details.', 
-        description: 'Admissions for Class XI (Arts and Science Stream) for the 2026-27 academic session are actively accepting applications. With classes commencing soon, this is an excellent opportunity for students to join our vibrant learning community. Interested students and parents are encouraged to visit our admissions office at Langkerding, Nongmensong for comprehensive guidance on the application process, eligibility criteria, and available streams. Visit our admissions portal at https://www.leadsshillong.com/admissions.html to apply online or for more information. Limited seats are available, so we recommend completing your application promptly. For any inquiries, contact our admissions team at +91 88372 48004. We are excited to welcome qualified students to LEADS Higher Secondary School.',
-        image: 'https://images.unsplash.com/photo-1523580494863-6f3031224c94?auto=format&fit=crop&w=500&h=300'
-    },
-    { 
-        date: '2026-02-10 09:30', 
-        title: 'Classes Commence',
-        message: 'Classes I to X commence on 13th February, 2026.', 
-        description: 'All classes from Class I to X will resume their regular schedule starting from 13th February, 2026. Students should report to their respective classrooms by 8:10 AM. Parents are requested to ensure their children are on time.',
-        image: 'https://images.unsplash.com/photo-1427504494785-cdba93c3e6c9?auto=format&fit=crop&w=500&h=300'
-    },
-    { 
-        date: '2026-02-01 14:00', 
-        title: 'Teacher Orientation',
-        message: 'Orientation for teachers will be held on 11th February 2026.', 
-        description: 'An orientation session for all teaching staff will be conducted on 11th February, 2026. The session will cover curriculum updates, teaching methodologies, and school policies for the academic year. Attendance is mandatory for all faculty members.',
-        image: 'https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=500&h=300'
-    },
-    { 
-        date: '2026-01-20 10:15', 
-        title: 'Books & Uniforms Available',
-        message: 'Books and Uniforms are available from the 27th January, 2026 in Langkerding Office.', 
-        description: 'All textbooks and uniforms for the 2026-27 session are now available for purchase. Students and parents can collect them from our Langkerding Office from 27th January onwards. Timings: 9:00 AM - 3:00 PM. For bulk orders, please contact the office in advance.',
-        image: 'https://images.unsplash.com/photo-1497633762265-ecc187fde957?auto=format&fit=crop&w=500&h=300'
-    },
-    { 
-        date: '2026-01-15 08:45', 
-        title: 'Admissions Open',
-        message: 'Admissions for the 2026-27 session are now open. Visit the Admissions office in Langkerding, Nongmensong for details.', 
-        description: 'We are pleased to announce that admissions for the 2026-27 academic session are now open for all classes. Interested parents and students are welcome to visit our admission office. Application forms and prospectus are available online and at the office. Early bird discounts available for registrations submitted by 28th February 2026.',
-        image: 'https://images.unsplash.com/photo-1523580494863-6f3031224c94?auto=format&fit=crop&w=500&h=300'
-    },
-    { 
-        date: '2025-12-10 11:20', 
-        title: 'Winter Break',
-        message: 'Winter break begins from 15th December 2025 to 12th February 2026.', 
-        description: 'The winter vacation period for all students from Class Pre-Primary to X is scheduled from 15th December 2025 to 12th February 2026. Online learning resources and assignments will be shared for engaged learning during this period. School office remains open for administrative work and admissions.',
-        image: 'https://images.unsplash.com/photo-1542229881-46a822d00c30?auto=format&fit=crop&w=500&h=300'
-    },
-    { 
-        date: '2025-11-05 15:30',
-        title: 'Annual Sports Day',
-        message: 'Annual Sports Day will be held on 20th May 2025.', 
-        description: 'Our Annual Sports Day celebration bringing together students, teachers, and parents for a day of athletic excellence and sportsmanship. Various events including track and field, relay races, and inter-house competitions. Participation is open to all students. More details will be shared soon.',
-        image: 'https://images.unsplash.com/photo-1461896836934-ffe607ba8211?auto=format&fit=crop&w=500&h=300'
-    }
-];
+// News is loaded from JSON so it can be managed by a CMS
+let newsAlerts = [];
 
 // Global variable to track current page for pagination
 let currentNewsPage = 0;
 const newsPerPage = 5;
 
-// Sort all news once for consistent ordering
-const sortedNewsAlerts = [...newsAlerts].sort((a, b) => new Date(b.date) - new Date(a.date));
+// Sort all news once loaded for consistent ordering
+let sortedNewsAlerts = [];
+
+async function loadNewsData() {
+    try {
+        const response = await fetch('news/content.json');
+        if (!response.ok) {
+            throw new Error(`Failed to load news data: ${response.statusText}`);
+        }
+
+        const data = await response.json();
+        newsAlerts = Array.isArray(data)
+            ? data
+            : (Array.isArray(data.items) ? data.items : []);
+        sortedNewsAlerts = [...newsAlerts].sort((a, b) => new Date(b.date) - new Date(a.date));
+    } catch (error) {
+        console.error('Error loading news data:', error);
+        newsAlerts = [];
+        sortedNewsAlerts = [];
+    }
+}
 
 /**
  * Parse text and convert URLs and phone numbers to clickable elements
@@ -239,7 +208,8 @@ function closeNewsModal() {
 }
 
 // Run the script as soon as the HTML is fully loaded
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
+    await loadNewsData();
     loadNewsMarquee();
     
     // Add click handler to alert banner to open modal

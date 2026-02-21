@@ -36,9 +36,12 @@ async function initDownloads() {
         }
         
         const data = await response.json();
+        const entries = Array.isArray(data)
+            ? data
+            : (Array.isArray(data.items) ? data.items : []);
         
         // Sort by timestamp (descending - most recent first)
-        allDownloads = data.sort((a, b) => {
+        allDownloads = entries.sort((a, b) => {
             return new Date(b.timestamp) - new Date(a.timestamp);
         });
         

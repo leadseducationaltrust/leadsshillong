@@ -1,0 +1,6 @@
+name = "leadsshillong-cms-oauth"
+main = "src/worker.js"
+compatibility_date = "2026-02-21"
+
+[vars]
+ALLOWED_ORIGINS = "https://www.leadsshillong.com,https://leadsshillong.com"
