@@ -3,7 +3,7 @@ backend:
   name: github
   repo: leadseducationaltrust/leadsshillong
   branch: main
-  base_url: https://leadsshillong.com.workers.dev
+  base_url: https://leadsshillong-cms-oauth.leadsshillong.workers.dev
   auth_endpoint: auth
 
   # See who did what (optional)
