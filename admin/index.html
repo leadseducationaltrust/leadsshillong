@@ -6,18 +6,13 @@
   <title>LEADS CMS</title>
 </head>
 <body>
-  <button id="github-login">Login with GitHub</button>
+  <button id="github-login" type="button">Login with GitHub</button>
 
-  <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
+  <script src="https://unpkg.com/decap-cms@3.0.0/dist/decap-cms.js"></script>
   <script>
     const loginButton = document.getElementById('github-login');
     loginButton.addEventListener('click', () => {
-      loginButton.disabled = true;
-      loginButton.textContent = 'Opening...';
-      if (window.CMS && typeof window.CMS.init === 'function') {
-        window.CMS.init();
-      }
-      window.location.hash = '#/';
+      window.location.assign('/admin/#/');
     });
   </script>
 </body>

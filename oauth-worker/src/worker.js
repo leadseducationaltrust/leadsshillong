@@ -31,9 +31,50 @@ function getAllowedOrigins(env) {
   return [];
 }
 
-function isAllowedOrigin(origin, allowedOrigins) {
-  if (!origin || !Array.isArray(allowedOrigins) || allowedOrigins.length === 0) return false;
-  return allowedOrigins.includes(origin);
+function normalizeOrigin(value) {
+  if (!value || typeof value !== 'string') return null;
+  const input = value.trim();
+  if (!input) return null;
+
+  try {
+    return new URL(input).origin;
+  } catch {
+    try {
+      return new URL(`https://${input}`).origin;
+    } catch {
+      return null;
+    }
+  }
+}
+
+function findAllowedOrigin(candidates, allowedOrigins) {
+  if (!Array.isArray(candidates) || !Array.isArray(allowedOrigins) || allowedOrigins.length === 0) return null;
+
+  const normalizedAllowedOrigins = allowedOrigins
+    .map((allowed) => normalizeOrigin(allowed))
+    .filter(Boolean);
+
+  for (const candidate of candidates) {
+    const normalized = normalizeOrigin(candidate);
+    if (normalized && normalizedAllowedOrigins.includes(normalized)) {
+      return normalized;
+    }
+  }
+
+  return null;
+}
+
+function getOriginCandidates(url, request) {
+  const origin = url.searchParams.get('origin');
+  const siteId = url.searchParams.get('site_id');
+  const referer = request.headers.get('Referer');
+  const candidates = [origin, siteId, referer].filter(Boolean);
+
+  if (siteId && !/^https?:\/\//i.test(siteId)) {
+    candidates.push(`https://${siteId}`, `http://${siteId}`);
+  }
+
+  return candidates;
 }
 
 function htmlResponse(html, status = 200) {
@@ -49,9 +90,10 @@ export default {
     const allowedOrigins = getAllowedOrigins(env);
 
     if (url.pathname === '/auth') {
-      const origin = url.searchParams.get('origin');
-      if (!isAllowedOrigin(origin, allowedOrigins)) {
-        return new Response('Invalid origin', { status: 400 });
+      const originCandidates = getOriginCandidates(url, request);
+      const normalizedOrigin = findAllowedOrigin(originCandidates, allowedOrigins);
+      if (!normalizedOrigin) {
+        return new Response(`Invalid origin: ${originCandidates.join(', ') || '(missing)'}`, { status: 400 });
       }
 
       const state = randomState();
@@ -64,7 +106,7 @@ export default {
 
       const response = Response.redirect(githubAuthUrl.toString(), 302);
       response.headers.append('Set-Cookie', `cms_oauth_state=${encodeURIComponent(state)}; Path=/; HttpOnly; Secure; SameSite=Lax; Max-Age=600`);
-      response.headers.append('Set-Cookie', `cms_oauth_origin=${encodeURIComponent(origin)}; Path=/; HttpOnly; Secure; SameSite=Lax; Max-Age=600`);
+      response.headers.append('Set-Cookie', `cms_oauth_origin=${encodeURIComponent(normalizedOrigin)}; Path=/; HttpOnly; Secure; SameSite=Lax; Max-Age=600`);
       return response;
     }
 
@@ -78,7 +120,8 @@ export default {
       }
 
       const origin = cookies.cms_oauth_origin;
-      if (!isAllowedOrigin(origin, allowedOrigins)) {
+      const normalizedOrigin = findAllowedOrigin([origin], allowedOrigins);
+      if (!normalizedOrigin) {
         return htmlResponse('<h3>Invalid origin.</h3>', 400);
       }
 
@@ -111,7 +154,7 @@ export default {
       (function() {
         function send() {
           if (window.opener) {
-            window.opener.postMessage('authorization:github:success:' + JSON.stringify({ token: '${token}' }), '${origin}');
+            window.opener.postMessage('authorization:github:success:' + JSON.stringify({ token: '${token}' }), '${normalizedOrigin}');
           }
           window.close();
         }

@@ -3,4 +3,4 @@ main = "src/worker.js"
 compatibility_date = "2026-02-21"
 
 [vars]
-ALLOWED_ORIGINS = "https://www.leadsshillong.com,https://leadsshillong.com"
+ALLOWED_ORIGINS = "https://www.leadsshillong.com,https://leadsshillong.com,http://127.0.0.1,http://localhost"
