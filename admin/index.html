@@ -10,6 +10,28 @@
 
   <script src="https://unpkg.com/decap-cms@3.0.0/dist/decap-cms.js"></script>
   <script>
+    function hideStandaloneMediaTab() {
+      const links = document.querySelectorAll('a[href="#/media"]');
+      links.forEach((link) => {
+        const navItem = link.closest('li') || link;
+        navItem.style.display = 'none';
+      });
+    }
+
+    function blockMediaRoute() {
+      if (window.location.hash.startsWith('#/media')) {
+        window.location.hash = '#/collections/news';
+      }
+    }
+
+    const observer = new MutationObserver(() => {
+      hideStandaloneMediaTab();
+      blockMediaRoute();
+    });
+
+    observer.observe(document.documentElement, { childList: true, subtree: true });
+    window.addEventListener('hashchange', blockMediaRoute);
+
     const loginButton = document.getElementById('github-login');
     loginButton.addEventListener('click', () => {
       window.location.assign('/admin/#/');
