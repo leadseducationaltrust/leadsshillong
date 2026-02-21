@@ -48,7 +48,12 @@ collections:
               - { label: "Title", name: "title", widget: "string" }
               - { label: "Message", name: "message", widget: "text" }
               - { label: "Description", name: "description", widget: "text" }
-              - { label: "Image", name: "image", widget: "image", required: false }
+              - label: "Image"
+                name: "image"
+                widget: "image"
+                required: false
+                media_folder: "images/news"
+                public_folder: "/images/news"
 
   - name: "thought"
     label: "Thought of the Day"
@@ -92,7 +97,11 @@ collections:
               - { label: "Description", name: "description", widget: "text" }
               - { label: "Audience", name: "audience", widget: "string" }
               - { label: "Timestamp", name: "timestamp", widget: "datetime", format: "YYYY-MM-DDTHH:mm:ss[Z]", date_format: "YYYY-MM-DD", time_format: "HH:mm" }
-              - { label: "PDF", name: "pdf_url", widget: "file" }
+              - label: "PDF"
+                name: "pdf_url"
+                widget: "file"
+                media_folder: "downloads/pdfs"
+                public_folder: "/downloads/pdfs"
 
   - name: "calendar"
     label: "Academic Calendar"
@@ -145,7 +154,11 @@ collections:
               - { label: "Role", name: "role", widget: "string" }
               - { label: "Bio", name: "bio", widget: "text" }
               - { label: "Qualifications", name: "qualifications", widget: "string" }
-              - { label: "Image", name: "img", widget: "image" }
+              - label: "Image"
+                name: "img"
+                widget: "image"
+                media_folder: "images/faculty"
+                public_folder: "/images/faculty"
               - label: "Category"
                 name: "category"
                 widget: "select"
@@ -170,6 +183,10 @@ collections:
             widget: "list"
             summary: "{{fields.date}} - {{fields.desc}}"
             fields:
-              - { label: "Image", name: "url", widget: "image" }
+              - label: "Image"
+                name: "url"
+                widget: "image"
+                media_folder: "images/gallery"
+                public_folder: "/images/gallery"
               - { label: "Description", name: "desc", widget: "text" }
               - { label: "Date", name: "date", widget: "date", format: "YYYY-MM-DD" }
