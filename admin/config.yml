@@ -59,6 +59,8 @@ collections:
         name: "thought_entries"
         file: "thought/content.json"
         format: "json"
+        media_folder: "/thought/media"
+        public_folder: "/thought/media"
         fields:
           - label: "Entries"
             name: "entries"
@@ -66,6 +68,14 @@ collections:
             summary: "{{fields.date}}"
             fields:
               - { label: "Date", name: "date", widget: "date", format: "YYYY-MM-DD" }
+              - label: "Daily Focus"
+                name: "daily_focus"
+                widget: "object"
+                required: false
+                fields:
+                  - { label: "Image", name: "image", widget: "image", required: false }
+                  - { label: "Alt", name: "alt", widget: "string", required: false }
+                  - { label: "Description", name: "description", widget: "text", required: false }
               - { label: "Thought", name: "thought_of_the_day", widget: "text", required: false }
               - label: "Order of the Day"
                 name: "order_of_the_day"
@@ -76,6 +86,549 @@ collections:
               - { label: "Bible Verse", name: "bible_verse", widget: "text", required: false }
               - { label: "Bible Reference", name: "bible_reference", widget: "string", required: false }
               - { label: "Additional Notes", name: "additional_notes", widget: "text", required: false }
+
+  - name: "programs"
+    label: "Programs"
+    files:
+      - label: "Pre-Primary Program"
+        name: "program_preprimary"
+        file: "programs/preprimary/content.json"
+        format: "json"
+        media_folder: "/programs/media"
+        public_folder: "/programs/media"
+        fields:
+          - { label: "Program ID", name: "id", widget: "string" }
+          - { label: "Program Name", name: "name", widget: "string" }
+          - label: "Card"
+            name: "card"
+            widget: "object"
+            fields:
+              - { label: "Title", name: "title", widget: "string" }
+              - { label: "Icon Color", name: "iconColor", widget: "string" }
+              - { label: "Icon Type", name: "iconType", widget: "string" }
+              - { label: "Description", name: "description", widget: "text" }
+          - label: "Page"
+            name: "page"
+            widget: "object"
+            fields:
+              - { label: "Title", name: "title", widget: "string" }
+              - { label: "Subtitle", name: "subtitle", widget: "text" }
+              - { label: "Badge", name: "badge", widget: "string", required: false }
+              - { label: "Tagline", name: "tagline", widget: "string", required: false }
+              - label: "Head Of Department"
+                name: "headOfDepartment"
+                widget: "object"
+                fields:
+                  - { label: "Name", name: "name", widget: "string" }
+                  - { label: "Photo", name: "photo", widget: "image" }
+                  - { label: "Quote", name: "quote", widget: "text" }
+                  - { label: "Years Of Experience", name: "yearsOfExperience", widget: "string", required: false }
+                  - { label: "Specialization", name: "specialization", widget: "string", required: false }
+              - label: "Qualifications"
+                name: "qualifications"
+                widget: "list"
+                required: false
+                field: { label: "Item", name: "item", widget: "string" }
+              - label: "Sub Programs"
+                name: "subPrograms"
+                widget: "list"
+                required: false
+                fields:
+                  - { label: "Title", name: "title", widget: "string" }
+                  - { label: "Age Group", name: "ageGroup", widget: "string", required: false }
+                  - { label: "Icon", name: "icon", widget: "string", required: false }
+                  - { label: "Icon Background", name: "iconBg", widget: "string", required: false }
+                  - { label: "Description", name: "description", widget: "text" }
+              - label: "Curriculum"
+                name: "curriculum"
+                widget: "object"
+                required: false
+                fields:
+                  - { label: "Heading", name: "heading", widget: "string", required: false }
+                  - { label: "Intro", name: "intro", widget: "text", required: false }
+                  - label: "Features"
+                    name: "features"
+                    widget: "list"
+                    required: false
+                    fields:
+                      - { label: "Title", name: "title", widget: "string" }
+                      - { label: "Subtitle", name: "subtitle", widget: "string", required: false }
+              - label: "Outcomes"
+                name: "outcomes"
+                widget: "list"
+                required: false
+                field: { label: "Item", name: "item", widget: "string" }
+              - label: "CTA"
+                name: "cta"
+                widget: "object"
+                required: false
+                fields:
+                  - { label: "Heading", name: "heading", widget: "string", required: false }
+                  - { label: "Description", name: "description", widget: "text", required: false }
+                  - { label: "Button Text", name: "buttonText", widget: "string", required: false }
+                  - { label: "Button Link", name: "buttonLink", widget: "string", required: false }
+      - label: "Primary Program"
+        name: "program_primary"
+        file: "programs/primary/content.json"
+        format: "json"
+        media_folder: "/programs/media"
+        public_folder: "/programs/media"
+        fields:
+          - { label: "Program ID", name: "id", widget: "string" }
+          - { label: "Program Name", name: "name", widget: "string" }
+          - label: "Card"
+            name: "card"
+            widget: "object"
+            fields:
+              - { label: "Title", name: "title", widget: "string" }
+              - { label: "Icon Color", name: "iconColor", widget: "string" }
+              - { label: "Icon Type", name: "iconType", widget: "string" }
+              - { label: "Description", name: "description", widget: "text" }
+          - label: "Page"
+            name: "page"
+            widget: "object"
+            fields:
+              - { label: "Title", name: "title", widget: "string" }
+              - { label: "Subtitle", name: "subtitle", widget: "text" }
+              - { label: "Badge", name: "badge", widget: "string", required: false }
+              - { label: "Tagline", name: "tagline", widget: "string", required: false }
+              - label: "Head Of Department"
+                name: "headOfDepartment"
+                widget: "object"
+                fields:
+                  - { label: "Name", name: "name", widget: "string" }
+                  - { label: "Photo", name: "photo", widget: "image" }
+                  - { label: "Quote", name: "quote", widget: "text" }
+                  - { label: "Years Of Experience", name: "yearsOfExperience", widget: "string", required: false }
+                  - { label: "Specialization", name: "specialization", widget: "string", required: false }
+              - label: "Qualifications"
+                name: "qualifications"
+                widget: "list"
+                required: false
+                field: { label: "Item", name: "item", widget: "string" }
+              - label: "Sub Programs"
+                name: "subPrograms"
+                widget: "list"
+                required: false
+                fields:
+                  - { label: "Title", name: "title", widget: "string" }
+                  - { label: "Age Group", name: "ageGroup", widget: "string", required: false }
+                  - { label: "Icon", name: "icon", widget: "string", required: false }
+                  - { label: "Icon Background", name: "iconBg", widget: "string", required: false }
+                  - { label: "Description", name: "description", widget: "text" }
+              - label: "Curriculum"
+                name: "curriculum"
+                widget: "object"
+                required: false
+                fields:
+                  - { label: "Heading", name: "heading", widget: "string", required: false }
+                  - { label: "Intro", name: "intro", widget: "text", required: false }
+                  - label: "Features"
+                    name: "features"
+                    widget: "list"
+                    required: false
+                    fields:
+                      - { label: "Title", name: "title", widget: "string" }
+                      - { label: "Subtitle", name: "subtitle", widget: "string", required: false }
+              - label: "Outcomes"
+                name: "outcomes"
+                widget: "list"
+                required: false
+                field: { label: "Item", name: "item", widget: "string" }
+              - label: "CTA"
+                name: "cta"
+                widget: "object"
+                required: false
+                fields:
+                  - { label: "Heading", name: "heading", widget: "string", required: false }
+                  - { label: "Description", name: "description", widget: "text", required: false }
+                  - { label: "Button Text", name: "buttonText", widget: "string", required: false }
+                  - { label: "Button Link", name: "buttonLink", widget: "string", required: false }
+      - label: "Middle Program"
+        name: "program_middle"
+        file: "programs/middle/content.json"
+        format: "json"
+        media_folder: "/programs/media"
+        public_folder: "/programs/media"
+        fields:
+          - { label: "Program ID", name: "id", widget: "string" }
+          - { label: "Program Name", name: "name", widget: "string" }
+          - label: "Card"
+            name: "card"
+            widget: "object"
+            fields:
+              - { label: "Title", name: "title", widget: "string" }
+              - { label: "Icon Color", name: "iconColor", widget: "string" }
+              - { label: "Icon Type", name: "iconType", widget: "string" }
+              - { label: "Description", name: "description", widget: "text" }
+          - label: "Page"
+            name: "page"
+            widget: "object"
+            fields:
+              - { label: "Title", name: "title", widget: "string" }
+              - { label: "Subtitle", name: "subtitle", widget: "text" }
+              - { label: "Badge", name: "badge", widget: "string", required: false }
+              - { label: "Tagline", name: "tagline", widget: "string", required: false }
+              - label: "Head Of Department"
+                name: "headOfDepartment"
+                widget: "object"
+                fields:
+                  - { label: "Name", name: "name", widget: "string" }
+                  - { label: "Photo", name: "photo", widget: "image" }
+                  - { label: "Quote", name: "quote", widget: "text" }
+                  - { label: "Years Of Experience", name: "yearsOfExperience", widget: "string", required: false }
+                  - { label: "Specialization", name: "specialization", widget: "string", required: false }
+              - label: "Qualifications"
+                name: "qualifications"
+                widget: "list"
+                required: false
+                field: { label: "Item", name: "item", widget: "string" }
+              - label: "Sub Programs"
+                name: "subPrograms"
+                widget: "list"
+                required: false
+                fields:
+                  - { label: "Title", name: "title", widget: "string" }
+                  - { label: "Age Group", name: "ageGroup", widget: "string", required: false }
+                  - { label: "Icon", name: "icon", widget: "string", required: false }
+                  - { label: "Icon Background", name: "iconBg", widget: "string", required: false }
+                  - { label: "Description", name: "description", widget: "text" }
+              - label: "Curriculum"
+                name: "curriculum"
+                widget: "object"
+                required: false
+                fields:
+                  - { label: "Heading", name: "heading", widget: "string", required: false }
+                  - { label: "Intro", name: "intro", widget: "text", required: false }
+                  - label: "Features"
+                    name: "features"
+                    widget: "list"
+                    required: false
+                    fields:
+                      - { label: "Title", name: "title", widget: "string" }
+                      - { label: "Subtitle", name: "subtitle", widget: "string", required: false }
+              - label: "Outcomes"
+                name: "outcomes"
+                widget: "list"
+                required: false
+                field: { label: "Item", name: "item", widget: "string" }
+              - label: "CTA"
+                name: "cta"
+                widget: "object"
+                required: false
+                fields:
+                  - { label: "Heading", name: "heading", widget: "string", required: false }
+                  - { label: "Description", name: "description", widget: "text", required: false }
+                  - { label: "Button Text", name: "buttonText", widget: "string", required: false }
+                  - { label: "Button Link", name: "buttonLink", widget: "string", required: false }
+      - label: "Secondary Program"
+        name: "program_secondary"
+        file: "programs/secondary/content.json"
+        format: "json"
+        media_folder: "/programs/media"
+        public_folder: "/programs/media"
+        fields:
+          - { label: "Program ID", name: "id", widget: "string" }
+          - { label: "Program Name", name: "name", widget: "string" }
+          - label: "Card"
+            name: "card"
+            widget: "object"
+            fields:
+              - { label: "Title", name: "title", widget: "string" }
+              - { label: "Icon Color", name: "iconColor", widget: "string" }
+              - { label: "Icon Type", name: "iconType", widget: "string" }
+              - { label: "Description", name: "description", widget: "text" }
+          - label: "Page"
+            name: "page"
+            widget: "object"
+            fields:
+              - { label: "Title", name: "title", widget: "string" }
+              - { label: "Subtitle", name: "subtitle", widget: "text" }
+              - { label: "Badge", name: "badge", widget: "string", required: false }
+              - { label: "Tagline", name: "tagline", widget: "string", required: false }
+              - label: "Head Of Department"
+                name: "headOfDepartment"
+                widget: "object"
+                fields:
+                  - { label: "Name", name: "name", widget: "string" }
+                  - { label: "Photo", name: "photo", widget: "image" }
+                  - { label: "Quote", name: "quote", widget: "text" }
+                  - { label: "Years Of Experience", name: "yearsOfExperience", widget: "string", required: false }
+                  - { label: "Specialization", name: "specialization", widget: "string", required: false }
+              - label: "Qualifications"
+                name: "qualifications"
+                widget: "list"
+                required: false
+                field: { label: "Item", name: "item", widget: "string" }
+              - label: "Sub Programs"
+                name: "subPrograms"
+                widget: "list"
+                required: false
+                fields:
+                  - { label: "Title", name: "title", widget: "string" }
+                  - { label: "Age Group", name: "ageGroup", widget: "string", required: false }
+                  - { label: "Icon", name: "icon", widget: "string", required: false }
+                  - { label: "Icon Background", name: "iconBg", widget: "string", required: false }
+                  - { label: "Description", name: "description", widget: "text" }
+              - label: "Curriculum"
+                name: "curriculum"
+                widget: "object"
+                required: false
+                fields:
+                  - { label: "Heading", name: "heading", widget: "string", required: false }
+                  - { label: "Intro", name: "intro", widget: "text", required: false }
+                  - label: "Features"
+                    name: "features"
+                    widget: "list"
+                    required: false
+                    fields:
+                      - { label: "Title", name: "title", widget: "string" }
+                      - { label: "Subtitle", name: "subtitle", widget: "string", required: false }
+              - label: "Outcomes"
+                name: "outcomes"
+                widget: "list"
+                required: false
+                field: { label: "Item", name: "item", widget: "string" }
+              - label: "CTA"
+                name: "cta"
+                widget: "object"
+                required: false
+                fields:
+                  - { label: "Heading", name: "heading", widget: "string", required: false }
+                  - { label: "Description", name: "description", widget: "text", required: false }
+                  - { label: "Button Text", name: "buttonText", widget: "string", required: false }
+                  - { label: "Button Link", name: "buttonLink", widget: "string", required: false }
+      - label: "Higher Secondary Arts Program"
+        name: "program_hs_arts"
+        file: "programs/higher_secondary_arts/content.json"
+        format: "json"
+        media_folder: "/programs/media"
+        public_folder: "/programs/media"
+        fields:
+          - { label: "Program ID", name: "id", widget: "string" }
+          - { label: "Program Name", name: "name", widget: "string" }
+          - label: "Card"
+            name: "card"
+            widget: "object"
+            fields:
+              - { label: "Title", name: "title", widget: "string" }
+              - { label: "Icon Color", name: "iconColor", widget: "string" }
+              - { label: "Icon Type", name: "iconType", widget: "string" }
+              - { label: "Description", name: "description", widget: "text" }
+          - label: "Page"
+            name: "page"
+            widget: "object"
+            fields:
+              - { label: "Title", name: "title", widget: "string" }
+              - { label: "Subtitle", name: "subtitle", widget: "text" }
+              - { label: "Badge", name: "badge", widget: "string", required: false }
+              - { label: "Tagline", name: "tagline", widget: "string", required: false }
+              - label: "Head Of Department"
+                name: "headOfDepartment"
+                widget: "object"
+                fields:
+                  - { label: "Name", name: "name", widget: "string" }
+                  - { label: "Photo", name: "photo", widget: "image" }
+                  - { label: "Quote", name: "quote", widget: "text" }
+                  - { label: "Years Of Experience", name: "yearsOfExperience", widget: "string", required: false }
+                  - { label: "Specialization", name: "specialization", widget: "string", required: false }
+              - label: "Qualifications"
+                name: "qualifications"
+                widget: "list"
+                required: false
+                field: { label: "Item", name: "item", widget: "string" }
+              - label: "Sub Programs"
+                name: "subPrograms"
+                widget: "list"
+                required: false
+                fields:
+                  - { label: "Title", name: "title", widget: "string" }
+                  - { label: "Age Group", name: "ageGroup", widget: "string", required: false }
+                  - { label: "Icon", name: "icon", widget: "string", required: false }
+                  - { label: "Icon Background", name: "iconBg", widget: "string", required: false }
+                  - { label: "Description", name: "description", widget: "text" }
+              - label: "Curriculum"
+                name: "curriculum"
+                widget: "object"
+                required: false
+                fields:
+                  - { label: "Heading", name: "heading", widget: "string", required: false }
+                  - { label: "Intro", name: "intro", widget: "text", required: false }
+                  - label: "Features"
+                    name: "features"
+                    widget: "list"
+                    required: false
+                    fields:
+                      - { label: "Title", name: "title", widget: "string" }
+                      - { label: "Subtitle", name: "subtitle", widget: "string", required: false }
+              - label: "Outcomes"
+                name: "outcomes"
+                widget: "list"
+                required: false
+                field: { label: "Item", name: "item", widget: "string" }
+              - label: "CTA"
+                name: "cta"
+                widget: "object"
+                required: false
+                fields:
+                  - { label: "Heading", name: "heading", widget: "string", required: false }
+                  - { label: "Description", name: "description", widget: "text", required: false }
+                  - { label: "Button Text", name: "buttonText", widget: "string", required: false }
+                  - { label: "Button Link", name: "buttonLink", widget: "string", required: false }
+      - label: "Higher Secondary Science Program"
+        name: "program_hs_science"
+        file: "programs/higher_secondary_science/content.json"
+        format: "json"
+        media_folder: "/programs/media"
+        public_folder: "/programs/media"
+        fields:
+          - { label: "Program ID", name: "id", widget: "string" }
+          - { label: "Program Name", name: "name", widget: "string" }
+          - label: "Card"
+            name: "card"
+            widget: "object"
+            fields:
+              - { label: "Title", name: "title", widget: "string" }
+              - { label: "Icon Color", name: "iconColor", widget: "string" }
+              - { label: "Icon Type", name: "iconType", widget: "string" }
+              - { label: "Description", name: "description", widget: "text" }
+          - label: "Page"
+            name: "page"
+            widget: "object"
+            fields:
+              - { label: "Title", name: "title", widget: "string" }
+              - { label: "Subtitle", name: "subtitle", widget: "text" }
+              - { label: "Badge", name: "badge", widget: "string", required: false }
+              - { label: "Tagline", name: "tagline", widget: "string", required: false }
+              - label: "Head Of Department"
+                name: "headOfDepartment"
+                widget: "object"
+                fields:
+                  - { label: "Name", name: "name", widget: "string" }
+                  - { label: "Photo", name: "photo", widget: "image" }
+                  - { label: "Quote", name: "quote", widget: "text" }
+                  - { label: "Years Of Experience", name: "yearsOfExperience", widget: "string", required: false }
+                  - { label: "Specialization", name: "specialization", widget: "string", required: false }
+              - label: "Qualifications"
+                name: "qualifications"
+                widget: "list"
+                required: false
+                field: { label: "Item", name: "item", widget: "string" }
+              - label: "Sub Programs"
+                name: "subPrograms"
+                widget: "list"
+                required: false
+                fields:
+                  - { label: "Title", name: "title", widget: "string" }
+                  - { label: "Age Group", name: "ageGroup", widget: "string", required: false }
+                  - { label: "Icon", name: "icon", widget: "string", required: false }
+                  - { label: "Icon Background", name: "iconBg", widget: "string", required: false }
+                  - { label: "Description", name: "description", widget: "text" }
+              - label: "Curriculum"
+                name: "curriculum"
+                widget: "object"
+                required: false
+                fields:
+                  - { label: "Heading", name: "heading", widget: "string", required: false }
+                  - { label: "Intro", name: "intro", widget: "text", required: false }
+                  - label: "Features"
+                    name: "features"
+                    widget: "list"
+                    required: false
+                    fields:
+                      - { label: "Title", name: "title", widget: "string" }
+                      - { label: "Subtitle", name: "subtitle", widget: "string", required: false }
+              - label: "Outcomes"
+                name: "outcomes"
+                widget: "list"
+                required: false
+                field: { label: "Item", name: "item", widget: "string" }
+              - label: "CTA"
+                name: "cta"
+                widget: "object"
+                required: false
+                fields:
+                  - { label: "Heading", name: "heading", widget: "string", required: false }
+                  - { label: "Description", name: "description", widget: "text", required: false }
+                  - { label: "Button Text", name: "buttonText", widget: "string", required: false }
+                  - { label: "Button Link", name: "buttonLink", widget: "string", required: false }
+      - label: "Intervention Program"
+        name: "program_intervention"
+        file: "programs/intervention/content.json"
+        format: "json"
+        media_folder: "/programs/media"
+        public_folder: "/programs/media"
+        fields:
+          - { label: "Program ID", name: "id", widget: "string" }
+          - { label: "Program Name", name: "name", widget: "string" }
+          - label: "Card"
+            name: "card"
+            widget: "object"
+            fields:
+              - { label: "Title", name: "title", widget: "string" }
+              - { label: "Icon Color", name: "iconColor", widget: "string" }
+              - { label: "Icon Type", name: "iconType", widget: "string" }
+              - { label: "Description", name: "description", widget: "text" }
+          - label: "Page"
+            name: "page"
+            widget: "object"
+            fields:
+              - { label: "Title", name: "title", widget: "string" }
+              - { label: "Subtitle", name: "subtitle", widget: "text" }
+              - { label: "Badge", name: "badge", widget: "string", required: false }
+              - { label: "Tagline", name: "tagline", widget: "string", required: false }
+              - label: "Head Of Department"
+                name: "headOfDepartment"
+                widget: "object"
+                fields:
+                  - { label: "Name", name: "name", widget: "string" }
+                  - { label: "Photo", name: "photo", widget: "image" }
+                  - { label: "Quote", name: "quote", widget: "text" }
+                  - { label: "Years Of Experience", name: "yearsOfExperience", widget: "string", required: false }
+                  - { label: "Specialization", name: "specialization", widget: "string", required: false }
+              - label: "Qualifications"
+                name: "qualifications"
+                widget: "list"
+                required: false
+                field: { label: "Item", name: "item", widget: "string" }
+              - label: "Sub Programs"
+                name: "subPrograms"
+                widget: "list"
+                required: false
+                fields:
+                  - { label: "Title", name: "title", widget: "string" }
+                  - { label: "Age Group", name: "ageGroup", widget: "string", required: false }
+                  - { label: "Icon", name: "icon", widget: "string", required: false }
+                  - { label: "Icon Background", name: "iconBg", widget: "string", required: false }
+                  - { label: "Description", name: "description", widget: "text" }
+              - label: "Curriculum"
+                name: "curriculum"
+                widget: "object"
+                required: false
+                fields:
+                  - { label: "Heading", name: "heading", widget: "string", required: false }
+                  - { label: "Intro", name: "intro", widget: "text", required: false }
+                  - label: "Features"
+                    name: "features"
+                    widget: "list"
+                    required: false
+                    fields:
+                      - { label: "Title", name: "title", widget: "string" }
+                      - { label: "Subtitle", name: "subtitle", widget: "string", required: false }
+              - label: "Outcomes"
+                name: "outcomes"
+                widget: "list"
+                required: false
+                field: { label: "Item", name: "item", widget: "string" }
+              - label: "CTA"
+                name: "cta"
+                widget: "object"
+                required: false
+                fields:
+                  - { label: "Heading", name: "heading", widget: "string", required: false }
+                  - { label: "Description", name: "description", widget: "text", required: false }
+                  - { label: "Button Text", name: "buttonText", widget: "string", required: false }
+                  - { label: "Button Link", name: "buttonLink", widget: "string", required: false }
 
   - name: "downloads"
     label: "Downloads"
@@ -181,3 +734,84 @@ collections:
               - { label: "Image", name: "url", widget: "image" }
               - { label: "Description", name: "desc", widget: "text" }
               - { label: "Date", name: "date", widget: "date", format: "YYYY-MM-DD" }
+
+  - name: "articles"
+    label: "Articles"
+    files:
+      - label: "AI Education Article"
+        name: "article_ai_education"
+        file: "articles/ai_education/content.json"
+        format: "json"
+        media_folder: "/articles/ai_education"
+        public_folder: "/articles/ai_education"
+        fields:
+          - { label: "Title", name: "title", widget: "string" }
+          - { label: "Cover Image", name: "image", widget: "image" }
+          - { label: "Description", name: "description", widget: "text" }
+          - { label: "Author", name: "author", widget: "string" }
+          - { label: "Author Image", name: "authorImage", widget: "image", required: false }
+          - { label: "Role", name: "role", widget: "string", required: false }
+          - { label: "Category", name: "category", widget: "string", required: false }
+          - { label: "Date", name: "date", widget: "datetime", format: "YYYY-MM-DDTHH:mm:ss" }
+          - { label: "Author Bio", name: "authorBio", widget: "text", required: false }
+          - { label: "Core Argument", name: "coreArgument", widget: "text", required: false }
+          - label: "Key Statistics"
+            name: "keyStatistics"
+            widget: "list"
+            required: false
+            fields:
+              - { label: "Label", name: "label", widget: "string" }
+              - { label: "Value", name: "value", widget: "string" }
+          - label: "Content Blocks"
+            name: "content"
+            widget: "list"
+            fields:
+              - label: "Type"
+                name: "type"
+                widget: "select"
+                options:
+                  - { label: "Paragraph", value: "paragraph" }
+                  - { label: "Image", value: "image" }
+                  - { label: "Pullquote", value: "pullquote" }
+              - { label: "Text", name: "text", widget: "text", required: false }
+              - { label: "Image", name: "src", widget: "image", required: false }
+              - { label: "Alt Text", name: "alt", widget: "string", required: false }
+
+      - label: "Kidspreneurship Article"
+        name: "article_kidspreneurship"
+        file: "articles/kidspreneurship_introduction/content.json"
+        format: "json"
+        media_folder: "/articles/kidspreneurship_introduction"
+        public_folder: "/articles/kidspreneurship_introduction"
+        fields:
+          - { label: "Title", name: "title", widget: "string" }
+          - { label: "Cover Image", name: "image", widget: "image" }
+          - { label: "Description", name: "description", widget: "text" }
+          - { label: "Author", name: "author", widget: "string" }
+          - { label: "Author Image", name: "authorImage", widget: "image", required: false }
+          - { label: "Role", name: "role", widget: "string", required: false }
+          - { label: "Category", name: "category", widget: "string", required: false }
+          - { label: "Date", name: "date", widget: "datetime", format: "YYYY-MM-DDTHH:mm:ss" }
+          - { label: "Author Bio", name: "authorBio", widget: "text", required: false }
+          - { label: "Core Argument", name: "coreArgument", widget: "text", required: false }
+          - label: "Key Statistics"
+            name: "keyStatistics"
+            widget: "list"
+            required: false
+            fields:
+              - { label: "Label", name: "label", widget: "string" }
+              - { label: "Value", name: "value", widget: "string" }
+          - label: "Content Blocks"
+            name: "content"
+            widget: "list"
+            fields:
+              - label: "Type"
+                name: "type"
+                widget: "select"
+                options:
+                  - { label: "Paragraph", value: "paragraph" }
+                  - { label: "Image", value: "image" }
+                  - { label: "Pullquote", value: "pullquote" }
+              - { label: "Text", name: "text", widget: "text", required: false }
+              - { label: "Image", name: "src", widget: "image", required: false }
+              - { label: "Alt Text", name: "alt", widget: "string", required: false }

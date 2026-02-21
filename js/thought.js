@@ -4,7 +4,11 @@ document.addEventListener('DOMContentLoaded', () => {
         return;
     }
 
+    const dailyFocusCard = document.getElementById('daily-focus-card');
+    const dailyFocusImage = document.getElementById('daily-focus-image');
+    const dailyFocusDescription = document.getElementById('daily-focus-description');
     const thoughtText = document.getElementById('thought-text');
+    const thoughtCard = document.getElementById('thought-card');
     const thoughtDate = document.getElementById('thought-date');
     const orderList = document.getElementById('order-list');
     const orderCard = document.getElementById('order-card');
@@ -101,7 +105,10 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!entry || typeof entry !== 'object') {
             return false;
         }
+        const dailyFocus = entry.daily_focus && typeof entry.daily_focus === 'object' ? entry.daily_focus : {};
         return (
+            hasRenderableText(dailyFocus.image) ||
+            hasRenderableText(dailyFocus.description) ||
             hasRenderableText(entry.thought_of_the_day) ||
             hasRenderableList(entry.order_of_the_day) ||
             hasRenderableText(entry.principal_message) ||
@@ -109,6 +116,44 @@ document.addEventListener('DOMContentLoaded', () => {
             hasRenderableText(entry.bible_reference) ||
             hasRenderableText(entry.additional_notes)
         );
+    };
+
+    const setDailyFocusOrHide = (dailyFocus) => {
+        const focus = dailyFocus && typeof dailyFocus === 'object' ? dailyFocus : {};
+        const image = normalizeText(focus.image);
+        const alt = normalizeText(focus.alt);
+        const description = normalizeText(focus.description);
+
+        const hasImage = Boolean(image);
+        const hasDescription = Boolean(description);
+
+        if (!hasImage && !hasDescription) {
+            hideElement(dailyFocusCard);
+            return false;
+        }
+
+        if (dailyFocusImage) {
+            if (hasImage) {
+                dailyFocusImage.src = image;
+                dailyFocusImage.alt = alt || 'Daily focus image';
+                dailyFocusImage.style.display = '';
+            } else {
+                dailyFocusImage.removeAttribute('src');
+                dailyFocusImage.style.display = 'none';
+            }
+        }
+
+        if (dailyFocusDescription) {
+            if (hasDescription) {
+                dailyFocusDescription.textContent = description;
+                dailyFocusDescription.style.display = '';
+            } else {
+                dailyFocusDescription.textContent = '';
+                dailyFocusDescription.style.display = 'none';
+            }
+        }
+
+        return true;
     };
 
     const setListOrHide = (listElement, items, container) => {
@@ -176,7 +221,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 hideElement(thoughtDate);
             }
 
-            hasContent = setTextOrHide(thoughtText, entry.thought_of_the_day, thoughtText) || hasContent;
+            hasContent = setDailyFocusOrHide(entry.daily_focus) || hasContent;
+
+            hasContent = setTextOrHide(thoughtText, entry.thought_of_the_day, thoughtCard) || hasContent;
 
             if (isTodayOrFuture(entry.date)) {
                 hasContent = setListOrHide(orderList, entry.order_of_the_day, orderCard) || hasContent;

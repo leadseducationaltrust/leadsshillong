@@ -118,17 +118,19 @@
                     </div>
 
                     <div class="grid md:grid-cols-2 gap-6 mt-6">
-                        <div class="bg-amber-50 rounded-xl p-5 border border-amber-200">
-                            <h3 class="text-lg font-black text-blue-900 mb-2">Thought of the Day</h3>
-                            <p id="thought-text" class="text-gray-700 text-base leading-relaxed"></p>
+                        <div id="daily-focus-card" class="bg-white rounded-xl p-5 border border-gray-200">
+                            <h3 class="text-lg font-black text-blue-900 mb-2">Daily Focus</h3>
+                            <img id="daily-focus-image" src="" alt="" class="w-full h-48 object-cover rounded-lg border border-gray-200 mb-3">
+                            <p id="daily-focus-description" class="text-gray-700 text-sm leading-relaxed"></p>
                         </div>
                         <div id="order-card" class="bg-emerald-50 rounded-xl p-5 border border-emerald-200">
                             <h3 class="text-lg font-black text-blue-900 mb-2">Order of the Day</h3>
                             <ul id="order-list" class="space-y-2 text-gray-700 text-sm font-medium"></ul>
                         </div>
-                    </div>
-
-                    <div class="grid md:grid-cols-2 gap-6 mt-6">
+                        <div id="thought-card" class="bg-amber-50 rounded-xl p-5 border border-amber-200">
+                            <h3 class="text-lg font-black text-blue-900 mb-2">Thought of the Day</h3>
+                            <p id="thought-text" class="text-gray-700 text-base leading-relaxed"></p>
+                        </div>
                         <div id="principal-message-card" class="bg-slate-50 rounded-xl p-5 border border-slate-200">
                             <h3 class="text-lg font-black text-blue-900 mb-2">Principal's Message</h3>
                             <p id="principal-message" class="text-gray-700 text-sm leading-relaxed"></p>
