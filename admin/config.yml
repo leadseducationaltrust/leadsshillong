@@ -25,8 +25,8 @@ site_url: https://www.leadsshillong.com
 
 local_backend: false
 
-media_folder: "images"
-public_folder: "/images"
+media_folder: ""
+public_folder: "/"
 
 #display_url: "https://www.leadsshillong.com"
 
