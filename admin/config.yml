@@ -23,7 +23,7 @@ logo_url: "/images/school-logo.jpg"
 site_url: https://www.leadsshillong.com
 
 
-local_backend: true
+local_backend: false
 
 media_folder: "images/uploads"
 public_folder: "/images/uploads"
