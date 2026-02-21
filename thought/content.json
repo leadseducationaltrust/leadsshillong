@@ -48,7 +48,12 @@
         "Class II: 8:15 AM to 1:10 PM",
         "Classes  III, IV and V: 8:15 AM to 1:50 PM",
         "Classes VI to X: 8:15 AM to 2:30 PM"
-      ]
+      ],
+      "daily_focus": {
+        "image": "/thought/media/photo_booth.jpg",
+        "alt": "Photo Booth Eco Park",
+        "description": "Teachers and the Chairman of the school taking a photo"
+      }
     }
   ]
 }
