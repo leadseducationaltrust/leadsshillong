@@ -38,8 +38,8 @@ collections:
         name: "news_items"
         file: "news/content.json"
         format: "json"
-        media_folder: "media/news"
-        public_folder: "/media/news"
+        media_folder: "/news/media"
+        public_folder: "/news/media"
         fields:
           - label: "Items"
             name: "items"
@@ -84,8 +84,8 @@ collections:
         name: "download_items"
         file: "downloads/content.json"
         format: "json"
-        media_folder: "media/pdfs"
-        public_folder: "/media/pdfs"
+        media_folder: "/downloads/media"
+        public_folder: "/downloads/media"
         fields:
           - label: "Items"
             name: "items"
@@ -139,8 +139,8 @@ collections:
         name: "faculty_members"
         file: "faculty/content.json"
         format: "json"
-        media_folder: "media/faculty"
-        public_folder: "/media/faculty"
+        media_folder: "/faculty/media"
+        public_folder: "/faculty/media"
         fields:
           - label: "Members"
             name: "members"
@@ -170,8 +170,8 @@ collections:
         name: "gallery_images"
         file: "gallery/content.json"
         format: "json"
-        media_folder: "media/gallery"
-        public_folder: "/media/gallery"
+        media_folder: "/gallery/media"
+        public_folder: "/gallery/media"
         fields:
           - label: "Images"
             name: "images"
