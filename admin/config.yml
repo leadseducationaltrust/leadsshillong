@@ -1,18 +1,34 @@
+# Use DecapBridge classic auth (required)
 backend:
-  name: github
+  name: git-gateway
   repo: leadseducationaltrust/leadsshillong
   branch: main
-  base_url: https://YOUR-OAUTH-WORKER.workers.dev
-  auth_endpoint: auth
+  identity_url: https://auth.decapbridge.com/sites/e0e23476-825e-44ea-b749-97bc7eb80527
+  gateway_url: https://gateway.decapbridge.com
+
+  # See who did what (optional)
+  commit_messages:
+    create: Create {{collection}} “{{slug}}” - {{author-name}} <{{author-login}}> via DecapBridge
+    update: Update {{collection}} “{{slug}}” - {{author-name}} <{{author-login}}> via DecapBridge
+    delete: Delete {{collection}} “{{slug}}” - {{author-name}} <{{author-login}}> via DecapBridge
+    uploadMedia: Upload “{{path}}” - {{author-name}} <{{author-login}}> via DecapBridge
+    deleteMedia: Delete “{{path}}” - {{author-name}} <{{author-login}}> via DecapBridge
+    openAuthoring: Message {{message}} - {{author-name}} <{{author-login}}> via DecapBridge
+
+# Better Decap + Bridge logo (optional)
+#logo_url: https://decapbridge.com/decapcms-with-bridge.svg
+logo_url: "/images/school-logo.jpg"
+
+# Add site links in Decap CMS (optional)
+site_url: https://www.leadsshillong.com
+
 
 local_backend: true
 
 media_folder: "images/uploads"
 public_folder: "/images/uploads"
 
-site_url: "https://www.leadsshillong.com"
-display_url: "https://www.leadsshillong.com"
-logo_url: "/images/school-logo.jpg"
+#display_url: "https://www.leadsshillong.com"
 
 collections:
   - name: "news"
