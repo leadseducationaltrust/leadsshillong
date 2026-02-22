@@ -86,6 +86,37 @@ NEWS_TITLE_SIMILARITY_THRESHOLD=0.70 node scripts/validate-content.mjs
 - Gallery broken image handling: on `gallery.html`, failed image loads are removed from the rendered gallery.
 - Frontend link safety and URL sanitization is enforced in JS renderers.
 
+## Progressive Web App (PWA)
+
+The site is configured as an installable PWA with offline support for key pages and local assets.
+
+- Manifest: `manifest.webmanifest`
+- Service worker: `service-worker.js`
+- Registration script: `js/pwa.js`
+- App icons: `icons/icon-192.png`, `icons/icon-512.png`
+
+### Caching behavior
+
+- App shell pages and core assets are pre-cached during service worker install.
+- Navigations use network-first with cached fallback (`index.html`) when offline.
+- Other same-origin `GET` requests use cache-first with background runtime cache updates.
+- `admin/*` and `oauth-worker/*` are excluded from service worker handling.
+
+### Rolling out content/code updates
+
+- When changing critical cached assets, bump `CACHE_VERSION` in `service-worker.js`.
+- Deploy the update; on next visit, the new service worker installs and old caches are removed in `activate`.
+- If immediate refresh is needed during testing, hard-reload once after service worker update.
+
+### Verify PWA locally
+
+Serve the project over `http://localhost` (or deployed `https`) and test in browser DevTools:
+
+1. Open **Application** → verify manifest + icons are detected.
+2. Confirm service worker is active and controlling the page.
+3. Use **Lighthouse** (PWA category) to check installability.
+4. Toggle offline mode and reload previously visited pages to confirm fallback works.
+
 ## Feature toggles
 
 Feature flags live in `admin/config.json` under `featureToggles` and are applied by `js/config.js`.
