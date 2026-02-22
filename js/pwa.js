@@ -89,7 +89,7 @@ const shareApp = async () => {
   const shareData = {
     title: document.title,
     text: 'Install LEADS Higher Secondary School app',
-    url: `${window.location.origin}/index.html`
+    url: `${window.location.origin}/`
   };
 
   if (navigator.share) {
