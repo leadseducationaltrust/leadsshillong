@@ -1,4 +1,4 @@
-name: Sort JSON Content
+name: JSON Sorting
 
 on:
   push:
@@ -25,7 +25,7 @@ jobs:
         with:
           node-version: '20'
 
-      - name: Sort JSON content
+      - name: Run JSON Sorting
         run: node scripts/sort-json-content.mjs
 
       - name: Commit changes if any

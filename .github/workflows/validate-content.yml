@@ -1,4 +1,4 @@
-name: Validate Content JSON
+name: Content Validation
 
 on:
   pull_request:
@@ -23,7 +23,7 @@ jobs:
         with:
           node-version: '20'
 
-      - name: Validate content JSON files
+      - name: Run Content Validation
         env:
           NEWS_TITLE_SIMILARITY_THRESHOLD: "0.80"
         run: node scripts/validate-content.mjs

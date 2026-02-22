@@ -1,4 +1,4 @@
-name: Check Broken Links
+name: Broken Link Check
 
 on:
   pull_request:
@@ -23,5 +23,5 @@ jobs:
         with:
           node-version: '20'
 
-      - name: Check local links and media paths
+      - name: Run Broken Link Check
         run: node scripts/check-links.mjs
