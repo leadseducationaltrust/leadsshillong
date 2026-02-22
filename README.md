@@ -69,3 +69,18 @@ If `/admin` login popup shows `Not Found` on GitHub Pages, configure the OAuth p
 - `oauth-worker/README.md`
 
 Then set `backend.base_url` in `admin/config.yml` to your deployed worker URL.
+
+## Automatic JSON Sorting
+
+Date-based content files are auto-sorted (latest first) on every push to `main`.
+
+- Workflow: `.github/workflows/sort-json-content.yml`
+- Script: `scripts/sort-json-content.mjs`
+- Sorted files:
+	- `news/content.json` by `date`
+	- `thought/content.json` by `date`
+	- `downloads/content.json` by `timestamp`
+	- `gallery/content.json` by `date`
+	- `calendar/content.json` by `date`, then `startDate`, then `endDate`
+
+If you manually reorder entries, the workflow will normalize ordering after push.

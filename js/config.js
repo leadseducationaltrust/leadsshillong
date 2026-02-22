@@ -1,70 +1,84 @@
-// ==========================================
-// GLOBAL SCHOOL METADATA
-// Single Source of Truth for the Website
-// ==========================================
-
-const schoolData = {
-    // 1. Basic Information
+const fallbackSchoolData = {
     identity: {
         fullName: "LEADS Higher Secondary School",
         shortName: "LEADS",
         tagline: "Empowering Minds, Shaping Futures",
         establishedYear: 2010,
-        logoPath: "/images/school-logo.jpg" // Adjust path based on where this is used
+        logoPath: "/school-logo.jpg"
     },
-
-    // 2. Contact Information
     contact: {
         primaryPhone: "+91 88372 48004",
-        secondaryPhone: "+91 94854 34534", // Update if you have a second number
-        website: "https://www.leadsshillong.com", // NEW: Official Website URL
+        secondaryPhone: "+91 94854 34534",
+        website: "https://www.leadsshillong.com",
         emailGeneral: "support@leadsschool.com",
         emailAdmissions: "support@leadsschool.com",
-        workingDays: "Monday - Friday",    // NEW: Global Working Days
-        workingHours: "9:00 AM - 3:00 PM"  // NEW: Global Working Hours
+        workingDays: "Monday - Friday",
+        workingHours: "9:00 AM - 3:00 PM"
     },
-
-    // 3. Location & Address
     location: {
         street: "Langkerding, Nongmensong",
         city: "Shillong",
         state: "Meghalaya",
         pinCode: "793019",
-        // The clickable Share link for new tabs (<a> tags)
         googleMapsLink: "https://maps.app.goo.gl/Df9prKuJYtpbhnHg6",
-        // The Embed link for showing the map directly on the page (<iframe> tags)
-        googleMapsEmbed: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3598.419033678317!2d91.9067664!3d25.590988499999995!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x37507fd0a24eb3dd%3A0x9d32cb52d67507b9!2sLeads%20Higher%20Secondary%20School!5e0!3m2!1sen!2sin!4v1770129373388!5m2!1sen!2sin" // Replace with your actual iframe SRC link
+        googleMapsEmbed: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3598.419033678317!2d91.9067664!3d25.590988499999995!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x37507fd0a24eb3dd%3A0x9d32cb52d67507b9!2sLeads%20Higher%20Secondary%20School!5e0!3m2!1sen!2sin!4v1770129373388!5m2!1sen!2sin"
     },
-
-    // 4. Social Media Links
     socials: {
         facebook: "https://facebook.com/leadsshillong",
         instagram: "https://instagram.com/leadsshillong",
         youtube: "https://www.youtube.com/@leadsshillong",
-        twitter: "https://twitter.com/leadsshillong" // Optional: Add if you have a Twitter account
+        twitter: "https://twitter.com/leadsshillong"
     },
-
-    // 5. Academics & Admissions
     academics: {
         currentSession: "2026-2027",
-        admissionStatus: "Open", // Can be "Open" or "Closed"
-        admissionFormLink: "admissions.html" 
+        admissionStatus: "Open",
+        admissionFormLink: "admissions.html"
     },
-
-    // 6. Payment Portal Links
     payments: {
-        regularFee: "https://rzp.io/l/Ze17MQO3sa",      // Standard Monthly/Term Fees
-        admissionFee: "https://rzp.io/l/admission_link", // New Admission Fees
-        eventsFee: "https://rzp.io/l/events_link",       // Excursions, Annual Day, etc.
-        uniformsBooks: "https://rzp.io/l/uniforms_link"  // Optional: Book & Uniform purchases
+        regularFee: "https://rzp.io/l/Ze17MQO3sa",
+        admissionFee: "https://rzp.io/l/admission_link",
+        eventsFee: "https://rzp.io/l/events_link",
+        uniformsBooks: "https://rzp.io/l/uniforms_link"
     }
 };
+
+async function loadSchoolData() {
+    try {
+        const response = await fetch('/admin/config.json', { cache: 'no-store' });
+        if (!response.ok) {
+            throw new Error(`Failed to load admin/config.json: ${response.status}`);
+        }
+
+        const data = await response.json();
+        return {
+            ...fallbackSchoolData,
+            ...data,
+            identity: { ...fallbackSchoolData.identity, ...(data.identity || {}) },
+            contact: { ...fallbackSchoolData.contact, ...(data.contact || {}) },
+            location: { ...fallbackSchoolData.location, ...(data.location || {}) },
+            socials: { ...fallbackSchoolData.socials, ...(data.socials || {}) },
+            academics: { ...fallbackSchoolData.academics, ...(data.academics || {}) },
+            payments: { ...fallbackSchoolData.payments, ...(data.payments || {}) }
+        };
+    } catch (error) {
+        console.warn('Using fallback school metadata:', error);
+        return fallbackSchoolData;
+    }
+}
 
 // ==========================================
 // AUTOMATIC DATA INJECTION FUNCTION
 // ==========================================
 
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", async () => {
+    const schoolData = await loadSchoolData();
+    window.schoolConfig = {
+        ...schoolData,
+        contact: {
+            ...schoolData.contact,
+            phone1: schoolData.contact.primaryPhone
+        }
+    };
     
     // --- Text Injections ---
     const injectText = (ids, text) => {

@@ -1,0 +1,43 @@
+{
+  "identity": {
+    "fullName": "LEADS Higher Secondary School",
+    "shortName": "LEADS",
+    "tagline": "Empowering Minds, Shaping Futures",
+    "establishedYear": 2010,
+    "logoPath": "/school-logo.jpg"
+  },
+  "contact": {
+    "primaryPhone": "+91 88372 48004",
+    "secondaryPhone": "+91 94854 34534",
+    "website": "https://www.leadsshillong.com",
+    "emailGeneral": "support@leadsschool.com",
+    "emailAdmissions": "support@leadsschool.com",
+    "workingDays": "Monday - Friday",
+    "workingHours": "9:00 AM - 3:00 PM"
+  },
+  "location": {
+    "street": "Langkerding, Nongmensong",
+    "city": "Shillong",
+    "state": "Meghalaya",
+    "pinCode": "793019",
+    "googleMapsLink": "https://maps.app.goo.gl/Df9prKuJYtpbhnHg6",
+    "googleMapsEmbed": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3598.419033678317!2d91.9067664!3d25.590988499999995!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x37507fd0a24eb3dd%3A0x9d32cb52d67507b9!2sLeads%20Higher%20Secondary%20School!5e0!3m2!1sen!2sin!4v1770129373388!5m2!1sen!2sin"
+  },
+  "socials": {
+    "facebook": "https://facebook.com/leadsshillong",
+    "instagram": "https://instagram.com/leadsshillong",
+    "youtube": "https://www.youtube.com/@leadsshillong",
+    "twitter": "https://twitter.com/leadsshillong"
+  },
+  "academics": {
+    "currentSession": "2026-2027",
+    "admissionStatus": "Open",
+    "admissionFormLink": "admissions.html"
+  },
+  "payments": {
+    "regularFee": "https://rzp.io/l/Ze17MQO3sa",
+    "admissionFee": "https://rzp.io/l/admission_link",
+    "eventsFee": "https://rzp.io/l/events_link",
+    "uniformsBooks": "https://rzp.io/l/uniforms_link"
+  }
+}

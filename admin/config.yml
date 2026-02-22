@@ -17,7 +17,7 @@ backend:
 
 # Decap CMS logo (optional)
 #logo_url: https://decapcms.org/img/decap-cms-logo.svg
-logo_url: "/images/school-logo.jpg"
+logo_url: "/school-logo.jpg"
 
 # Add site links in Decap CMS (optional)
 site_url: https://www.leadsshillong.com
@@ -31,6 +31,73 @@ public_folder: "/media"
 #display_url: "https://www.leadsshillong.com"
 
 collections:
+  - name: "site_config"
+    label: "Site Config"
+    files:
+      - label: "Global Site Metadata"
+        name: "global_site_metadata"
+        file: "admin/config.json"
+        format: "json"
+        fields:
+          - label: "Identity"
+            name: "identity"
+            widget: "object"
+            fields:
+              - { label: "Full Name", name: "fullName", widget: "string" }
+              - { label: "Short Name", name: "shortName", widget: "string" }
+              - { label: "Tagline", name: "tagline", widget: "string" }
+              - { label: "Established Year", name: "establishedYear", widget: "number", value_type: "int" }
+              - { label: "Logo Path", name: "logoPath", widget: "string" }
+
+          - label: "Contact"
+            name: "contact"
+            widget: "object"
+            fields:
+              - { label: "Primary Phone", name: "primaryPhone", widget: "string" }
+              - { label: "Secondary Phone", name: "secondaryPhone", widget: "string", required: false }
+              - { label: "Website", name: "website", widget: "string" }
+              - { label: "General Email", name: "emailGeneral", widget: "string" }
+              - { label: "Admissions Email", name: "emailAdmissions", widget: "string" }
+              - { label: "Working Days", name: "workingDays", widget: "string" }
+              - { label: "Working Hours", name: "workingHours", widget: "string" }
+
+          - label: "Location"
+            name: "location"
+            widget: "object"
+            fields:
+              - { label: "Street", name: "street", widget: "string" }
+              - { label: "City", name: "city", widget: "string" }
+              - { label: "State", name: "state", widget: "string" }
+              - { label: "PIN Code", name: "pinCode", widget: "string" }
+              - { label: "Google Maps Link", name: "googleMapsLink", widget: "string" }
+              - { label: "Google Maps Embed", name: "googleMapsEmbed", widget: "text" }
+
+          - label: "Socials"
+            name: "socials"
+            widget: "object"
+            fields:
+              - { label: "Facebook", name: "facebook", widget: "string", required: false }
+              - { label: "Instagram", name: "instagram", widget: "string", required: false }
+              - { label: "YouTube", name: "youtube", widget: "string", required: false }
+              - { label: "Twitter", name: "twitter", widget: "string", required: false }
+
+          - label: "Academics"
+            name: "academics"
+            widget: "object"
+            fields:
+              - { label: "Current Session", name: "currentSession", widget: "string" }
+              - { label: "Admission Status", name: "admissionStatus", widget: "string" }
+              - { label: "Admission Form Link", name: "admissionFormLink", widget: "string" }
+
+          - label: "Payments"
+            name: "payments"
+            widget: "object"
+            fields:
+              - { label: "Regular Fee Link", name: "regularFee", widget: "string" }
+              - { label: "Admission Fee Link", name: "admissionFee", widget: "string", required: false }
+              - { label: "Events Fee Link", name: "eventsFee", widget: "string", required: false }
+              - { label: "Uniforms/Books Link", name: "uniformsBooks", widget: "string", required: false }
+
   - name: "news"
     label: "News"
     files:

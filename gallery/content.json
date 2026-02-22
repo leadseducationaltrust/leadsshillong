@@ -1,6 +1,11 @@
 {
   "images": [
     {
+      "date": "2026-02-21",
+      "url": "gallery/media/photo_booth.jpg",
+      "desc": "Photo-Booth Eco-Club"
+    },
+    {
       "url": "gallery/media/chillibreeze_singapore_school.jpeg",
       "desc": "Chillibreeze Solutions Pvt. Ltd and Kidspreneurship Team Visited LEADS School",
       "date": "2026-02-17"
@@ -11,9 +16,9 @@
       "date": "2025-12-17"
     },
     {
-      "url": "gallery/media/photo_2_student_visiting_art_gallery.jpg",
-      "desc": "Students Visiting Art Gallery",
-      "date": "2025-11-17"
+      "url": "gallery/media/photo_12_school_achievements.jpg",
+      "desc": "School Achievements Recognition: Mrs Miracle Syiem Awarded Teacher of the Year 2025",
+      "date": "2025-12-06"
     },
     {
       "url": "gallery/media/photo_3_release_of_mosaic.jpg",
@@ -21,24 +26,14 @@
       "date": "2025-12-05"
     },
     {
-      "url": "gallery/media/photo_4_independence_celebration.jpg",
-      "desc": "Independence Day Celebration",
-      "date": "2025-08-14"
-    },
-    {
-      "url": "gallery/media/photo_5_activity_kindergarten.jpg",
-      "desc": "Activity with Kindergarten Students",
-      "date": "2025-10-17"
-    },
-    {
-      "url": "gallery/media/photo_6_school_football_team.jpg",
-      "desc": "School Football Team",
-      "date": "2025-07-17"
-    },
-    {
       "url": "gallery/media/photo_7_school_trip.jpg",
       "desc": "Students in School Trip to Kaziranga",
       "date": "2025-11-22"
+    },
+    {
+      "url": "gallery/media/photo_2_student_visiting_art_gallery.jpg",
+      "desc": "Students Visiting Art Gallery",
+      "date": "2025-11-17"
     },
     {
       "url": "gallery/media/photo_8_kidpreneurship.jpg",
@@ -46,9 +41,29 @@
       "date": "2025-10-28"
     },
     {
+      "url": "gallery/media/photo_5_activity_kindergarten.jpg",
+      "desc": "Activity with Kindergarten Students",
+      "date": "2025-10-17"
+    },
+    {
+      "url": "gallery/media/photo_13_student_in_custome.jpg",
+      "desc": "Brewing big ideas! Creative costumes and clever business at Kidspreneurship",
+      "date": "2025-10-17"
+    },
+    {
       "url": "gallery/media/photo_9_traditional_dress.jpg",
       "desc": "Children in Traditional Attire",
       "date": "2025-08-15"
+    },
+    {
+      "url": "gallery/media/photo_4_independence_celebration.jpg",
+      "desc": "Independence Day Celebration",
+      "date": "2025-08-14"
+    },
+    {
+      "url": "gallery/media/photo_6_school_football_team.jpg",
+      "desc": "School Football Team",
+      "date": "2025-07-17"
     },
     {
       "url": "gallery/media/photo_10_march_past.jpg",
@@ -59,21 +74,6 @@
       "url": "gallery/media/photo_11_investiture.jpg",
       "desc": "Newly appointed Captains and Vice-Captains with the guest of honour",
       "date": "2025-03-16"
-    },
-    {
-      "url": "gallery/media/photo_12_school_achievements.jpg",
-      "desc": "School Achievements Recognition: Mrs Miracle Syiem Awarded Teacher of the Year 2025",
-      "date": "2025-12-06"
-    },
-    {
-      "url": "gallery/media/photo_13_student_in_custome.jpg",
-      "desc": "Brewing big ideas! Creative costumes and clever business at Kidspreneurship",
-      "date": "2025-10-17"
-    },
-    {
-      "date": "2026-02-21",
-      "url": "gallery/media/photo_booth.jpg",
-      "desc": "Photo-Booth Eco-Club"
     }
   ]
 }
