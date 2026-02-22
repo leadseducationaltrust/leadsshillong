@@ -27,36 +27,142 @@ async function loadNewsData() {
     }
 }
 
-/**
- * Parse text and convert URLs and phone numbers to clickable elements
- * Returns HTML string with clickable links and phone numbers
- */
-function parseTextWithLinks(text) {
-    // Regular expressions for URLs and phone numbers
-    const urlRegex = /(https?:\/\/[^\s]+)/g;
-    const phoneRegex = /(\+91\s?\d{5}\s?\d{5}|\+91\s?\d{10})/g;
+function createElement(tag, className = '') {
+    const element = document.createElement(tag);
+    if (className) {
+        element.className = className;
+    }
+    return element;
+}
 
-    let result = text;
+function appendParsedTextWithLinks(container, rawText) {
+    const text = String(rawText || '');
+    const tokenRegex = /(https?:\/\/[^\s]+)|(\+91\s?\d{5}\s?\d{5}|\+91\s?\d{10})/g;
+    let lastIndex = 0;
+    let match;
 
-    // Replace URLs with clickable buttons
-    result = result.replace(urlRegex, (url) => {
-        // Remove trailing punctuation if present
-        let cleanUrl = url;
-        let trailingChar = '';
-        if (url.match(/[.,;:!?]$/)) {
-            trailingChar = url[url.length - 1];
-            cleanUrl = url.slice(0, -1);
+    while ((match = tokenRegex.exec(text)) !== null) {
+        const token = match[0];
+        const start = match.index;
+
+        if (start > lastIndex) {
+            container.appendChild(document.createTextNode(text.slice(lastIndex, start)));
         }
-        return `<a href="${cleanUrl}" target="_blank" class="inline-block px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white font-bold rounded-lg transition-colors text-sm mx-1" onclick="event.stopPropagation()">Visit Portal</a>${trailingChar}`;
-    });
 
-    // Replace phone numbers with clickable tel: links
-    result = result.replace(phoneRegex, (phone) => {
-        const cleanPhone = phone.replace(/\s/g, '');
-        return `<a href="tel:${cleanPhone}" class="inline-block px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-lg transition-colors text-sm mx-1 cursor-pointer" onclick="event.stopPropagation()">${phone}</a>`;
-    });
+        if (match[1]) {
+            let cleanUrl = token;
+            let trailingChar = '';
 
-    return result;
+            if (/[.,;:!?]$/.test(token)) {
+                trailingChar = token[token.length - 1];
+                cleanUrl = token.slice(0, -1);
+            }
+
+            const link = createElement('a', 'inline-block px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white font-bold rounded-lg transition-colors text-sm mx-1');
+            link.href = cleanUrl;
+            link.target = '_blank';
+            link.rel = 'noopener noreferrer';
+            link.textContent = 'Visit Portal';
+            link.addEventListener('click', (event) => event.stopPropagation());
+            container.appendChild(link);
+
+            if (trailingChar) {
+                container.appendChild(document.createTextNode(trailingChar));
+            }
+        } else {
+            const phoneLink = createElement('a', 'inline-block px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-lg transition-colors text-sm mx-1 cursor-pointer');
+            phoneLink.href = `tel:${token.replace(/\s/g, '')}`;
+            phoneLink.textContent = token;
+            phoneLink.addEventListener('click', (event) => event.stopPropagation());
+            container.appendChild(phoneLink);
+        }
+
+        lastIndex = start + token.length;
+    }
+
+    if (lastIndex < text.length) {
+        container.appendChild(document.createTextNode(text.slice(lastIndex)));
+    }
+}
+
+function createNewsCard(news) {
+    const card = createElement('div', 'bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow mb-4');
+
+    if (news.image) {
+        const image = createElement('img', 'w-full h-48 object-cover');
+        image.src = news.image;
+        image.alt = news.title || 'News image';
+        image.addEventListener('error', () => {
+            image.src = 'https://images.unsplash.com/photo-1517694712202-14dd9538aa97?auto=format&fit=crop&w=500&h=300';
+        });
+        card.appendChild(image);
+    }
+
+    const content = createElement('div', 'p-6');
+    const header = createElement('div', 'flex justify-between items-start mb-3');
+
+    const title = createElement('h3', 'text-lg font-bold text-blue-900');
+    title.textContent = news.title || '';
+
+    const dateInfo = createElement('span', 'text-xs text-gray-400 font-semibold whitespace-nowrap');
+    const dateObj = new Date(news.date);
+    const formattedDate = Number.isNaN(dateObj.getTime())
+        ? ''
+        : dateObj.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
+    const formattedTime = Number.isNaN(dateObj.getTime())
+        ? ''
+        : dateObj.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: true });
+    dateInfo.textContent = `${formattedDate} ${formattedTime}`.trim();
+
+    header.appendChild(title);
+    header.appendChild(dateInfo);
+
+    const message = createElement('p', 'text-gray-700 font-medium mb-3');
+    message.textContent = news.message || '';
+
+    const description = createElement('div', 'text-gray-600 text-sm leading-relaxed');
+    appendParsedTextWithLinks(description, news.description);
+
+    content.appendChild(header);
+    content.appendChild(message);
+    content.appendChild(description);
+    card.appendChild(content);
+
+    return card;
+}
+
+function createPaginationControls(page, totalPages, hasNext) {
+    const wrapper = createElement('div', 'mt-8 flex gap-3 justify-between items-center');
+
+    if (page > 0) {
+        const previousButton = createElement('button', 'flex-1 py-3 px-6 bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-bold rounded-lg transition-all transform hover:scale-105 flex items-center justify-center gap-2');
+        previousButton.type = 'button';
+        const previousIcon = createElement('i', 'fas fa-arrow-up');
+        const previousText = document.createTextNode(' Previous');
+        previousButton.appendChild(previousIcon);
+        previousButton.appendChild(previousText);
+        previousButton.addEventListener('click', loadPreviousNews);
+        wrapper.appendChild(previousButton);
+    } else {
+        wrapper.appendChild(createElement('div', 'flex-1'));
+    }
+
+    const indicator = createElement('span', 'text-sm text-gray-500 font-semibold px-4 text-center whitespace-nowrap');
+    indicator.textContent = `Page ${page + 1} of ${totalPages}`;
+    wrapper.appendChild(indicator);
+
+    if (hasNext) {
+        const moreButton = createElement('button', 'flex-1 py-3 px-6 bg-gradient-to-r from-emerald-600 to-emerald-700 hover:from-emerald-700 hover:to-emerald-800 text-white font-bold rounded-lg transition-all transform hover:scale-105 flex items-center justify-center gap-2');
+        moreButton.type = 'button';
+        moreButton.appendChild(document.createTextNode('More News... '));
+        moreButton.appendChild(createElement('i', 'fas fa-arrow-down'));
+        moreButton.addEventListener('click', loadMoreNews);
+        wrapper.appendChild(moreButton);
+    } else {
+        wrapper.appendChild(createElement('div', 'flex-1'));
+    }
+
+    return wrapper;
 }
 
 function loadNewsMarquee() {
@@ -90,74 +196,17 @@ function renderNewsPage(page = 0) {
     const endIndex = startIndex + newsPerPage;
     const pageNews = sortedNewsAlerts.slice(startIndex, endIndex);
 
-    // Generate HTML for news alerts
-    let newsHTML = '';
-    pageNews.forEach((news, index) => {
-        const dateObj = new Date(news.date);
-        const formattedDate = dateObj.toLocaleDateString('en-US', { 
-            year: 'numeric', 
-            month: 'short', 
-            day: 'numeric' 
-        });
-        const formattedTime = dateObj.toLocaleTimeString('en-US', { 
-            hour: '2-digit', 
-            minute: '2-digit', 
-            hour12: true 
-        });
-
-        newsHTML += `
-            <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow mb-4">
-                ${news.image ? `<img src="${news.image}" alt="${news.title}" class="w-full h-48 object-cover" onerror="this.src='https://images.unsplash.com/photo-1517694712202-14dd9538aa97?auto=format&fit=crop&w=500&h=300'">` : ''}
-                <div class="p-6">
-                    <div class="flex justify-between items-start mb-3">
-                        <h3 class="text-lg font-bold text-blue-900">${news.title}</h3>
-                        <span class="text-xs text-gray-400 font-semibold whitespace-nowrap">${formattedDate} ${formattedTime}</span>
-                    </div>
-                    <p class="text-gray-700 font-medium mb-3">${news.message}</p>
-                    <div class="text-gray-600 text-sm leading-relaxed">${parseTextWithLinks(news.description)}</div>
-                </div>
-            </div>
-        `;
+    containerDiv.replaceChildren();
+    pageNews.forEach((news) => {
+        containerDiv.appendChild(createNewsCard(news));
     });
 
     // Add pagination buttons
     const totalPages = Math.ceil(sortedNewsAlerts.length / newsPerPage);
-    if (page > 0 || endIndex < sortedNewsAlerts.length) {
-        newsHTML += `<div class="mt-8 flex gap-3 justify-between items-center">`;
-        
-        // Previous button
-        if (page > 0) {
-            newsHTML += `
-                <button onclick="loadPreviousNews()" class="flex-1 py-3 px-6 bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-bold rounded-lg transition-all transform hover:scale-105 flex items-center justify-center gap-2">
-                    <i class="fas fa-arrow-up"></i> Previous
-                </button>
-            `;
-        } else {
-            newsHTML += `<div class="flex-1"></div>`;
-        }
-
-        // Page indicator
-        newsHTML += `
-            <span class="text-sm text-gray-500 font-semibold px-4 text-center whitespace-nowrap">
-                Page ${page + 1} of ${totalPages}
-            </span>
-        `;
-
-        // More News button
-        if (endIndex < sortedNewsAlerts.length) {
-            newsHTML += `
-                <button onclick="loadMoreNews()" class="flex-1 py-3 px-6 bg-gradient-to-r from-emerald-600 to-emerald-700 hover:from-emerald-700 hover:to-emerald-800 text-white font-bold rounded-lg transition-all transform hover:scale-105 flex items-center justify-center gap-2">
-                    More News... <i class="fas fa-arrow-down"></i>
-                </button>
-            `;
-        } else {
-            newsHTML += `<div class="flex-1"></div>`;
-        }
-
-        newsHTML += `</div>`;
+    const hasNext = endIndex < sortedNewsAlerts.length;
+    if (page > 0 || hasNext) {
+        containerDiv.appendChild(createPaginationControls(page, totalPages, hasNext));
     }
-
-    containerDiv.innerHTML = newsHTML;
 }
 
 // Function to load the next page of news

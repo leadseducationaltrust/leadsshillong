@@ -1,0 +1,29 @@
+name: Validate Content JSON
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate-content:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Validate content JSON files
+        env:
+          NEWS_TITLE_SIMILARITY_THRESHOLD: "0.80"
+        run: node scripts/validate-content.mjs

@@ -113,21 +113,28 @@ document.addEventListener('DOMContentLoaded', () => {
             year: 'numeric'
         });
 
+        datePopup.replaceChildren();
+
+        const title = document.createElement('p');
+        title.className = `font-semibold ${toneClass}`;
+        title.textContent = readableDate;
+        datePopup.appendChild(title);
+
         if (!entries || entries.length === 0) {
-            datePopup.innerHTML = `<p class="font-semibold ${toneClass}">${readableDate}</p>`;
             return;
         }
 
-        const titleRows = entries
-            .map((entry) => `<li class="list-disc ml-5 text-slate-700">${entry.title}</li>`)
-            .join('');
+        const list = document.createElement('ul');
+        list.className = 'mt-1 space-y-1 text-sm';
 
-        datePopup.innerHTML = `
-            <p class="font-semibold ${toneClass}">${readableDate}</p>
-            <ul class="mt-1 space-y-1 text-sm">
-                ${titleRows}
-            </ul>
-        `;
+        entries.forEach((entry) => {
+            const item = document.createElement('li');
+            item.className = 'list-disc ml-5 text-slate-700';
+            item.textContent = String(entry.title || 'School Activity');
+            list.appendChild(item);
+        });
+
+        datePopup.appendChild(list);
     };
 
     const getEntryTheme = (entry) => {
@@ -163,10 +170,13 @@ document.addEventListener('DOMContentLoaded', () => {
             })
             .sort((a, b) => new Date(a[0]) - new Date(b[0]));
 
-        holidayList.innerHTML = '';
+        holidayList.replaceChildren();
 
         if (items.length === 0) {
-            holidayList.innerHTML = '<li class="text-slate-400 text-center py-3 border border-dashed border-slate-200 rounded-lg">No listed events this month.</li>';
+            const empty = document.createElement('li');
+            empty.className = 'text-slate-400 text-center py-3 border border-dashed border-slate-200 rounded-lg';
+            empty.textContent = 'No listed events this month.';
+            holidayList.appendChild(empty);
             return;
         }
 
@@ -178,20 +188,45 @@ document.addEventListener('DOMContentLoaded', () => {
                 const theme = getEntryTheme(entry);
                 const row = document.createElement('li');
                 row.className = `rounded-xl border p-2.5 ${theme.card}`;
-                row.innerHTML = `
-                    <div class="flex items-start gap-2.5">
-                        <div class="w-10 shrink-0 rounded-lg border border-slate-200 bg-white text-center py-1">
-                            <p class="text-[10px] font-black text-slate-400 uppercase leading-none">${dayShort}</p>
-                            <p class="text-sm font-black text-slate-800 leading-tight mt-0.5">${date.getDate()}</p>
-                        </div>
-                        <div class="min-w-0 flex-1">
-                            <div class="flex items-start justify-between gap-2">
-                                <p class="text-[12px] font-bold text-slate-800 leading-tight">${entry.title}</p>
-                                <span class="text-[10px] font-black uppercase px-2 py-0.5 rounded-full ${theme.badge}">${theme.label}</span>
-                            </div>
-                        </div>
-                    </div>
-                `;
+
+                const wrapper = document.createElement('div');
+                wrapper.className = 'flex items-start gap-2.5';
+
+                const dayBox = document.createElement('div');
+                dayBox.className = 'w-10 shrink-0 rounded-lg border border-slate-200 bg-white text-center py-1';
+
+                const dayLabel = document.createElement('p');
+                dayLabel.className = 'text-[10px] font-black text-slate-400 uppercase leading-none';
+                dayLabel.textContent = dayShort;
+
+                const dayDate = document.createElement('p');
+                dayDate.className = 'text-sm font-black text-slate-800 leading-tight mt-0.5';
+                dayDate.textContent = String(date.getDate());
+
+                dayBox.appendChild(dayLabel);
+                dayBox.appendChild(dayDate);
+
+                const body = document.createElement('div');
+                body.className = 'min-w-0 flex-1';
+
+                const bodyRow = document.createElement('div');
+                bodyRow.className = 'flex items-start justify-between gap-2';
+
+                const title = document.createElement('p');
+                title.className = 'text-[12px] font-bold text-slate-800 leading-tight';
+                title.textContent = String(entry.title || 'School Activity');
+
+                const badge = document.createElement('span');
+                badge.className = `text-[10px] font-black uppercase px-2 py-0.5 rounded-full ${theme.badge}`;
+                badge.textContent = theme.label;
+
+                bodyRow.appendChild(title);
+                bodyRow.appendChild(badge);
+                body.appendChild(bodyRow);
+
+                wrapper.appendChild(dayBox);
+                wrapper.appendChild(body);
+                row.appendChild(wrapper);
                 holidayList.appendChild(row);
             });
         });
@@ -209,7 +244,7 @@ document.addEventListener('DOMContentLoaded', () => {
             year: 'numeric'
         });
 
-        calendarGrid.innerHTML = '';
+        calendarGrid.replaceChildren();
 
         for (let i = 0; i < firstDay; i += 1) {
             const spacer = document.createElement('div');

@@ -94,6 +94,29 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const hasRenderableText = (value) => normalizeText(value).length > 0;
 
+    const hasExplicitScheme = (value) => /^[a-zA-Z][a-zA-Z\d+\-.]*:/.test(value);
+
+    const getSafeImageUrl = (value) => {
+        const text = normalizeText(value);
+        if (!text) {
+            return '';
+        }
+
+        if (!hasExplicitScheme(text)) {
+            return text;
+        }
+
+        try {
+            const parsed = new URL(text);
+            if (parsed.protocol === 'http:' || parsed.protocol === 'https:') {
+                return text;
+            }
+        } catch (error) {
+        }
+
+        return '';
+    };
+
     const hasRenderableList = (value) => {
         if (!Array.isArray(value)) {
             return false;
@@ -120,7 +143,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const setDailyFocusOrHide = (dailyFocus) => {
         const focus = dailyFocus && typeof dailyFocus === 'object' ? dailyFocus : {};
-        const image = normalizeText(focus.image);
+        const image = getSafeImageUrl(focus.image);
         const alt = normalizeText(focus.alt);
         const description = normalizeText(focus.description);
 
@@ -162,7 +185,7 @@ document.addEventListener('DOMContentLoaded', () => {
             hideElement(container || listElement);
             return false;
         }
-        listElement.innerHTML = '';
+        listElement.replaceChildren();
         values.forEach((item, index) => {
             const text = getListItemText(item);
             if (!text) {
@@ -172,7 +195,16 @@ document.addEventListener('DOMContentLoaded', () => {
             li.className = index === 0
                 ? 'flex items-start gap-2 bg-amber-100 border border-amber-300 rounded-lg px-3 py-2 font-bold text-blue-900'
                 : 'flex items-start gap-2';
-            li.innerHTML = '<span class="text-emerald-700">•</span><span>' + text + '</span>';
+
+            const bullet = document.createElement('span');
+            bullet.className = 'text-emerald-700';
+            bullet.textContent = '•';
+
+            const content = document.createElement('span');
+            content.textContent = text;
+
+            li.appendChild(bullet);
+            li.appendChild(content);
             listElement.appendChild(li);
         });
         if (listElement.children.length === 0) {

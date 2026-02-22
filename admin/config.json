@@ -1,9 +1,74 @@
 {
+  "site": {
+    "templateName": "School Website Template",
+    "version": "1.0.0",
+    "technology": {
+      "frontend": "HTML",
+      "styling": "Tailwind CSS",
+      "scripting": "JavaScript"
+    },
+    "hosting": {
+      "provider": "GitHub Pages",
+      "repository": "your-org/your-school-website"
+    }
+  },
+  "designTokens": {
+    "colors": {
+      "primary": "#1D4ED8",
+      "secondary": "#0F766E",
+      "accent": "#F59E0B",
+      "background": "#FFFFFF",
+      "surface": "#F8FAFC",
+      "text": "#0F172A"
+    },
+    "borderRadius": {
+      "small": "0.375rem",
+      "medium": "0.5rem",
+      "large": "0.75rem",
+      "pill": "9999px"
+    },
+    "fontFamily": {
+      "heading": "Poppins, ui-sans-serif, system-ui, -apple-system, Segoe UI, sans-serif",
+      "body": "Inter, ui-sans-serif, system-ui, -apple-system, Segoe UI, sans-serif",
+      "mono": "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace"
+    }
+  },
+  "seo": {
+    "metadata": {
+      "title": "LEADS Higher Secondary School | Empowering Minds, Shaping Futures",
+      "description": "A reusable school website template powered by HTML, Tailwind CSS, JavaScript, and JSON-driven content.",
+      "keywords": [
+        "school",
+        "education",
+        "higher secondary",
+        "admissions",
+        "academic excellence",
+        "school website template"
+      ],
+      "author": "LEADS Higher Secondary School",
+      "robots": "index, follow"
+    },
+    "openGraph": {
+      "title": "LEADS Higher Secondary School",
+      "description": "Discover our academic programs, admissions, faculty, and student life.",
+      "type": "website",
+      "url": "https://www.leadsshillong.com",
+      "image": "/school-logo.jpg",
+      "siteName": "LEADS Higher Secondary School",
+      "locale": "en_IN"
+    },
+    "twitter": {
+      "card": "summary_large_image",
+      "title": "LEADS Higher Secondary School",
+      "description": "Empowering Minds, Shaping Futures",
+      "image": "/school-logo.jpg"
+    }
+  },
   "identity": {
     "fullName": "LEADS Higher Secondary School",
     "shortName": "LEADS",
     "tagline": "Empowering Minds, Shaping Futures",
-    "establishedYear": 2010,
+    "establishedYear": 2007,
     "logoPath": "/school-logo.jpg"
   },
   "contact": {
@@ -33,6 +98,124 @@
     "currentSession": "2026-2027",
     "admissionStatus": "Open",
     "admissionFormLink": "admissions.html"
+  },
+  "academicStructure": {
+    "classesOffered": [
+      "Play School",
+      "Nursery",
+      "KG IV",
+      "KG V",
+      "Class I",
+      "Class II",
+      "Class III",
+      "Class IV",
+      "Class V",
+      "Class VI",
+      "Class VII",
+      "Class VIII",
+      "Class IX",
+      "Class X",
+      "Class XI",
+      "Class XII"
+    ],
+    "subjects": {
+      "primary": [
+        "English",
+        "Mathematics",
+        "Environmental Studies",
+        "General Science",
+        "Social Studies",
+        "Computer Basics"
+      ],
+      "middle": [
+        "English",
+        "Mathematics",
+        "Science",
+        "Social Science",
+        "Computer Science",
+        "Second Language"
+      ],
+      "secondary": [
+        "English",
+        "Mathematics",
+        "Physics",
+        "Chemistry",
+        "Biology",
+        "History",
+        "Geography",
+        "Economics",
+        "Computer Applications"
+      ],
+      "higherSecondary": {
+        "science": [
+          "Physics",
+          "Chemistry",
+          "Biology",
+          "Mathematics",
+          "Computer Science"
+        ],
+        "arts": [
+          "History",
+          "Political Science",
+          "Economics",
+          "Sociology",
+          "Education"
+        ]
+      }
+    },
+    "houseSystem": {
+      "enabled": true,
+      "houses": [
+        {
+          "name": "Red House",
+          "motto": "Courage and Commitment",
+          "color": "#DC2626"
+        },
+        {
+          "name": "Blue House",
+          "motto": "Discipline and Determination",
+          "color": "#2563EB"
+        },
+        {
+          "name": "Green House",
+          "motto": "Growth and Gratitude",
+          "color": "#16A34A"
+        },
+        {
+          "name": "Yellow House",
+          "motto": "Excellence and Enthusiasm",
+          "color": "#EAB308"
+        }
+      ]
+    }
+  },
+  "leadership": {
+    "principal": {
+      "name": "Barrilyne Lyngdoh",
+      "designation": "Principal",
+      "photo": "faculty/media/principal.jpg",
+      "message": "Welcome message from the Principal goes here. This can be edited from Decap CMS.",
+      "signatureName": "Barrilyne Lyngdoh"
+    },
+    "chairperson": {
+      "name": "D. Kitbok Ryntathiang",
+      "message": "Message from the Chairperson goes here.",
+      "photo": "/media/chairperson.jpg"
+    }
+  },
+  "featureToggles": {
+    "showAdmissions": true,
+    "showGallery": true,
+    "showResults": true,
+    "showNews": true,
+    "showPrograms": true,
+    "showFaculty": true,
+    "showDownloads": true,
+    "showCalendar": true,
+    "showThoughtOfTheDay": true,
+    "showContactForm": true,
+    "showOnlinePayments": true,
+    "showChatWidget": true
   },
   "payments": {
     "regularFee": "https://rzp.io/l/Ze17MQO3sa",

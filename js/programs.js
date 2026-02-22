@@ -14,6 +14,44 @@ const programsList = [
 
 let allProgramsData = {};
 
+function createElement(tag, className = '') {
+  const element = document.createElement(tag);
+  if (className) {
+    element.className = className;
+  }
+  return element;
+}
+
+function hasExplicitScheme(value) {
+  return /^[a-zA-Z][a-zA-Z\d+\-.]*:/.test(value);
+}
+
+function getSafeUrl(value) {
+  const text = String(value ?? '').trim();
+  if (!text) {
+    return '';
+  }
+
+  if (!hasExplicitScheme(text)) {
+    return text;
+  }
+
+  try {
+    const parsed = new URL(text);
+    if (parsed.protocol === 'http:' || parsed.protocol === 'https:') {
+      return text;
+    }
+  } catch (error) {
+  }
+
+  return '';
+}
+
+function getSafeIconToken(value, fallback = 'book-open') {
+  const token = String(value ?? '').trim().toLowerCase();
+  return /^[a-z0-9-]+$/.test(token) ? token : fallback;
+}
+
 /**
  * Load all program data from JSON files
  */
@@ -44,7 +82,7 @@ function renderAcademicProgrammes() {
   if (!gridContainer) return;
 
   // Clear existing content
-  gridContainer.innerHTML = '';
+  gridContainer.replaceChildren();
 
   // Render each program card
   Object.values(allProgramsData).forEach((program) => {
@@ -72,16 +110,22 @@ function createProgramCard(program) {
 
   const colors = colorMap[iconColor] || colorMap['blue'];
 
-  const anchor = document.createElement('a');
+  const anchor = createElement('a', 'p-8 border border-gray-100 rounded-3xl hover:shadow-2xl transition-all group hover:-translate-y-2 cursor-pointer');
   anchor.href = `programs.html?program=${id}`;
-  anchor.className = 'p-8 border border-gray-100 rounded-3xl hover:shadow-2xl transition-all group hover:-translate-y-2 cursor-pointer';
-  anchor.innerHTML = `
-    <div class="w-16 h-16 ${colors.bg} ${colors.text} flex items-center justify-center rounded-2xl mb-6 mx-auto ${colors.hover} group-hover:text-white transition">
-      <i class="fas fa-${iconType} text-2xl"></i>
-    </div>
-    <h3 class="text-xl font-bold mb-3 text-blue-900">${title}</h3>
-    <p class="text-gray-500 text-sm leading-relaxed">${description}</p>
-  `;
+
+  const iconWrap = createElement('div', `w-16 h-16 ${colors.bg} ${colors.text} flex items-center justify-center rounded-2xl mb-6 mx-auto ${colors.hover} group-hover:text-white transition`);
+  const icon = createElement('i', `fas fa-${getSafeIconToken(iconType)} text-2xl`);
+  iconWrap.appendChild(icon);
+
+  const heading = createElement('h3', 'text-xl font-bold mb-3 text-blue-900');
+  heading.textContent = String(title || '');
+
+  const desc = createElement('p', 'text-gray-500 text-sm leading-relaxed');
+  desc.textContent = String(description || '');
+
+  anchor.appendChild(iconWrap);
+  anchor.appendChild(heading);
+  anchor.appendChild(desc);
 
   return anchor;
 }
@@ -125,7 +169,7 @@ function updatePageHeader(page, card) {
 
   if (headerTagline) headerTagline.textContent = page.tagline;
   if (pageTitleBadge) pageTitleBadge.textContent = page.badge;
-  if (pageTitle) pageTitle.innerHTML = capitalizeFirstLetter(page.title.split('The ')[1] || page.title);
+  if (pageTitle) pageTitle.textContent = capitalizeFirstLetter(String(page.title || '').split('The ')[1] || String(page.title || ''));
   if (pageSubtitle) pageSubtitle.textContent = page.subtitle;
 }
 
@@ -136,30 +180,58 @@ function updateHeadOfDepartmentSection(hod) {
   const hodSection = document.querySelector('.head-of-department-section');
   if (!hodSection) return;
 
-  hodSection.innerHTML = `
-    <div class="max-w-4xl mx-auto bg-slate-50 rounded-[2rem] overflow-hidden shadow-xl flex flex-col md:flex-row items-center border border-gray-100">
-      <div class="w-full md:w-1/3 pr-6 flex items-center justify-center">
-        <div class="rounded-2xl overflow-hidden shadow-lg border-4 border-emerald-100">
-          <img src="${hod.photo}" alt="${hod.name}" class="w-full h-full object-cover aspect-square">
-        </div>
-      </div>
-      <div class="p-8 md:p-12 w-full md:w-2/3">
-        <h4 class="text-emerald-600 font-black uppercase tracking-widest text-xs mb-2">Head of Department</h4>
-        <h2 class="text-3xl font-black text-blue-900 mb-4">${hod.name}</h2>
-        <p class="text-gray-600 italic mb-6">"${hod.quote}"</p>
-        <div class="flex gap-4">
-          <div class="bg-white p-4 rounded-xl shadow-sm border border-gray-100 flex-1">
-            <span class="block text-blue-900 font-black text-xl">${hod.yearsOfExperience}</span>
-            <span class="text-[10px] text-gray-400 uppercase font-bold">Years of Excellence</span>
-          </div>
-          <div class="bg-white p-4 rounded-xl shadow-sm border border-gray-100 flex-1">
-            <span class="block text-emerald-600 font-black text-xl">${hod.specialization.split(' ')[0]}</span>
-            <span class="text-[10px] text-gray-400 uppercase font-bold">${hod.specialization.split(' ').slice(1).join(' ')}</span>
-          </div>
-        </div>
-      </div>
-    </div>
-  `;
+  const specialization = String(hod.specialization || '');
+  const specializationWords = specialization.split(' ').filter(Boolean);
+  const specializationHead = specializationWords[0] || '';
+  const specializationTail = specializationWords.slice(1).join(' ');
+
+  const root = createElement('div', 'max-w-4xl mx-auto bg-slate-50 rounded-[2rem] overflow-hidden shadow-xl flex flex-col md:flex-row items-center border border-gray-100');
+
+  const imageCol = createElement('div', 'w-full md:w-1/3 pr-6 flex items-center justify-center');
+  const imageWrap = createElement('div', 'rounded-2xl overflow-hidden shadow-lg border-4 border-emerald-100');
+  const image = createElement('img', 'w-full h-full object-cover aspect-square');
+  image.src = getSafeUrl(hod.photo);
+  image.alt = String(hod.name || 'Head of Department');
+  imageWrap.appendChild(image);
+  imageCol.appendChild(imageWrap);
+
+  const contentCol = createElement('div', 'p-8 md:p-12 w-full md:w-2/3');
+  const label = createElement('h4', 'text-emerald-600 font-black uppercase tracking-widest text-xs mb-2');
+  label.textContent = 'Head of Department';
+  const title = createElement('h2', 'text-3xl font-black text-blue-900 mb-4');
+  title.textContent = String(hod.name || '');
+  const quote = createElement('p', 'text-gray-600 italic mb-6');
+  quote.textContent = `"${String(hod.quote || '')}"`;
+
+  const stats = createElement('div', 'flex gap-4');
+  const yearsCard = createElement('div', 'bg-white p-4 rounded-xl shadow-sm border border-gray-100 flex-1');
+  const years = createElement('span', 'block text-blue-900 font-black text-xl');
+  years.textContent = String(hod.yearsOfExperience || '');
+  const yearsLabel = createElement('span', 'text-[10px] text-gray-400 uppercase font-bold');
+  yearsLabel.textContent = 'Years of Excellence';
+  yearsCard.appendChild(years);
+  yearsCard.appendChild(yearsLabel);
+
+  const specCard = createElement('div', 'bg-white p-4 rounded-xl shadow-sm border border-gray-100 flex-1');
+  const specHead = createElement('span', 'block text-emerald-600 font-black text-xl');
+  specHead.textContent = specializationHead;
+  const specTail = createElement('span', 'text-[10px] text-gray-400 uppercase font-bold');
+  specTail.textContent = specializationTail;
+  specCard.appendChild(specHead);
+  specCard.appendChild(specTail);
+
+  stats.appendChild(yearsCard);
+  stats.appendChild(specCard);
+
+  contentCol.appendChild(label);
+  contentCol.appendChild(title);
+  contentCol.appendChild(quote);
+  contentCol.appendChild(stats);
+
+  root.appendChild(imageCol);
+  root.appendChild(contentCol);
+
+  hodSection.replaceChildren(root);
 }
 
 /**
@@ -176,9 +248,7 @@ function updateSubProgramsSection(subPrograms) {
     gridColsClass = 'md:grid-cols-3';
   }
 
-  let subProgramsHTML = `
-    <div class="grid ${gridColsClass} gap-8">
-  `;
+  const grid = createElement('div', `grid ${gridColsClass} gap-8`);
 
   const colorBgMap = {
     'pink': 'bg-pink-50',
@@ -210,25 +280,30 @@ function updateSubProgramsSection(subPrograms) {
     'purple': 'border-purple-500'
   };
 
-  subPrograms.forEach((subProgram) => {
+  (Array.isArray(subPrograms) ? subPrograms : []).forEach((subProgram) => {
     const bgClass = colorBgMap[subProgram.iconBg] || 'bg-blue-50';
     const textClass = colorTextMap[subProgram.iconBg] || 'text-blue-600';
     const borderClass = colorBorderMap[subProgram.iconBg] || 'border-blue-500';
 
-    subProgramsHTML += `
-      <div class="bg-white p-8 rounded-3xl shadow-sm border-b-4 ${borderClass} hover:-translate-y-2 transition-transform duration-300">
-        <div class="w-14 h-14 ${bgClass} rounded-2xl flex items-center justify-center ${textClass} text-2xl mb-6">
-          <i class="fas fa-${subProgram.icon}"></i>
-        </div>
-        <h3 class="text-2xl font-black text-blue-900 mb-2">${subProgram.title}</h3>
-        <p class="text-emerald-600 font-bold text-sm mb-4">${subProgram.ageGroup}</p>
-        <p class="text-gray-500 text-sm leading-relaxed">${subProgram.description}</p>
-      </div>
-    `;
+    const card = createElement('div', `bg-white p-8 rounded-3xl shadow-sm border-b-4 ${borderClass} hover:-translate-y-2 transition-transform duration-300`);
+    const iconWrap = createElement('div', `w-14 h-14 ${bgClass} rounded-2xl flex items-center justify-center ${textClass} text-2xl mb-6`);
+    iconWrap.appendChild(createElement('i', `fas fa-${getSafeIconToken(subProgram.icon)}`));
+
+    const title = createElement('h3', 'text-2xl font-black text-blue-900 mb-2');
+    title.textContent = String(subProgram.title || '');
+    const ageGroup = createElement('p', 'text-emerald-600 font-bold text-sm mb-4');
+    ageGroup.textContent = String(subProgram.ageGroup || '');
+    const description = createElement('p', 'text-gray-500 text-sm leading-relaxed');
+    description.textContent = String(subProgram.description || '');
+
+    card.appendChild(iconWrap);
+    card.appendChild(title);
+    card.appendChild(ageGroup);
+    card.appendChild(description);
+    grid.appendChild(card);
   });
 
-  subProgramsHTML += `</div>`;
-  subProgramsSection.innerHTML = subProgramsHTML;
+  subProgramsSection.replaceChildren(grid);
 }
 
 /**
@@ -238,42 +313,60 @@ function updateCurriculumSection(curriculum) {
   const curriculumSection = document.querySelector('.curriculum-section');
   if (!curriculumSection) return;
 
-  let featuresHTML = '';
-  curriculum.features.forEach((feature) => {
-    featuresHTML += `
-      <div class="flex items-start gap-3">
-        <i class="fas fa-check-circle text-emerald-400 mt-1"></i>
-        <div><span class="font-bold block">${feature.title}</span><span class="text-xs text-gray-400">${feature.subtitle}</span></div>
-      </div>
-    `;
+  const wrapper = createElement('div', 'container mx-auto px-4 flex flex-col lg:flex-row gap-16 items-center');
+
+  const left = createElement('div', 'lg:w-1/2');
+  const label = createElement('h4', 'text-emerald-400 font-black uppercase tracking-widest text-xs mb-4');
+  label.textContent = 'Why LEADS?';
+  const heading = createElement('h2', 'text-4xl font-black mb-8 leading-tight');
+  heading.textContent = String(curriculum.heading || '');
+  const intro = createElement('p', 'text-gray-300 mb-8');
+  intro.textContent = String(curriculum.intro || '');
+  const featuresGrid = createElement('div', 'grid grid-cols-1 sm:grid-cols-2 gap-6');
+
+  (Array.isArray(curriculum.features) ? curriculum.features : []).forEach((feature) => {
+    const featureRow = createElement('div', 'flex items-start gap-3');
+    featureRow.appendChild(createElement('i', 'fas fa-check-circle text-emerald-400 mt-1'));
+    const textWrap = createElement('div');
+    const title = createElement('span', 'font-bold block');
+    title.textContent = String(feature.title || '');
+    const subtitle = createElement('span', 'text-xs text-gray-400');
+    subtitle.textContent = String(feature.subtitle || '');
+    textWrap.appendChild(title);
+    textWrap.appendChild(subtitle);
+    featureRow.appendChild(textWrap);
+    featuresGrid.appendChild(featureRow);
   });
 
-  curriculumSection.innerHTML = `
-    <div class="container mx-auto px-4 flex flex-col lg:flex-row gap-16 items-center">
-      <div class="lg:w-1/2">
-        <h4 class="text-emerald-400 font-black uppercase tracking-widest text-xs mb-4">Why LEADS?</h4>
-        <h2 class="text-4xl font-black mb-8 leading-tight">${curriculum.heading}</h2>
-        <p class="text-gray-300 mb-8">${curriculum.intro}</p>
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
-          ${featuresHTML}
-        </div>
-      </div>
-      <div class="lg:w-1/2 grid grid-cols-2 gap-4">
-        <div class="rounded-2xl shadow-2xl mt-8 bg-gradient-to-br from-pink-100 to-orange-100 flex items-center justify-center min-h-[250px]">
-          <div class="text-center">
-            <i class="fas fa-palette text-6xl text-orange-500 mb-4 block"></i>
-            <p class="font-bold text-blue-900">Creative Learning</p>
-          </div>
-        </div>
-        <div class="rounded-2xl shadow-2xl bg-gradient-to-br from-blue-100 to-cyan-100 flex items-center justify-center min-h-[250px]">
-          <div class="text-center">
-            <i class="fas fa-running text-6xl text-blue-600 mb-4 block"></i>
-            <p class="font-bold text-blue-900">Activity & Sports</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  `;
+  left.appendChild(label);
+  left.appendChild(heading);
+  left.appendChild(intro);
+  left.appendChild(featuresGrid);
+
+  const right = createElement('div', 'lg:w-1/2 grid grid-cols-2 gap-4');
+
+  const creative = createElement('div', 'rounded-2xl shadow-2xl mt-8 bg-gradient-to-br from-pink-100 to-orange-100 flex items-center justify-center min-h-[250px]');
+  const creativeInner = createElement('div', 'text-center');
+  creativeInner.appendChild(createElement('i', 'fas fa-palette text-6xl text-orange-500 mb-4 block'));
+  const creativeLabel = createElement('p', 'font-bold text-blue-900');
+  creativeLabel.textContent = 'Creative Learning';
+  creativeInner.appendChild(creativeLabel);
+  creative.appendChild(creativeInner);
+
+  const sports = createElement('div', 'rounded-2xl shadow-2xl bg-gradient-to-br from-blue-100 to-cyan-100 flex items-center justify-center min-h-[250px]');
+  const sportsInner = createElement('div', 'text-center');
+  sportsInner.appendChild(createElement('i', 'fas fa-running text-6xl text-blue-600 mb-4 block'));
+  const sportsLabel = createElement('p', 'font-bold text-blue-900');
+  sportsLabel.textContent = 'Activity & Sports';
+  sportsInner.appendChild(sportsLabel);
+  sports.appendChild(sportsInner);
+
+  right.appendChild(creative);
+  right.appendChild(sports);
+
+  wrapper.appendChild(left);
+  wrapper.appendChild(right);
+  curriculumSection.replaceChildren(wrapper);
 }
 
 /**
@@ -283,19 +376,25 @@ function updateCTASection(ctaText, ctaSubtext) {
   const ctaSection = document.querySelector('.cta-section');
   if (!ctaSection) return;
 
-  ctaSection.innerHTML = `
-    <div class="container mx-auto px-4">
-      <div class="bg-emerald-600 p-12 rounded-[3rem] text-white shadow-2xl">
-        <h2 class="text-3xl font-black uppercase mb-4 text-center">${ctaText}</h2>
-        <p class="mb-8 opacity-90 text-center">${ctaSubtext}</p>
-        <div class="text-center">
-          <a href="admissions.html" class="inline-block bg-white text-emerald-700 font-black px-10 py-4 rounded-full hover:bg-blue-900 hover:text-white transition-all transform hover:scale-105">
-            Apply for Admission
-          </a>
-        </div>
-      </div>
-    </div>
-  `;
+  const container = createElement('div', 'container mx-auto px-4');
+  const panel = createElement('div', 'bg-emerald-600 p-12 rounded-[3rem] text-white shadow-2xl');
+  const title = createElement('h2', 'text-3xl font-black uppercase mb-4 text-center');
+  title.textContent = String(ctaText || '');
+  const subtitle = createElement('p', 'mb-8 opacity-90 text-center');
+  subtitle.textContent = String(ctaSubtext || '');
+
+  const actionWrap = createElement('div', 'text-center');
+  const action = createElement('a', 'inline-block bg-white text-emerald-700 font-black px-10 py-4 rounded-full hover:bg-blue-900 hover:text-white transition-all transform hover:scale-105');
+  action.href = 'admissions.html';
+  action.textContent = 'Apply for Admission';
+  actionWrap.appendChild(action);
+
+  panel.appendChild(title);
+  panel.appendChild(subtitle);
+  panel.appendChild(actionWrap);
+  container.appendChild(panel);
+
+  ctaSection.replaceChildren(container);
 }
 
 /**

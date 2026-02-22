@@ -3,10 +3,100 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>LEADS CMS</title>
+  <title>Content Management System</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      background: #f8fafc;
+      color: #0f172a;
+    }
+
+    .landing-wrap {
+      max-width: 920px;
+      margin: 2rem auto;
+      padding: 0 1rem;
+    }
+
+    #github-login {
+      background: #065f46;
+      color: #fff;
+      border: 0;
+      border-radius: 0.5rem;
+      padding: 0.75rem 1rem;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    #cms-signout {
+      position: fixed;
+      top: 0.9rem;
+      right: 0.9rem;
+      z-index: 10000;
+      background: #0f172a;
+      color: #fff;
+      border: 0;
+      border-radius: 0.5rem;
+      padding: 0.55rem 0.8rem;
+      font-weight: 700;
+      font-size: 0.82rem;
+      cursor: pointer;
+      display: none;
+    }
+
+    #cms-signout:hover {
+      background: #1e293b;
+    }
+
+    #editor-tips {
+      margin-top: 1rem;
+      background: #fff;
+      border: 1px solid #e2e8f0;
+      border-radius: 0.75rem;
+      padding: 1rem 1.25rem;
+      line-height: 1.45;
+    }
+
+    #editor-tips h2 {
+      margin: 0 0 0.5rem;
+      font-size: 1rem;
+    }
+
+    #editor-tips ul {
+      margin: 0.5rem 0 0;
+      padding-left: 1.1rem;
+    }
+
+    #editor-tips li {
+      margin: 0.35rem 0;
+      font-size: 0.92rem;
+    }
+
+    .tips-meta {
+      margin-top: 0.75rem;
+      font-size: 0.8rem;
+      color: #475569;
+    }
+  </style>
 </head>
 <body>
-  <button id="github-login" type="button">Login with GitHub</button>
+  <button id="cms-signout" type="button" aria-label="Sign out from CMS">Sign out</button>
+
+  <div class="landing-wrap" id="landing-wrap">
+    <button id="github-login" type="button">Login with GitHub</button>
+
+    <section id="editor-tips" aria-label="Editor tips">
+      <h2>Editing Tips</h2>
+      <ul>
+        <li><strong>Single source of truth:</strong> site-wide values come from <code>admin/config.json</code>.</li>
+        <li><strong>Feature Toggles:</strong> use the Site Config → Feature Toggles switches to show/hide major sections.</li>
+        <li><strong>Safe workflow:</strong> edit, save, then verify the affected page in the website preview.</li>
+        <li><strong>Media uploads:</strong> upload files inside each collection editor; standalone Media tab is intentionally hidden.</li>
+        <li><strong>Need exact mapping?</strong> see the Feature Matrix in <code>README.md</code>.</li>
+      </ul>
+      <p class="tips-meta" id="tips-last-updated">Last updated: —</p>
+    </section>
+  </div>
 
   <script src="https://unpkg.com/decap-cms@3.0.0/dist/decap-cms.js"></script>
   <script>
@@ -24,18 +114,133 @@
       }
     }
 
+    function hasCmsAuthSession() {
+      const storages = [window.localStorage, window.sessionStorage];
+      const likelyAuthKeys = ['netlify-cms-user', 'decap-cms-user'];
+
+      for (const storage of storages) {
+        for (let index = 0; index < storage.length; index += 1) {
+          const key = storage.key(index) || '';
+          const normalizedKey = key.toLowerCase();
+          const rawValue = storage.getItem(key) || '';
+
+          if (likelyAuthKeys.includes(normalizedKey) && rawValue) {
+            return true;
+          }
+
+          if (normalizedKey.includes('netlify-cms') || normalizedKey.includes('decap-cms')) {
+            const normalizedValue = rawValue.toLowerCase();
+            if (normalizedValue.includes('access_token') || normalizedValue.includes('token')) {
+              return true;
+            }
+          }
+        }
+      }
+
+      return false;
+    }
+
+    function toggleLandingContent() {
+      const landing = document.getElementById('landing-wrap');
+      const inCmsRoute = window.location.hash.startsWith('#/');
+      if (landing) {
+        landing.style.display = inCmsRoute ? 'none' : 'block';
+      }
+
+      const signOut = document.getElementById('cms-signout');
+      if (signOut) {
+        const showSignOut = inCmsRoute && hasCmsAuthSession();
+        signOut.style.display = showSignOut ? 'inline-flex' : 'none';
+      }
+    }
+
+    function clearCmsSession() {
+      const shouldClear = (key) => {
+        const normalized = String(key || '').toLowerCase();
+        return normalized.includes('decap-cms') || normalized.includes('netlify-cms');
+      };
+
+      const storagePairs = [window.localStorage, window.sessionStorage];
+
+      storagePairs.forEach((storage) => {
+        const keys = [];
+        for (let index = 0; index < storage.length; index += 1) {
+          const key = storage.key(index);
+          if (shouldClear(key)) {
+            keys.push(key);
+          }
+        }
+        keys.forEach((key) => storage.removeItem(key));
+      });
+    }
+
     const observer = new MutationObserver(() => {
       hideStandaloneMediaTab();
       blockMediaRoute();
+      toggleLandingContent();
     });
 
     observer.observe(document.documentElement, { childList: true, subtree: true });
-    window.addEventListener('hashchange', blockMediaRoute);
+    window.addEventListener('hashchange', () => {
+      blockMediaRoute();
+      toggleLandingContent();
+    });
 
     const loginButton = document.getElementById('github-login');
     loginButton.addEventListener('click', () => {
       window.location.assign('/admin/#/');
     });
+
+    const signOutButton = document.getElementById('cms-signout');
+    signOutButton.addEventListener('click', () => {
+      clearCmsSession();
+      window.location.replace('/admin/');
+    });
+
+    async function setConfigLastUpdated() {
+      const target = document.getElementById('tips-last-updated');
+      if (!target) {
+        return;
+      }
+
+      const formatDate = (value) => {
+        const date = value ? new Date(value) : null;
+        if (!date || Number.isNaN(date.getTime())) {
+          return null;
+        }
+        return date.toLocaleString(undefined, {
+          year: 'numeric',
+          month: 'short',
+          day: '2-digit',
+          hour: '2-digit',
+          minute: '2-digit'
+        });
+      };
+
+      try {
+        const response = await fetch('/admin/config.json', {
+          method: 'HEAD',
+          cache: 'no-store'
+        });
+
+        const lastModified = response.headers.get('last-modified');
+        const responseDate = response.headers.get('date');
+        const formatted = formatDate(lastModified || responseDate);
+
+        if (formatted) {
+          target.textContent = `Config last updated: ${formatted}`;
+          return;
+        }
+      } catch (error) {
+      }
+
+      const fallback = formatDate(document.lastModified) || formatDate(new Date()) || 'Unknown';
+      target.textContent = `Config last updated: ${fallback}`;
+    }
+
+    setConfigLastUpdated();
+
+    toggleLandingContent();
   </script>
 </body>
 </html>

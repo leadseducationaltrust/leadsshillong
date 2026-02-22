@@ -84,3 +84,79 @@ Date-based content files are auto-sorted (latest first) on every push to `main`.
 	- `calendar/content.json` by `date`, then `startDate`, then `endDate`
 
 If you manually reorder entries, the workflow will normalize ordering after push.
+
+## Content Validation (CI)
+
+JSON content is validated on every pull request and push to `main`.
+
+- Workflow: `.github/workflows/validate-content.yml`
+- Validator script: `scripts/validate-content.mjs`
+- Validated files:
+	- `news/content.json`
+	- `downloads/content.json`
+	- `calendar/content.json`
+	- `thought/content.json`
+	- `gallery/content.json`
+
+Run it locally before opening a PR:
+
+```bash
+node scripts/validate-content.mjs
+```
+
+The validator checks required fields, date formats, URL/path safety, expected object/array shapes, and duplicate content guards (e.g., duplicate news `date+title` or duplicate gallery URLs).
+
+It also emits non-failing warnings for highly similar news titles (near-duplicates) so editors can review possible accidental repeats.
+
+Near-duplicate threshold is configurable via `NEWS_TITLE_SIMILARITY_THRESHOLD` (0-1, default `0.80`).
+
+Example local run with stricter threshold:
+
+```bash
+NEWS_TITLE_SIMILARITY_THRESHOLD=0.70 node scripts/validate-content.mjs
+```
+
+## Broken Link Check (CI)
+
+Local path checks run on every pull request and push to `main`.
+
+- Workflow: `.github/workflows/check-links.yml`
+- Checker script: `scripts/check-links.mjs`
+- Current strict scope:
+	- Local `href/src` file paths in HTML pages
+	- Media paths in `gallery/content.json`, `thought/content.json`, and `faculty/content.json`
+
+Run it locally:
+
+```bash
+node scripts/check-links.mjs
+```
+
+### Gallery broken image behavior
+
+On `gallery.html`, if an image URL is invalid or the image fails to load, that gallery card is removed automatically and not displayed.
+
+## Feature Matrix (Config Toggles)
+
+Feature flags are defined in `admin/config.json` under `featureToggles` and applied globally by `js/config.js`.
+
+| Toggle Key | Controls |
+|---|---|
+| `showAdmissions` | Admissions nav/footer links, home hero "Apply Now", admissions form blocks |
+| `showGallery` | Gallery nav/footer links and gallery-marked blocks |
+| `showResults` | Result-related links/blocks (`result` URLs and `data-feature="results"`) |
+| `showNews` | Home news alert bar, news modal, and news-marked blocks |
+| `showPrograms` | Programs nav links, home academic programmes section, program-page sections |
+| `showFaculty` | Faculty nav/footer links and faculty-marked blocks |
+| `showDownloads` | Downloads nav/footer links and downloads-marked blocks |
+| `showCalendar` | Home calendar panel and calendar-marked blocks |
+| `showThoughtOfTheDay` | Home thought panel and thought-marked blocks |
+| `showContactForm` | Contact form (`#contact-form`) and contact-form-marked blocks |
+| `showOnlinePayments` | Pay-fee buttons (`#global-payment-*`) and online-payments-marked blocks |
+| `showChatWidget` | Tawk.to chat widget initialization |
+
+### Adding toggle support to a new block
+
+1. Add a marker in HTML, e.g. `data-feature="programs"`.
+2. Reuse an existing toggle key in `admin/config.json`.
+3. If needed, map a new selector rule in `js/config.js` under the `toggleRules` object.

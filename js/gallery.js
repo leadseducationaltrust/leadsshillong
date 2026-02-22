@@ -8,6 +8,68 @@ const GALLERY_BATCH_SIZE = 12;
 let galleryCursor = 0;
 let sortedGalleryImages = [];
 
+function hasExplicitScheme(value) {
+    return /^[a-zA-Z][a-zA-Z\d+\-.]*:/.test(value);
+}
+
+function getSafeImageUrl(value) {
+    if (value === undefined || value === null) {
+        return '';
+    }
+
+    const text = String(value).trim();
+    if (!text) {
+        return '';
+    }
+
+    if (!hasExplicitScheme(text)) {
+        return text;
+    }
+
+    try {
+        const parsed = new URL(text);
+        if (parsed.protocol === 'http:' || parsed.protocol === 'https:') {
+            return text;
+        }
+    } catch (error) {
+    }
+
+    return '';
+}
+
+function createGalleryItem(imgData) {
+    const safeImageUrl = getSafeImageUrl(imgData.url);
+    if (!safeImageUrl) {
+        return null;
+    }
+
+    const item = document.createElement('div');
+    item.className = 'masonry-item group cursor-pointer relative overflow-hidden rounded-xl shadow-md hover:shadow-2xl bg-gray-200';
+
+    const image = document.createElement('img');
+    image.className = 'w-full h-auto transform group-hover:scale-105 transition duration-700 ease-in-out';
+    image.src = safeImageUrl;
+    image.alt = String(imgData.desc || 'Gallery image');
+    image.addEventListener('error', () => {
+        item.remove();
+        updateLoadMoreButton();
+    });
+
+    const overlay = document.createElement('div');
+    overlay.className = 'absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4';
+
+    const caption = document.createElement('p');
+    caption.className = 'text-white text-sm font-bold tracking-wide';
+    caption.textContent = String(imgData.desc || '');
+
+    overlay.appendChild(caption);
+    item.appendChild(image);
+    item.appendChild(overlay);
+
+    item.addEventListener('click', () => openLightbox(image.src, String(imgData.desc || '')));
+    return item;
+}
+
 function updateLoadMoreButton() {
     const loadMoreBtn = document.getElementById('load-more-gallery');
     if (!loadMoreBtn) return;
@@ -26,18 +88,10 @@ function renderGalleryBatch() {
     const nextBatch = sortedGalleryImages.slice(galleryCursor, galleryCursor + GALLERY_BATCH_SIZE);
 
     nextBatch.forEach((imgData) => {
-        const item = document.createElement('div');
-        item.className = 'masonry-item group cursor-pointer relative overflow-hidden rounded-xl shadow-md hover:shadow-2xl bg-gray-200';
-
-        item.innerHTML = `
-            <img src="${imgData.url}" alt="${imgData.desc}" class="w-full h-auto transform group-hover:scale-105 transition duration-700 ease-in-out">
-            <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
-                <p class="text-white text-sm font-bold tracking-wide">${imgData.desc}</p>
-            </div>
-        `;
-
-        item.onclick = () => openLightbox(imgData.url, imgData.desc);
-        container.appendChild(item);
+        const item = createGalleryItem(imgData);
+        if (item) {
+            container.appendChild(item);
+        }
     });
 
     galleryCursor += nextBatch.length;
@@ -48,7 +102,7 @@ function loadGallery() {
     const container = document.getElementById('gallery-container');
     if (!container) return;
 
-    container.innerHTML = '';
+    container.replaceChildren();
     galleryCursor = 0;
     sortedGalleryImages = galleryImages
         .slice()

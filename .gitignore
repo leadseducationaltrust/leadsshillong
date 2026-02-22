@@ -1,0 +1,33 @@
+# macOS
+.DS_Store
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Environment files (never commit secrets)
+.env
+.env.*
+!.env.example
+
+# Node / tooling artifacts
+node_modules/
+coverage/
+.nyc_output/
+dist/
+build/
+
+# Cloudflare / Wrangler
+.wrangler/
+
+# Editors
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Optional local overrides
+local-overrides/

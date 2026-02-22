@@ -22,6 +22,35 @@ const downloadPdfBtn = document.getElementById('download-pdf-btn');
 
 let currentPdfUrl = '';
 
+function hasExplicitScheme(value) {
+    return /^[a-zA-Z][a-zA-Z\d+\-.]*:/.test(value);
+}
+
+function getSafePdfUrl(value) {
+    if (value === undefined || value === null) {
+        return null;
+    }
+
+    const text = String(value).trim();
+    if (!text) {
+        return null;
+    }
+
+    if (!hasExplicitScheme(text)) {
+        return text;
+    }
+
+    try {
+        const parsed = new URL(text);
+        if (parsed.protocol === 'http:' || parsed.protocol === 'https:') {
+            return text;
+        }
+    } catch (error) {
+    }
+
+    return null;
+}
+
 /**
  * Initialize the downloads system
  */
@@ -97,6 +126,7 @@ function displayDownloads(count) {
 function createDownloadCard(download) {
     const card = document.createElement('div');
     card.className = 'download-card bg-white border border-gray-200 rounded-lg shadow-md p-6 hover:border-emerald-500 transition-all';
+    const safePdfUrl = getSafePdfUrl(download.pdf_url);
     
     // Format the timestamp
     const date = new Date(download.timestamp);
@@ -106,47 +136,95 @@ function createDownloadCard(download) {
         day: 'numeric'
     });
     
-    card.innerHTML = `
-        <div class="flex items-start justify-between mb-4">
-            <div class="flex-1">
-                <h3 class="text-xl font-bold text-blue-900 mb-2">${download.heading}</h3>
-                <span class="inline-block bg-emerald-100 text-emerald-700 text-xs font-semibold px-3 py-1 rounded-full">
-                    ${download.audience}
-                </span>
-            </div>
-            <div class="ml-4 flex-shrink-0">
-                <i class="fas fa-file-pdf text-4xl text-red-500"></i>
-            </div>
-        </div>
-        
-        <p class="text-gray-600 mb-4 leading-relaxed">${download.description}</p>
-        
-        <div class="flex items-center justify-between pt-4 border-t border-gray-100">
-            <div class="flex items-center text-sm text-gray-500">
-                <i class="fas fa-calendar-alt mr-2"></i>
-                <span>${formattedDate}</span>
-            </div>
-            <div class="flex gap-2">
-                <button 
-                    onclick="openPreview('${download.pdf_url}')" 
-                    class="bg-blue-900 text-white px-4 py-2 rounded-lg text-sm font-semibold hover:bg-blue-800 transition-all inline-flex items-center gap-2"
-                    title="Preview PDF"
-                >
-                    <i class="fas fa-eye"></i>
-                    <span>Preview</span>
-                </button>
-                <a 
-                    href="${download.pdf_url}" 
-                    download 
-                    class="bg-emerald-600 text-white px-4 py-2 rounded-lg text-sm font-semibold hover:bg-emerald-700 transition-all inline-flex items-center gap-2"
-                    title="Download PDF"
-                >
-                    <i class="fas fa-download"></i>
-                    <span>Download</span>
-                </a>
-            </div>
-        </div>
-    `;
+    const header = document.createElement('div');
+    header.className = 'flex items-start justify-between mb-4';
+
+    const headerLeft = document.createElement('div');
+    headerLeft.className = 'flex-1';
+
+    const heading = document.createElement('h3');
+    heading.className = 'text-xl font-bold text-blue-900 mb-2';
+    heading.textContent = String(download.heading || 'Untitled download');
+
+    const audience = document.createElement('span');
+    audience.className = 'inline-block bg-emerald-100 text-emerald-700 text-xs font-semibold px-3 py-1 rounded-full';
+    audience.textContent = String(download.audience || 'General');
+
+    headerLeft.appendChild(heading);
+    headerLeft.appendChild(audience);
+
+    const headerRight = document.createElement('div');
+    headerRight.className = 'ml-4 flex-shrink-0';
+    const icon = document.createElement('i');
+    icon.className = 'fas fa-file-pdf text-4xl text-red-500';
+    headerRight.appendChild(icon);
+
+    header.appendChild(headerLeft);
+    header.appendChild(headerRight);
+
+    const description = document.createElement('p');
+    description.className = 'text-gray-600 mb-4 leading-relaxed';
+    description.textContent = String(download.description || '');
+
+    const footer = document.createElement('div');
+    footer.className = 'flex items-center justify-between pt-4 border-t border-gray-100';
+
+    const dateWrap = document.createElement('div');
+    dateWrap.className = 'flex items-center text-sm text-gray-500';
+    const dateIcon = document.createElement('i');
+    dateIcon.className = 'fas fa-calendar-alt mr-2';
+    const dateText = document.createElement('span');
+    dateText.textContent = formattedDate;
+    dateWrap.appendChild(dateIcon);
+    dateWrap.appendChild(dateText);
+
+    const actions = document.createElement('div');
+    actions.className = 'flex gap-2';
+
+    const previewButton = document.createElement('button');
+    previewButton.type = 'button';
+    previewButton.className = 'bg-blue-900 text-white px-4 py-2 rounded-lg text-sm font-semibold hover:bg-blue-800 transition-all inline-flex items-center gap-2';
+    previewButton.title = 'Preview PDF';
+    const previewIcon = document.createElement('i');
+    previewIcon.className = 'fas fa-eye';
+    const previewLabel = document.createElement('span');
+    previewLabel.textContent = 'Preview';
+    previewButton.appendChild(previewIcon);
+    previewButton.appendChild(previewLabel);
+    if (safePdfUrl) {
+        previewButton.addEventListener('click', () => openPreview(safePdfUrl));
+    } else {
+        previewButton.disabled = true;
+        previewButton.classList.add('opacity-50', 'cursor-not-allowed');
+    }
+
+    const downloadLink = document.createElement('a');
+    downloadLink.className = 'bg-emerald-600 text-white px-4 py-2 rounded-lg text-sm font-semibold hover:bg-emerald-700 transition-all inline-flex items-center gap-2';
+    downloadLink.title = 'Download PDF';
+    const downloadIcon = document.createElement('i');
+    downloadIcon.className = 'fas fa-download';
+    const downloadLabel = document.createElement('span');
+    downloadLabel.textContent = 'Download';
+    downloadLink.appendChild(downloadIcon);
+    downloadLink.appendChild(downloadLabel);
+    if (safePdfUrl) {
+        downloadLink.href = safePdfUrl;
+        downloadLink.download = '';
+    } else {
+        downloadLink.href = '#';
+        downloadLink.addEventListener('click', (event) => event.preventDefault());
+        downloadLink.classList.add('opacity-50', 'cursor-not-allowed');
+    }
+
+    actions.appendChild(previewButton);
+    actions.appendChild(downloadLink);
+
+    footer.appendChild(dateWrap);
+    footer.appendChild(actions);
+
+    card.appendChild(header);
+    card.appendChild(description);
+    card.appendChild(footer);
     
     return card;
 }
@@ -156,8 +234,13 @@ function createDownloadCard(download) {
  * @param {string} url - URL of the PDF file
  */
 function openPreview(url) {
-    currentPdfUrl = url;
-    pdfIframe.src = url;
+    const safeUrl = getSafePdfUrl(url);
+    if (!safeUrl) {
+        return;
+    }
+
+    currentPdfUrl = safeUrl;
+    pdfIframe.src = safeUrl;
     pdfModal.classList.add('active');
     document.body.style.overflow = 'hidden'; // Prevent background scrolling
 }
@@ -176,6 +259,10 @@ function closePreview() {
  * Print PDF from iframe
  */
 function printPdf() {
+    if (!currentPdfUrl) {
+        return;
+    }
+
     try {
         const iframe = document.getElementById('pdf-iframe');
         if (iframe.contentWindow) {
@@ -195,6 +282,10 @@ function printPdf() {
  * Download PDF
  */
 function downloadPdf() {
+    if (!currentPdfUrl) {
+        return;
+    }
+
     const link = document.createElement('a');
     link.href = currentPdfUrl;
     link.download = currentPdfUrl.split('/').pop();

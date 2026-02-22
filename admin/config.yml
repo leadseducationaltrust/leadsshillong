@@ -39,6 +39,93 @@ collections:
         file: "admin/config.json"
         format: "json"
         fields:
+          - label: "Site"
+            name: "site"
+            widget: "object"
+            fields:
+              - { label: "Template Name", name: "templateName", widget: "string" }
+              - { label: "Version", name: "version", widget: "string" }
+              - label: "Technology"
+                name: "technology"
+                widget: "object"
+                fields:
+                  - { label: "Frontend", name: "frontend", widget: "string" }
+                  - { label: "Styling", name: "styling", widget: "string" }
+                  - { label: "Scripting", name: "scripting", widget: "string" }
+              - label: "Hosting"
+                name: "hosting"
+                widget: "object"
+                fields:
+                  - { label: "Provider", name: "provider", widget: "string" }
+                  - { label: "Repository", name: "repository", widget: "string" }
+
+          - label: "Design Tokens"
+            name: "designTokens"
+            widget: "object"
+            fields:
+              - label: "Colors"
+                name: "colors"
+                widget: "object"
+                fields:
+                  - { label: "Primary", name: "primary", widget: "string", hint: "Hex color e.g. #1D4ED8" }
+                  - { label: "Secondary", name: "secondary", widget: "string", hint: "Hex color e.g. #0F766E" }
+                  - { label: "Accent", name: "accent", widget: "string", hint: "Hex color e.g. #F59E0B" }
+                  - { label: "Background", name: "background", widget: "string", required: false }
+                  - { label: "Surface", name: "surface", widget: "string", required: false }
+                  - { label: "Text", name: "text", widget: "string", required: false }
+              - label: "Border Radius"
+                name: "borderRadius"
+                widget: "object"
+                fields:
+                  - { label: "Small", name: "small", widget: "string" }
+                  - { label: "Medium", name: "medium", widget: "string" }
+                  - { label: "Large", name: "large", widget: "string" }
+                  - { label: "Pill", name: "pill", widget: "string", required: false }
+              - label: "Font Family"
+                name: "fontFamily"
+                widget: "object"
+                fields:
+                  - { label: "Heading", name: "heading", widget: "string" }
+                  - { label: "Body", name: "body", widget: "string" }
+                  - { label: "Monospace", name: "mono", widget: "string", required: false }
+
+          - label: "SEO"
+            name: "seo"
+            widget: "object"
+            fields:
+              - label: "Metadata"
+                name: "metadata"
+                widget: "object"
+                fields:
+                  - { label: "Title", name: "title", widget: "string" }
+                  - { label: "Description", name: "description", widget: "text" }
+                  - label: "Keywords"
+                    name: "keywords"
+                    widget: "list"
+                    field: { label: "Keyword", name: "keyword", widget: "string" }
+                  - { label: "Author", name: "author", widget: "string", required: false }
+                  - { label: "Robots", name: "robots", widget: "string", required: false }
+              - label: "OpenGraph"
+                name: "openGraph"
+                widget: "object"
+                fields:
+                  - { label: "Title", name: "title", widget: "string" }
+                  - { label: "Description", name: "description", widget: "text" }
+                  - { label: "Type", name: "type", widget: "string" }
+                  - { label: "URL", name: "url", widget: "string" }
+                  - { label: "Image", name: "image", widget: "string" }
+                  - { label: "Site Name", name: "siteName", widget: "string" }
+                  - { label: "Locale", name: "locale", widget: "string", required: false }
+              - label: "Twitter"
+                name: "twitter"
+                widget: "object"
+                required: false
+                fields:
+                  - { label: "Card", name: "card", widget: "string", required: false }
+                  - { label: "Title", name: "title", widget: "string", required: false }
+                  - { label: "Description", name: "description", widget: "text", required: false }
+                  - { label: "Image", name: "image", widget: "string", required: false }
+
           - label: "Identity"
             name: "identity"
             widget: "object"
@@ -88,6 +175,101 @@ collections:
               - { label: "Current Session", name: "currentSession", widget: "string" }
               - { label: "Admission Status", name: "admissionStatus", widget: "string" }
               - { label: "Admission Form Link", name: "admissionFormLink", widget: "string" }
+
+          - label: "Academic Structure"
+            name: "academicStructure"
+            widget: "object"
+            fields:
+              - label: "Classes Offered"
+                name: "classesOffered"
+                widget: "list"
+                field: { label: "Class", name: "class", widget: "string" }
+              - label: "Subjects"
+                name: "subjects"
+                widget: "object"
+                fields:
+                  - label: "Primary"
+                    name: "primary"
+                    widget: "list"
+                    required: false
+                    field: { label: "Subject", name: "subject", widget: "string" }
+                  - label: "Middle"
+                    name: "middle"
+                    widget: "list"
+                    required: false
+                    field: { label: "Subject", name: "subject", widget: "string" }
+                  - label: "Secondary"
+                    name: "secondary"
+                    widget: "list"
+                    required: false
+                    field: { label: "Subject", name: "subject", widget: "string" }
+                  - label: "Higher Secondary"
+                    name: "higherSecondary"
+                    widget: "object"
+                    required: false
+                    fields:
+                      - label: "Science"
+                        name: "science"
+                        widget: "list"
+                        required: false
+                        field: { label: "Subject", name: "subject", widget: "string" }
+                      - label: "Arts"
+                        name: "arts"
+                        widget: "list"
+                        required: false
+                        field: { label: "Subject", name: "subject", widget: "string" }
+              - label: "House System"
+                name: "houseSystem"
+                widget: "object"
+                fields:
+                  - { label: "Enabled", name: "enabled", widget: "boolean", default: true }
+                  - label: "Houses"
+                    name: "houses"
+                    widget: "list"
+                    fields:
+                      - { label: "Name", name: "name", widget: "string" }
+                      - { label: "Motto", name: "motto", widget: "string", required: false }
+                      - { label: "Color", name: "color", widget: "string", hint: "Hex color" }
+
+          - label: "Leadership"
+            name: "leadership"
+            widget: "object"
+            fields:
+              - label: "Principal"
+                name: "principal"
+                widget: "object"
+                fields:
+                  - { label: "Name", name: "name", widget: "string" }
+                  - { label: "Designation", name: "designation", widget: "string", required: false }
+                  - { label: "Photo", name: "photo", widget: "string", required: false }
+                  - { label: "Message", name: "message", widget: "text" }
+                  - { label: "Signature Name", name: "signatureName", widget: "string", required: false }
+              - label: "Chairperson"
+                name: "chairperson"
+                widget: "object"
+                required: false
+                fields:
+                  - { label: "Name", name: "name", widget: "string", required: false }
+                  - { label: "Message", name: "message", widget: "text", required: false }
+                  - { label: "Photo", name: "photo", widget: "string", required: false }
+
+          - label: "Feature Toggles"
+            name: "featureToggles"
+            widget: "object"
+            hint: "Turn sections on/off site-wide. These toggles are applied by js/config.js."
+            fields:
+              - { label: "Show Admissions", name: "showAdmissions", widget: "boolean", default: true, hint: "Controls admissions links, home Apply button, and admissions form blocks." }
+              - { label: "Show Gallery", name: "showGallery", widget: "boolean", default: true, hint: "Controls gallery navigation links and gallery-marked sections." }
+              - { label: "Show Results", name: "showResults", widget: "boolean", default: true, hint: "Controls result-related links and sections marked for results." }
+              - { label: "Show News", name: "showNews", widget: "boolean", default: true, hint: "Controls home news alert bar, modal, and news-marked sections." }
+              - { label: "Show Programs", name: "showPrograms", widget: "boolean", default: true, hint: "Controls programs links, home programmes section, and program-page blocks." }
+              - { label: "Show Faculty", name: "showFaculty", widget: "boolean", default: true, hint: "Controls faculty links and faculty-marked sections." }
+              - { label: "Show Downloads", name: "showDownloads", widget: "boolean", default: true, hint: "Controls downloads links and downloads-marked sections." }
+              - { label: "Show Calendar", name: "showCalendar", widget: "boolean", default: true, hint: "Controls the home calendar panel and calendar-marked sections." }
+              - { label: "Show Thought Of The Day", name: "showThoughtOfTheDay", widget: "boolean", default: true, hint: "Controls thought panel and thought-marked sections." }
+              - { label: "Show Contact Form", name: "showContactForm", widget: "boolean", default: true, hint: "Controls the contact form and contact-form-marked sections." }
+              - { label: "Show Online Payments", name: "showOnlinePayments", widget: "boolean", default: true, hint: "Controls online payment buttons and payments-marked sections." }
+              - { label: "Show Chat Widget", name: "showChatWidget", widget: "boolean", default: true, hint: "Controls the Tawk.to chat widget loading." }
 
           - label: "Payments"
             name: "payments"
