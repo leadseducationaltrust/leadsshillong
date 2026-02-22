@@ -104,3 +104,12 @@ Current keys:
 - `showContactForm`
 - `showOnlinePayments`
 - `showChatWidget`
+
+## Theme configuration
+
+Theme settings live in `admin/config.json` under `theme` and are applied globally by `js/config.js`.
+
+- `Universal` is the default baseline theme and preserves the original site look (including homepage/faculty styling).
+- Popular themes are pre-listed in `theme.themes` and can stay inactive until needed.
+- Activate exactly one theme at a time using `active: true`.
+- If multiple themes are accidentally set active, runtime logic keeps one active theme automatically.

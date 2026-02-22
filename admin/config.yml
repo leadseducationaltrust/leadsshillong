@@ -89,6 +89,40 @@ collections:
                   - { label: "Body", name: "body", widget: "string" }
                   - { label: "Monospace", name: "mono", widget: "string", required: false }
 
+          - label: "Theme"
+            name: "theme"
+            widget: "object"
+            hint: "Set one theme as active=true to apply site-wide colors. Keep Universal active by default."
+            fields:
+              - { label: "Active Theme Name", name: "activeTheme", widget: "string", required: false, hint: "Fallback by name if no theme is marked active." }
+              - { label: "Default Theme Name", name: "defaultTheme", widget: "string", required: false, default: "Universal" }
+              - { label: "Theme Description", name: "description", widget: "text", required: false }
+              - label: "Themes"
+                name: "themes"
+                widget: "list"
+                summary: "{{fields.name}} (active: {{fields.active}})"
+                fields:
+                  - { label: "Name", name: "name", widget: "string" }
+                  - { label: "Active", name: "active", widget: "boolean", default: false, hint: "Activate only one theme at a time." }
+                  - { label: "Description", name: "description", widget: "text", required: false }
+                  - label: "Tokens"
+                    name: "tokens"
+                    widget: "object"
+                    fields:
+                      - { label: "Primary", name: "primary", widget: "string", hint: "Hex color e.g. #059669" }
+                      - { label: "Primary Light", name: "primaryLight", widget: "string", required: false }
+                      - { label: "Primary Dark", name: "primaryDark", widget: "string", required: false }
+                      - { label: "Secondary", name: "secondary", widget: "string", required: false }
+                      - { label: "Secondary Light", name: "secondaryLight", widget: "string", required: false }
+                      - { label: "Secondary Dark", name: "secondaryDark", widget: "string", required: false }
+                      - { label: "Accent", name: "accent", widget: "string", required: false }
+                      - { label: "Accent Light", name: "accentLight", widget: "string", required: false }
+                      - { label: "Accent Dark", name: "accentDark", widget: "string", required: false }
+                      - { label: "Background", name: "background", widget: "string", required: false }
+                      - { label: "Surface", name: "surface", widget: "string", required: false }
+                      - { label: "Text", name: "text", widget: "string", required: false }
+                      - { label: "Muted Text", name: "mutedText", widget: "string", required: false }
+
           - label: "SEO"
             name: "seo"
             widget: "object"

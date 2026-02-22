@@ -14,8 +14,8 @@ const fallbackSchoolData = {
     },
     designTokens: {
         colors: {
-            primary: "#1D4ED8",
-            secondary: "#0F766E",
+            primary: "#059669",
+            secondary: "#1E3A8A",
             accent: "#F59E0B",
             background: "#FFFFFF",
             surface: "#F8FAFC",
@@ -32,6 +32,132 @@ const fallbackSchoolData = {
             body: "Inter, ui-sans-serif, system-ui, -apple-system, Segoe UI, sans-serif",
             mono: "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace"
         }
+    },
+    theme: {
+        activeTheme: "Universal",
+        description: "Balanced and modern theme suitable for school websites.",
+        themes: [
+            {
+                name: "Universal",
+                active: true,
+                description: "Balanced and modern theme suitable for school websites.",
+                tokens: {
+                    primary: "#059669",
+                    primaryLight: "#34D399",
+                    primaryDark: "#047857",
+                    secondary: "#1E3A8A",
+                    secondaryLight: "#3B82F6",
+                    secondaryDark: "#1E40AF",
+                    accent: "#D97706",
+                    accentLight: "#F59E0B",
+                    accentDark: "#B45309",
+                    background: "#FFFFFF",
+                    surface: "#F8FAFC",
+                    text: "#0F172A",
+                    mutedText: "#475569"
+                }
+            },
+            {
+                name: "Ocean Blue",
+                active: false,
+                description: "Clean blue palette with a professional institutional look.",
+                tokens: {
+                    primary: "#0EA5E9",
+                    primaryLight: "#BAE6FD",
+                    primaryDark: "#0369A1",
+                    secondary: "#3B82F6",
+                    secondaryLight: "#BFDBFE",
+                    secondaryDark: "#1D4ED8",
+                    accent: "#38BDF8",
+                    accentLight: "#E0F2FE",
+                    accentDark: "#0284C7",
+                    background: "#F8FBFF",
+                    surface: "#F0F7FF",
+                    text: "#0F172A",
+                    mutedText: "#475569"
+                }
+            },
+            {
+                name: "Forest Green",
+                active: false,
+                description: "Nature-inspired green tones for a calm and growth-centric identity.",
+                tokens: {
+                    primary: "#22C55E",
+                    primaryLight: "#BBF7D0",
+                    primaryDark: "#15803D",
+                    secondary: "#10B981",
+                    secondaryLight: "#A7F3D0",
+                    secondaryDark: "#047857",
+                    accent: "#84CC16",
+                    accentLight: "#ECFCCB",
+                    accentDark: "#65A30D",
+                    background: "#F7FFF8",
+                    surface: "#ECFDF3",
+                    text: "#14532D",
+                    mutedText: "#3F6212"
+                }
+            },
+            {
+                name: "Royal Purple",
+                active: false,
+                description: "Premium purple-blue styling for a distinctive academic brand.",
+                tokens: {
+                    primary: "#A78BFA",
+                    primaryLight: "#E9D5FF",
+                    primaryDark: "#7C3AED",
+                    secondary: "#818CF8",
+                    secondaryLight: "#C7D2FE",
+                    secondaryDark: "#4F46E5",
+                    accent: "#F472B6",
+                    accentLight: "#FCE7F3",
+                    accentDark: "#DB2777",
+                    background: "#FCFAFF",
+                    surface: "#F5F3FF",
+                    text: "#3B0764",
+                    mutedText: "#5B4B8A"
+                }
+            },
+            {
+                name: "Sunset Warm",
+                active: false,
+                description: "Energetic orange-red palette ideal for a vibrant school presence.",
+                tokens: {
+                    primary: "#FB923C",
+                    primaryLight: "#FED7AA",
+                    primaryDark: "#EA580C",
+                    secondary: "#F59E0B",
+                    secondaryLight: "#FDE68A",
+                    secondaryDark: "#D97706",
+                    accent: "#F87171",
+                    accentLight: "#FEE2E2",
+                    accentDark: "#EF4444",
+                    background: "#FFFBF7",
+                    surface: "#FFF1E8",
+                    text: "#431407",
+                    mutedText: "#9A3412"
+                }
+            },
+            {
+                name: "Pastel Light",
+                active: false,
+                description: "Soft pastel palette with gentle contrast for a light, airy visual style.",
+                tokens: {
+                    primary: "#7DD3FC",
+                    primaryLight: "#E0F2FE",
+                    primaryDark: "#38BDF8",
+                    secondary: "#A5B4FC",
+                    secondaryLight: "#E0E7FF",
+                    secondaryDark: "#818CF8",
+                    accent: "#F9A8D4",
+                    accentLight: "#FCE7F3",
+                    accentDark: "#F472B6",
+                    background: "#FFFCFF",
+                    surface: "#F8FAFF",
+                    text: "#334155",
+                    mutedText: "#64748B"
+                }
+            }
+        ]
     },
     seo: {
         metadata: {
@@ -182,6 +308,215 @@ function deepMerge(base, override) {
     return merged;
 }
 
+function normalizeThemeName(value) {
+    return String(value || "").trim().toLowerCase();
+}
+
+function getDefaultThemeTokens(config) {
+    const colors = (config && config.designTokens && config.designTokens.colors) || {};
+    return {
+        primary: colors.primary || "#059669",
+        primaryLight: colors.primary || "#34D399",
+        primaryDark: colors.primary || "#047857",
+        secondary: colors.secondary || "#1E3A8A",
+        secondaryLight: colors.secondary || "#3B82F6",
+        secondaryDark: colors.secondary || "#1E40AF",
+        accent: colors.accent || "#D97706",
+        accentLight: colors.accent || "#F59E0B",
+        accentDark: colors.accent || "#B45309",
+        background: colors.background || "#FFFFFF",
+        surface: colors.surface || "#F8FAFC",
+        text: colors.text || "#0F172A",
+        mutedText: "#475569"
+    };
+}
+
+function resolveActiveTheme(config) {
+    const fallbackTokens = getDefaultThemeTokens(config);
+    const fallbackTheme = {
+        name: "Universal",
+        active: true,
+        description: "Balanced and modern theme suitable for school websites.",
+        tokens: fallbackTokens
+    };
+
+    if (!config || !isPlainObject(config.theme)) {
+        return {
+            ...fallbackTheme,
+            normalizedThemes: [fallbackTheme]
+        };
+    }
+
+    const themeConfig = config.theme;
+    const availableThemes = Array.isArray(themeConfig.themes)
+        ? themeConfig.themes.filter((item) => isPlainObject(item))
+        : [];
+
+    const normalizedActiveTheme = normalizeThemeName(themeConfig.activeTheme);
+    const normalizedDefaultTheme = normalizeThemeName(themeConfig.defaultTheme || "Universal");
+    const explicitlyActiveThemes = availableThemes.filter((theme) => theme.active === true);
+
+    if (explicitlyActiveThemes.length > 1) {
+        console.warn("Multiple themes are marked active. Keeping one active theme automatically.");
+    }
+
+    let selectedTheme = null;
+    if (explicitlyActiveThemes.length === 1) {
+        selectedTheme = explicitlyActiveThemes[0];
+    }
+
+    if (!selectedTheme && explicitlyActiveThemes.length > 1 && normalizedActiveTheme) {
+        selectedTheme = explicitlyActiveThemes.find((theme) => normalizeThemeName(theme.name) === normalizedActiveTheme);
+    }
+
+    if (!selectedTheme && explicitlyActiveThemes.length > 0) {
+        selectedTheme = explicitlyActiveThemes[0];
+    }
+
+    if (!selectedTheme && normalizedActiveTheme) {
+        selectedTheme = availableThemes.find((theme) => normalizeThemeName(theme.name) === normalizedActiveTheme);
+    }
+    if (!selectedTheme && normalizedDefaultTheme) {
+        selectedTheme = availableThemes.find((theme) => normalizeThemeName(theme.name) === normalizedDefaultTheme);
+    }
+    if (!selectedTheme) {
+        selectedTheme = availableThemes.find((theme) => normalizeThemeName(theme.name) === "universal") || availableThemes[0];
+    }
+
+    if (!selectedTheme) {
+        return {
+            ...fallbackTheme,
+            normalizedThemes: [fallbackTheme]
+        };
+    }
+
+    const selectedThemeName = normalizeThemeName(selectedTheme.name || "Universal");
+    const normalizedThemes = availableThemes.map((theme) => ({
+        ...theme,
+        active: normalizeThemeName(theme.name) === selectedThemeName
+    }));
+
+    return {
+        name: selectedTheme.name || "Universal",
+        active: true,
+        description: selectedTheme.description || themeConfig.description || fallbackTheme.description,
+        tokens: deepMerge(fallbackTokens, selectedTheme.tokens || {}),
+        normalizedThemes
+    };
+}
+
+function applyActiveTheme(theme) {
+    if (!theme || !theme.tokens || typeof document === "undefined") {
+        return;
+    }
+
+    const root = document.documentElement;
+    const styleId = "global-theme-overrides";
+    let styleTag = document.getElementById(styleId);
+    const isUniversalTheme = normalizeThemeName(theme.name) === "universal";
+
+    if (isUniversalTheme) {
+        root.setAttribute("data-theme", "Universal");
+        if (styleTag) {
+            styleTag.textContent = "";
+        }
+        return;
+    }
+
+    const { tokens } = theme;
+    const cssVariables = {
+        "--theme-primary": tokens.primary,
+        "--theme-primary-light": tokens.primaryLight,
+        "--theme-primary-dark": tokens.primaryDark,
+        "--theme-secondary": tokens.secondary,
+        "--theme-secondary-light": tokens.secondaryLight,
+        "--theme-secondary-dark": tokens.secondaryDark,
+        "--theme-accent": tokens.accent,
+        "--theme-accent-light": tokens.accentLight,
+        "--theme-accent-dark": tokens.accentDark,
+        "--theme-background": tokens.background,
+        "--theme-surface": tokens.surface,
+        "--theme-text": tokens.text,
+        "--theme-muted": tokens.mutedText
+    };
+
+    Object.entries(cssVariables).forEach(([name, value]) => {
+        if (value) {
+            root.style.setProperty(name, value);
+        }
+    });
+
+    root.setAttribute("data-theme", theme.name);
+
+    if (!styleTag) {
+        styleTag = document.createElement("style");
+        styleTag.id = styleId;
+        document.head.appendChild(styleTag);
+    }
+
+    styleTag.textContent = `
+        body { background-color: var(--theme-background); color: var(--theme-text); }
+        .text-emerald-50, .text-emerald-100, .text-emerald-200 { color: var(--theme-primary-light) !important; }
+        .text-emerald-300, .text-emerald-400, .text-emerald-500, .text-emerald-600, .text-emerald-700, .text-emerald-900,
+        .text-teal-600, .text-indigo-600, .text-indigo-700, .text-purple-600, .text-pink-600 { color: var(--theme-primary) !important; }
+        .text-blue-600, .text-blue-700, .text-blue-800, .text-blue-900,
+        .text-slate-700, .text-slate-800, .text-slate-900 { color: var(--theme-secondary-dark) !important; }
+        .text-amber-600, .text-amber-700, .text-amber-800, .text-yellow-600, .text-orange-500 { color: var(--theme-accent) !important; }
+        .bg-blue-600 .text-emerald-300, .bg-blue-600 .text-emerald-400,
+        .bg-blue-700 .text-emerald-300, .bg-blue-700 .text-emerald-400,
+        .bg-blue-800 .text-emerald-300, .bg-blue-800 .text-emerald-400,
+        .bg-blue-900 .text-emerald-300, .bg-blue-900 .text-emerald-400,
+        .bg-slate-900 .text-emerald-300, .bg-slate-900 .text-emerald-400,
+        [class*="from-blue-"] .text-emerald-300, [class*="from-blue-"] .text-emerald-400,
+        [class*="to-blue-"] .text-emerald-300, [class*="to-blue-"] .text-emerald-400 { color: var(--theme-primary-light) !important; }
+        .bg-blue-600 .text-amber-600, .bg-blue-600 .text-amber-700, .bg-blue-600 .text-amber-800, .bg-blue-600 .text-yellow-600, .bg-blue-600 .text-orange-500,
+        .bg-blue-700 .text-amber-600, .bg-blue-700 .text-amber-700, .bg-blue-700 .text-amber-800, .bg-blue-700 .text-yellow-600, .bg-blue-700 .text-orange-500,
+        .bg-blue-800 .text-amber-600, .bg-blue-800 .text-amber-700, .bg-blue-800 .text-amber-800, .bg-blue-800 .text-yellow-600, .bg-blue-800 .text-orange-500,
+        .bg-blue-900 .text-amber-600, .bg-blue-900 .text-amber-700, .bg-blue-900 .text-amber-800, .bg-blue-900 .text-yellow-600, .bg-blue-900 .text-orange-500,
+        .bg-slate-900 .text-amber-600, .bg-slate-900 .text-amber-700, .bg-slate-900 .text-amber-800, .bg-slate-900 .text-yellow-600, .bg-slate-900 .text-orange-500,
+        [class*="from-blue-"] .text-amber-600, [class*="from-blue-"] .text-amber-700, [class*="from-blue-"] .text-amber-800, [class*="from-blue-"] .text-yellow-600, [class*="from-blue-"] .text-orange-500,
+        [class*="to-blue-"] .text-amber-600, [class*="to-blue-"] .text-amber-700, [class*="to-blue-"] .text-amber-800, [class*="to-blue-"] .text-yellow-600, [class*="to-blue-"] .text-orange-500 { color: var(--theme-accent-light) !important; }
+        .bg-blue-600 .text-gray-300, .bg-blue-600 .text-gray-400, .bg-blue-600 .text-gray-500, .bg-blue-600 .text-slate-400,
+        .bg-blue-700 .text-gray-300, .bg-blue-700 .text-gray-400, .bg-blue-700 .text-gray-500, .bg-blue-700 .text-slate-400,
+        .bg-blue-800 .text-gray-300, .bg-blue-800 .text-gray-400, .bg-blue-800 .text-gray-500, .bg-blue-800 .text-slate-400,
+        .bg-blue-900 .text-gray-300, .bg-blue-900 .text-gray-400, .bg-blue-900 .text-gray-500, .bg-blue-900 .text-slate-400,
+        .bg-slate-900 .text-gray-300, .bg-slate-900 .text-gray-400, .bg-slate-900 .text-gray-500, .bg-slate-900 .text-slate-400,
+        [class*="from-blue-"] .text-gray-300, [class*="from-blue-"] .text-gray-400, [class*="from-blue-"] .text-gray-500, [class*="from-blue-"] .text-slate-400,
+        [class*="to-blue-"] .text-gray-300, [class*="to-blue-"] .text-gray-400, [class*="to-blue-"] .text-gray-500, [class*="to-blue-"] .text-slate-400 { color: var(--theme-secondary-light) !important; }
+
+        .bg-emerald-50, .bg-emerald-100, .bg-emerald-200,
+        .bg-teal-50, .bg-teal-100, .bg-indigo-50, .bg-indigo-100, .bg-purple-50, .bg-purple-100, .bg-pink-50, .bg-pink-100,
+        .bg-blue-50, .bg-blue-100, .bg-gray-50, .bg-gray-100, .bg-slate-50, .bg-slate-100 { background-color: var(--theme-surface) !important; }
+        .bg-emerald-500, .bg-emerald-600, .bg-emerald-700,
+        .bg-blue-600, .bg-blue-900,
+        .bg-slate-900 { background-color: var(--theme-secondary) !important; }
+        .bg-amber-50, .bg-amber-100, .bg-yellow-50 { background-color: var(--theme-accent-light) !important; }
+
+        .border-emerald-50, .border-emerald-100, .border-emerald-200, .border-emerald-300, .border-emerald-400,
+        .border-gray-50, .border-gray-100, .border-gray-200, .border-slate-100, .border-slate-200 { border-color: var(--theme-primary-light) !important; }
+        .border-emerald-500, .border-emerald-600,
+        .border-teal-500, .border-indigo-500, .border-purple-500, .border-pink-500 { border-color: var(--theme-primary) !important; }
+        .border-blue-200, .border-blue-300 { border-color: var(--theme-secondary-light) !important; }
+        .border-blue-500, .border-blue-900 { border-color: var(--theme-secondary) !important; }
+        .border-amber-200, .border-amber-300, .border-amber-500, .border-yellow-200 { border-color: var(--theme-accent) !important; }
+
+        .from-emerald-600, .hover\\:from-emerald-700:hover { --tw-gradient-from: var(--theme-primary) var(--tw-gradient-from-position) !important; }
+        .from-pink-100, .from-blue-50, .from-blue-100, .from-amber-50 { --tw-gradient-from: var(--theme-surface) var(--tw-gradient-from-position) !important; }
+        .to-emerald-50, .to-emerald-600, .to-emerald-700, .hover\\:to-emerald-800:hover, .to-cyan-100, .to-orange-100 { --tw-gradient-to: var(--theme-primary-light) var(--tw-gradient-to-position) !important; }
+        .from-blue-600, .from-blue-900, .hover\\:from-blue-700:hover { --tw-gradient-from: var(--theme-secondary) var(--tw-gradient-from-position) !important; }
+        .to-blue-100, .to-blue-700, .hover\\:to-blue-800:hover { --tw-gradient-to: var(--theme-secondary-light) var(--tw-gradient-to-position) !important; }
+
+        .hover\\:bg-emerald-500:hover, .hover\\:bg-emerald-600:hover, .hover\\:bg-emerald-700:hover,
+        .hover\\:bg-teal-600:hover, .hover\\:bg-indigo-600:hover, .hover\\:bg-purple-600:hover, .hover\\:bg-pink-600:hover { background-color: var(--theme-primary-dark) !important; }
+        .hover\\:bg-blue-700:hover, .hover\\:bg-blue-800:hover, .hover\\:bg-blue-900:hover { background-color: var(--theme-secondary-dark) !important; }
+        .hover\\:bg-amber-600:hover { background-color: var(--theme-accent-dark) !important; }
+
+        .hover\\:text-emerald-200:hover, .hover\\:text-emerald-400:hover, .hover\\:text-emerald-600:hover, .hover\\:text-emerald-700:hover,
+        .hover\\:text-blue-900:hover { color: var(--theme-secondary-light) !important; }
+        .ring-emerald-200, .ring-emerald-500 { --tw-ring-color: var(--theme-primary) !important; }
+    `;
+}
+
 async function loadSchoolConfig() {
     try {
         const response = await fetch("/admin/config.json", { cache: "no-store" });
@@ -199,13 +534,35 @@ async function loadSchoolConfig() {
 
 window.loadSchoolConfig = loadSchoolConfig;
 window.schoolConfigReady = loadSchoolConfig().then((config) => {
+    const activeTheme = resolveActiveTheme(config);
+    const mergedDesignTokens = deepMerge(config.designTokens || {}, {
+        colors: {
+            primary: activeTheme.tokens.primary,
+            secondary: activeTheme.tokens.secondary,
+            accent: activeTheme.tokens.accent,
+            background: activeTheme.tokens.background,
+            surface: activeTheme.tokens.surface,
+            text: activeTheme.tokens.text
+        }
+    });
+
     window.schoolConfig = {
         ...config,
+        designTokens: mergedDesignTokens,
+        theme: {
+            ...(config.theme || {}),
+            activeTheme: activeTheme.name,
+            description: activeTheme.description,
+            themes: activeTheme.normalizedThemes || (config.theme && config.theme.themes) || [],
+            resolvedTheme: activeTheme
+        },
         contact: {
             ...config.contact,
             phone1: config.contact.primaryPhone
         }
     };
+
+    applyActiveTheme(activeTheme);
     return window.schoolConfig;
 });
 

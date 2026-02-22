@@ -14,8 +14,8 @@
   },
   "designTokens": {
     "colors": {
-      "primary": "#1D4ED8",
-      "secondary": "#0F766E",
+      "primary": "#059669",
+      "secondary": "#1E3A8A",
       "accent": "#F59E0B",
       "background": "#FFFFFF",
       "surface": "#F8FAFC",
@@ -32,6 +32,133 @@
       "body": "Inter, ui-sans-serif, system-ui, -apple-system, Segoe UI, sans-serif",
       "mono": "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace"
     }
+  },
+  "theme": {
+    "activeTheme": "Universal",
+    "defaultTheme": "Universal",
+    "description": "Balanced and modern theme suitable for school websites.",
+    "themes": [
+      {
+        "name": "Universal",
+        "active": true,
+        "description": "Balanced and modern theme suitable for school websites.",
+        "tokens": {
+          "primary": "#059669",
+          "primaryLight": "#34D399",
+          "primaryDark": "#047857",
+          "secondary": "#1E3A8A",
+          "secondaryLight": "#3B82F6",
+          "secondaryDark": "#1E40AF",
+          "accent": "#D97706",
+          "accentLight": "#F59E0B",
+          "accentDark": "#B45309",
+          "background": "#FFFFFF",
+          "surface": "#F8FAFC",
+          "text": "#0F172A",
+          "mutedText": "#475569"
+        }
+      },
+      {
+        "name": "Ocean Blue",
+        "active": false,
+        "description": "Clean blue palette with a professional institutional look.",
+        "tokens": {
+          "primary": "#0EA5E9",
+          "primaryLight": "#BAE6FD",
+          "primaryDark": "#0369A1",
+          "secondary": "#3B82F6",
+          "secondaryLight": "#BFDBFE",
+          "secondaryDark": "#1D4ED8",
+          "accent": "#38BDF8",
+          "accentLight": "#E0F2FE",
+          "accentDark": "#0284C7",
+          "background": "#F8FBFF",
+          "surface": "#F0F7FF",
+          "text": "#0F172A",
+          "mutedText": "#475569"
+        }
+      },
+      {
+        "name": "Forest Green",
+        "active": false,
+        "description": "Nature-inspired green tones for a calm and growth-centric identity.",
+        "tokens": {
+          "primary": "#22C55E",
+          "primaryLight": "#BBF7D0",
+          "primaryDark": "#15803D",
+          "secondary": "#10B981",
+          "secondaryLight": "#A7F3D0",
+          "secondaryDark": "#047857",
+          "accent": "#84CC16",
+          "accentLight": "#ECFCCB",
+          "accentDark": "#65A30D",
+          "background": "#F7FFF8",
+          "surface": "#ECFDF3",
+          "text": "#14532D",
+          "mutedText": "#3F6212"
+        }
+      },
+      {
+        "name": "Royal Purple",
+        "active": false,
+        "description": "Premium purple-blue styling for a distinctive academic brand.",
+        "tokens": {
+          "primary": "#A78BFA",
+          "primaryLight": "#E9D5FF",
+          "primaryDark": "#7C3AED",
+          "secondary": "#818CF8",
+          "secondaryLight": "#C7D2FE",
+          "secondaryDark": "#4F46E5",
+          "accent": "#F472B6",
+          "accentLight": "#FCE7F3",
+          "accentDark": "#DB2777",
+          "background": "#FCFAFF",
+          "surface": "#F5F3FF",
+          "text": "#3B0764",
+          "mutedText": "#5B4B8A"
+        }
+      },
+      {
+        "name": "Sunset Warm",
+        "active": false,
+        "description": "Energetic orange-red palette ideal for a vibrant school presence.",
+        "tokens": {
+          "primary": "#FB923C",
+          "primaryLight": "#FED7AA",
+          "primaryDark": "#EA580C",
+          "secondary": "#F59E0B",
+          "secondaryLight": "#FDE68A",
+          "secondaryDark": "#D97706",
+          "accent": "#F87171",
+          "accentLight": "#FEE2E2",
+          "accentDark": "#EF4444",
+          "background": "#FFFBF7",
+          "surface": "#FFF1E8",
+          "text": "#431407",
+          "mutedText": "#9A3412"
+        }
+      },
+      {
+        "name": "Pastel Light",
+        "active": false,
+        "description": "Soft pastel palette with gentle contrast for a light, airy visual style.",
+        "tokens": {
+          "primary": "#7DD3FC",
+          "primaryLight": "#E0F2FE",
+          "primaryDark": "#38BDF8",
+          "secondary": "#A5B4FC",
+          "secondaryLight": "#E0E7FF",
+          "secondaryDark": "#818CF8",
+          "accent": "#F9A8D4",
+          "accentLight": "#FCE7F3",
+          "accentDark": "#F472B6",
+          "background": "#FFFCFF",
+          "surface": "#F8FAFF",
+          "text": "#334155",
+          "mutedText": "#64748B"
+        }
+      }
+    ]
   },
   "seo": {
     "metadata": {
