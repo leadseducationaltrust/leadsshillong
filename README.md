@@ -117,6 +117,32 @@ Serve the project over `http://localhost` (or deployed `https`) and test in brow
 3. Use **Lighthouse** (PWA category) to check installability.
 4. Toggle offline mode and reload previously visited pages to confirm fallback works.
 
+## Android APK/AAB for Play Store
+
+Use Trusted Web Activity (TWA) to package this PWA as an Android app.
+
+- Detailed guide: `docs/android-playstore-guide.md`
+- Asset links generator: `scripts/generate-assetlinks.mjs`
+
+Quick start:
+
+```bash
+npm install -g @bubblewrap/cli
+
+bubblewrap init \
+  --manifest https://www.leadsshillong.com/manifest.webmanifest \
+  --domain www.leadsshillong.com \
+  --applicationId com.leadsshillong.app \
+  --name "LEADS Higher Secondary School" \
+  --launcherName "LEADS"
+
+cd twa-build
+./gradlew bundleRelease
+./gradlew assembleRelease
+```
+
+For Play Console upload, prefer the generated `.aab` from `bundleRelease`.
+
 ## Feature toggles
 
 Feature flags live in `admin/config.json` under `featureToggles` and are applied by `js/config.js`.
