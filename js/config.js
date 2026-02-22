@@ -772,7 +772,34 @@ document.addEventListener("DOMContentLoaded", async () => {
     applyFeatureToggles();
 
     if (schoolData.featureToggles.showChatWidget) {
-        var Tawk_API = Tawk_API || {}, Tawk_LoadStart = new Date();
+        window.Tawk_API = window.Tawk_API || {};
+        window.Tawk_LoadStart = new Date();
+
+        const syncChatWidgetForConnectivity = () => {
+            if (navigator.onLine || !window.Tawk_API) {
+                return;
+            }
+
+            if (typeof window.Tawk_API.showWidget === "function") {
+                window.Tawk_API.showWidget();
+            }
+
+            if (typeof window.Tawk_API.minimize === "function") {
+                window.Tawk_API.minimize();
+            }
+        };
+
+        const previousOnLoad = window.Tawk_API.onLoad;
+        window.Tawk_API.onLoad = function () {
+            if (typeof previousOnLoad === "function") {
+                previousOnLoad();
+            }
+            syncChatWidgetForConnectivity();
+        };
+
+        window.addEventListener("offline", syncChatWidgetForConnectivity);
+        window.addEventListener("online", syncChatWidgetForConnectivity);
+
         (function () {
             var s1 = document.createElement("script"), s0 = document.getElementsByTagName("script")[0];
             s1.async = true;
