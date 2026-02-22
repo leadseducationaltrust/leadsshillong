@@ -88,7 +88,7 @@ const syncPwaActionButton = () => {
 const shareApp = async () => {
   const shareData = {
     title: document.title,
-    text: 'Install LEADS Higher Secondary School app',
+    text: 'Install LEADS School app',
     url: `${window.location.origin}/`
   };
 
