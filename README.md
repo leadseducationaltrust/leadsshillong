@@ -98,15 +98,17 @@ The site is configured as an installable PWA with offline support for key pages 
 ### Caching behavior
 
 - App shell pages and core assets are pre-cached during service worker install.
-- Navigations use network-first with cached fallback (`index.html`) when offline.
+- Navigations and update-sensitive files (`.html`, `.json`, `.js`, `.css`, `manifest.webmanifest`) use network-first with cache fallback.
 - Other same-origin `GET` requests use cache-first with background runtime cache updates.
 - `admin/*` and `oauth-worker/*` are excluded from service worker handling.
+- Service worker updates are checked on load, periodically, and when the tab becomes active.
+- New service worker versions are promoted immediately (`skipWaiting`) and pages auto-reload once control switches.
 
 ### Rolling out content/code updates
 
-- When changing critical cached assets, bump `CACHE_VERSION` in `service-worker.js`.
-- Deploy the update; on next visit, the new service worker installs and old caches are removed in `activate`.
-- If immediate refresh is needed during testing, hard-reload once after service worker update.
+- Deploy content changes normally; online clients fetch fresh network responses first and cache fallback is used only when needed.
+- When changing pre-cached shell behavior, bump `CACHE_VERSION` in `service-worker.js` to evict older caches cleanly.
+- Service worker script updates are requested with `updateViaCache: 'none'`, so clients detect new worker code without waiting for stale browser cache.
 
 ### Verify PWA locally
 

@@ -1,8 +1,9 @@
-const CACHE_VERSION = 'v1';
+const CACHE_VERSION = 'v2';
 const APP_SHELL_CACHE = `leads-app-shell-${CACHE_VERSION}`;
 const RUNTIME_CACHE = `leads-runtime-${CACHE_VERSION}`;
 
 const APP_SHELL_ASSETS = [
+  // Redirect-only shells (for example news.html) are intentionally excluded from pre-cache.
   '/',
   '/index.html',
   '/about.html',
@@ -12,7 +13,6 @@ const APP_SHELL_ASSETS = [
   '/faculty.html',
   '/gallery.html',
   '/insights.html',
-  '/news.html',
   '/programs.html',
   '/terms.html',
   '/manifest.webmanifest',
@@ -42,6 +42,12 @@ self.addEventListener('install', (event) => {
   self.skipWaiting();
 });
 
+self.addEventListener('message', (event) => {
+  if (event.data && event.data.type === 'SKIP_WAITING') {
+    self.skipWaiting();
+  }
+});
+
 self.addEventListener('activate', (event) => {
   event.waitUntil(
     caches.keys().then((keys) =>
@@ -58,6 +64,8 @@ self.addEventListener('activate', (event) => {
 self.addEventListener('fetch', (event) => {
   const { request } = event;
   const url = new URL(request.url);
+  const isNavigation = request.mode === 'navigate';
+  const isUpdateSensitive = /\.(html|json|js|css|webmanifest)$/i.test(url.pathname);
 
   if (request.method !== 'GET') {
     return;
@@ -71,7 +79,11 @@ self.addEventListener('fetch', (event) => {
     return;
   }
 
-  if (request.mode === 'navigate') {
+  if (url.pathname === '/service-worker.js') {
+    return;
+  }
+
+  if (isNavigation || isUpdateSensitive) {
     event.respondWith(
       fetch(request)
         .then((response) => {

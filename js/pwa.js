@@ -1,8 +1,82 @@
 if ('serviceWorker' in navigator) {
-  window.addEventListener('load', () => {
-    navigator.serviceWorker.register('/service-worker.js').catch((error) => {
+  let hasControllerChanged = false;
+  const UPDATE_CHECK_INTERVAL_MS = 5 * 60 * 1000;
+
+  const showUpdateToast = () => {
+    const existingToast = document.getElementById('pwa-update-toast');
+    if (existingToast) {
+      return;
+    }
+
+    const toast = document.createElement('div');
+    toast.id = 'pwa-update-toast';
+    toast.className = 'fixed bottom-4 left-1/2 -translate-x-1/2 z-[1000] rounded-full bg-blue-900 text-white text-xs md:text-sm font-semibold px-4 py-2 shadow-lg';
+    toast.setAttribute('role', 'status');
+    toast.setAttribute('aria-live', 'polite');
+    toast.textContent = 'Website updated. Syncing latest content…';
+    document.body.appendChild(toast);
+  };
+
+  const promptServiceWorkerActivation = (registration) => {
+    if (registration && registration.waiting) {
+      registration.waiting.postMessage({ type: 'SKIP_WAITING' });
+    }
+  };
+
+  window.addEventListener('load', async () => {
+    try {
+      const registration = await navigator.serviceWorker.register('/service-worker.js', {
+        updateViaCache: 'none'
+      });
+
+      promptServiceWorkerActivation(registration);
+
+      registration.addEventListener('updatefound', () => {
+        const newWorker = registration.installing;
+
+        if (!newWorker) {
+          return;
+        }
+
+        newWorker.addEventListener('statechange', () => {
+          if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
+            promptServiceWorkerActivation(registration);
+          }
+        });
+      });
+
+      navigator.serviceWorker.addEventListener('controllerchange', () => {
+        if (hasControllerChanged) {
+          return;
+        }
+
+        hasControllerChanged = true;
+        showUpdateToast();
+        setTimeout(() => {
+          window.location.reload();
+        }, 900);
+      });
+
+      const triggerUpdateCheck = () => {
+        if (!navigator.onLine) {
+          return;
+        }
+
+        registration.update().catch((error) => {
+          console.warn('Service worker update check failed:', error);
+        });
+      };
+
+      setInterval(triggerUpdateCheck, UPDATE_CHECK_INTERVAL_MS);
+
+      document.addEventListener('visibilitychange', () => {
+        if (document.visibilityState === 'visible') {
+          triggerUpdateCheck();
+        }
+      });
+    } catch (error) {
       console.warn('Service worker registration failed:', error);
-    });
+    }
   });
 }
 
