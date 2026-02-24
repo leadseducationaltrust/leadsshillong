@@ -193,7 +193,9 @@
   },
   "integrations": {
     "googleAnalyticsEnabled": true,
-    "googleAnalyticsMeasurementId": "G-TBHE0DQ3JD"
+    "googleAnalyticsMeasurementId": "G-TBHE0DQ3JD",
+    "googleAnalyticsDebug": false,
+    "googleAnalyticsDedupeMs": 300
   },
   "identity": {
     "fullName": "LEADS Higher Secondary School",

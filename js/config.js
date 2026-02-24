@@ -185,7 +185,9 @@ const fallbackSchoolData = {
     },
     integrations: {
         googleAnalyticsEnabled: false,
-        googleAnalyticsMeasurementId: ""
+        googleAnalyticsMeasurementId: "",
+        googleAnalyticsDebug: false,
+        googleAnalyticsDedupeMs: 300
     },
     identity: {
         fullName: "LEADS Higher Secondary School",

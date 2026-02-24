@@ -175,7 +175,9 @@ Google Analytics is wired through `js/analytics.js` and reads settings from `adm
 ```json
 "integrations": {
   "googleAnalyticsEnabled": true,
-  "googleAnalyticsMeasurementId": "G-XXXXXXXXXX"
+  "googleAnalyticsMeasurementId": "G-XXXXXXXXXX",
+  "googleAnalyticsDebug": false,
+  "googleAnalyticsDedupeMs": 300
 }
 ```
 
@@ -186,6 +188,37 @@ Notes:
 
 - Keep `googleAnalyticsEnabled` as `false` to disable tracking without removing script tags.
 - If `googleAnalyticsMeasurementId` is empty/invalid, analytics initialization is skipped safely.
+- `googleAnalyticsDebug` logs analytics initialization/events to console; localhost is always treated as debug.
+- `googleAnalyticsDedupeMs` controls duplicate suppression for rapid repeat clicks (default `300`, clamped `0-2000`).
+
+### GA test checklist
+
+After deploy, verify in this order:
+
+1. Open your site in an incognito/private window.
+2. Open browser DevTools Console and confirm:
+  - With `googleAnalyticsDebug: true` (or localhost), you see `[GA Debug] Analytics initialized`.
+  - You see event logs when clicking tracked actions.
+3. In GA4 **Realtime**, confirm:
+  - Your active user appears.
+  - `page_view` appears for visited pages.
+4. Trigger key actions and confirm custom events appear:
+  - `payment_click`
+  - `admissions_click`
+  - `contact_click`
+  - `download_click`
+5. (Optional) In GA4 **DebugView**, verify event payloads for parameters such as `payment_type`, `contact_type`, `link_text`, and `file_url`.
+6. Set `googleAnalyticsDebug` back to `false` for production once validation is complete.
+
+### Event dictionary
+
+| Event name | When it fires | Parameters |
+| --- | --- | --- |
+| `payment_click` | Click on fee/payment CTAs (`#global-payment-regular`, `#global-payment-admission`, `#global-payment-events`, `#global-payment-uniforms`) | `payment_type`, `link_text` |
+| `admissions_click` | Click on admissions links/buttons (`global-link-admissions*` IDs or links ending with `admissions.html`) | `link_text`, `link_url` |
+| `contact_click` | Click on phone (`tel:`), email (`mailto:`), or map links | `contact_type` (`phone`/`email`/`maps`), `link_text` |
+| `social_click` | Click on outbound social links (Facebook, Instagram, YouTube, Twitter/X) | `platform`, `link_url`, `link_text` |
+| `download_click` | Click on anchors with `download` attribute or links ending in `.pdf` | `file_url`, `link_text` |
 
 ## Theme configuration
 
