@@ -183,6 +183,10 @@ const fallbackSchoolData = {
             image: "/school-logo.jpg"
         }
     },
+    integrations: {
+        googleAnalyticsEnabled: false,
+        googleAnalyticsMeasurementId: ""
+    },
     identity: {
         fullName: "LEADS Higher Secondary School",
         shortName: "LEADS",

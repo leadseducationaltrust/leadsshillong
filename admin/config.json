@@ -191,6 +191,10 @@
       "image": "/school-logo.jpg"
     }
   },
+  "integrations": {
+    "googleAnalyticsEnabled": true,
+    "googleAnalyticsMeasurementId": "G-TBHE0DQ3JD"
+  },
   "identity": {
     "fullName": "LEADS Higher Secondary School",
     "shortName": "LEADS",

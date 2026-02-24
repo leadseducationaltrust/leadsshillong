@@ -164,6 +164,29 @@ Current keys:
 - `showOnlinePayments`
 - `showChatWidget`
 
+## Google Analytics (GA4)
+
+Google Analytics is wired through `js/analytics.js` and reads settings from `admin/config.json` under `integrations`.
+
+1. Create a GA4 web data stream in Google Analytics.
+2. Copy your Measurement ID (format: `G-XXXXXXXXXX`).
+3. Update `admin/config.json`:
+
+```json
+"integrations": {
+  "googleAnalyticsEnabled": true,
+  "googleAnalyticsMeasurementId": "G-XXXXXXXXXX"
+}
+```
+
+4. Deploy your site.
+5. Verify in GA Realtime report by opening the website in a new browser tab.
+
+Notes:
+
+- Keep `googleAnalyticsEnabled` as `false` to disable tracking without removing script tags.
+- If `googleAnalyticsMeasurementId` is empty/invalid, analytics initialization is skipped safely.
+
 ## Theme configuration
 
 Theme settings live in `admin/config.json` under `theme` and are applied globally by `js/config.js`.
