@@ -87,9 +87,32 @@ document.addEventListener('DOMContentLoaded', () => {
         return contentDate >= today;
     };
 
+    const isTodayOrPast = (value) => {
+        const contentDate = parseDateOnly(value);
+        if (!contentDate) {
+            return false;
+        }
+        const today = new Date();
+        today.setHours(0, 0, 0, 0);
+        return contentDate <= today;
+    };
+
     const getEntryTime = (entry) => {
         const time = new Date(entry && entry.date ? entry.date : '').getTime();
         return Number.isNaN(time) ? 0 : time;
+    };
+
+    const formatDisplayDate = (value) => {
+        const date = value instanceof Date ? value : new Date(value);
+        if (Number.isNaN(date.getTime())) {
+            return '';
+        }
+        return date.toLocaleDateString('en-US', {
+            weekday: 'long',
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric'
+        });
     };
 
     const hasRenderableText = (value) => normalizeText(value).length > 0;
@@ -179,6 +202,95 @@ document.addEventListener('DOMContentLoaded', () => {
         return true;
     };
 
+    const resolveDailyFocusFromHistory = (entries, baseIndex) => {
+        const baseEntry = entries[baseIndex] && typeof entries[baseIndex] === 'object' ? entries[baseIndex] : {};
+        const baseFocus = baseEntry.daily_focus && typeof baseEntry.daily_focus === 'object'
+            ? baseEntry.daily_focus
+            : {};
+
+        let resolvedImage = getSafeImageUrl(baseFocus.image);
+        let resolvedAlt = normalizeText(baseFocus.alt);
+        let resolvedDescription = normalizeText(baseFocus.description);
+
+        if (resolvedImage && resolvedAlt && resolvedDescription) {
+            return {
+                image: resolvedImage,
+                alt: resolvedAlt,
+                description: resolvedDescription
+            };
+        }
+
+        for (let index = baseIndex + 1; index < entries.length; index += 1) {
+            const previousEntry = entries[index] && typeof entries[index] === 'object' ? entries[index] : {};
+            const previousFocus = previousEntry.daily_focus && typeof previousEntry.daily_focus === 'object'
+                ? previousEntry.daily_focus
+                : {};
+
+            if (!resolvedImage) {
+                resolvedImage = getSafeImageUrl(previousFocus.image);
+            }
+            if (!resolvedAlt) {
+                resolvedAlt = normalizeText(previousFocus.alt);
+            }
+            if (!resolvedDescription) {
+                resolvedDescription = normalizeText(previousFocus.description);
+            }
+
+            if (resolvedImage && resolvedAlt && resolvedDescription) {
+                break;
+            }
+        }
+
+        return {
+            image: resolvedImage,
+            alt: resolvedAlt,
+            description: resolvedDescription
+        };
+    };
+
+    const findLatestNonEmptyText = (entries, key) => {
+        for (let index = 0; index < entries.length; index += 1) {
+            const value = normalizeText(entries[index] && entries[index][key]);
+            if (value) {
+                return value;
+            }
+        }
+        return '';
+    };
+
+    const findBibleContentFromHistory = (entries) => {
+        for (let index = 0; index < entries.length; index += 1) {
+            const verse = normalizeText(entries[index] && entries[index].bible_verse);
+            if (verse) {
+                return {
+                    verse,
+                    reference: normalizeText(entries[index] && entries[index].bible_reference)
+                };
+            }
+        }
+        return {
+            verse: '',
+            reference: ''
+        };
+    };
+
+    const findLatestNonEmptyTextWithDate = (entries, key) => {
+        for (let index = 0; index < entries.length; index += 1) {
+            const entry = entries[index] && typeof entries[index] === 'object' ? entries[index] : {};
+            const value = normalizeText(entry[key]);
+            if (value) {
+                return {
+                    value,
+                    date: normalizeText(entry.date)
+                };
+            }
+        }
+        return {
+            value: '',
+            date: ''
+        };
+    };
+
     const setListOrHide = (listElement, items, container) => {
         const values = Array.isArray(items) ? items : (items ? [items] : []);
         if (!listElement || values.length === 0) {
@@ -232,47 +344,61 @@ document.addEventListener('DOMContentLoaded', () => {
             }
 
             const sorted = entries.slice().sort((a, b) => getEntryTime(b) - getEntryTime(a));
-            const entry = sorted[0] || {};
+            const eligible = sorted.filter((item) => isTodayOrPast(item && item.date));
+            const entry = eligible[0] || {};
+            const resolvedDailyFocus = resolveDailyFocusFromHistory(eligible, 0);
+            const bibleContent = findBibleContentFromHistory(eligible);
+            const principalContent = findLatestNonEmptyTextWithDate(eligible, 'principal_message');
+            const resolvedEntry = {
+                ...entry,
+                daily_focus: resolvedDailyFocus,
+                thought_of_the_day: findLatestNonEmptyText(eligible, 'thought_of_the_day'),
+                principal_message: principalContent.value,
+                principal_message_source_date: principalContent.date,
+                bible_verse: bibleContent.verse,
+                bible_reference: bibleContent.reference
+            };
 
-            if (!hasRenderableContent(entry)) {
+            if (!hasRenderableContent(resolvedEntry)) {
                 hideElement(section);
                 return;
             }
 
             let hasContent = false;
 
-            if (entry.date && thoughtDate) {
-                const formatted = new Date(entry.date).toLocaleDateString('en-US', {
-                    weekday: 'long',
-                    year: 'numeric',
-                    month: 'long',
-                    day: 'numeric'
-                });
-                thoughtDate.textContent = formatted;
+            if (thoughtDate) {
+                thoughtDate.textContent = formatDisplayDate(new Date());
             } else {
                 hideElement(thoughtDate);
             }
 
-            hasContent = setDailyFocusOrHide(entry.daily_focus) || hasContent;
+            hasContent = setDailyFocusOrHide(resolvedEntry.daily_focus) || hasContent;
 
-            hasContent = setTextOrHide(thoughtText, entry.thought_of_the_day, thoughtCard) || hasContent;
+            hasContent = setTextOrHide(thoughtText, resolvedEntry.thought_of_the_day, thoughtCard) || hasContent;
 
-            if (isTodayOrFuture(entry.date)) {
-                hasContent = setListOrHide(orderList, entry.order_of_the_day, orderCard) || hasContent;
+            if (isTodayOrFuture(resolvedEntry.date)) {
+                hasContent = setListOrHide(orderList, resolvedEntry.order_of_the_day, orderCard) || hasContent;
             } else {
                 hideElement(orderCard);
             }
 
-            hasContent = setTextOrHide(principalMessage, entry.principal_message, principalCard) || hasContent;
-            hasContent = setTextOrHide(bibleVerse, entry.bible_verse, bibleCard) || hasContent;
+            const principalText = normalizeText(resolvedEntry.principal_message);
+            const principalSourceDate = normalizeText(resolvedEntry.principal_message_source_date);
+            const currentEntryDate = normalizeText(resolvedEntry.date);
+            const principalWithDate = principalText && principalSourceDate && currentEntryDate && principalSourceDate !== currentEntryDate
+                ? `${principalText} (${formatDisplayDate(principalSourceDate)})`
+                : principalText;
 
-            if (entry.bible_reference && bibleReference) {
-                bibleReference.textContent = entry.bible_reference;
+            hasContent = setTextOrHide(principalMessage, principalWithDate, principalCard) || hasContent;
+            hasContent = setTextOrHide(bibleVerse, resolvedEntry.bible_verse, bibleCard) || hasContent;
+
+            if (resolvedEntry.bible_reference && bibleReference) {
+                bibleReference.textContent = resolvedEntry.bible_reference;
             } else if (bibleReference) {
                 bibleReference.textContent = '';
             }
 
-            hasContent = setTextOrHide(additionalNotes, entry.additional_notes, notesCard) || hasContent;
+            hasContent = setTextOrHide(additionalNotes, resolvedEntry.additional_notes, notesCard) || hasContent;
 
             if (!hasContent) {
                 hideElement(section);
