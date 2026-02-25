@@ -386,7 +386,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const principalSourceDate = normalizeText(resolvedEntry.principal_message_source_date);
             const currentEntryDate = normalizeText(resolvedEntry.date);
             const principalWithDate = principalText && principalSourceDate && currentEntryDate && principalSourceDate !== currentEntryDate
-                ? `${principalText} (${formatDisplayDate(principalSourceDate)})`
+                ? `${principalText} (Last updated: ${formatDisplayDate(principalSourceDate)})`
                 : principalText;
 
             hasContent = setTextOrHide(principalMessage, principalWithDate, principalCard) || hasContent;
