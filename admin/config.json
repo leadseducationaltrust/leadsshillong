@@ -195,7 +195,10 @@
     "googleAnalyticsEnabled": true,
     "googleAnalyticsMeasurementId": "G-TBHE0DQ3JD",
     "googleAnalyticsDebug": false,
-    "googleAnalyticsDedupeMs": 300
+    "googleAnalyticsDedupeMs": 300,
+    "cusdisEnabled": true,
+    "cusdisAppId": "8f210d34-d73b-4096-ab5c-c4158ef30ac3",
+    "cusdisHost": "https://cusdis.com"
   },
   "identity": {
     "fullName": "LEADS Higher Secondary School",

@@ -187,7 +187,10 @@ const fallbackSchoolData = {
         googleAnalyticsEnabled: false,
         googleAnalyticsMeasurementId: "",
         googleAnalyticsDebug: false,
-        googleAnalyticsDedupeMs: 300
+        googleAnalyticsDedupeMs: 300,
+        cusdisEnabled: false,
+        cusdisAppId: "",
+        cusdisHost: "https://cusdis.com"
     },
     identity: {
         fullName: "LEADS Higher Secondary School",

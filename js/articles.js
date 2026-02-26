@@ -40,6 +40,182 @@ function getSafeUrl(value) {
     return '';
 }
 
+function normalizeText(value) {
+    if (value === undefined || value === null) {
+        return '';
+    }
+    const text = String(value).trim();
+    if (!text) {
+        return '';
+    }
+    const lowered = text.toLowerCase();
+    if (lowered === 'null' || lowered === 'undefined') {
+        return '';
+    }
+    return text;
+}
+
+function getSafeAbsoluteHttpUrl(value) {
+    const text = normalizeText(value);
+    if (!text || !hasExplicitScheme(text)) {
+        return '';
+    }
+
+    try {
+        const parsed = new URL(text);
+        if (parsed.protocol === 'http:' || parsed.protocol === 'https:') {
+            return text;
+        }
+    } catch (error) {
+    }
+
+    return '';
+}
+
+async function getCusdisSettings() {
+    const schoolData = window.schoolConfigReady
+        ? await window.schoolConfigReady
+        : (window.schoolConfig || {});
+
+    const integrations = schoolData && schoolData.integrations && typeof schoolData.integrations === 'object'
+        ? schoolData.integrations
+        : {};
+
+    const appId = normalizeText(integrations.cusdisAppId);
+    const configuredHost = normalizeText(integrations.cusdisHost);
+    const safeHost = getSafeAbsoluteHttpUrl(configuredHost) || 'https://cusdis.com';
+
+    return {
+        enabled: Boolean(integrations.cusdisEnabled),
+        appId,
+        host: safeHost.replace(/\/$/, '')
+    };
+}
+
+function ensureCusdisScript(host) {
+    const scriptId = 'cusdis-script';
+    const scriptSrc = `${host}/js/cusdis.es.js`;
+
+    const waitForScriptLoad = (script) => new Promise((resolve) => {
+        if (window.CUSDIS) {
+            resolve();
+            return;
+        }
+
+        script.addEventListener('load', () => resolve(), { once: true });
+        script.addEventListener('error', () => resolve(), { once: true });
+    });
+
+    const existing = document.getElementById(scriptId);
+    if (existing) {
+        if (existing.getAttribute('src') !== scriptSrc) {
+            existing.setAttribute('src', scriptSrc);
+        }
+        return waitForScriptLoad(existing);
+    }
+
+    const script = document.createElement('script');
+    script.id = scriptId;
+    script.async = true;
+    script.defer = true;
+    script.src = scriptSrc;
+    document.body.appendChild(script);
+    return waitForScriptLoad(script);
+}
+
+function ensureCusdisHeightOverride() {
+    const styleId = 'cusdis-height-override';
+    if (document.getElementById(styleId)) {
+        return;
+    }
+
+    const style = document.createElement('style');
+    style.id = styleId;
+    style.textContent = `
+        #cusdis_thread {
+            min-height: 720px;
+        }
+
+        #cusdis_thread iframe {
+            min-height: 720px !important;
+            height: 720px !important;
+            width: 100% !important;
+            border: 0;
+        }
+    `;
+    document.head.appendChild(style);
+}
+
+function refreshCusdisThread(host, appId, article) {
+    const cusdis = window.CUSDIS;
+    const thread = document.getElementById('cusdis_thread');
+    if (!cusdis || !thread) {
+        return;
+    }
+
+    const pageId = String(article.id || '');
+    const pageUrl = (() => {
+        try {
+            const current = new URL(window.location.href);
+            current.search = '';
+            current.hash = '';
+            current.searchParams.set('article', pageId);
+            return current.toString();
+        } catch (error) {
+            return window.location.href;
+        }
+    })();
+    const pageTitle = String(article.title || '');
+
+    thread.setAttribute('data-host', host);
+    thread.setAttribute('data-app-id', appId);
+    thread.setAttribute('data-page-id', pageId);
+    thread.setAttribute('data-page-url', pageUrl);
+    thread.setAttribute('data-page-title', pageTitle);
+    thread.setAttribute('data-page-size', '5');
+    thread.replaceChildren();
+
+    if (typeof cusdis.initial === 'function') {
+        cusdis.initial();
+    }
+}
+
+function buildCusdisSection(createElement, createIcon, article, host, appId) {
+    const canonicalArticleUrl = (() => {
+        try {
+            const current = new URL(window.location.href);
+            current.search = '';
+            current.hash = '';
+            current.searchParams.set('article', String(article.id || ''));
+            return current.toString();
+        } catch (error) {
+            return window.location.href;
+        }
+    })();
+
+    const commentsSection = createElement('section', 'mt-14');
+    const commentsHeading = createElement('h3', 'text-2xl md:text-3xl font-black text-blue-900 mb-4 flex items-center gap-3');
+    commentsHeading.appendChild(createIcon('far fa-comments text-emerald-600'));
+    commentsHeading.appendChild(document.createTextNode('Comments'));
+
+    const commentsInfo = createElement('p', 'text-sm text-gray-600 mb-6');
+    commentsInfo.textContent = 'Share your thoughts about this article.';
+
+    const thread = createElement('div');
+    thread.id = 'cusdis_thread';
+    thread.setAttribute('data-host', host);
+    thread.setAttribute('data-app-id', appId);
+    thread.setAttribute('data-page-id', String(article.id || ''));
+    thread.setAttribute('data-page-url', canonicalArticleUrl);
+    thread.setAttribute('data-page-title', String(article.title || ''));
+    thread.setAttribute('data-page-size', '5');
+
+    commentsSection.appendChild(commentsHeading);
+    commentsSection.appendChild(commentsInfo);
+    commentsSection.appendChild(thread);
+    return commentsSection;
+}
+
 // ==========================================
 // LOAD ARTICLE CONTENT DYNAMICALLY
 // ==========================================
@@ -347,6 +523,20 @@ async function displayArticle(articleId) {
     authorBio.appendChild(bioText);
     articleRoot.appendChild(authorBio);
 
+    const cusdisSettings = await getCusdisSettings();
+    let shouldInitCusdis = false;
+    if (cusdisSettings.enabled && cusdisSettings.appId) {
+        const commentsSection = buildCusdisSection(
+            createElement,
+            createIcon,
+            article,
+            cusdisSettings.host,
+            cusdisSettings.appId
+        );
+        articleRoot.appendChild(commentsSection);
+        shouldInitCusdis = true;
+    }
+
     articleRoot.appendChild(createElement('div', 'border-t-2 border-gray-300 my-12'));
 
     const backWrap = createElement('div', 'text-center py-10');
@@ -360,6 +550,17 @@ async function displayArticle(articleId) {
     const rootContainer = container.parentElement;
     if (rootContainer) {
         rootContainer.replaceChildren(articleRoot);
+
+        if (shouldInitCusdis) {
+            ensureCusdisHeightOverride();
+            ensureCusdisScript(cusdisSettings.host)
+                .then(() => {
+                    refreshCusdisThread(cusdisSettings.host, cusdisSettings.appId, article);
+                })
+                .catch((error) => {
+                    console.error('Failed to initialize Cusdis comments:', error);
+                });
+        }
     }
 
     // Update page title

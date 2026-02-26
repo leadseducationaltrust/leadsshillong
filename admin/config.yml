@@ -160,6 +160,18 @@ collections:
                   - { label: "Description", name: "description", widget: "text", required: false }
                   - { label: "Image", name: "image", widget: "string", required: false }
 
+          - label: "Integrations"
+            name: "integrations"
+            widget: "object"
+            fields:
+              - { label: "Google Analytics Enabled", name: "googleAnalyticsEnabled", widget: "boolean", default: false }
+              - { label: "Google Analytics Measurement ID", name: "googleAnalyticsMeasurementId", widget: "string", required: false, hint: "Format: G-XXXXXXXXXX" }
+              - { label: "Google Analytics Debug", name: "googleAnalyticsDebug", widget: "boolean", default: false, required: false }
+              - { label: "Google Analytics Dedupe Milliseconds", name: "googleAnalyticsDedupeMs", widget: "number", value_type: "int", default: 300, min: 0, max: 2000, required: false }
+              - { label: "Cusdis Enabled", name: "cusdisEnabled", widget: "boolean", default: false, hint: "Enable article comments with Cusdis." }
+              - { label: "Cusdis App ID", name: "cusdisAppId", widget: "string", required: false, hint: "Get this from Cusdis dashboard (Website/App ID)." }
+              - { label: "Cusdis Host", name: "cusdisHost", widget: "string", required: false, default: "https://cusdis.com", hint: "Use https://cusdis.com unless self-hosting." }
+
           - label: "Identity"
             name: "identity"
             widget: "object"

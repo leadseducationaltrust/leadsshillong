@@ -220,6 +220,31 @@ After deploy, verify in this order:
 | `social_click` | Click on outbound social links (Facebook, Instagram, YouTube, Twitter/X) | `platform`, `link_url`, `link_text` |
 | `download_click` | Click on anchors with `download` attribute or links ending in `.pdf` | `file_url`, `link_text` |
 
+## Cusdis comments for Insights articles
+
+Article comments are supported on single article pages (`insights.html?article=...`) via Cusdis.
+
+1. Create a Cusdis account at `https://cusdis.com`.
+2. Add your website in Cusdis and copy the **App ID**.
+3. Update `admin/config.json` under `integrations`:
+
+```json
+"integrations": {
+  "cusdisEnabled": true,
+  "cusdisAppId": "YOUR_CUSDIS_APP_ID",
+  "cusdisHost": "https://cusdis.com"
+}
+```
+
+4. Deploy the site.
+5. Open any article detail page (example: `insights.html?article=ai_education`) and confirm the comments widget loads below the author section.
+
+Notes:
+
+- Keep `cusdisEnabled` as `false` to disable comments without code changes.
+- If `cusdisAppId` is empty, the comments section is skipped safely.
+- Use a custom `cusdisHost` only when self-hosting Cusdis.
+
 ## Theme configuration
 
 Theme settings live in `admin/config.json` under `theme` and are applied globally by `js/config.js`.
