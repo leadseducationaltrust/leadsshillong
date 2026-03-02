@@ -1,6 +1,18 @@
 {
   "entries": [
     {
+      "date": "2026-03-02",
+      "thought_of_the_day": "Don't just dream big , take action  to make those  dreams come true.",
+      "bible_reference": "Romans 12:12",
+      "bible_verse": " Be joyful in hope, patient in affliction, faithful in prayer.",
+      "order_of_the_day": [
+        "Today 2 march 2026, Follow day 1"
+      ]
+    },
+    {
+      "date": "2026-03-02"
+    },
+    {
       "date": "2026-02-27",
       "thought_of_the_day": "Risking is better than regretting",
       "order_of_the_day": [
@@ -98,18 +110,6 @@
       "bible_verse": "Trust in the Lord with all your heart.",
       "bible_reference": "Proverbs 3:5",
       "additional_notes": "Uniform checks will be conducted this week."
-    },
-    {
-      "date": "2026-03-02",
-      "thought_of_the_day": "Don't just dream big , take action  to make those  dreams come true.",
-      "bible_reference": "Romans 12:12",
-      "bible_verse": " Be joyful in hope, patient in affliction, faithful in prayer.",
-      "order_of_the_day": [
-        "Today 2 march 2026, Follow day 1"
-      ]
-    },
-    {
-      "date": "2026-03-02"
     }
   ]
 }
