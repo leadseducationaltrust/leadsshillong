@@ -1,6 +1,15 @@
 {
   "entries": [
     {
+      "date": "2026-03-03",
+      "thought_of_the_day": "Success comes to those who work hard and never give up.",
+      "bible_verse": "Trust in the Lord with all your heart and lean not on your own understanding.",
+      "bible_reference": "Proverb 3:5",
+      "order_of_the_day": [
+        "Today 3 March 2026, follow Day 2"
+      ]
+    },
+    {
       "date": "2026-03-02",
       "thought_of_the_day": "Don't just dream big , take action  to make those  dreams come true.",
       "bible_reference": "Romans 12:12",
@@ -110,15 +119,6 @@
       "bible_verse": "Trust in the Lord with all your heart.",
       "bible_reference": "Proverbs 3:5",
       "additional_notes": "Uniform checks will be conducted this week."
-    },
-    {
-      "date": "2026-03-03",
-      "thought_of_the_day": "Success comes to those who work hard and never give up.",
-      "bible_verse": "Trust in the Lord with all your heart and lean not on your own understanding.",
-      "bible_reference": "Proverb 3:5",
-      "order_of_the_day": [
-        "Today 3 March 2026, follow Day 2"
-      ]
     }
   ]
 }
