@@ -1,6 +1,15 @@
 {
   "entries": [
     {
+      "date": "2026-03-06",
+      "bible_reference": "Luke 1:7",
+      "bible_verse": "Nothing is impossible with God.",
+      "thought_of_the_day": "Discipline is the key to success.",
+      "order_of_the_day": [
+        "Today 6/March/2026. Follow Day Order Day 4"
+      ]
+    },
+    {
       "date": "2026-03-05"
     },
     {
@@ -152,15 +161,6 @@
       "bible_verse": "Trust in the Lord with all your heart.",
       "bible_reference": "Proverbs 3:5",
       "additional_notes": "Uniform checks will be conducted this week."
-    },
-    {
-      "date": "2026-03-06",
-      "bible_reference": "Luke 1:7",
-      "bible_verse": "Nothing is impossible with God.",
-      "thought_of_the_day": "Discipline is the key to success.",
-      "order_of_the_day": [
-        "Today 6/March/2026. Follow Day Order Day 4"
-      ]
     }
   ]
 }
