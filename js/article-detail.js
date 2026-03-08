@@ -1,55 +1,7 @@
-const DEFAULT_ARTICLE_IDS = [
-    'kidspreneurship_introduction',
-    'ai_education'
-];
-
-const GITHUB_ARTICLES_INDEX_API = 'https://api.github.com/repos/leadseducationaltrust/leadsshillong/contents/articles';
-
-let articles = [];
-
-// Global variable to store fully loaded articles
-let fullArticles = [];
-
-window.LEADS_ARTICLES = window.LEADS_ARTICLES || {};
-window.LEADS_ARTICLES.list = articles;
-window.LEADS_ARTICLES.loaded = fullArticles;
-
-function isSafeArticleId(value) {
-    return /^[a-zA-Z0-9_-]+$/.test(String(value || ''));
-}
-
-function uniqueArticleIds(values) {
-    const seen = new Set();
-    const result = [];
-
-    for (const value of values) {
-        const id = String(value || '').trim();
-        if (!isSafeArticleId(id)) {
-            continue;
-        }
-
-        if (seen.has(id)) {
-            continue;
-        }
-
-        seen.add(id);
-        result.push(id);
-    }
-
-    return result;
-}
-
-function escapeHtml(value) {
-    return String(value ?? '')
-        .replace(/&/g, '&amp;')
-        .replace(/</g, '&lt;')
-        .replace(/>/g, '&gt;')
-        .replace(/"/g, '&quot;')
-        .replace(/'/g, '&#39;');
-}
+const articleStoreDetail = window.LEADS_ARTICLES || {};
 
 function hasExplicitScheme(value) {
-    return /^[a-zA-Z][a-zA-Z\d+\-.]*:/.test(value);
+    return /^[a-zA-Z][a-zA-Z\d+\-.]*:/.test(String(value || ''));
 }
 
 function getSafeUrl(value) {
@@ -67,7 +19,7 @@ function getSafeUrl(value) {
         if (parsed.protocol === 'http:' || parsed.protocol === 'https:') {
             return text;
         }
-    } catch (error) {
+    } catch {
     }
 
     return '';
@@ -77,14 +29,17 @@ function normalizeText(value) {
     if (value === undefined || value === null) {
         return '';
     }
+
     const text = String(value).trim();
     if (!text) {
         return '';
     }
+
     const lowered = text.toLowerCase();
     if (lowered === 'null' || lowered === 'undefined') {
         return '';
     }
+
     return text;
 }
 
@@ -99,7 +54,7 @@ function getSafeAbsoluteHttpUrl(value) {
         if (parsed.protocol === 'http:' || parsed.protocol === 'https:') {
             return text;
         }
-    } catch (error) {
+    } catch {
     }
 
     return '';
@@ -123,81 +78,6 @@ async function getCusdisSettings() {
         appId,
         host: safeHost.replace(/\/$/, '')
     };
-}
-
-async function loadArticleIndexFromManifest() {
-    try {
-        const response = await fetch('articles/content.json', { cache: 'no-cache' });
-        if (!response.ok) {
-            return [];
-        }
-
-        const payload = await response.json();
-        const entries = [];
-
-        if (Array.isArray(payload)) {
-            entries.push(...payload);
-        } else if (Array.isArray(payload?.items)) {
-            entries.push(...payload.items);
-        } else if (Array.isArray(payload?.articles)) {
-            entries.push(...payload.articles);
-        }
-
-        const ids = entries.map((entry) => {
-            if (typeof entry === 'string') {
-                return entry;
-            }
-            if (entry && typeof entry === 'object') {
-                return entry.id;
-            }
-            return '';
-        });
-
-        return uniqueArticleIds(ids);
-    } catch (error) {
-        return [];
-    }
-}
-
-async function loadArticleIndexFromGitHubApi() {
-    try {
-        const response = await fetch(GITHUB_ARTICLES_INDEX_API, {
-            headers: {
-                Accept: 'application/vnd.github+json'
-            }
-        });
-
-        if (!response.ok) {
-            return [];
-        }
-
-        const payload = await response.json();
-        if (!Array.isArray(payload)) {
-            return [];
-        }
-
-        const folderIds = payload
-            .filter((entry) => entry && entry.type === 'dir')
-            .map((entry) => entry.name);
-
-        return uniqueArticleIds(folderIds);
-    } catch (error) {
-        return [];
-    }
-}
-
-async function discoverArticleIds() {
-    const fromManifest = await loadArticleIndexFromManifest();
-    if (fromManifest.length > 0) {
-        return fromManifest;
-    }
-
-    const fromGitHubApi = await loadArticleIndexFromGitHubApi();
-    if (fromGitHubApi.length > 0) {
-        return fromGitHubApi;
-    }
-
-    return uniqueArticleIds(DEFAULT_ARTICLE_IDS);
 }
 
 function ensureCusdisScript(host) {
@@ -269,7 +149,7 @@ function refreshCusdisThread(host, appId, article) {
             current.hash = '';
             current.searchParams.set('article', pageId);
             return current.toString();
-        } catch (error) {
+        } catch {
             return window.location.href;
         }
     })();
@@ -296,7 +176,7 @@ function buildCusdisSection(createElement, createIcon, article, host, appId) {
             current.hash = '';
             current.searchParams.set('article', String(article.id || ''));
             return current.toString();
-        } catch (error) {
+        } catch {
             return window.location.href;
         }
     })();
@@ -324,132 +204,17 @@ function buildCusdisSection(createElement, createIcon, article, host, appId) {
     return commentsSection;
 }
 
-// ==========================================
-// LOAD ARTICLE CONTENT DYNAMICALLY
-// ==========================================
-
-/**
- * Load all articles with full metadata from content.json files
- * @returns {Promise<Array>} Array of complete article objects
- */
-async function loadAllArticlesData() {
-    const articleIds = await discoverArticleIds();
-    articles = articleIds.map((id) => ({ id }));
-    fullArticles = [];
-
-    for (const articleId of articleIds) {
-        const fullArticle = await getFullArticleById(articleId);
-        if (fullArticle) {
-            fullArticles.push(fullArticle);
-        }
-    }
-
-    window.LEADS_ARTICLES.list = articles;
-    window.LEADS_ARTICLES.loaded = fullArticles;
-    return fullArticles;
-}
-
-window.LEADS_ARTICLES.loadAllArticlesData = loadAllArticlesData;
-window.LEADS_ARTICLES.discoverArticleIds = discoverArticleIds;
-
-/**
- * Load article content from JSON file
- * @param {string} articleId - Article ID
- * @returns {Promise<Object>} Article content data
- */
-async function loadArticleContent(articleId) {
-    if (!isSafeArticleId(articleId)) {
-        return null;
-    }
-
-    try {
-        const response = await fetch(`articles/${articleId}/content.json`);
-        if (!response.ok) {
-            throw new Error(`Failed to load article content: ${response.statusText}`);
-        }
-        return await response.json();
-    } catch (error) {
-        console.error(`Error loading article content for ${articleId}:`, error);
-        return null;
-    }
-}
-
-/**
- * Get full article data including metadata and content
- * @param {string} id - Article ID
- * @returns {Promise<Object>} Complete article object
- */
-async function getFullArticleById(id) {
-    if (!isSafeArticleId(id)) {
-        return null;
-    }
-
-    const content = await loadArticleContent(id);
-    if (!content) {
-        return null;
-    }
-
-    return {
-        id,
-        ...content
-    };
-}
-
-// ==========================================
-// DATE FORMATTING FUNCTION
-// ==========================================
-
-/**
- * Format ISO date string to "dd Month Year HH:MI AM/PM" format
- * @param {string} dateString - ISO format date string (YYYY-MM-DDTHH:MM:SS)
- * @returns {string} Formatted date string
- */
-function formatArticleDate(dateString) {
-    const date = new Date(dateString + 'Z');
-    
-    const months = ['January', 'February', 'March', 'April', 'May', 'June',
-                    'July', 'August', 'September', 'October', 'November', 'December'];
-    
-    const day = String(date.getUTCDate()).padStart(2, '0');
-    const month = months[date.getUTCMonth()];
-    const year = date.getUTCFullYear();
-    
-    let hours = date.getUTCHours();
-    const minutes = String(date.getUTCMinutes()).padStart(2, '0');
-    const ampm = hours >= 12 ? 'PM' : 'AM';
-    hours = hours % 12 || 12;
-    const displayHours = String(hours).padStart(2, '0');
-    
-    return `${day} ${month} ${year} ${displayHours}:${minutes} ${ampm}`;
-}
-
-window.LEADS_ARTICLES.formatArticleDate = formatArticleDate;
-
-// ==========================================
-// DYNAMIC ARTICLE RENDERING
-// ==========================================
-
-/**
- * Get URL parameter value
- */
 function getURLParameter(name) {
     const params = new URLSearchParams(window.location.search);
     return params.get(name);
 }
 
-/**
- * Find article by ID
- */
-function getArticleById(id) {
-    return fullArticles.find(article => article.id === id) || null;
-}
-
-/**
- * Render single article view
- */
 async function displayArticle(articleId) {
-    const article = await getFullArticleById(articleId);
-    
+    if (typeof articleStoreDetail.getFullArticleById !== 'function') {
+        return;
+    }
+
+    const article = await articleStoreDetail.getFullArticleById(articleId);
     if (!article) {
         console.error(`Article with ID "${articleId}" not found`);
         return;
@@ -457,6 +222,10 @@ async function displayArticle(articleId) {
 
     const container = document.getElementById('articles-grid');
     if (!container) return;
+
+    const formatDate = typeof articleStoreDetail.formatArticleDate === 'function'
+        ? articleStoreDetail.formatArticleDate
+        : (value) => String(value || '');
 
     const createElement = (tag, className = '') => {
         const element = document.createElement(tag);
@@ -472,7 +241,9 @@ async function displayArticle(articleId) {
 
     const backButton = createElement('button', 'inline-flex items-center gap-2 text-emerald-600 hover:text-emerald-700 font-bold mb-10 transition-colors group text-base md:text-lg');
     backButton.type = 'button';
-    backButton.addEventListener('click', () => window.history.back());
+    backButton.addEventListener('click', () => {
+        window.location.href = 'insights.html';
+    });
     backButton.appendChild(createIcon('fas fa-arrow-left group-hover:-translate-x-1 transition-transform'));
     const backLabel = createElement('span');
     backLabel.textContent = 'Back to Insights';
@@ -515,7 +286,7 @@ async function displayArticle(articleId) {
 
     const dateRow = createElement('p', 'text-gray-600 font-medium flex items-center gap-2');
     dateRow.appendChild(createIcon('far fa-calendar text-emerald-600'));
-    dateRow.appendChild(document.createTextNode(formatArticleDate(article.date)));
+    dateRow.appendChild(document.createTextNode(formatDate(article.date)));
 
     meta.appendChild(authorRow);
     meta.appendChild(dateRow);
@@ -683,18 +454,12 @@ async function displayArticle(articleId) {
         }
     }
 
-    // Update page title
     document.title = `${String(article.title || '').trim()} | LEADS Higher Secondary School`;
 }
 
-/**
- * Initialize article rendering on page load
- */
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', () => {
     const articleParam = getURLParameter('article');
-    
     if (articleParam) {
-        // Single article view
         displayArticle(articleParam);
     }
 });

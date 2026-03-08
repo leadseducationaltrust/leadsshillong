@@ -47,8 +47,7 @@ You can create a new article directly from `/admin` without editing `admin/confi
 Frontend discovery order on `insights.html`:
 
 1. `articles/content.json` (if present)
-2. GitHub contents API for `articles/` folders
-3. Built-in fallback IDs (existing starter articles)
+2. Built-in fallback IDs (existing starter articles)
 
 Rebuild the index locally after adding/removing article folders:
 

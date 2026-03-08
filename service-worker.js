@@ -1,4 +1,4 @@
-const CACHE_VERSION = 'v5';
+const CACHE_VERSION = 'v7';
 const APP_SHELL_CACHE = `leads-app-shell-${CACHE_VERSION}`;
 const RUNTIME_CACHE = `leads-runtime-${CACHE_VERSION}`;
 const OFFLINE_FALLBACK_URL = '/offline.html';
@@ -28,7 +28,10 @@ const APP_SHELL_ASSETS = [
   '/js/faculty.js',
   '/js/gallery.js',
   '/js/downloads.js',
-  '/js/articles.js',
+  '/js/articles-data.js',
+  '/js/article-detail.js',
+  '/js/insights.js',
+  '/js/home-article-highlight.js',
   '/js/calendar.js',
   '/js/thought.js',
   '/js/pwa.js',
