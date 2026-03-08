@@ -80,8 +80,72 @@ if ('serviceWorker' in navigator) {
   });
 }
 
-const pwaActionButton = document.getElementById('pwa-action-button');
-const pwaActionIcon = document.getElementById('pwa-action-icon');
+let pwaActionButton = null;
+let pwaActionIcon = null;
+const ensurePwaActionButton = () => {
+  if (pwaActionButton && pwaActionIcon) {
+    return;
+  }
+
+  const existingButton = document.getElementById('pwa-action-button');
+  const existingIcon = document.getElementById('pwa-action-icon');
+  if (existingButton && existingIcon) {
+    pwaActionButton = existingButton;
+    pwaActionIcon = existingIcon;
+    return;
+  }
+
+  const mapLink = document.getElementById('global-link-maps');
+  let actionContainer = null;
+
+  if (mapLink && mapLink.parentElement) {
+    actionContainer = mapLink.parentElement;
+    const shouldCreateContainer = mapLink.tagName === 'A' && actionContainer.classList.contains('container');
+
+    if (shouldCreateContainer) {
+      const wrapper = document.createElement('div');
+      wrapper.className = 'flex items-center gap-2 md:gap-3';
+      actionContainer.replaceChild(wrapper, mapLink);
+      wrapper.appendChild(mapLink);
+      actionContainer = wrapper;
+    }
+  }
+
+  if (!actionContainer) {
+    const topBarContainer = document.querySelector('body > div.bg-emerald-700 .container');
+    if (!topBarContainer) {
+      return;
+    }
+
+    const rightSlot = topBarContainer.lastElementChild;
+    if (!rightSlot) {
+      return;
+    }
+
+    const wrapper = document.createElement('div');
+    wrapper.className = 'flex items-center justify-end gap-2 md:gap-3';
+    topBarContainer.replaceChild(wrapper, rightSlot);
+    wrapper.appendChild(rightSlot);
+    actionContainer = wrapper;
+  }
+
+  const button = document.createElement('button');
+  button.id = 'pwa-action-button';
+  button.type = 'button';
+  button.className = 'hidden items-center justify-center w-7 h-7 rounded-full border border-white/30 text-white/90 hover:text-white hover:bg-white/10 transition-colors';
+  button.setAttribute('aria-label', 'Install app');
+  button.title = 'Install app';
+
+  const icon = document.createElement('i');
+  icon.id = 'pwa-action-icon';
+  icon.className = 'fas fa-download text-[11px]';
+  button.appendChild(icon);
+
+  actionContainer.appendChild(button);
+  pwaActionButton = button;
+  pwaActionIcon = icon;
+};
+
 
 let deferredInstallPrompt = null;
 
@@ -110,6 +174,7 @@ const isPwaInstalled = () => {
 };
 
 const setButtonMode = (mode) => {
+  ensurePwaActionButton();
   if (!pwaActionButton || !pwaActionIcon) {
     return;
   }
@@ -133,6 +198,7 @@ const setButtonMode = (mode) => {
 };
 
 const hidePwaAction = () => {
+  ensurePwaActionButton();
   if (!pwaActionButton) {
     return;
   }
@@ -142,6 +208,7 @@ const hidePwaAction = () => {
 };
 
 const syncPwaActionButton = () => {
+  ensurePwaActionButton();
   if (!pwaActionButton) {
     return;
   }
@@ -205,7 +272,13 @@ window.addEventListener('appinstalled', () => {
   syncPwaActionButton();
 });
 
-if (pwaActionButton) {
+const initPwaActionButton = () => {
+  ensurePwaActionButton();
+  if (!pwaActionButton || pwaActionButton.dataset.bound === 'true') {
+    return;
+  }
+
+  pwaActionButton.dataset.bound = 'true';
   pwaActionButton.addEventListener('click', async () => {
     const mode = pwaActionButton.dataset.mode;
 
@@ -226,4 +299,10 @@ if (pwaActionButton) {
   });
 
   syncPwaActionButton();
+};
+
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', initPwaActionButton, { once: true });
+} else {
+  initPwaActionButton();
 }
