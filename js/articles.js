@@ -6,6 +6,10 @@ const articles = [
 // Global variable to store fully loaded articles
 let fullArticles = [];
 
+window.LEADS_ARTICLES = window.LEADS_ARTICLES || {};
+window.LEADS_ARTICLES.list = articles;
+window.LEADS_ARTICLES.loaded = fullArticles;
+
 function escapeHtml(value) {
     return String(value ?? '')
         .replace(/&/g, '&amp;')
@@ -234,8 +238,11 @@ async function loadAllArticlesData() {
         }
     }
     
+    window.LEADS_ARTICLES.loaded = fullArticles;
     return fullArticles;
 }
+
+window.LEADS_ARTICLES.loadAllArticlesData = loadAllArticlesData;
 
 /**
  * Load article content from JSON file
@@ -304,6 +311,8 @@ function formatArticleDate(dateString) {
     
     return `${day} ${month} ${year} ${displayHours}:${minutes} ${ampm}`;
 }
+
+window.LEADS_ARTICLES.formatArticleDate = formatArticleDate;
 
 // ==========================================
 // DYNAMIC ARTICLE RENDERING

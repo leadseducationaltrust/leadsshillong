@@ -505,35 +505,6 @@
     <script src="js/analytics.js"></script>
 
     <script>
-        const menuBtn = document.getElementById('menu-btn');
-        const mobileMenu = document.getElementById('mobile-menu');
-        const menuIcon = document.getElementById('menu-icon');
-
-        if(menuBtn && mobileMenu) {
-            menuBtn.addEventListener('click', (e) => {
-                e.stopPropagation();
-                mobileMenu.classList.toggle('active');
-                
-                if (!mobileMenu.classList.contains('active')) {
-                    menuIcon.classList.remove('fa-times');
-                    menuIcon.classList.add('fa-bars');
-                } else {
-                    menuIcon.classList.remove('fa-bars');
-                    menuIcon.classList.add('fa-times');
-                }
-            });
-
-            document.addEventListener('click', (e) => {
-                if (!mobileMenu.contains(e.target) && !menuBtn.contains(e.target)) {
-                    if(mobileMenu.classList.contains('active')) {
-                        mobileMenu.classList.remove('active');
-                        menuIcon.classList.remove('fa-times');
-                        menuIcon.classList.add('fa-bars');
-                    }
-                }
-            });
-        }
-
         function toggleSubjectSelection(selectElement) {
             const classVal = selectElement.value;
             const container = document.getElementById('subject-selection-container');

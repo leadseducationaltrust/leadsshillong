@@ -191,37 +191,6 @@
     <script src="js/config.js"></script>
     <script src="js/analytics.js"></script>
     
-    <script>
-        // MOBILE MENU LOGIC (Fallback in case it isn't in main.js)
-        const menuBtn = document.getElementById('menu-btn');
-        const mobileMenu = document.getElementById('mobile-menu');
-        const menuIcon = document.getElementById('menu-icon');
-
-        if(menuBtn && mobileMenu) {
-            menuBtn.addEventListener('click', (e) => {
-                e.stopPropagation();
-                mobileMenu.classList.toggle('active');
-                
-                if (!mobileMenu.classList.contains('active')) {
-                    menuIcon.classList.remove('fa-times');
-                    menuIcon.classList.add('fa-bars');
-                } else {
-                    menuIcon.classList.remove('fa-bars');
-                    menuIcon.classList.add('fa-times');
-                }
-            });
-
-            document.addEventListener('click', (e) => {
-                if (!mobileMenu.contains(e.target) && !menuBtn.contains(e.target)) {
-                    if(mobileMenu.classList.contains('active')) {
-                        mobileMenu.classList.remove('active');
-                        menuIcon.classList.remove('fa-times');
-                        menuIcon.classList.add('fa-bars');
-                    }
-                }
-            });
-        }
-    </script>
     <script src="js/pwa.js"></script>
 </body>
 </html>

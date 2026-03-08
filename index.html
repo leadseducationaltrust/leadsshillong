@@ -341,45 +341,15 @@
     <script src="js/programs.js"></script>
 
     <script>
-        // MOBILE MENU LOGIC
-        const menuBtn = document.getElementById('menu-btn');
-        const mobileMenu = document.getElementById('mobile-menu');
-        const menuIcon = document.getElementById('menu-icon');
-
-        if(menuBtn && mobileMenu) {
-            menuBtn.addEventListener('click', (e) => {
-                e.stopPropagation();
-                mobileMenu.classList.toggle('active');
-                
-                if (!mobileMenu.classList.contains('active')) {
-                    menuIcon.classList.remove('fa-times');
-                    menuIcon.classList.add('fa-bars');
-                } else {
-                    menuIcon.classList.remove('fa-bars');
-                    menuIcon.classList.add('fa-times');
-                }
-            });
-
-            document.addEventListener('click', (e) => {
-                if (!mobileMenu.contains(e.target) && !menuBtn.contains(e.target)) {
-                    if(mobileMenu.classList.contains('active')) {
-                        mobileMenu.classList.remove('active');
-                        menuIcon.classList.remove('fa-times');
-                        menuIcon.classList.add('fa-bars');
-                    }
-                }
-            });
-        }
-
         // DYNAMIC LATEST ARTICLE HIGHLIGHT
-        const escapeHtml = (value) => String(value ?? '')
+        const escapeHtmlHome = (value) => String(value ?? '')
             .replace(/&/g, '&amp;')
             .replace(/</g, '&lt;')
             .replace(/>/g, '&gt;')
             .replace(/"/g, '&quot;')
             .replace(/'/g, '&#39;');
 
-        const normalizeImageUrl = (value) => {
+        const normalizeImageUrlHome = (value) => {
             if (value === undefined || value === null) return '';
             const text = String(value).trim();
             if (!text) return '';
@@ -393,23 +363,30 @@
             }
         };
 
+        const articleStore = window.LEADS_ARTICLES || {};
+        const formatArticleDateSafe = typeof articleStore.formatArticleDate === 'function'
+            ? articleStore.formatArticleDate
+            : (value) => String(value || '');
+
         function renderLatestHighlight() {
             const container = document.getElementById('latest-article-highlight');
-            const articlesToUse = fullArticles.length > 0 ? fullArticles : articles;
-            if(!container || typeof articlesToUse === 'undefined' || articlesToUse.length === 0) return;
+            const loaded = Array.isArray(articleStore.loaded) ? articleStore.loaded : [];
+            const fallback = Array.isArray(articleStore.list) ? articleStore.list : [];
+            const articlesToUse = loaded.length > 0 ? loaded : fallback;
+            if(!container || !Array.isArray(articlesToUse) || articlesToUse.length === 0) return;
 
             // Automatically sort and grab the newest article
             const latestArt = articlesToUse.sort((a, b) => new Date(b.date) - new Date(a.date))[0]; 
             const rawAuthor = String(latestArt.author || 'Unknown');
-            const safeAuthor = escapeHtml(rawAuthor);
-            const safeCategory = escapeHtml(latestArt.category || 'General');
-            const safeTitle = escapeHtml(latestArt.title || 'Untitled');
-            const safeDescription = escapeHtml(latestArt.description || '');
-            const safeImage = normalizeImageUrl(latestArt.image);
-            const safeAuthorImage = normalizeImageUrl(latestArt.authorImage);
+            const safeAuthor = escapeHtmlHome(rawAuthor);
+            const safeCategory = escapeHtmlHome(latestArt.category || 'General');
+            const safeTitle = escapeHtmlHome(latestArt.title || 'Untitled');
+            const safeDescription = escapeHtmlHome(latestArt.description || '');
+            const safeImage = normalizeImageUrlHome(latestArt.image);
+            const safeAuthorImage = normalizeImageUrlHome(latestArt.authorImage);
             const safeArticleId = encodeURIComponent(String(latestArt.id || ''));
-            const safeDate = escapeHtml(formatArticleDate(latestArt.date));
-            const authorInitial = escapeHtml(rawAuthor.charAt(0).toUpperCase() || 'A');
+            const safeDate = escapeHtmlHome(formatArticleDateSafe(latestArt.date));
+            const authorInitial = escapeHtmlHome(rawAuthor.charAt(0).toUpperCase() || 'A');
 
             // Smart fallback for author image
             const authorDisplay = safeAuthorImage
@@ -442,7 +419,9 @@
         }
         
         window.addEventListener('DOMContentLoaded', async function() {
-            await loadAllArticlesData();
+            if (typeof articleStore.loadAllArticlesData === 'function') {
+                await articleStore.loadAllArticlesData();
+            }
             renderLatestHighlight();
         });
     </script>

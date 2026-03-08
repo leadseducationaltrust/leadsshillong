@@ -580,6 +580,68 @@ document.addEventListener("DOMContentLoaded", async () => {
     const featureToggles = schoolData.featureToggles || {};
     const hasExplicitScheme = (value) => /^[a-zA-Z][a-zA-Z\d+\-.]*:/.test(value);
 
+    const bindGlobalMobileMenu = () => {
+        const menuBtn = document.getElementById('menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const menuIcon = document.getElementById('menu-icon');
+
+        if (!menuBtn || !mobileMenu || menuBtn.dataset.mobileMenuBound === 'true') {
+            return;
+        }
+
+        menuBtn.dataset.mobileMenuBound = 'true';
+
+        const closeMenu = () => {
+            mobileMenu.classList.remove('active');
+            if (menuIcon) {
+                menuIcon.classList.remove('fa-times');
+                menuIcon.classList.add('fa-bars');
+            }
+        };
+
+        const toggleMenu = (event) => {
+            if (event) {
+                event.preventDefault();
+                event.stopPropagation();
+                if (typeof event.stopImmediatePropagation === 'function') {
+                    event.stopImmediatePropagation();
+                }
+            }
+
+            const shouldOpen = !mobileMenu.classList.contains('active');
+            if (shouldOpen) {
+                mobileMenu.classList.add('active');
+                if (menuIcon) {
+                    menuIcon.classList.remove('fa-bars');
+                    menuIcon.classList.add('fa-times');
+                }
+            } else {
+                closeMenu();
+            }
+        };
+
+        // Capture-phase binding ensures one consistent handler even if page scripts also attach listeners.
+        menuBtn.addEventListener('click', toggleMenu, true);
+
+        document.addEventListener('click', (event) => {
+            if (!mobileMenu.classList.contains('active')) {
+                return;
+            }
+
+            if (!mobileMenu.contains(event.target) && !menuBtn.contains(event.target)) {
+                closeMenu();
+            }
+        }, true);
+
+        window.addEventListener('resize', () => {
+            if (window.innerWidth >= 1024) {
+                closeMenu();
+            }
+        });
+    };
+
+    bindGlobalMobileMenu();
+
     const normalizeSafeUrl = (value, options = {}) => {
         if (value === undefined || value === null) {
             return null;
