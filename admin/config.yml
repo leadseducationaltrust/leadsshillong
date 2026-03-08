@@ -362,7 +362,7 @@ collections:
             widget: "list"
             summary: "{{fields.date}}"
             fields:
-              - { label: "Date", name: "date", widget: "date", format: "YYYY-MM-DD" }
+              - { label: "Date", name: "date", widget: "datetime", format: "YYYY-MM-DD", date_format: "YYYY-MM-DD", time_format: false }
               - label: "Daily Focus"
                 name: "daily_focus"
                 widget: "object"
@@ -943,7 +943,7 @@ collections:
               - { label: "Heading", name: "heading", widget: "string" }
               - { label: "Description", name: "description", widget: "text" }
               - { label: "Audience", name: "audience", widget: "string" }
-              - { label: "Timestamp", name: "timestamp", widget: "datetime", format: "YYYY-MM-DDTHH:mm:ss[Z]", date_format: "YYYY-MM-DD", time_format: "HH:mm" }
+              - { label: "Timestamp", name: "timestamp", widget: "datetime", format: "YYYY-MM-DDTHH:mm:ss[Z]", date_format: "YYYY-MM-DD", time_format: "HH:mm:ss" }
               - { label: "PDF", name: "pdf_url", widget: "file" }
 
   - name: "career"
@@ -961,8 +961,8 @@ collections:
             fields:
               - { label: "Job Code", name: "job_code", widget: "string" }
               - { label: "Title", name: "title", widget: "string" }
-              - { label: "Date Posted", name: "date_posted", widget: "date", format: "YYYY-MM-DD" }
-              - { label: "Deadline", name: "deadline", widget: "date", format: "YYYY-MM-DD" }
+              - { label: "Date Posted", name: "date_posted", widget: "datetime", format: "YYYY-MM-DD", date_format: "YYYY-MM-DD", time_format: false }
+              - { label: "Deadline", name: "deadline", widget: "datetime", format: "YYYY-MM-DD", date_format: "YYYY-MM-DD", time_format: false }
               - label: "Status"
                 name: "status"
                 widget: "select"
@@ -1005,9 +1005,9 @@ collections:
                   - { label: "Working Day", value: "working_day" }
                   - { label: "Non Working Day", value: "non_working_day" }
               - { label: "Title", name: "title", widget: "string" }
-              - { label: "Single Date", name: "date", widget: "date", format: "YYYY-MM-DD", required: false }
-              - { label: "Start Date", name: "startDate", widget: "date", format: "YYYY-MM-DD", required: false }
-              - { label: "End Date", name: "endDate", widget: "date", format: "YYYY-MM-DD", required: false }
+              - { label: "Single Date", name: "date", widget: "datetime", format: "YYYY-MM-DD", date_format: "YYYY-MM-DD", time_format: false, required: false }
+              - { label: "Start Date", name: "startDate", widget: "datetime", format: "YYYY-MM-DD", date_format: "YYYY-MM-DD", time_format: false, required: false }
+              - { label: "End Date", name: "endDate", widget: "datetime", format: "YYYY-MM-DD", date_format: "YYYY-MM-DD", time_format: false, required: false }
 
   - name: "faculty"
     label: "Faculty"
@@ -1057,7 +1057,7 @@ collections:
             fields:
               - { label: "Image", name: "url", widget: "image" }
               - { label: "Description", name: "desc", widget: "text" }
-              - { label: "Date", name: "date", widget: "date", format: "YYYY-MM-DD" }
+              - { label: "Date", name: "date", widget: "datetime", format: "YYYY-MM-DD", date_format: "YYYY-MM-DD", time_format: false }
 
   - name: "articles"
     label: "Articles"
@@ -1076,7 +1076,7 @@ collections:
           - { label: "Author Image", name: "authorImage", widget: "image", required: false }
           - { label: "Role", name: "role", widget: "string", required: false }
           - { label: "Category", name: "category", widget: "string", required: false }
-          - { label: "Date", name: "date", widget: "datetime", format: "YYYY-MM-DDTHH:mm:ss" }
+          - { label: "Date", name: "date", widget: "datetime", format: "YYYY-MM-DDTHH:mm:ss", date_format: "YYYY-MM-DD", time_format: "HH:mm:ss" }
           - { label: "Author Bio", name: "authorBio", widget: "text", required: false }
           - { label: "Core Argument", name: "coreArgument", widget: "text", required: false }
           - label: "Key Statistics"
@@ -1115,7 +1115,7 @@ collections:
           - { label: "Author Image", name: "authorImage", widget: "image", required: false }
           - { label: "Role", name: "role", widget: "string", required: false }
           - { label: "Category", name: "category", widget: "string", required: false }
-          - { label: "Date", name: "date", widget: "datetime", format: "YYYY-MM-DDTHH:mm:ss" }
+          - { label: "Date", name: "date", widget: "datetime", format: "YYYY-MM-DDTHH:mm:ss", date_format: "YYYY-MM-DD", time_format: "HH:mm:ss" }
           - { label: "Author Bio", name: "authorBio", widget: "text", required: false }
           - { label: "Core Argument", name: "coreArgument", widget: "text", required: false }
           - label: "Key Statistics"
