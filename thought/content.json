@@ -1,12 +1,6 @@
 {
   "entries": [
     {
-      "order_of_the_day": [
-        "Please follow Day 5 on Monday, March 9, 2026"
-      ],
-      "date": "2026-03-08"
-    },
-    {
       "date": "2026-03-06",
       "bible_reference": "Luke 1:7",
       "bible_verse": "Nothing is impossible with God.",
@@ -167,6 +161,12 @@
       "bible_verse": "Trust in the Lord with all your heart.",
       "bible_reference": "Proverbs 3:5",
       "additional_notes": "Uniform checks will be conducted this week."
+    },
+    {
+      "order_of_the_day": [
+        "Please follow Day 5 on Monday, March 9, 2026"
+      ],
+      "date": "2026-03-09"
     }
   ]
 }
