@@ -1,5 +1,6 @@
 {
   "id": "higher_secondary_arts",
+  "order": 6,
   "name": "Higher Secondary (Arts)",
   "card": {
     "title": "Higher Secondary (Arts)",

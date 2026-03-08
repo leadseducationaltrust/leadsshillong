@@ -31,12 +31,15 @@ jobs:
       - name: Generate Articles Index
         run: node scripts/generate-articles-index.mjs
 
+      - name: Generate Programs Index
+        run: node scripts/generate-programs-index.mjs
+
       - name: Commit changes if any
         run: |
           if [[ -n "$(git status --porcelain)" ]]; then
             git config user.name "github-actions[bot]"
             git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-            git add news/content.json thought/content.json downloads/content.json gallery/content.json calendar/content.json articles/content.json
+            git add news/content.json thought/content.json downloads/content.json gallery/content.json calendar/content.json articles/content.json programs/content.json
             git commit -m "chore: auto-maintain content indexes"
             git push
           else

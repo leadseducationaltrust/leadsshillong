@@ -1,0 +1,39 @@
+{
+  "items": [
+    {
+      "id": "preprimary",
+      "title": "Pre-Primary (Play School, Nursery, KG IV & KG V)",
+      "order": 1
+    },
+    {
+      "id": "primary",
+      "title": "Primary Education (I-V)",
+      "order": 2
+    },
+    {
+      "id": "middle",
+      "title": "Middle Education (VI-VIII)",
+      "order": 3
+    },
+    {
+      "id": "secondary",
+      "title": "Secondary Education (IX-X)",
+      "order": 4
+    },
+    {
+      "id": "higher_secondary_science",
+      "title": "Higher Secondary (Science)",
+      "order": 5
+    },
+    {
+      "id": "higher_secondary_arts",
+      "title": "Higher Secondary (Arts)",
+      "order": 6
+    },
+    {
+      "id": "intervention",
+      "title": "Intervention Program",
+      "order": 7
+    }
+  ]
+}

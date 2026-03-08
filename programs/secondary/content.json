@@ -1,5 +1,6 @@
 {
   "id": "secondary",
+  "order": 4,
   "name": "Secondary",
   "card": {
     "title": "Secondary Education (IX-X)",

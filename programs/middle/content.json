@@ -1,5 +1,6 @@
 {
   "id": "middle",
+  "order": 3,
   "name": "Middle",
   "card": {
     "title": "Middle Education (VI-VIII)",

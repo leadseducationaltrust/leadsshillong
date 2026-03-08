@@ -31,6 +31,7 @@ Primary content files:
 - `gallery/content.json`
 - `faculty/content.json`
 - `jobs/jobs.json`
+- `programs/content.json`
 - `programs/*/content.json`
 - `articles/*/content.json`
 
@@ -53,6 +54,27 @@ Rebuild the index locally after adding/removing article folders:
 
 ```bash
 node scripts/generate-articles-index.mjs
+```
+
+## Programs in Decap CMS
+
+Programs are now configured as a dynamic folder collection in Decap:
+
+- Collection: `Programs`
+- Storage pattern: `programs/<slug>/content.json`
+- Media pattern: `programs/<slug>/*`
+
+You can create a new program directly from `/admin` without editing `admin/config.yml`.
+
+Frontend discovery order for program cards/details:
+
+1. `programs/content.json` (if present)
+2. Built-in fallback IDs (existing starter programs)
+
+Rebuild the index locally after adding/removing program folders:
+
+```bash
+node scripts/generate-programs-index.mjs
 ```
 
 ## Career module maintenance

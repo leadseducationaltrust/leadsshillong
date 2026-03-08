@@ -1,4 +1,4 @@
-import { readFile } from 'node:fs/promises';
+import { readFile, readdir } from 'node:fs/promises';
 import path from 'node:path';
 
 const rootDir = process.cwd();
@@ -25,6 +25,10 @@ function parseJsonDate(value) {
 
 function isNonEmptyString(value) {
   return typeof value === 'string' && value.trim().length > 0;
+}
+
+function isSafeProgramId(value) {
+  return /^[a-zA-Z0-9_-]+$/.test(String(value || ''));
 }
 
 function hasExplicitScheme(value) {
@@ -346,23 +350,269 @@ function validateThought(data) {
   return errors;
 }
 
+async function getProgramFolderIds() {
+  const programsRoot = path.join(rootDir, 'programs');
+  const entries = await readdir(programsRoot, { withFileTypes: true });
+
+  return entries
+    .filter((entry) => entry.isDirectory())
+    .map((entry) => entry.name)
+    .filter((name) => name !== 'media' && isSafeProgramId(name));
+}
+
+function validateProgramsIndex(data) {
+  const errors = [];
+  assert(data && typeof data === 'object' && !Array.isArray(data), 'programs/content.json: root must be an object', errors);
+  assert(Array.isArray(data?.items), 'programs/content.json: "items" must be an array', errors);
+
+  const seenIds = new Set();
+  const seenOrders = new Set();
+
+  (data?.items || []).forEach((item, index) => {
+    const prefix = `programs/content.json: items[${index}]`;
+    assert(item && typeof item === 'object' && !Array.isArray(item), `${prefix} must be an object`, errors);
+    assert(isNonEmptyString(item?.id), `${prefix}.id must be a non-empty string`, errors);
+    assert(isNonEmptyString(item?.title), `${prefix}.title must be a non-empty string`, errors);
+    assert(Number.isFinite(Number(item?.order)), `${prefix}.order must be a number`, errors);
+
+    if (isNonEmptyString(item?.id)) {
+      const id = String(item.id).trim();
+      assert(isSafeProgramId(id), `${prefix}.id must contain only letters, numbers, underscore, or hyphen`, errors);
+      if (seenIds.has(id)) {
+        errors.push(`${prefix}.id duplicates another program ID`);
+      }
+      seenIds.add(id);
+    }
+
+    if (Number.isFinite(Number(item?.order))) {
+      const order = Number(item.order);
+      if (seenOrders.has(order)) {
+        errors.push(`${prefix}.order duplicates another program order`);
+      }
+      seenOrders.add(order);
+    }
+  });
+
+  return errors;
+}
+
+function validateProgramContent(programData, programId) {
+  const errors = [];
+  const base = `programs/${programId}/content.json`;
+
+  assert(programData && typeof programData === 'object' && !Array.isArray(programData), `${base}: root must be an object`, errors);
+  assert(isNonEmptyString(programData?.id), `${base}: "id" must be a non-empty string`, errors);
+  assert(isNonEmptyString(programData?.name), `${base}: "name" must be a non-empty string`, errors);
+  assert(programData?.id === programId, `${base}: "id" must match folder name "${programId}"`, errors);
+  assert(Number.isFinite(Number(programData?.order)), `${base}: "order" must be a number`, errors);
+
+  const card = programData?.card;
+  assert(card && typeof card === 'object' && !Array.isArray(card), `${base}: "card" must be an object`, errors);
+  assert(isNonEmptyString(card?.title), `${base}: card.title must be a non-empty string`, errors);
+  assert(isNonEmptyString(card?.iconColor), `${base}: card.iconColor must be a non-empty string`, errors);
+  assert(isNonEmptyString(card?.iconType), `${base}: card.iconType must be a non-empty string`, errors);
+  assert(isNonEmptyString(card?.description), `${base}: card.description must be a non-empty string`, errors);
+
+  const page = programData?.page;
+  assert(page && typeof page === 'object' && !Array.isArray(page), `${base}: "page" must be an object`, errors);
+
+  if (page && typeof page === 'object') {
+    assert(isNonEmptyString(page?.title), `${base}: page.title must be a non-empty string`, errors);
+    assert(isNonEmptyString(page?.subtitle), `${base}: page.subtitle must be a non-empty string`, errors);
+
+    if (page?.badge !== undefined) {
+      assert(typeof page.badge === 'string', `${base}: page.badge must be a string when provided`, errors);
+    }
+
+    if (page?.tagline !== undefined) {
+      assert(typeof page.tagline === 'string', `${base}: page.tagline must be a string when provided`, errors);
+    }
+
+    const hod = page?.headOfDepartment;
+    assert(hod && typeof hod === 'object' && !Array.isArray(hod), `${base}: page.headOfDepartment must be an object`, errors);
+
+    if (hod && typeof hod === 'object') {
+      assert(isNonEmptyString(hod?.name), `${base}: page.headOfDepartment.name must be a non-empty string`, errors);
+      assert(isNonEmptyString(hod?.photo), `${base}: page.headOfDepartment.photo must be a non-empty string`, errors);
+      assert(isNonEmptyString(hod?.quote), `${base}: page.headOfDepartment.quote must be a non-empty string`, errors);
+
+      if (isNonEmptyString(hod?.photo)) {
+        assert(isSafeLinkLike(hod.photo), `${base}: page.headOfDepartment.photo must be a relative path or http/https URL`, errors);
+      }
+
+      if (hod?.yearsOfExperience !== undefined) {
+        assert(typeof hod.yearsOfExperience === 'string', `${base}: page.headOfDepartment.yearsOfExperience must be a string when provided`, errors);
+      }
+
+      if (hod?.specialization !== undefined) {
+        assert(typeof hod.specialization === 'string', `${base}: page.headOfDepartment.specialization must be a string when provided`, errors);
+      }
+    }
+
+    if (page?.qualifications !== undefined) {
+      assert(Array.isArray(page.qualifications), `${base}: page.qualifications must be an array when provided`, errors);
+      if (Array.isArray(page.qualifications)) {
+        page.qualifications.forEach((entry, index) => {
+          assert(isNonEmptyString(entry), `${base}: page.qualifications[${index}] must be a non-empty string`, errors);
+        });
+      }
+    }
+
+    if (page?.subPrograms !== undefined) {
+      assert(Array.isArray(page.subPrograms), `${base}: page.subPrograms must be an array when provided`, errors);
+      if (Array.isArray(page.subPrograms)) {
+        page.subPrograms.forEach((entry, index) => {
+          const prefix = `${base}: page.subPrograms[${index}]`;
+          assert(entry && typeof entry === 'object' && !Array.isArray(entry), `${prefix} must be an object`, errors);
+          assert(isNonEmptyString(entry?.title), `${prefix}.title must be a non-empty string`, errors);
+          assert(isNonEmptyString(entry?.description), `${prefix}.description must be a non-empty string`, errors);
+
+          if (entry?.ageGroup !== undefined) {
+            assert(typeof entry.ageGroup === 'string', `${prefix}.ageGroup must be a string when provided`, errors);
+          }
+
+          if (entry?.icon !== undefined) {
+            assert(typeof entry.icon === 'string', `${prefix}.icon must be a string when provided`, errors);
+          }
+
+          if (entry?.iconBg !== undefined) {
+            assert(typeof entry.iconBg === 'string', `${prefix}.iconBg must be a string when provided`, errors);
+          }
+        });
+      }
+    }
+
+    if (page?.curriculum !== undefined) {
+      assert(page.curriculum && typeof page.curriculum === 'object' && !Array.isArray(page.curriculum), `${base}: page.curriculum must be an object when provided`, errors);
+      if (page.curriculum && typeof page.curriculum === 'object') {
+        if (page.curriculum?.heading !== undefined) {
+          assert(typeof page.curriculum.heading === 'string', `${base}: page.curriculum.heading must be a string when provided`, errors);
+        }
+
+        if (page.curriculum?.intro !== undefined) {
+          assert(typeof page.curriculum.intro === 'string', `${base}: page.curriculum.intro must be a string when provided`, errors);
+        }
+
+        if (page.curriculum?.features !== undefined) {
+          assert(Array.isArray(page.curriculum.features), `${base}: page.curriculum.features must be an array when provided`, errors);
+          if (Array.isArray(page.curriculum.features)) {
+            page.curriculum.features.forEach((feature, index) => {
+              const prefix = `${base}: page.curriculum.features[${index}]`;
+              assert(feature && typeof feature === 'object' && !Array.isArray(feature), `${prefix} must be an object`, errors);
+              assert(isNonEmptyString(feature?.title), `${prefix}.title must be a non-empty string`, errors);
+              if (feature?.subtitle !== undefined) {
+                assert(typeof feature.subtitle === 'string', `${prefix}.subtitle must be a string when provided`, errors);
+              }
+            });
+          }
+        }
+      }
+    }
+
+    if (page?.outcomes !== undefined) {
+      assert(Array.isArray(page.outcomes), `${base}: page.outcomes must be an array when provided`, errors);
+      if (Array.isArray(page.outcomes)) {
+        page.outcomes.forEach((entry, index) => {
+          assert(isNonEmptyString(entry), `${base}: page.outcomes[${index}] must be a non-empty string`, errors);
+        });
+      }
+    }
+
+    if (page?.ctaText !== undefined) {
+      assert(typeof page.ctaText === 'string', `${base}: page.ctaText must be a string when provided`, errors);
+    }
+
+    if (page?.ctaSubtext !== undefined) {
+      assert(typeof page.ctaSubtext === 'string', `${base}: page.ctaSubtext must be a string when provided`, errors);
+    }
+
+    if (page?.cta !== undefined) {
+      assert(page.cta && typeof page.cta === 'object' && !Array.isArray(page.cta), `${base}: page.cta must be an object when provided`, errors);
+      if (page.cta && typeof page.cta === 'object') {
+        if (page.cta?.heading !== undefined) {
+          assert(typeof page.cta.heading === 'string', `${base}: page.cta.heading must be a string when provided`, errors);
+        }
+
+        if (page.cta?.description !== undefined) {
+          assert(typeof page.cta.description === 'string', `${base}: page.cta.description must be a string when provided`, errors);
+        }
+
+        if (page.cta?.buttonText !== undefined) {
+          assert(typeof page.cta.buttonText === 'string', `${base}: page.cta.buttonText must be a string when provided`, errors);
+        }
+
+        if (page.cta?.buttonLink !== undefined && String(page.cta.buttonLink).trim() !== '') {
+          assert(isSafeLinkLike(page.cta.buttonLink), `${base}: page.cta.buttonLink must be a relative path or http/https URL`, errors);
+        }
+      }
+    }
+  }
+
+  return errors;
+}
+
 async function main() {
   const warnings = [];
 
-  const [news, downloads, calendar, thought, gallery] = await Promise.all([
+  const [news, downloads, calendar, thought, gallery, programsIndex] = await Promise.all([
     loadJson('news/content.json'),
     loadJson('downloads/content.json'),
     loadJson('calendar/content.json'),
     loadJson('thought/content.json'),
-    loadJson('gallery/content.json')
+    loadJson('gallery/content.json'),
+    loadJson('programs/content.json')
   ]);
+
+  const programsIndexErrors = validateProgramsIndex(programsIndex);
+  const indexedProgramIds = Array.isArray(programsIndex?.items)
+    ? programsIndex.items.map((item) => String(item?.id || '').trim()).filter((id) => isSafeProgramId(id))
+    : [];
+
+  const folderProgramIds = await getProgramFolderIds();
+  const indexIdSet = new Set(indexedProgramIds);
+  const folderIdSet = new Set(folderProgramIds);
+
+  folderProgramIds.forEach((id) => {
+    if (!indexIdSet.has(id)) {
+      programsIndexErrors.push(`programs/content.json: missing item for folder "${id}"`);
+    }
+  });
+
+  indexedProgramIds.forEach((id) => {
+    if (!folderIdSet.has(id)) {
+      programsIndexErrors.push(`programs/content.json: item id "${id}" has no matching folder`);
+    }
+  });
+
+  const programPayloads = await Promise.all(
+    indexedProgramIds.map(async (id) => {
+      try {
+        const data = await loadJson(`programs/${id}/content.json`);
+        return { id, data };
+      } catch {
+        return { id, data: null };
+      }
+    })
+  );
+
+  const programErrors = [];
+  programPayloads.forEach(({ id, data }) => {
+    if (!data) {
+      programErrors.push(`programs/${id}/content.json: file not found or invalid JSON`);
+      return;
+    }
+
+    programErrors.push(...validateProgramContent(data, id));
+  });
 
   const errors = [
     ...validateNews(news, warnings),
     ...validateDownloads(downloads),
     ...validateCalendar(calendar),
     ...validateThought(thought),
-    ...validateGallery(gallery)
+    ...validateGallery(gallery),
+    ...programsIndexErrors,
+    ...programErrors
   ];
 
   if (errors.length > 0) {
@@ -382,11 +632,12 @@ async function main() {
     calendarEntries: Array.isArray(calendar?.entries) ? calendar.entries.length : 0,
     thoughtEntries: Array.isArray(thought?.entries) ? thought.entries.length : 0,
     galleryImages: Array.isArray(gallery?.images) ? gallery.images.length : 0,
+    programsItems: Array.isArray(programsIndex?.items) ? programsIndex.items.length : 0,
     warnings: warnings.length
   };
 
   console.log(
-    `Validation summary: news=${summary.newsItems}, downloads=${summary.downloadsItems}, calendar=${summary.calendarEntries}, thought=${summary.thoughtEntries}, gallery=${summary.galleryImages}, warnings=${summary.warnings}`
+    `Validation summary: news=${summary.newsItems}, downloads=${summary.downloadsItems}, calendar=${summary.calendarEntries}, thought=${summary.thoughtEntries}, gallery=${summary.galleryImages}, programs=${summary.programsItems}, warnings=${summary.warnings}`
   );
 
   console.log('Content validation passed.');

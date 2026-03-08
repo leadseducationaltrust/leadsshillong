@@ -1,5 +1,6 @@
 {
   "id": "primary",
+  "order": 2,
   "name": "Primary",
   "card": {
     "title": "Primary Education (I-V)",

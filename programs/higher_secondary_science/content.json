@@ -1,5 +1,6 @@
 {
   "id": "higher_secondary_science",
+  "order": 5,
   "name": "Higher Secondary (Science)",
   "card": {
     "title": "Higher Secondary (Science)",

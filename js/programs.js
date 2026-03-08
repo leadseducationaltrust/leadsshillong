@@ -1,8 +1,7 @@
 // LEADS Programs Management Script
 // Handles dynamic loading and rendering of academic programs
 
-// All available programs
-const programsList = [
+const DEFAULT_PROGRAM_IDS = [
   'preprimary',
   'primary',
   'middle',
@@ -13,6 +12,94 @@ const programsList = [
 ];
 
 let allProgramsData = {};
+let orderedProgramIds = [];
+
+function isSafeProgramId(value) {
+  return /^[a-zA-Z0-9_-]+$/.test(String(value || ''));
+}
+
+function uniqueProgramIds(values) {
+  const seen = new Set();
+  const result = [];
+
+  for (const value of values) {
+    const id = String(value || '').trim();
+    if (!isSafeProgramId(id) || seen.has(id)) {
+      continue;
+    }
+    seen.add(id);
+    result.push(id);
+  }
+
+  return result;
+}
+
+function parseProgramOrder(value, fallback) {
+  const number = Number(value);
+  if (Number.isFinite(number)) {
+    return number;
+  }
+
+  return fallback;
+}
+
+async function loadProgramIndexFromManifest() {
+  try {
+    const response = await fetch('programs/content.json', { cache: 'no-cache' });
+    if (!response.ok) {
+      return [];
+    }
+
+    const payload = await response.json();
+    const entries = [];
+
+    if (Array.isArray(payload)) {
+      entries.push(...payload);
+    } else if (Array.isArray(payload?.items)) {
+      entries.push(...payload.items);
+    } else if (Array.isArray(payload?.programs)) {
+      entries.push(...payload.programs);
+    }
+
+    const normalized = entries.map((entry, index) => {
+      if (typeof entry === 'string') {
+        return {
+          id: entry,
+          order: index + 1
+        };
+      }
+
+      if (entry && typeof entry === 'object') {
+        return {
+          id: entry.id,
+          order: parseProgramOrder(entry.order, index + 1)
+        };
+      }
+
+      return {
+        id: '',
+        order: index + 1
+      };
+    });
+
+    const filtered = normalized
+      .filter((item) => isSafeProgramId(item.id))
+      .sort((left, right) => left.order - right.order || left.id.localeCompare(right.id));
+
+    return uniqueProgramIds(filtered.map((item) => item.id));
+  } catch {
+    return [];
+  }
+}
+
+async function discoverProgramIds() {
+  const fromManifest = await loadProgramIndexFromManifest();
+  if (fromManifest.length > 0) {
+    return fromManifest;
+  }
+
+  return uniqueProgramIds(DEFAULT_PROGRAM_IDS);
+}
 
 function createElement(tag, className = '') {
   const element = document.createElement(tag);
@@ -57,10 +144,15 @@ function getSafeIconToken(value, fallback = 'book-open') {
  */
 async function loadAllProgramsData() {
   try {
-    for (const programId of programsList) {
+    const programIds = await discoverProgramIds();
+    allProgramsData = {};
+    orderedProgramIds = [];
+
+    for (const programId of programIds) {
       const response = await fetch(`programs/${programId}/content.json`);
       if (response.ok) {
         allProgramsData[programId] = await response.json();
+        orderedProgramIds.push(programId);
       }
     }
     return allProgramsData;
@@ -85,7 +177,11 @@ function renderAcademicProgrammes() {
   gridContainer.replaceChildren();
 
   // Render each program card
-  Object.values(allProgramsData).forEach((program) => {
+  orderedProgramIds.forEach((programId) => {
+    const program = allProgramsData[programId];
+    if (!program) {
+      return;
+    }
     const card = createProgramCard(program);
     gridContainer.appendChild(card);
   });
@@ -155,7 +251,7 @@ function renderProgramPage() {
   updateHeadOfDepartmentSection(page.headOfDepartment);
   updateSubProgramsSection(page.subPrograms);
   updateCurriculumSection(page.curriculum);
-  updateCTASection(page.ctaText, page.ctaSubtext);
+  updateCTASection(page.cta || {}, page.ctaText, page.ctaSubtext);
 }
 
 /**
@@ -372,21 +468,26 @@ function updateCurriculumSection(curriculum) {
 /**
  * Update CTA section
  */
-function updateCTASection(ctaText, ctaSubtext) {
+function updateCTASection(cta, fallbackHeading, fallbackDescription) {
   const ctaSection = document.querySelector('.cta-section');
   if (!ctaSection) return;
+
+  const heading = String(cta?.heading || fallbackHeading || '').trim();
+  const description = String(cta?.description || fallbackDescription || '').trim();
+  const buttonText = String(cta?.buttonText || 'Apply for Admission').trim() || 'Apply for Admission';
+  const buttonLink = getSafeUrl(cta?.buttonLink) || 'admissions.html';
 
   const container = createElement('div', 'container mx-auto px-4');
   const panel = createElement('div', 'bg-emerald-600 p-12 rounded-[3rem] text-white shadow-2xl');
   const title = createElement('h2', 'text-3xl font-black uppercase mb-4 text-center');
-  title.textContent = String(ctaText || '');
+  title.textContent = heading;
   const subtitle = createElement('p', 'mb-8 opacity-90 text-center');
-  subtitle.textContent = String(ctaSubtext || '');
+  subtitle.textContent = description;
 
   const actionWrap = createElement('div', 'text-center');
   const action = createElement('a', 'inline-block bg-white text-emerald-700 font-black px-10 py-4 rounded-full hover:bg-blue-900 hover:text-white transition-all transform hover:scale-105');
-  action.href = 'admissions.html';
-  action.textContent = 'Apply for Admission';
+  action.href = buttonLink;
+  action.textContent = buttonText;
   actionWrap.appendChild(action);
 
   panel.appendChild(title);

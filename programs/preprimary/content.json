@@ -1,5 +1,6 @@
 {
   "id": "preprimary",
+  "order": 1,
   "name": "Pre-Primary",
   "card": {
     "title": "Pre-Primary (Play School, Nursery, KG IV & KG V)",
