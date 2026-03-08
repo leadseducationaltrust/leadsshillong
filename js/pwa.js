@@ -82,6 +82,7 @@ if ('serviceWorker' in navigator) {
 
 let pwaActionButton = null;
 let pwaActionIcon = null;
+let pwaActionLabel = null;
 const ensurePwaActionButton = () => {
   if (pwaActionButton && pwaActionIcon) {
     return;
@@ -92,6 +93,14 @@ const ensurePwaActionButton = () => {
   if (existingButton && existingIcon) {
     pwaActionButton = existingButton;
     pwaActionIcon = existingIcon;
+    pwaActionLabel = document.getElementById('pwa-action-label');
+
+    if (!pwaActionLabel) {
+      pwaActionLabel = document.createElement('span');
+      pwaActionLabel.id = 'pwa-action-label';
+      pwaActionLabel.className = 'hidden md:inline text-[11px] font-semibold leading-none';
+      pwaActionButton.appendChild(pwaActionLabel);
+    }
     return;
   }
 
@@ -132,7 +141,7 @@ const ensurePwaActionButton = () => {
   const button = document.createElement('button');
   button.id = 'pwa-action-button';
   button.type = 'button';
-  button.className = 'hidden items-center justify-center w-7 h-7 rounded-full border border-white/30 text-white/90 hover:text-white hover:bg-white/10 transition-colors';
+  button.className = 'hidden items-center justify-center md:justify-start gap-1.5 w-7 h-7 md:w-auto md:h-8 md:px-3 rounded-full border border-white/30 text-white/90 hover:text-white hover:bg-white/10 transition-colors';
   button.setAttribute('aria-label', 'Install app');
   button.title = 'Install app';
 
@@ -141,9 +150,15 @@ const ensurePwaActionButton = () => {
   icon.className = 'fas fa-download text-[11px]';
   button.appendChild(icon);
 
+  const label = document.createElement('span');
+  label.id = 'pwa-action-label';
+  label.className = 'hidden md:inline text-[11px] font-semibold leading-none';
+  button.appendChild(label);
+
   actionContainer.appendChild(button);
   pwaActionButton = button;
   pwaActionIcon = icon;
+  pwaActionLabel = label;
 };
 
 
@@ -186,6 +201,9 @@ const setButtonMode = (mode) => {
   if (mode === 'install') {
     pwaActionButton.setAttribute('aria-label', 'Install app');
     pwaActionButton.title = 'Install app';
+    if (pwaActionLabel) {
+      pwaActionLabel.textContent = 'Install';
+    }
     pwaActionIcon.classList.remove('fa-share-alt');
     pwaActionIcon.classList.add('fa-download');
     return;
@@ -193,6 +211,9 @@ const setButtonMode = (mode) => {
 
   pwaActionButton.setAttribute('aria-label', 'Share app');
   pwaActionButton.title = 'Share app';
+  if (pwaActionLabel) {
+    pwaActionLabel.textContent = 'Share';
+  }
   pwaActionIcon.classList.remove('fa-download');
   pwaActionIcon.classList.add('fa-share-alt');
 };
@@ -213,17 +234,12 @@ const syncPwaActionButton = () => {
     return;
   }
 
-  if (isPwaInstalled()) {
-    setButtonMode('share');
-    return;
-  }
-
   if (deferredInstallPrompt) {
     setButtonMode('install');
     return;
   }
 
-  hidePwaAction();
+  setButtonMode('share');
 };
 
 const shareApp = async () => {
