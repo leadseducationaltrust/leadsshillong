@@ -36,11 +36,11 @@ Primary content files:
 
 ## Career module maintenance
 
-Career openings are rendered from `jobs/jobs.json` and displayed on `career.html`.
+Career openings are rendered from `jobs/jobs.json` (`items` array) and displayed on `career.html`.
 
 ### Job object schema
 
-Each job entry in `jobs/jobs.json` must include:
+Each job object in `jobs/jobs.json.items` must include:
 
 - `job_code`
 - `title`
@@ -54,7 +54,7 @@ Each job entry in `jobs/jobs.json` must include:
 
 ### Publishing workflow for jobs
 
-1. Add or update entries in `jobs/jobs.json`.
+1. Add or update entries in `jobs/jobs.json` under `items`.
 2. Run the sorter so newest jobs appear first:
 
 ```bash

@@ -40,12 +40,17 @@ async function main() {
   const raw = await fs.readFile(JOBS_FILE_PATH, 'utf8');
   const parsed = JSON.parse(raw);
 
-  if (!Array.isArray(parsed)) {
-    throw new Error('jobs/jobs.json must be an array of job objects.');
+  const isArrayRoot = Array.isArray(parsed);
+  const isObjectRoot = parsed && typeof parsed === 'object' && !Array.isArray(parsed);
+  const items = isArrayRoot ? parsed : isObjectRoot ? parsed.items : null;
+
+  if (!Array.isArray(items)) {
+    throw new Error('jobs/jobs.json must be an array or an object with an "items" array.');
   }
 
-  const sorted = sortJobsByStatusThenDatePostedDesc(parsed);
-  const nextRaw = `${JSON.stringify(sorted, null, 2)}\n`;
+  const sorted = sortJobsByStatusThenDatePostedDesc(items);
+  const nextPayload = isArrayRoot ? sorted : { ...parsed, items: sorted };
+  const nextRaw = `${JSON.stringify(nextPayload, null, 2)}\n`;
 
   if (nextRaw === raw) {
     console.log('jobs/jobs.json is already sorted by status (active first) and date_posted (desc).');

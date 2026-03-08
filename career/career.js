@@ -448,7 +448,13 @@
       }
 
       const parsed = await response.json();
-      jobs = Array.isArray(parsed) ? parsed : [];
+      if (Array.isArray(parsed)) {
+        jobs = parsed;
+      } else if (parsed && typeof parsed === 'object' && Array.isArray(parsed.items)) {
+        jobs = parsed.items;
+      } else {
+        jobs = [];
+      }
       renderJobs();
 
       const targetCode = new URL(window.location.href).searchParams.get('job');
