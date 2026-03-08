@@ -29,6 +29,12 @@ const targets = [
     arrayPath: ['entries'],
     dateFields: ['date', 'startDate', 'endDate'],
   },
+  {
+    filePath: 'jobs/jobs.json',
+    arrayPath: [],
+    dateField: 'date_posted',
+    statusField: 'status',
+  },
 ];
 
 function parseTimestamp(value) {
@@ -46,6 +52,10 @@ function parseTimestamp(value) {
 }
 
 function getArrayContainer(root, keyPath) {
+  if (keyPath.length === 0) {
+    return { __root: root };
+  }
+
   let cursor = root;
   for (let index = 0; index < keyPath.length - 1; index += 1) {
     if (!cursor || typeof cursor !== 'object') {
@@ -74,6 +84,15 @@ function sortByDateDesc(items, target) {
   return items
     .map((item, index) => ({ item, index }))
     .sort((left, right) => {
+      if (target.statusField) {
+        const leftStatus = String(left.item?.[target.statusField] || '').trim().toLowerCase() === 'active' ? 0 : 1;
+        const rightStatus = String(right.item?.[target.statusField] || '').trim().toLowerCase() === 'active' ? 0 : 1;
+
+        if (leftStatus !== rightStatus) {
+          return leftStatus - rightStatus;
+        }
+      }
+
       const leftTime = getItemTimestamp(left.item, target);
       const rightTime = getItemTimestamp(right.item, target);
 
@@ -92,7 +111,7 @@ async function processTarget(target) {
   const parsed = JSON.parse(originalRaw);
 
   const container = getArrayContainer(parsed, target.arrayPath);
-  const leafKey = target.arrayPath[target.arrayPath.length - 1];
+  const leafKey = target.arrayPath.length === 0 ? '__root' : target.arrayPath[target.arrayPath.length - 1];
 
   if (!container || !Array.isArray(container[leafKey])) {
     return false;

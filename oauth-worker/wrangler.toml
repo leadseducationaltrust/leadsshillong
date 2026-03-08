@@ -4,3 +4,10 @@ compatibility_date = "2026-02-21"
 
 [vars]
 ALLOWED_ORIGINS = "https://www.leadsshillong.com,https://leadsshillong.com,http://127.0.0.1,http://localhost,https://127.0.0.1,https://localhost"
+CAREER_CORS_ALLOWED_ORIGINS = "https://www.leadsshillong.com,https://leadsshillong.com,http://127.0.0.1,http://localhost"
+CAREER_EMAIL_FROM = "careers@leadsshillong.com"
+CAREER_EMAIL_TO = "support@leadsshillong.com"
+RESUME_PUBLIC_BASE_URL = ""
+GOOGLE_SHEETS_WEBHOOK_URL = ""
+RATE_LIMIT_WINDOW_SECONDS = "60"
+RATE_LIMIT_MAX_PER_WINDOW = "8"

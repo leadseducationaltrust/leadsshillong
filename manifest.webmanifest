@@ -1,13 +1,34 @@
 {
   "name": "LEADS Higher Secondary School",
   "short_name": "LEADS",
+  "id": "/",
   "description": "Official website of LEADS Higher Secondary School, Shillong.",
-  "start_url": "/index.html",
+  "start_url": "/",
   "scope": "/",
   "display": "standalone",
   "orientation": "portrait-primary",
   "background_color": "#ffffff",
   "theme_color": "#1E3A8A",
+  "shortcuts": [
+    {
+      "name": "Admissions",
+      "short_name": "Admissions",
+      "url": "/admissions.html",
+      "description": "Open admissions information and application form"
+    },
+    {
+      "name": "Career",
+      "short_name": "Career",
+      "url": "/career.html",
+      "description": "View latest openings and apply"
+    },
+    {
+      "name": "Contact",
+      "short_name": "Contact",
+      "url": "/contact.html",
+      "description": "Get school contact details and directions"
+    }
+  ],
   "icons": [
     {
       "src": "/icons/icon-192.png",

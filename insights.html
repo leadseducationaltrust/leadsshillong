@@ -46,7 +46,7 @@
                 </a>
             </div>
             
-            <a id="global-link-maps" href="#" target="_blank" class="hover:text-emerald-200 transition-colors flex items-center cursor-pointer">
+            <a id="global-link-maps" href="#" target="_blank" rel="noopener noreferrer" class="hover:text-emerald-200 transition-colors flex items-center cursor-pointer">
                 <i class="fas fa-map-marker-alt mr-1"></i> <span id="global-address-street"></span>
             </a>
             
@@ -72,10 +72,11 @@
                 <li><a href="insights.html" class="nav-link py-2 text-emerald-600 transition-all">Insights</a></li>
                 <li><a href="gallery.html" class="nav-link py-2 hover:text-emerald-600 transition-all">Gallery</a></li>
                 <li><a href="downloads.html" class="nav-link py-2 hover:text-emerald-600 transition-all">Downloads</a></li>
+                <li><a href="career.html" class="nav-link py-2 hover:text-emerald-600 transition-all">Career</a></li>
                 <li><a href="contact.html" class="nav-link py-2 hover:text-emerald-600 transition-all">Contact</a></li>
                 <li><a href="about.html" class="nav-link py-2 hover:text-emerald-600 transition-all">About Us</a></li>
                 <li class="mt-2 lg:mt-0">
-                    <a id="global-payment-regular" data-feature="online-payments" href="#" target="_blank" class="flex items-center gap-2 bg-emerald-600 text-white px-6 py-3 rounded-full hover:bg-blue-900 transition-all shadow-md hover:shadow-lg transform hover:-translate-y-0.5">
+                    <a id="global-payment-regular" data-feature="online-payments" href="#" target="_blank" rel="noopener noreferrer" class="flex items-center gap-2 bg-emerald-600 text-white px-6 py-3 rounded-full hover:bg-blue-900 transition-all shadow-md hover:shadow-lg transform hover:-translate-y-0.5">
                         <i class="fas fa-credit-card text-sm"></i>
                         <span>Pay Fees</span>
                     </a>
@@ -129,6 +130,7 @@
                     <li><a id="global-link-admissions-footer" data-feature="admissions" href="admissions.html" class="hover:text-emerald-600 transition">Admissions</a></li>
                     <li><a href="insights.html" class="hover:text-emerald-600 transition">Insights</a></li>
                     <li><a href="downloads.html" class="hover:text-emerald-600 transition">Downloads</a></li>
+                    <li><a href="career.html" class="hover:text-emerald-600 transition">Career</a></li>
                     <li><a href="about.html" class="hover:text-emerald-600 transition">About Us</a></li>
                     <li><a href="terms.html" class="hover:text-emerald-600 transition font-bold">Terms & Conditions</a></li>
                 </ul>
@@ -137,9 +139,9 @@
             <div>
                 <h5 class="font-bold text-blue-900 mb-6 uppercase text-xs tracking-widest">Connect</h5>
                 <div class="flex space-x-4 text-xl">
-                    <a id="global-link-fb" href="#" target="_blank" class="hover:text-emerald-600"><i class="fab fa-facebook"></i></a>
-                    <a id="global-link-ig" href="#" target="_blank" class="hover:text-emerald-600"><i class="fab fa-instagram"></i></a>
-                    <a id="global-link-yt" href="#" target="_blank" class="hover:text-emerald-600"><i class="fab fa-youtube"></i></a>
+                    <a id="global-link-fb" href="#" target="_blank" rel="noopener noreferrer" class="hover:text-emerald-600"><i class="fab fa-facebook"></i></a>
+                    <a id="global-link-ig" href="#" target="_blank" rel="noopener noreferrer" class="hover:text-emerald-600"><i class="fab fa-instagram"></i></a>
+                    <a id="global-link-yt" href="#" target="_blank" rel="noopener noreferrer" class="hover:text-emerald-600"><i class="fab fa-youtube"></i></a>
                 </div>
             </div>
         </div>
@@ -192,6 +194,27 @@
         const grid = document.getElementById('articles-grid');
         const loadMoreBtn = document.getElementById('load-more-btn');
 
+        const escapeHtml = (value) => String(value ?? '')
+            .replace(/&/g, '&amp;')
+            .replace(/</g, '&lt;')
+            .replace(/>/g, '&gt;')
+            .replace(/"/g, '&quot;')
+            .replace(/'/g, '&#39;');
+
+        const normalizeImageUrl = (value) => {
+            if (value === undefined || value === null) return '';
+            const text = String(value).trim();
+            if (!text) return '';
+            const hasScheme = /^[a-zA-Z][a-zA-Z\d+\-.]*:/.test(text);
+            if (!hasScheme) return text;
+            try {
+                const parsed = new URL(text);
+                return ['http:', 'https:'].includes(parsed.protocol) ? text : '';
+            } catch {
+                return '';
+            }
+        };
+
         function renderArticles() {
             const articlesToRender = fullArticles.length > 0 ? fullArticles : articles;
             if (!grid || typeof articlesToRender === 'undefined') return;
@@ -201,26 +224,37 @@
             const visibleArticles = sortedArticles.slice(0, visibleCount);
             
             grid.innerHTML = visibleArticles.map(art => {
+                const rawAuthor = String(art.author || 'Unknown');
+                const safeAuthor = escapeHtml(rawAuthor);
+                const safeTitle = escapeHtml(art.title || 'Untitled');
+                const safeCategory = escapeHtml(art.category || 'General');
+                const safeDescription = escapeHtml(art.description || '');
+                const safeDate = escapeHtml(formatArticleDate(art.date));
+                const safeImage = normalizeImageUrl(art.image);
+                const safeAuthorImage = normalizeImageUrl(art.authorImage);
+                const safeArticleId = encodeURIComponent(String(art.id || ''));
+                const authorInitial = escapeHtml(rawAuthor.charAt(0).toUpperCase() || 'A');
+
                 // Smart fallback for author image
-                const authorDisplay = art.authorImage 
-                    ? `<img src="${art.authorImage}" alt="${art.author}" class="w-8 h-8 rounded-full object-cover border border-emerald-100">`
-                    : `<div class="w-8 h-8 rounded-full bg-blue-100 text-blue-900 flex items-center justify-center font-bold text-xs">${art.author.charAt(0)}</div>`;
+                const authorDisplay = safeAuthorImage
+                    ? `<img src="${safeAuthorImage}" alt="${safeAuthor}" class="w-8 h-8 rounded-full object-cover border border-emerald-100">`
+                    : `<div class="w-8 h-8 rounded-full bg-blue-100 text-blue-900 flex items-center justify-center font-bold text-xs">${authorInitial}</div>`;
 
                 return `
-                <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-xl transition-all duration-300 group flex flex-col cursor-pointer" onclick="window.location.href='insights.html?article=${art.id}'">
+                <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-xl transition-all duration-300 group flex flex-col cursor-pointer" onclick="window.location.href='insights.html?article=${safeArticleId}'">
                     <div class="relative overflow-hidden h-56">
-                        <img src="${art.image}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" alt="${art.title}">
+                        <img src="${safeImage}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" alt="${safeTitle}">
                         <div class="absolute top-4 left-4 bg-emerald-600 text-white text-[10px] font-black uppercase tracking-widest px-3 py-1 rounded-full shadow-md">
-                            ${art.category}
+                            ${safeCategory}
                         </div>
                     </div>
                     <div class="p-6 flex flex-col flex-grow">
-                        <span class="text-gray-400 text-[10px] font-bold uppercase tracking-widest mb-2 block">${formatArticleDate(art.date)}</span>
-                        <h3 class="text-xl font-bold text-blue-900 mb-3 group-hover:text-emerald-600 transition-colors line-clamp-2 leading-snug">${art.title}</h3>
-                        <p class="text-gray-600 text-sm mb-6 line-clamp-3 flex-grow leading-relaxed">${art.description}</p>
+                        <span class="text-gray-400 text-[10px] font-bold uppercase tracking-widest mb-2 block">${safeDate}</span>
+                        <h3 class="text-xl font-bold text-blue-900 mb-3 group-hover:text-emerald-600 transition-colors line-clamp-2 leading-snug">${safeTitle}</h3>
+                        <p class="text-gray-600 text-sm mb-6 line-clamp-3 flex-grow leading-relaxed">${safeDescription}</p>
                         <div class="flex items-center gap-3 mt-auto pt-4 border-t border-gray-50">
                             ${authorDisplay}
-                            <span class="text-xs font-bold text-slate-800">${art.author}</span>
+                            <span class="text-xs font-bold text-slate-800">${safeAuthor}</span>
                         </div>
                     </div>
                 </div>

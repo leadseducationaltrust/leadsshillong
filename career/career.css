@@ -1,0 +1,99 @@
+:root {
+  --career-primary: #1e3a8a;
+  --career-primary-dark: #172554;
+  --career-accent: #059669;
+  --career-accent-soft: #d1fae5;
+  --career-surface: #ffffff;
+  --career-muted: #64748b;
+  --career-border: #dbe2ea;
+}
+
+.career-backdrop {
+  background:
+    radial-gradient(circle at 12% 18%, rgba(5, 150, 105, 0.12), transparent 35%),
+    radial-gradient(circle at 85% 5%, rgba(30, 58, 138, 0.16), transparent 30%),
+    linear-gradient(180deg, #f8fbff 0%, #eef5ff 50%, #f6fbf8 100%);
+}
+
+.career-hero-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.7fr) minmax(0, 1fr);
+  gap: 1.5rem;
+}
+
+@media (max-width: 1023px) {
+  .career-hero-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.career-panel {
+  background: var(--career-surface);
+  border: 1px solid var(--career-border);
+  border-radius: 1.25rem;
+  box-shadow: 0 20px 30px -24px rgba(15, 23, 42, 0.5);
+}
+
+.job-pill {
+  border: 1px solid #bfdbfe;
+  background: #eff6ff;
+  color: #1d4ed8;
+}
+
+.job-status-active {
+  color: #166534;
+  background: #dcfce7;
+  border-color: #bbf7d0;
+}
+
+.job-status-inactive {
+  color: #991b1b;
+  background: #fee2e2;
+  border-color: #fecaca;
+}
+
+.job-item {
+  border: 1px solid var(--career-border);
+  border-radius: 0.9rem;
+  padding: 0.95rem;
+  cursor: pointer;
+  transition: border-color 0.25s ease, transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.job-item:hover {
+  border-color: #86efac;
+  transform: translateY(-2px);
+  box-shadow: 0 10px 20px -18px rgba(2, 132, 199, 0.8);
+}
+
+.modal-shell[aria-hidden="true"] {
+  display: none;
+}
+
+.modal-shell {
+  position: fixed;
+  inset: 0;
+  z-index: 120;
+  background: rgba(2, 6, 23, 0.55);
+  backdrop-filter: blur(4px);
+  padding: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal-card {
+  width: min(780px, 100%);
+  max-height: min(90vh, 820px);
+  overflow-y: auto;
+  background: #ffffff;
+  border-radius: 1.25rem;
+  border: 1px solid var(--career-border);
+  box-shadow: 0 30px 45px -35px rgba(15, 23, 42, 0.75);
+}
+
+.btn-disabled {
+  background: #cbd5e1 !important;
+  cursor: not-allowed !important;
+  pointer-events: none;
+}

@@ -30,8 +30,52 @@ Primary content files:
 - `thought/content.json`
 - `gallery/content.json`
 - `faculty/content.json`
+- `jobs/jobs.json`
 - `programs/*/content.json`
 - `articles/*/content.json`
+
+## Career module maintenance
+
+Career openings are rendered from `jobs/jobs.json` and displayed on `career.html`.
+
+### Job object schema
+
+Each job entry in `jobs/jobs.json` must include:
+
+- `job_code`
+- `title`
+- `date_posted` (ISO date, `YYYY-MM-DD`)
+- `deadline` (ISO date, `YYYY-MM-DD`)
+- `status` (`active` or `inactive`)
+- `qualification`
+- `experience`
+- `description`
+- `department`
+
+### Publishing workflow for jobs
+
+1. Add or update entries in `jobs/jobs.json`.
+2. Run the sorter so newest jobs appear first:
+
+```bash
+node scripts/sort-jobs.js
+```
+
+3. Commit and deploy.
+
+Notes:
+
+- `career.html` shows the latest 3 jobs in the sidebar and all jobs in the expanded listing section.
+- The Apply button is automatically disabled for closed roles (`inactive`/`closed`) or when the deadline has passed.
+- Application form submissions are sent to Google Apps Script configured in:
+  - `career.html` meta tag: `career-script-url`
+- Google Apps Script stores:
+  - applicant records in Google Sheets
+  - resume files in Google Drive
+- Post-deploy validation checklist:
+  - `docs/career-google-smoke-test-checklist.md`
+- Google-only backend setup (Sheets + Drive, no email):
+  - `docs/career-google-sheets-drive-setup.md`
 
 ## Automation and CI
 
@@ -66,6 +110,17 @@ Checks broken local links in HTML and selected media paths in JSON.
 - Workflow: `.github/workflows/check-links.yml`
 - Script: `scripts/check-links.mjs`
 
+### 4) PWA Sanity Check
+
+Validates installability wiring and core offline/update primitives.
+
+- Script: `scripts/check-pwa.mjs`
+- Checks include:
+  - `manifest.webmanifest` required fields and icon file presence
+  - `service-worker.js` cache/offline fallback wiring
+  - `js/pwa.js` service worker registration
+  - manifest + PWA script inclusion across top-level HTML pages
+
 ## Local quality commands
 
 Run before opening a PR:
@@ -73,6 +128,7 @@ Run before opening a PR:
 ```bash
 node scripts/validate-content.mjs
 node scripts/check-links.mjs
+node scripts/check-pwa.mjs
 ```
 
 Example with stricter near-duplicate warning threshold:

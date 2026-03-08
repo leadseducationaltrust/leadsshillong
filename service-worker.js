@@ -1,6 +1,7 @@
-const CACHE_VERSION = 'v2';
+const CACHE_VERSION = 'v5';
 const APP_SHELL_CACHE = `leads-app-shell-${CACHE_VERSION}`;
 const RUNTIME_CACHE = `leads-runtime-${CACHE_VERSION}`;
+const OFFLINE_FALLBACK_URL = '/offline.html';
 
 const APP_SHELL_ASSETS = [
   // Redirect-only shells (for example news.html) are intentionally excluded from pre-cache.
@@ -9,13 +10,17 @@ const APP_SHELL_ASSETS = [
   '/about.html',
   '/admissions.html',
   '/contact.html',
+  '/career.html',
   '/downloads.html',
   '/faculty.html',
   '/gallery.html',
   '/insights.html',
   '/programs.html',
   '/terms.html',
+  OFFLINE_FALLBACK_URL,
   '/manifest.webmanifest',
+  '/icons/icon-192.png',
+  '/icons/icon-512.png',
   '/school-logo.jpg',
   '/js/config.js',
   '/js/news.js',
@@ -27,7 +32,10 @@ const APP_SHELL_ASSETS = [
   '/js/calendar.js',
   '/js/thought.js',
   '/js/pwa.js',
+  '/career/career.css',
+  '/career/career.js',
   '/news/content.json',
+  '/jobs/jobs.json',
   '/downloads/content.json',
   '/calendar/content.json',
   '/thought/content.json',
@@ -96,7 +104,15 @@ self.addEventListener('fetch', (event) => {
           if (cachedPage) {
             return cachedPage;
           }
-          return caches.match('/index.html');
+
+          if (isNavigation) {
+            return (await caches.match(OFFLINE_FALLBACK_URL)) || (await caches.match('/index.html'));
+          }
+
+          return new Response('Offline', {
+            status: 503,
+            statusText: 'Offline'
+          });
         })
     );
     return;

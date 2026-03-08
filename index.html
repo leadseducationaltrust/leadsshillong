@@ -48,7 +48,7 @@
             </div>
             
             <div class="flex items-center gap-2 md:gap-3">
-                <a id="global-link-maps" href="#" target="_blank" class="hover:text-emerald-200 transition-colors flex items-center cursor-pointer">
+                <a id="global-link-maps" href="#" target="_blank" rel="noopener noreferrer" class="hover:text-emerald-200 transition-colors flex items-center cursor-pointer">
                     <i class="fas fa-map-marker-alt mr-1"></i> <span id="global-address-street"></span>
                 </a>
                 <button
@@ -84,10 +84,11 @@
                 <li><a href="insights.html" class="nav-link py-2 hover:text-emerald-600 transition-all">Insights</a></li>
                 <li><a href="gallery.html" class="nav-link py-2 hover:text-emerald-600 transition-all">Gallery</a></li>
                 <li><a href="downloads.html" class="nav-link py-2 hover:text-emerald-600 transition-all">Downloads</a></li>
+                <li><a href="career.html" class="nav-link py-2 hover:text-emerald-600 transition-all">Career</a></li>
                 <li><a href="contact.html" class="nav-link py-2 hover:text-emerald-600 transition-all">Contact</a></li>
                 <li><a href="about.html" class="nav-link py-2 hover:text-emerald-600 transition-all">About Us</a></li>
                 <li class="mt-2 lg:mt-0">
-                    <a id="global-payment-regular" data-feature="online-payments" href="#" target="_blank" class="flex items-center gap-2 bg-emerald-600 text-white px-6 py-3 rounded-full hover:bg-blue-900 transition-all shadow-md hover:shadow-lg transform hover:-translate-y-0.5">
+                    <a id="global-payment-regular" data-feature="online-payments" href="#" target="_blank" rel="noopener noreferrer" class="flex items-center gap-2 bg-emerald-600 text-white px-6 py-3 rounded-full hover:bg-blue-900 transition-all shadow-md hover:shadow-lg transform hover:-translate-y-0.5">
                         <i class="fas fa-credit-card text-sm"></i>
                         <span>Pay Fees</span>
                     </a>
@@ -277,6 +278,7 @@
                     <li><a id="global-link-admissions-footer" data-feature="admissions" href="admissions.html" class="hover:text-emerald-600 transition">Admissions</a></li>
                     <li><a href="insights.html" class="hover:text-emerald-600 transition">Insights</a></li>
                     <li><a href="downloads.html" class="hover:text-emerald-600 transition">Downloads</a></li>
+                    <li><a href="career.html" class="hover:text-emerald-600 transition">Career</a></li>
                     <li><a href="about.html" class="hover:text-emerald-600 transition">About Us</a></li>
                     <li><a href="terms.html" class="hover:text-emerald-600 transition font-bold">Terms & Conditions</a></li>
                 </ul>
@@ -285,9 +287,9 @@
             <div>
                 <h5 class="font-bold text-blue-900 mb-6 uppercase text-xs tracking-widest">Connect</h5>
                 <div class="flex space-x-4 text-xl">
-                    <a id="global-link-fb" href="#" target="_blank" class="hover:text-emerald-600"><i class="fab fa-facebook"></i></a>
-                    <a id="global-link-ig" href="#" target="_blank" class="hover:text-emerald-600"><i class="fab fa-instagram"></i></a>
-                    <a id="global-link-yt" href="#" target="_blank" class="hover:text-emerald-600"><i class="fab fa-youtube"></i></a>
+                    <a id="global-link-fb" href="#" target="_blank" rel="noopener noreferrer" class="hover:text-emerald-600"><i class="fab fa-facebook"></i></a>
+                    <a id="global-link-ig" href="#" target="_blank" rel="noopener noreferrer" class="hover:text-emerald-600"><i class="fab fa-instagram"></i></a>
+                    <a id="global-link-yt" href="#" target="_blank" rel="noopener noreferrer" class="hover:text-emerald-600"><i class="fab fa-youtube"></i></a>
                 </div>
             </div>
         </div>
@@ -370,6 +372,27 @@
         }
 
         // DYNAMIC LATEST ARTICLE HIGHLIGHT
+        const escapeHtml = (value) => String(value ?? '')
+            .replace(/&/g, '&amp;')
+            .replace(/</g, '&lt;')
+            .replace(/>/g, '&gt;')
+            .replace(/"/g, '&quot;')
+            .replace(/'/g, '&#39;');
+
+        const normalizeImageUrl = (value) => {
+            if (value === undefined || value === null) return '';
+            const text = String(value).trim();
+            if (!text) return '';
+            const hasScheme = /^[a-zA-Z][a-zA-Z\d+\-.]*:/.test(text);
+            if (!hasScheme) return text;
+            try {
+                const parsed = new URL(text);
+                return ['http:', 'https:'].includes(parsed.protocol) ? text : '';
+            } catch {
+                return '';
+            }
+        };
+
         function renderLatestHighlight() {
             const container = document.getElementById('latest-article-highlight');
             const articlesToUse = fullArticles.length > 0 ? fullArticles : articles;
@@ -377,31 +400,41 @@
 
             // Automatically sort and grab the newest article
             const latestArt = articlesToUse.sort((a, b) => new Date(b.date) - new Date(a.date))[0]; 
+            const rawAuthor = String(latestArt.author || 'Unknown');
+            const safeAuthor = escapeHtml(rawAuthor);
+            const safeCategory = escapeHtml(latestArt.category || 'General');
+            const safeTitle = escapeHtml(latestArt.title || 'Untitled');
+            const safeDescription = escapeHtml(latestArt.description || '');
+            const safeImage = normalizeImageUrl(latestArt.image);
+            const safeAuthorImage = normalizeImageUrl(latestArt.authorImage);
+            const safeArticleId = encodeURIComponent(String(latestArt.id || ''));
+            const safeDate = escapeHtml(formatArticleDate(latestArt.date));
+            const authorInitial = escapeHtml(rawAuthor.charAt(0).toUpperCase() || 'A');
 
             // Smart fallback for author image
-            const authorDisplay = latestArt.authorImage 
-                ? `<img src="${latestArt.authorImage}" alt="${latestArt.author}" class="w-10 h-10 rounded-full object-cover border border-emerald-200 shadow-sm">`
-                : `<div class="w-10 h-10 rounded-full bg-emerald-600 flex items-center justify-center text-white font-bold text-sm">${latestArt.author.charAt(0)}</div>`;
+            const authorDisplay = safeAuthorImage
+                ? `<img src="${safeAuthorImage}" alt="${safeAuthor}" class="w-10 h-10 rounded-full object-cover border border-emerald-200 shadow-sm">`
+                : `<div class="w-10 h-10 rounded-full bg-emerald-600 flex items-center justify-center text-white font-bold text-sm">${authorInitial}</div>`;
 
             container.innerHTML = `
-                <div onclick="location.href='insights.html?article=${latestArt.id}'" class="bg-white rounded-[2rem] shadow-sm border border-gray-100 overflow-hidden hover:shadow-2xl transition-all duration-500 cursor-pointer flex flex-col md:flex-row group">
+                <div onclick="location.href='insights.html?article=${safeArticleId}'" class="bg-white rounded-[2rem] shadow-sm border border-gray-100 overflow-hidden hover:shadow-2xl transition-all duration-500 cursor-pointer flex flex-col md:flex-row group">
                     <div class="md:w-1/2 overflow-hidden relative">
-                        <img src="${latestArt.image}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 min-h-[300px]" alt="Latest Article">
+                        <img src="${safeImage}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 min-h-[300px]" alt="Latest Article">
                     </div>
                     <div class="md:w-1/2 p-8 md:p-12 flex flex-col justify-center">
                         <div class="flex items-center gap-4 mb-6">
-                            <span class="px-3 py-1 bg-blue-100 text-blue-800 text-[10px] font-black uppercase tracking-widest rounded-full">${latestArt.category}</span>
-                            <span class="text-gray-400 text-[10px] font-bold uppercase tracking-widest">${formatArticleDate(latestArt.date)}</span>
+                            <span class="px-3 py-1 bg-blue-100 text-blue-800 text-[10px] font-black uppercase tracking-widest rounded-full">${safeCategory}</span>
+                            <span class="text-gray-400 text-[10px] font-bold uppercase tracking-widest">${safeDate}</span>
                         </div>
                         <h3 class="text-2xl md:text-4xl font-black text-blue-900 mb-6 group-hover:text-emerald-600 transition-colors leading-tight">
-                            ${latestArt.title}
+                            ${safeTitle}
                         </h3>
                         <p class="text-gray-600 text-sm md:text-base mb-8 leading-relaxed line-clamp-3">
-                            ${latestArt.description}
+                            ${safeDescription}
                         </p>
                         <div class="flex items-center gap-3">
                             ${authorDisplay}
-                            <span class="text-sm font-bold text-slate-800">${latestArt.author}</span>
+                            <span class="text-sm font-bold text-slate-800">${safeAuthor}</span>
                         </div>
                     </div>
                 </div>

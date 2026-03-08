@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Career | LEADS Higher Secondary School</title>
+    <link rel="icon" type="image/jpeg" href="school-logo.jpg">
+    <link rel="manifest" href="manifest.webmanifest">
+    <meta name="theme-color" content="#1E3A8A">
+    <meta name="career-script-url" content="https://script.google.com/macros/s/AKfycbwULf8qrSCZYrhTXz3T6Pa15rO0ZYLd7wiKEduq-mnuaKb47kghy4R8L9kTGt8pTtvtxQ/exec">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="career/career.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800;900&display=swap');
+        body { font-family: 'Inter', sans-serif; }
+
+        @media (max-width: 1023px) {
+            #mobile-menu.active {
+                display: flex !important;
+                flex-direction: column;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: white;
+                padding: 2rem;
+                gap: 1.5rem;
+                box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+                border-top: 1px solid #f1f5f9;
+                z-index: 100;
+            }
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-900 min-h-screen career-backdrop">
+    <div class="bg-emerald-700 text-white py-2 text-xs md:text-sm">
+        <div class="container mx-auto flex justify-between px-4">
+            <div class="flex space-x-4">
+                <a id="global-link-phone-1" href="#" class="hover:text-emerald-200 transition-colors flex items-center cursor-pointer">
+                    <i class="fas fa-phone mr-1"></i> <span id="global-phone-1"></span>
+                </a>
+                <a id="global-link-email-general" href="#" class="hidden sm:flex items-center hover:text-emerald-200 transition-colors cursor-pointer">
+                    <i class="fas fa-envelope mr-1"></i> <span id="global-email-general"></span>
+                </a>
+            </div>
+
+            <a id="global-link-maps" href="#" target="_blank" rel="noopener noreferrer" class="hover:text-emerald-200 transition-colors flex items-center cursor-pointer">
+                <i class="fas fa-map-marker-alt mr-1"></i> <span id="global-address-street"></span>
+            </a>
+        </div>
+    </div>
+
+    <nav class="bg-white shadow-sm sticky top-0 z-50 min-h-[90px] md:min-h-[110px] flex items-center">
+        <div class="container mx-auto px-4 py-3 flex justify-between items-center w-full relative">
+            <a href="index.html" class="flex items-center gap-3 md:gap-4 group shrink min-w-0">
+                <img src="school-logo.jpg" alt="LEADS Logo" class="h-16 md:h-20 w-auto object-contain flex-shrink-0 transition-transform group-hover:scale-105 duration-300">
+
+                <div class="flex flex-col justify-center border-l-2 border-gray-100 pl-3 md:pl-4 min-w-0">
+                    <span id="global-school-shortname" class="block text-xl md:text-3xl font-black text-blue-900 leading-none uppercase tracking-tighter truncate">LEADS</span>
+                    <span class="text-[9px] md:text-sm font-bold text-emerald-600 tracking-wider md:tracking-[0.15em] uppercase mt-1 truncate">Higher Secondary School</span>
+                </div>
+            </a>
+
+            <ul id="mobile-menu" class="hidden lg:flex items-center space-x-8 font-extrabold text-gray-600 text-[13px] uppercase">
+                <li><a href="index.html" class="nav-link py-2 hover:text-emerald-600 transition-all">Home</a></li>
+                <li><a href="faculty.html" class="nav-link py-2 hover:text-emerald-600 transition-all">Faculty</a></li>
+                <li><a id="global-link-admissions-nav" data-feature="admissions" href="admissions.html" class="nav-link py-2 hover:text-emerald-600 transition-all">Admissions</a></li>
+                <li><a href="insights.html" class="nav-link py-2 hover:text-emerald-600 transition-all">Insights</a></li>
+                <li><a href="gallery.html" class="nav-link py-2 hover:text-emerald-600 transition-all">Gallery</a></li>
+                <li><a href="downloads.html" class="nav-link py-2 hover:text-emerald-600 transition-all">Downloads</a></li>
+                <li><a href="career.html" class="nav-link py-2 text-emerald-600 transition-all">Career</a></li>
+                <li><a href="contact.html" class="nav-link py-2 hover:text-emerald-600 transition-all">Contact</a></li>
+                <li><a href="about.html" class="nav-link py-2 hover:text-emerald-600 transition-all">About Us</a></li>
+                <li class="mt-2 lg:mt-0">
+                    <a id="global-payment-regular" data-feature="online-payments" href="#" target="_blank" rel="noopener noreferrer" class="flex items-center gap-2 bg-emerald-600 text-white px-6 py-3 rounded-full hover:bg-blue-900 transition-all shadow-md hover:shadow-lg transform hover:-translate-y-0.5">
+                        <i class="fas fa-credit-card text-sm"></i>
+                        <span>Pay Fees</span>
+                    </a>
+                </li>
+            </ul>
+
+            <button id="menu-btn" class="lg:hidden text-blue-900 focus:outline-none p-2 flex-shrink-0 relative z-[70]">
+                <i class="fas fa-bars text-3xl" id="menu-icon"></i>
+            </button>
+        </div>
+    </nav>
+
+    <main id="career-main-content" class="container mx-auto px-4 py-12 md:py-16">
+        <section class="career-hero-grid items-stretch">
+            <article class="career-panel p-7 md:p-10">
+                <p class="text-xs uppercase tracking-[0.2em] font-black text-emerald-700">Build The Future With LEADS</p>
+                <h1 class="text-3xl md:text-5xl font-black text-blue-900 mt-4 leading-tight">
+                    A Career That Shapes Learners, Leaders and Lifelong Impact
+                </h1>
+                <p class="text-slate-700 mt-5 text-base md:text-lg leading-relaxed">
+                    At LEADS Higher Secondary School, we believe great schools are built by educators and professionals who are ready to evolve. Our teams collaborate across disciplines, adopt modern teaching practices and mentor students with purpose and empathy.
+                </p>
+                <p class="text-slate-700 mt-4 text-base md:text-lg leading-relaxed">
+                    Whether you are in academics, student support, administration, or technology, your growth matters here. We invest in continuous learning, inclusive school culture and innovation that prepares students for the world ahead.
+                </p>
+                <p class="text-slate-700 mt-4 text-base md:text-lg leading-relaxed">
+                    Join a mission-driven community where your work fuels not only classroom excellence today, but also the future of education in Meghalaya.
+                </p>
+            </article>
+
+            <aside class="career-panel p-6 md:p-7 h-full">
+                <div class="flex items-center justify-between mb-4 gap-3">
+                    <h2 class="text-2xl font-black text-blue-900">Latest Openings</h2>
+                    <span class="text-[10px] uppercase tracking-widest px-2 py-1 rounded-full bg-emerald-100 text-emerald-700 font-black">Top 3</span>
+                </div>
+
+                <div id="latest-openings-list" class="space-y-3">
+                    <p class="text-sm text-slate-500">Loading latest openings...</p>
+                </div>
+
+                <a id="more-jobs-link" href="#all-listings-section" class="inline-flex mt-5 text-sm font-black text-emerald-700 hover:text-blue-900 transition-colors uppercase tracking-wide">
+                    More Jobs... <i class="fas fa-arrow-right ml-2 mt-0.5"></i>
+                </a>
+            </aside>
+        </section>
+
+        <section id="all-listings-section" class="hidden mt-10 career-panel p-6 md:p-8">
+            <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-3 mb-6">
+                <div>
+                    <h2 class="text-2xl md:text-3xl font-black text-blue-900">All Job Listings</h2>
+                    <p class="text-sm text-slate-600 mt-1">Click any opening to view complete details and actions.</p>
+                </div>
+            </div>
+            <div id="all-jobs-list" class="grid gap-4 md:grid-cols-2"></div>
+        </section>
+    </main>
+
+    <footer id="career-footer" class="bg-gray-100 pt-16 pb-8 border-t border-gray-200 mt-auto">
+        <div class="container mx-auto px-4 grid md:grid-cols-4 gap-12 text-sm text-gray-600">
+            <div class="col-span-1 md:col-span-2">
+                <h4 class="text-xl font-black text-blue-900 mb-6 uppercase"><span id="global-school-shortname-footer">LEADS</span> <span class="text-emerald-600">SCHOOL</span></h4>
+                <p class="mb-4"><span id="global-address-street-footer"></span>, <span id="global-address-city"></span></p>
+                <p id="global-tagline" class="italic text-xs"></p>
+
+                <div class="mt-6 space-y-3 font-medium">
+                    <a id="global-link-phone-footer" href="#" class="flex items-center gap-3 hover:text-emerald-600 transition-colors w-fit">
+                        <i class="fas fa-phone text-emerald-600"></i> <span id="global-phone-1-footer"></span>
+                    </a>
+                    <a id="global-link-email-footer" href="#" class="flex items-center gap-3 hover:text-emerald-600 transition-colors w-fit">
+                        <i class="fas fa-envelope text-emerald-600"></i> <span id="global-email-general-footer"></span>
+                    </a>
+                </div>
+            </div>
+
+            <div>
+                <h5 class="font-bold text-blue-900 mb-6 uppercase text-xs tracking-widest">Navigation</h5>
+                <ul class="space-y-3">
+                    <li><a id="global-link-admissions-footer" data-feature="admissions" href="admissions.html" class="hover:text-emerald-600 transition">Admissions</a></li>
+                    <li><a href="insights.html" class="hover:text-emerald-600 transition">Insights</a></li>
+                    <li><a href="downloads.html" class="hover:text-emerald-600 transition">Downloads</a></li>
+                    <li><a href="career.html" class="hover:text-emerald-600 transition">Career</a></li>
+                    <li><a href="about.html" class="hover:text-emerald-600 transition">About Us</a></li>
+                    <li><a href="terms.html" class="hover:text-emerald-600 transition font-bold">Terms & Conditions</a></li>
+                </ul>
+            </div>
+
+            <div>
+                <h5 class="font-bold text-blue-900 mb-6 uppercase text-xs tracking-widest">Connect</h5>
+                <div class="flex space-x-4 text-xl">
+                    <a id="global-link-fb" href="#" target="_blank" rel="noopener noreferrer" class="hover:text-emerald-600"><i class="fab fa-facebook"></i></a>
+                    <a id="global-link-ig" href="#" target="_blank" rel="noopener noreferrer" class="hover:text-emerald-600"><i class="fab fa-instagram"></i></a>
+                    <a id="global-link-yt" href="#" target="_blank" rel="noopener noreferrer" class="hover:text-emerald-600"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+        </div>
+
+        <div class="text-center mt-16 pt-8 border-t border-gray-200 text-gray-400 text-xs">
+            <p id="global-copyright"></p>
+            <div class="mt-2">
+                <a href="terms.html" class="hover:text-emerald-600 transition underline decoration-dotted">Terms & Conditions</a>
+            </div>
+        </div>
+    </footer>
+
+    <div id="job-modal" class="modal-shell" aria-hidden="true">
+        <div class="modal-card">
+            <div class="sticky top-0 bg-gradient-to-r from-blue-900 to-emerald-700 text-white px-6 md:px-8 py-5 rounded-t-[1.25rem] flex items-start justify-between gap-4">
+                <div>
+                    <p class="text-[11px] uppercase tracking-widest font-bold opacity-90">Job Details</p>
+                    <h3 id="job-modal-title" class="text-2xl font-black leading-tight mt-1">Job Title</h3>
+                </div>
+                <button id="job-modal-close" type="button" class="w-10 h-10 rounded-full bg-white/20 hover:bg-white/30 transition-colors" aria-label="Close job details modal">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+
+            <div class="px-6 md:px-8 py-6">
+                <div class="grid md:grid-cols-2 gap-3 text-sm">
+                    <p class="bg-slate-50 border border-slate-200 rounded-lg px-3 py-2"><span class="font-bold text-slate-700">Job Code:</span> <span id="job-modal-code"></span></p>
+                    <p class="bg-slate-50 border border-slate-200 rounded-lg px-3 py-2"><span class="font-bold text-slate-700">Department:</span> <span id="job-modal-department"></span></p>
+                    <p class="bg-slate-50 border border-slate-200 rounded-lg px-3 py-2"><span class="font-bold text-slate-700">Posted:</span> <span id="job-modal-posted"></span></p>
+                    <p class="bg-slate-50 border border-slate-200 rounded-lg px-3 py-2"><span class="font-bold text-slate-700">Deadline:</span> <span id="job-modal-deadline"></span></p>
+                    <p class="bg-slate-50 border border-slate-200 rounded-lg px-3 py-2"><span class="font-bold text-slate-700">Status:</span> <span id="job-modal-status"></span></p>
+                    <p class="bg-slate-50 border border-slate-200 rounded-lg px-3 py-2"><span class="font-bold text-slate-700">Experience:</span> <span id="job-modal-experience"></span></p>
+                </div>
+
+                <div class="mt-5">
+                    <h4 class="text-sm uppercase tracking-widest font-black text-blue-900">Qualification</h4>
+                    <p id="job-modal-qualification" class="text-slate-700 mt-1"></p>
+                </div>
+
+                <div class="mt-4">
+                    <h4 class="text-sm uppercase tracking-widest font-black text-blue-900">Description</h4>
+                    <p id="job-modal-description" class="text-slate-700 mt-1 leading-relaxed"></p>
+                </div>
+
+                <div class="mt-7 flex flex-wrap gap-3">
+                    <button id="job-apply-btn" type="button" class="bg-emerald-600 text-white px-6 py-3 rounded-full text-sm font-black uppercase tracking-wide hover:bg-emerald-700 transition-colors">
+                        Apply Now
+                    </button>
+                    <button id="job-share-btn" type="button" class="bg-blue-900 text-white px-6 py-3 rounded-full text-sm font-black uppercase tracking-wide hover:bg-blue-800 transition-colors">
+                        Share
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <section id="application-page" class="hidden bg-slate-50 py-10 md:py-14 min-h-screen">
+        <div class="container mx-auto px-4 max-w-4xl">
+            <div class="career-panel p-6 md:p-8">
+                <div class="bg-gradient-to-r from-emerald-700 to-blue-900 text-white px-6 md:px-8 py-5 rounded-2xl flex items-start justify-between gap-4">
+                <div>
+                    <p class="text-[11px] uppercase tracking-widest font-bold opacity-90">Career Application</p>
+                    <h3 class="text-2xl font-black leading-tight mt-1">Apply For This Role</h3>
+                </div>
+                <button id="application-page-close" type="button" class="w-10 h-10 rounded-full bg-white/20 hover:bg-white/30 transition-colors" aria-label="Back to career page">
+                    <i class="fas fa-arrow-left"></i>
+                </button>
+            </div>
+
+            <form id="job-application-form" class="px-6 md:px-8 py-6 space-y-4" enctype="multipart/form-data">
+                <div class="grid md:grid-cols-2 gap-3">
+                    <div>
+                        <label for="app-job-code" class="text-xs font-black text-slate-700 uppercase tracking-wide">Job Code</label>
+                        <input id="app-job-code" name="job_code" type="text" readonly class="mt-1 w-full border border-slate-300 rounded-lg px-3 py-2 text-sm bg-slate-100 text-slate-700">
+                    </div>
+                    <div>
+                        <label for="app-job-title" class="text-xs font-black text-slate-700 uppercase tracking-wide">Job Title</label>
+                        <input id="app-job-title" name="job_title" type="text" readonly class="mt-1 w-full border border-slate-300 rounded-lg px-3 py-2 text-sm bg-slate-100 text-slate-700">
+                    </div>
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-3">
+                    <div>
+                        <label for="app-first-name" class="text-xs font-black text-slate-700 uppercase tracking-wide">First Name *</label>
+                        <input id="app-first-name" name="first_name" type="text" required class="mt-1 w-full border border-slate-300 rounded-lg px-3 py-2 text-sm">
+                    </div>
+                    <div>
+                        <label for="app-last-name" class="text-xs font-black text-slate-700 uppercase tracking-wide">Last Name *</label>
+                        <input id="app-last-name" name="last_name" type="text" required class="mt-1 w-full border border-slate-300 rounded-lg px-3 py-2 text-sm">
+                    </div>
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-3">
+                    <div>
+                        <label for="app-dob" class="text-xs font-black text-slate-700 uppercase tracking-wide">Date Of Birth *</label>
+                        <input id="app-dob" name="dob" type="date" required class="mt-1 w-full border border-slate-300 rounded-lg px-3 py-2 text-sm">
+                    </div>
+                    <div>
+                        <label for="app-email" class="text-xs font-black text-slate-700 uppercase tracking-wide">Email *</label>
+                        <input id="app-email" name="email" type="email" required class="mt-1 w-full border border-slate-300 rounded-lg px-3 py-2 text-sm">
+                    </div>
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-3">
+                    <div>
+                        <label for="app-phone" class="text-xs font-black text-slate-700 uppercase tracking-wide">Phone *</label>
+                        <input id="app-phone" name="phone" type="tel" required class="mt-1 w-full border border-slate-300 rounded-lg px-3 py-2 text-sm">
+                    </div>
+                    <div>
+                        <label for="app-qualification" class="text-xs font-black text-slate-700 uppercase tracking-wide">Highest Qualification *</label>
+                        <input id="app-qualification" name="qualification" type="text" required class="mt-1 w-full border border-slate-300 rounded-lg px-3 py-2 text-sm">
+                    </div>
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-3">
+                    <div>
+                        <label for="app-experience-years" class="text-xs font-black text-slate-700 uppercase tracking-wide">Total Experience (Years) *</label>
+                        <input id="app-experience-years" name="experience_years" type="number" min="0" step="0.5" required class="mt-1 w-full border border-slate-300 rounded-lg px-3 py-2 text-sm">
+                    </div>
+                    <div>
+                        <label for="app-address" class="text-xs font-black text-slate-700 uppercase tracking-wide">Current Address *</label>
+                        <input id="app-address" name="address" type="text" required class="mt-1 w-full border border-slate-300 rounded-lg px-3 py-2 text-sm">
+                    </div>
+                </div>
+
+                <div>
+                    <label for="app-cover-letter" class="text-xs font-black text-slate-700 uppercase tracking-wide">Statement / Cover Letter *</label>
+                    <textarea id="app-cover-letter" name="cover_letter" rows="4" required class="mt-1 w-full border border-slate-300 rounded-lg px-3 py-2 text-sm resize-y" placeholder="Tell us why you are a strong fit for this role."></textarea>
+                </div>
+
+                <div>
+                    <label for="app-resume" class="text-xs font-black text-slate-700 uppercase tracking-wide">Resume (PDF/DOC/DOCX, max 5MB) *</label>
+                    <input id="app-resume" name="resume" type="file" accept=".pdf,.doc,.docx,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document" required class="mt-1 w-full border border-slate-300 rounded-lg px-3 py-2 text-sm bg-white">
+                </div>
+
+                <div id="application-status" class="hidden text-sm rounded-lg px-3 py-2"></div>
+
+                <div class="pt-2 flex flex-wrap gap-3">
+                    <button id="application-submit-btn" type="submit" class="bg-emerald-600 text-white px-6 py-3 rounded-full text-sm font-black uppercase tracking-wide hover:bg-emerald-700 transition-colors">
+                        Submit Application
+                    </button>
+                    <button id="application-cancel-btn" type="button" class="bg-slate-200 text-slate-800 px-6 py-3 rounded-full text-sm font-black uppercase tracking-wide hover:bg-slate-300 transition-colors">
+                        Back To Careers
+                    </button>
+                </div>
+            </form>
+        </div>
+        </div>
+    </section>
+
+    <script src="js/config.js"></script>
+    <script src="js/analytics.js"></script>
+    <script src="career/career.js"></script>
+    <script>
+        const menuBtn = document.getElementById('menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const menuIcon = document.getElementById('menu-icon');
+
+        if (menuBtn && mobileMenu) {
+            menuBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                mobileMenu.classList.toggle('active');
+
+                if (!mobileMenu.classList.contains('active')) {
+                    menuIcon.classList.remove('fa-times');
+                    menuIcon.classList.add('fa-bars');
+                } else {
+                    menuIcon.classList.remove('fa-bars');
+                    menuIcon.classList.add('fa-times');
+                }
+            });
+
+            document.addEventListener('click', (e) => {
+                if (!mobileMenu.contains(e.target) && !menuBtn.contains(e.target)) {
+                    if (mobileMenu.classList.contains('active')) {
+                        mobileMenu.classList.remove('active');
+                        menuIcon.classList.remove('fa-times');
+                        menuIcon.classList.add('fa-bars');
+                    }
+                }
+            });
+        }
+    </script>
+    <script src="js/pwa.js"></script>
+</body>
+</html>
