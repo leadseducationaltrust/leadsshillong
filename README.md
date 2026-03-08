@@ -38,6 +38,12 @@ Primary content files:
 
 Career openings are rendered from `jobs/jobs.json` (`items` array) and displayed on `career.html`.
 
+### Decap CMS editing path
+
+- In Decap, use the top-level `Career` collection.
+- Open `Career Openings` to manage jobs in `jobs/jobs.json`.
+- If `Career` is not visible after config changes, redeploy and hard refresh `/admin`.
+
 ### Job object schema
 
 Each job object in `jobs/jobs.json.items` must include:

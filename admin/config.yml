@@ -326,32 +326,6 @@ collections:
               - { label: "Events Fee Link", name: "eventsFee", widget: "string", required: false }
               - { label: "Uniforms/Books Link", name: "uniformsBooks", widget: "string", required: false }
 
-      - label: "Career Openings"
-        name: "career_openings"
-        file: "jobs/jobs.json"
-        format: "json"
-        fields:
-          - label: "Jobs"
-            name: "items"
-            widget: "list"
-            summary: "{{fields.job_code}} - {{fields.title}}"
-            fields:
-              - { label: "Job Code", name: "job_code", widget: "string" }
-              - { label: "Title", name: "title", widget: "string" }
-              - { label: "Date Posted", name: "date_posted", widget: "date", format: "YYYY-MM-DD" }
-              - { label: "Deadline", name: "deadline", widget: "date", format: "YYYY-MM-DD" }
-              - label: "Status"
-                name: "status"
-                widget: "select"
-                options:
-                  - { label: "Active", value: "active" }
-                  - { label: "Inactive", value: "inactive" }
-                  - { label: "Closed", value: "closed" }
-              - { label: "Qualification", name: "qualification", widget: "string" }
-              - { label: "Experience", name: "experience", widget: "string" }
-              - { label: "Department", name: "department", widget: "string" }
-              - { label: "Description", name: "description", widget: "text" }
-
   - name: "news"
     label: "News"
     files:
@@ -971,6 +945,35 @@ collections:
               - { label: "Audience", name: "audience", widget: "string" }
               - { label: "Timestamp", name: "timestamp", widget: "datetime", format: "YYYY-MM-DDTHH:mm:ss[Z]", date_format: "YYYY-MM-DD", time_format: "HH:mm" }
               - { label: "PDF", name: "pdf_url", widget: "file" }
+
+  - name: "career"
+    label: "Career"
+    files:
+      - label: "Career Openings"
+        name: "career_openings"
+        file: "jobs/jobs.json"
+        format: "json"
+        fields:
+          - label: "Jobs"
+            name: "items"
+            widget: "list"
+            summary: "{{fields.job_code}} - {{fields.title}}"
+            fields:
+              - { label: "Job Code", name: "job_code", widget: "string" }
+              - { label: "Title", name: "title", widget: "string" }
+              - { label: "Date Posted", name: "date_posted", widget: "date", format: "YYYY-MM-DD" }
+              - { label: "Deadline", name: "deadline", widget: "date", format: "YYYY-MM-DD" }
+              - label: "Status"
+                name: "status"
+                widget: "select"
+                options:
+                  - { label: "Active", value: "active" }
+                  - { label: "Inactive", value: "inactive" }
+                  - { label: "Closed", value: "closed" }
+              - { label: "Qualification", name: "qualification", widget: "string" }
+              - { label: "Experience", name: "experience", widget: "string" }
+              - { label: "Department", name: "department", widget: "string" }
+              - { label: "Description", name: "description", widget: "text" }
 
   - name: "calendar"
     label: "Academic Calendar"
