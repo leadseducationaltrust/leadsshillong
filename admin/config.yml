@@ -1061,81 +1061,46 @@ collections:
 
   - name: "articles"
     label: "Articles"
-    files:
-      - label: "AI Education Article"
-        name: "article_ai_education"
-        file: "articles/ai_education/content.json"
-        format: "json"
-        media_folder: "/articles/ai_education"
-        public_folder: "/articles/ai_education"
+    folder: "articles"
+    create: true
+    delete: true
+    slug: "{{slug}}"
+    path: "{{slug}}/content"
+    extension: "json"
+    format: "json"
+    identifier_field: "title"
+    media_folder: "articles/{{slug}}"
+    public_folder: "/articles/{{slug}}"
+    summary: "{{title}} - {{date}}"
+    fields:
+      - { label: "Title", name: "title", widget: "string" }
+      - { label: "Cover Image", name: "image", widget: "image" }
+      - { label: "Description", name: "description", widget: "text" }
+      - { label: "Author", name: "author", widget: "string" }
+      - { label: "Author Image", name: "authorImage", widget: "image", required: false }
+      - { label: "Role", name: "role", widget: "string", required: false }
+      - { label: "Category", name: "category", widget: "string", required: false }
+      - { label: "Date", name: "date", widget: "datetime", format: "YYYY-MM-DDTHH:mm:ss", date_format: "YYYY-MM-DD", time_format: "HH:mm:ss" }
+      - { label: "Author Bio", name: "authorBio", widget: "text", required: false }
+      - { label: "Core Argument", name: "coreArgument", widget: "text", required: false }
+      - label: "Key Statistics"
+        name: "keyStatistics"
+        widget: "list"
+        required: false
         fields:
-          - { label: "Title", name: "title", widget: "string" }
-          - { label: "Cover Image", name: "image", widget: "image" }
-          - { label: "Description", name: "description", widget: "text" }
-          - { label: "Author", name: "author", widget: "string" }
-          - { label: "Author Image", name: "authorImage", widget: "image", required: false }
-          - { label: "Role", name: "role", widget: "string", required: false }
-          - { label: "Category", name: "category", widget: "string", required: false }
-          - { label: "Date", name: "date", widget: "datetime", format: "YYYY-MM-DDTHH:mm:ss", date_format: "YYYY-MM-DD", time_format: "HH:mm:ss" }
-          - { label: "Author Bio", name: "authorBio", widget: "text", required: false }
-          - { label: "Core Argument", name: "coreArgument", widget: "text", required: false }
-          - label: "Key Statistics"
-            name: "keyStatistics"
-            widget: "list"
-            required: false
-            fields:
-              - { label: "Label", name: "label", widget: "string" }
-              - { label: "Value", name: "value", widget: "string" }
-          - label: "Content Blocks"
-            name: "content"
-            widget: "list"
-            fields:
-              - label: "Type"
-                name: "type"
-                widget: "select"
-                options:
-                  - { label: "Paragraph", value: "paragraph" }
-                  - { label: "Image", value: "image" }
-                  - { label: "Pullquote", value: "pullquote" }
-              - { label: "Text", name: "text", widget: "text", required: false }
-              - { label: "Image", name: "src", widget: "image", required: false }
-              - { label: "Alt Text", name: "alt", widget: "string", required: false }
-
-      - label: "Kidspreneurship Article"
-        name: "article_kidspreneurship"
-        file: "articles/kidspreneurship_introduction/content.json"
-        format: "json"
-        media_folder: "/articles/kidspreneurship_introduction"
-        public_folder: "/articles/kidspreneurship_introduction"
+          - { label: "Label", name: "label", widget: "string" }
+          - { label: "Value", name: "value", widget: "string" }
+      - label: "Content Blocks"
+        name: "content"
+        widget: "list"
         fields:
-          - { label: "Title", name: "title", widget: "string" }
-          - { label: "Cover Image", name: "image", widget: "image" }
-          - { label: "Description", name: "description", widget: "text" }
-          - { label: "Author", name: "author", widget: "string" }
-          - { label: "Author Image", name: "authorImage", widget: "image", required: false }
-          - { label: "Role", name: "role", widget: "string", required: false }
-          - { label: "Category", name: "category", widget: "string", required: false }
-          - { label: "Date", name: "date", widget: "datetime", format: "YYYY-MM-DDTHH:mm:ss", date_format: "YYYY-MM-DD", time_format: "HH:mm:ss" }
-          - { label: "Author Bio", name: "authorBio", widget: "text", required: false }
-          - { label: "Core Argument", name: "coreArgument", widget: "text", required: false }
-          - label: "Key Statistics"
-            name: "keyStatistics"
-            widget: "list"
-            required: false
-            fields:
-              - { label: "Label", name: "label", widget: "string" }
-              - { label: "Value", name: "value", widget: "string" }
-          - label: "Content Blocks"
-            name: "content"
-            widget: "list"
-            fields:
-              - label: "Type"
-                name: "type"
-                widget: "select"
-                options:
-                  - { label: "Paragraph", value: "paragraph" }
-                  - { label: "Image", value: "image" }
-                  - { label: "Pullquote", value: "pullquote" }
-              - { label: "Text", name: "text", widget: "text", required: false }
-              - { label: "Image", name: "src", widget: "image", required: false }
-              - { label: "Alt Text", name: "alt", widget: "string", required: false }
+          - label: "Type"
+            name: "type"
+            widget: "select"
+            options:
+              - { label: "Paragraph", value: "paragraph" }
+              - { label: "Image", value: "image" }
+              - { label: "Pullquote", value: "pullquote" }
+          - { label: "Text", name: "text", widget: "text", required: false }
+          - { label: "Image", name: "src", widget: "image", required: false }
+          - { label: "Alt Text", name: "alt", widget: "string", required: false }

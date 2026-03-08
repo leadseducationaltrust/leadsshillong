@@ -1,7 +1,11 @@
-const articles = [
-    { id: "kidspreneurship_introduction" },
-    { id: "ai_education" }
+const DEFAULT_ARTICLE_IDS = [
+    'kidspreneurship_introduction',
+    'ai_education'
 ];
+
+const GITHUB_ARTICLES_INDEX_API = 'https://api.github.com/repos/leadseducationaltrust/leadsshillong/contents/articles';
+
+let articles = [];
 
 // Global variable to store fully loaded articles
 let fullArticles = [];
@@ -9,6 +13,31 @@ let fullArticles = [];
 window.LEADS_ARTICLES = window.LEADS_ARTICLES || {};
 window.LEADS_ARTICLES.list = articles;
 window.LEADS_ARTICLES.loaded = fullArticles;
+
+function isSafeArticleId(value) {
+    return /^[a-zA-Z0-9_-]+$/.test(String(value || ''));
+}
+
+function uniqueArticleIds(values) {
+    const seen = new Set();
+    const result = [];
+
+    for (const value of values) {
+        const id = String(value || '').trim();
+        if (!isSafeArticleId(id)) {
+            continue;
+        }
+
+        if (seen.has(id)) {
+            continue;
+        }
+
+        seen.add(id);
+        result.push(id);
+    }
+
+    return result;
+}
 
 function escapeHtml(value) {
     return String(value ?? '')
@@ -94,6 +123,81 @@ async function getCusdisSettings() {
         appId,
         host: safeHost.replace(/\/$/, '')
     };
+}
+
+async function loadArticleIndexFromManifest() {
+    try {
+        const response = await fetch('articles/content.json', { cache: 'no-cache' });
+        if (!response.ok) {
+            return [];
+        }
+
+        const payload = await response.json();
+        const entries = [];
+
+        if (Array.isArray(payload)) {
+            entries.push(...payload);
+        } else if (Array.isArray(payload?.items)) {
+            entries.push(...payload.items);
+        } else if (Array.isArray(payload?.articles)) {
+            entries.push(...payload.articles);
+        }
+
+        const ids = entries.map((entry) => {
+            if (typeof entry === 'string') {
+                return entry;
+            }
+            if (entry && typeof entry === 'object') {
+                return entry.id;
+            }
+            return '';
+        });
+
+        return uniqueArticleIds(ids);
+    } catch (error) {
+        return [];
+    }
+}
+
+async function loadArticleIndexFromGitHubApi() {
+    try {
+        const response = await fetch(GITHUB_ARTICLES_INDEX_API, {
+            headers: {
+                Accept: 'application/vnd.github+json'
+            }
+        });
+
+        if (!response.ok) {
+            return [];
+        }
+
+        const payload = await response.json();
+        if (!Array.isArray(payload)) {
+            return [];
+        }
+
+        const folderIds = payload
+            .filter((entry) => entry && entry.type === 'dir')
+            .map((entry) => entry.name);
+
+        return uniqueArticleIds(folderIds);
+    } catch (error) {
+        return [];
+    }
+}
+
+async function discoverArticleIds() {
+    const fromManifest = await loadArticleIndexFromManifest();
+    if (fromManifest.length > 0) {
+        return fromManifest;
+    }
+
+    const fromGitHubApi = await loadArticleIndexFromGitHubApi();
+    if (fromGitHubApi.length > 0) {
+        return fromGitHubApi;
+    }
+
+    return uniqueArticleIds(DEFAULT_ARTICLE_IDS);
 }
 
 function ensureCusdisScript(host) {
@@ -229,20 +333,24 @@ function buildCusdisSection(createElement, createIcon, article, host, appId) {
  * @returns {Promise<Array>} Array of complete article objects
  */
 async function loadAllArticlesData() {
+    const articleIds = await discoverArticleIds();
+    articles = articleIds.map((id) => ({ id }));
     fullArticles = [];
-    
-    for (const article of articles) {
-        const fullArticle = await getFullArticleById(article.id);
+
+    for (const articleId of articleIds) {
+        const fullArticle = await getFullArticleById(articleId);
         if (fullArticle) {
             fullArticles.push(fullArticle);
         }
     }
-    
+
+    window.LEADS_ARTICLES.list = articles;
     window.LEADS_ARTICLES.loaded = fullArticles;
     return fullArticles;
 }
 
 window.LEADS_ARTICLES.loadAllArticlesData = loadAllArticlesData;
+window.LEADS_ARTICLES.discoverArticleIds = discoverArticleIds;
 
 /**
  * Load article content from JSON file
@@ -250,6 +358,10 @@ window.LEADS_ARTICLES.loadAllArticlesData = loadAllArticlesData;
  * @returns {Promise<Object>} Article content data
  */
 async function loadArticleContent(articleId) {
+    if (!isSafeArticleId(articleId)) {
+        return null;
+    }
+
     try {
         const response = await fetch(`articles/${articleId}/content.json`);
         if (!response.ok) {
@@ -268,18 +380,17 @@ async function loadArticleContent(articleId) {
  * @returns {Promise<Object>} Complete article object
  */
 async function getFullArticleById(id) {
-    const metadata = articles.find(article => article.id === id);
-    if (!metadata) {
+    if (!isSafeArticleId(id)) {
         return null;
     }
-    
+
     const content = await loadArticleContent(id);
     if (!content) {
         return null;
     }
-    
+
     return {
-        id: metadata.id,
+        id,
         ...content
     };
 }
@@ -330,7 +441,7 @@ function getURLParameter(name) {
  * Find article by ID
  */
 function getArticleById(id) {
-    return articles.find(article => article.id === id);
+    return fullArticles.find(article => article.id === id) || null;
 }
 
 /**

@@ -34,6 +34,28 @@ Primary content files:
 - `programs/*/content.json`
 - `articles/*/content.json`
 
+## Articles in Decap CMS
+
+Articles are now configured as a dynamic folder collection in Decap:
+
+- Collection: `Articles`
+- Storage pattern: `articles/<slug>/content.json`
+- Media pattern: `articles/<slug>/*`
+
+You can create a new article directly from `/admin` without editing `admin/config.yml`.
+
+Frontend discovery order on `insights.html`:
+
+1. `articles/content.json` (if present)
+2. GitHub contents API for `articles/` folders
+3. Built-in fallback IDs (existing starter articles)
+
+Rebuild the index locally after adding/removing article folders:
+
+```bash
+node scripts/generate-articles-index.mjs
+```
+
 ## Career module maintenance
 
 Career openings are rendered from `jobs/jobs.json` (`items` array) and displayed on `career.html`.
@@ -135,6 +157,7 @@ Run before opening a PR:
 node scripts/validate-content.mjs
 node scripts/check-links.mjs
 node scripts/check-pwa.mjs
+node scripts/generate-articles-index.mjs
 ```
 
 Example with stricter near-duplicate warning threshold:
