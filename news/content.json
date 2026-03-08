@@ -1,6 +1,12 @@
 {
   "items": [
     {
+      "date": "2026-03-09 00:00",
+      "title": "Class XII Arts Class Commence",
+      "message": "Class XII Arts Class Commence on the 09th March, 2026.",
+      "description": "The Class XII Arts session will commence on Monday, March 9, 2026. All students are requested to attend from the first day and ensure punctuality and regular participation in classes for a smooth and productive start to the academic session."
+    },
+    {
       "date": "2026-02-18 14:30",
       "title": "Admission Open for Class XI (Arts and Science Stream)",
       "message": "Admission Open for Class XI (Arts and Science Stream) for the 2026-27 session. Visit the Admissions office in Langkerding, Nongmensong for details.",
@@ -48,12 +54,6 @@
       "message": "Annual Sports Day will be held on 20th May 2025.",
       "description": "Our Annual Sports Day celebration bringing together students, teachers, and parents for a day of athletic excellence and sportsmanship. Various events including track and field, relay races, and inter-house competitions. Participation is open to all students. More details will be shared soon.",
       "image": "https://images.unsplash.com/photo-1461896836934-ffe607ba8211?auto=format&fit=crop&w=500&h=300"
-    },
-    {
-      "date": "2026-03-09 00:00",
-      "title": "Class XII Arts Class Commence",
-      "message": "Class XII Arts Class Commence on the 09th March, 2026.",
-      "description": "The Class XII Arts session will commence on Monday, March 9, 2026. All students are requested to attend from the first day and ensure punctuality and regular participation in classes for a smooth and productive start to the academic session."
     }
   ]
 }
