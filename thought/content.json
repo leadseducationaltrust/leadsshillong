@@ -4,7 +4,13 @@
       "order_of_the_day": [
         "Please follow Day 5 on Monday, March 9, 2026"
       ],
-      "date": "2026-03-09"
+      "date": "2026-03-09",
+      "daily_focus": {
+        "media_url": "/thought/media/photo_booth.jpg",
+        "media_type": "image",
+        "alt": "Teachers and Chairman at the Eco-Club photo booth.",
+        "description": "Reflection: learn together, serve together, grow together."
+      }
     },
     {
       "date": "2026-03-06",

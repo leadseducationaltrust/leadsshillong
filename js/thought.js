@@ -6,6 +6,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const dailyFocusCard = document.getElementById('daily-focus-card');
     const dailyFocusImage = document.getElementById('daily-focus-image');
+    const dailyFocusVideo = document.getElementById('daily-focus-video');
+    const dailyFocusMediaStatus = document.getElementById('daily-focus-media-status');
     const dailyFocusDescription = document.getElementById('daily-focus-description');
     const thoughtText = document.getElementById('thought-text');
     const thoughtCard = document.getElementById('thought-card');
@@ -140,6 +142,39 @@ document.addEventListener('DOMContentLoaded', () => {
         return '';
     };
 
+    const getFirstSafeMediaUrl = (candidates) => {
+        if (!Array.isArray(candidates)) {
+            return '';
+        }
+        for (let index = 0; index < candidates.length; index += 1) {
+            const url = getSafeImageUrl(candidates[index]);
+            if (url) {
+                return url;
+            }
+        }
+        return '';
+    };
+
+    const normalizeMediaType = (value) => {
+        const type = normalizeText(value).toLowerCase();
+        if (type === 'video' || type === 'image') {
+            return type;
+        }
+        return '';
+    };
+
+    const inferMediaTypeFromUrl = (value) => {
+        const text = normalizeText(value);
+        if (!text) {
+            return 'image';
+        }
+        const clean = text.split('#')[0].split('?')[0].toLowerCase();
+        if (/\.(mp4|webm|ogg|mov|m4v)$/i.test(clean)) {
+            return 'video';
+        }
+        return 'image';
+    };
+
     const hasRenderableList = (value) => {
         if (!Array.isArray(value)) {
             return false;
@@ -152,8 +187,9 @@ document.addEventListener('DOMContentLoaded', () => {
             return false;
         }
         const dailyFocus = entry.daily_focus && typeof entry.daily_focus === 'object' ? entry.daily_focus : {};
+        const mediaUrl = getFirstSafeMediaUrl([dailyFocus.media_url, dailyFocus.media_file, dailyFocus.image]);
         return (
-            hasRenderableText(dailyFocus.image) ||
+            hasRenderableText(mediaUrl) ||
             hasRenderableText(dailyFocus.description) ||
             hasRenderableText(entry.thought_of_the_day) ||
             hasRenderableList(entry.order_of_the_day) ||
@@ -166,21 +202,54 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const setDailyFocusOrHide = (dailyFocus) => {
         const focus = dailyFocus && typeof dailyFocus === 'object' ? dailyFocus : {};
-        const image = getSafeImageUrl(focus.image);
+        const mediaUrl = getFirstSafeMediaUrl([focus.media_url, focus.media_file, focus.image]);
+        const mediaType = normalizeMediaType(focus.media_type || focus.type) || inferMediaTypeFromUrl(mediaUrl);
         const alt = normalizeText(focus.alt);
         const description = normalizeText(focus.description);
 
-        const hasImage = Boolean(image);
+        const hasMedia = Boolean(mediaUrl);
         const hasDescription = Boolean(description);
 
-        if (!hasImage && !hasDescription) {
+        if (!hasMedia && !hasDescription) {
             hideElement(dailyFocusCard);
             return false;
         }
 
-        if (dailyFocusImage) {
-            if (hasImage) {
-                dailyFocusImage.src = image;
+        if (dailyFocusMediaStatus) {
+            dailyFocusMediaStatus.textContent = '';
+            dailyFocusMediaStatus.classList.add('hidden');
+        }
+
+        const showMediaFallback = () => {
+            if (dailyFocusMediaStatus) {
+                dailyFocusMediaStatus.textContent = 'Reflection media could not be loaded. Please check the file path/link and permissions.';
+                dailyFocusMediaStatus.classList.remove('hidden');
+            }
+        };
+
+        if (dailyFocusImage && dailyFocusVideo) {
+            if (hasMedia && mediaType === 'video') {
+                dailyFocusVideo.onerror = showMediaFallback;
+                dailyFocusVideo.src = mediaUrl;
+                dailyFocusVideo.style.display = '';
+                dailyFocusImage.removeAttribute('src');
+                dailyFocusImage.style.display = 'none';
+            } else if (hasMedia) {
+                dailyFocusImage.onerror = showMediaFallback;
+                dailyFocusImage.src = mediaUrl;
+                dailyFocusImage.alt = alt || 'Daily focus image';
+                dailyFocusImage.style.display = '';
+                dailyFocusVideo.removeAttribute('src');
+                dailyFocusVideo.style.display = 'none';
+            } else {
+                dailyFocusImage.removeAttribute('src');
+                dailyFocusImage.style.display = 'none';
+                dailyFocusVideo.removeAttribute('src');
+                dailyFocusVideo.style.display = 'none';
+            }
+        } else if (dailyFocusImage) {
+            if (hasMedia) {
+                dailyFocusImage.src = mediaUrl;
                 dailyFocusImage.alt = alt || 'Daily focus image';
                 dailyFocusImage.style.display = '';
             } else {
@@ -208,13 +277,16 @@ document.addEventListener('DOMContentLoaded', () => {
             ? baseEntry.daily_focus
             : {};
 
-        let resolvedImage = getSafeImageUrl(baseFocus.image);
+        let resolvedMediaUrl = getFirstSafeMediaUrl([baseFocus.media_url, baseFocus.media_file, baseFocus.image]);
+        let resolvedMediaType = normalizeMediaType(baseFocus.media_type || baseFocus.type);
         let resolvedAlt = normalizeText(baseFocus.alt);
         let resolvedDescription = normalizeText(baseFocus.description);
 
-        if (resolvedImage && resolvedAlt && resolvedDescription) {
+        if (resolvedMediaUrl && resolvedMediaType && resolvedAlt && resolvedDescription) {
             return {
-                image: resolvedImage,
+                media_url: resolvedMediaUrl,
+                media_type: resolvedMediaType,
+                image: resolvedMediaUrl,
                 alt: resolvedAlt,
                 description: resolvedDescription
             };
@@ -226,8 +298,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 ? previousEntry.daily_focus
                 : {};
 
-            if (!resolvedImage) {
-                resolvedImage = getSafeImageUrl(previousFocus.image);
+            if (!resolvedMediaUrl) {
+                resolvedMediaUrl = getFirstSafeMediaUrl([previousFocus.media_url, previousFocus.media_file, previousFocus.image]);
+            }
+            if (!resolvedMediaType) {
+                resolvedMediaType = normalizeMediaType(previousFocus.media_type || previousFocus.type);
             }
             if (!resolvedAlt) {
                 resolvedAlt = normalizeText(previousFocus.alt);
@@ -236,13 +311,19 @@ document.addEventListener('DOMContentLoaded', () => {
                 resolvedDescription = normalizeText(previousFocus.description);
             }
 
-            if (resolvedImage && resolvedAlt && resolvedDescription) {
+            if (resolvedMediaUrl && resolvedMediaType && resolvedAlt && resolvedDescription) {
                 break;
             }
         }
 
+        if (resolvedMediaUrl && !resolvedMediaType) {
+            resolvedMediaType = inferMediaTypeFromUrl(resolvedMediaUrl);
+        }
+
         return {
-            image: resolvedImage,
+            media_url: resolvedMediaUrl,
+            media_type: resolvedMediaType,
+            image: resolvedMediaUrl,
             alt: resolvedAlt,
             description: resolvedDescription
         };
