@@ -7,6 +7,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const dailyFocusCard = document.getElementById('daily-focus-card');
     const dailyFocusImage = document.getElementById('daily-focus-image');
     const dailyFocusVideo = document.getElementById('daily-focus-video');
+    const dailyFocusEmbed = document.getElementById('daily-focus-embed');
     const dailyFocusMediaStatus = document.getElementById('daily-focus-media-status');
     const dailyFocusDescription = document.getElementById('daily-focus-description');
     const thoughtText = document.getElementById('thought-text');
@@ -168,11 +169,47 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!text) {
             return 'image';
         }
+        if (getYouTubeEmbedUrl(text)) {
+            return 'video';
+        }
         const clean = text.split('#')[0].split('?')[0].toLowerCase();
         if (/\.(mp4|webm|ogg|mov|m4v)$/i.test(clean)) {
             return 'video';
         }
         return 'image';
+    };
+
+    const getYouTubeEmbedUrl = (value) => {
+        const text = normalizeText(value);
+        if (!text) {
+            return '';
+        }
+
+        try {
+            const parsed = new URL(text);
+            const host = parsed.hostname.toLowerCase();
+            let videoId = '';
+
+            if (host === 'youtu.be' || host.endsWith('.youtu.be')) {
+                videoId = parsed.pathname.split('/').filter(Boolean)[0] || '';
+            } else if (host === 'youtube.com' || host.endsWith('.youtube.com') || host === 'm.youtube.com') {
+                if (parsed.pathname === '/watch') {
+                    videoId = parsed.searchParams.get('v') || '';
+                } else if (parsed.pathname.startsWith('/shorts/')) {
+                    videoId = parsed.pathname.split('/')[2] || '';
+                } else if (parsed.pathname.startsWith('/embed/')) {
+                    videoId = parsed.pathname.split('/')[2] || '';
+                }
+            }
+
+            if (!/^[a-zA-Z0-9_-]{6,}$/.test(videoId)) {
+                return '';
+            }
+
+            return `https://www.youtube-nocookie.com/embed/${videoId}`;
+        } catch (error) {
+            return '';
+        }
     };
 
     const hasRenderableList = (value) => {
@@ -221,19 +258,41 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         const showMediaFallback = () => {
+            const isGooglePhotosPage = /(^|\.)photos\.google\.com$/i.test((() => {
+                try {
+                    return new URL(mediaUrl).hostname;
+                } catch (error) {
+                    return '';
+                }
+            })());
+
             if (dailyFocusMediaStatus) {
-                dailyFocusMediaStatus.textContent = 'Reflection media could not be loaded. Please check the file path/link and permissions.';
+                dailyFocusMediaStatus.textContent = isGooglePhotosPage
+                    ? 'Google Photos page links cannot be embedded directly. Use a direct image/video file URL (for example googleusercontent.com) or upload the file to /thought/media.'
+                    : 'Reflection media could not be loaded. Please check the file path/link and permissions.';
                 dailyFocusMediaStatus.classList.remove('hidden');
             }
         };
 
-        if (dailyFocusImage && dailyFocusVideo) {
-            if (hasMedia && mediaType === 'video') {
+        if (dailyFocusImage && dailyFocusVideo && dailyFocusEmbed) {
+            const youtubeEmbedUrl = hasMedia ? getYouTubeEmbedUrl(mediaUrl) : '';
+
+            if (youtubeEmbedUrl) {
+                dailyFocusEmbed.src = youtubeEmbedUrl;
+                dailyFocusEmbed.style.display = '';
+
+                dailyFocusVideo.removeAttribute('src');
+                dailyFocusVideo.style.display = 'none';
+                dailyFocusImage.removeAttribute('src');
+                dailyFocusImage.style.display = 'none';
+            } else if (hasMedia && mediaType === 'video') {
                 dailyFocusVideo.onerror = showMediaFallback;
                 dailyFocusVideo.src = mediaUrl;
                 dailyFocusVideo.style.display = '';
                 dailyFocusImage.removeAttribute('src');
                 dailyFocusImage.style.display = 'none';
+                dailyFocusEmbed.removeAttribute('src');
+                dailyFocusEmbed.style.display = 'none';
             } else if (hasMedia) {
                 dailyFocusImage.onerror = showMediaFallback;
                 dailyFocusImage.src = mediaUrl;
@@ -241,11 +300,15 @@ document.addEventListener('DOMContentLoaded', () => {
                 dailyFocusImage.style.display = '';
                 dailyFocusVideo.removeAttribute('src');
                 dailyFocusVideo.style.display = 'none';
+                dailyFocusEmbed.removeAttribute('src');
+                dailyFocusEmbed.style.display = 'none';
             } else {
                 dailyFocusImage.removeAttribute('src');
                 dailyFocusImage.style.display = 'none';
                 dailyFocusVideo.removeAttribute('src');
                 dailyFocusVideo.style.display = 'none';
+                dailyFocusEmbed.removeAttribute('src');
+                dailyFocusEmbed.style.display = 'none';
             }
         } else if (dailyFocusImage) {
             if (hasMedia) {

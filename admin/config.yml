@@ -369,8 +369,8 @@ collections:
                 required: false
                 fields:
                   - { label: "Media File (Image/Video)", name: "media_file", widget: "file", required: false, hint: "Upload an image or video from your device." }
-                  - { label: "Media URL (Repository path or public link)", name: "media_url", widget: "string", required: false, hint: "Examples: /thought/media/photo.jpg or https://...." }
-                  - { label: "Media Type", name: "media_type", widget: "select", required: false, default: "image", options: ["image", "video"], hint: "Choose video when URL/file is a video." }
+                  - { label: "Media URL (Repository path or public link)", name: "media_url", widget: "string", required: false, hint: "Examples: /thought/media/photo.jpg, /thought/media/video.mp4, or https://www.youtube.com/watch?v=..." }
+                  - { label: "Media Type", name: "media_type", widget: "select", required: false, default: "image", options: ["image", "video"], hint: "Choose video for MP4/WebM or YouTube links." }
                   - { label: "Legacy Image", name: "image", widget: "image", required: false, hint: "Older field kept for backward compatibility." }
                   - { label: "Alt", name: "alt", widget: "string", required: false }
                   - { label: "Description", name: "description", widget: "text", required: false }
