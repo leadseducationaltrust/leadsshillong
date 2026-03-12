@@ -174,7 +174,11 @@
       },
       "order_of_the_day": [
         "Today is Day 3 (Thursday, March 12, 2026)"
-      ]
+      ],
+      "date": "2026-03-12",
+      "thought_of_the_day": "Honesty is the best policy.",
+      "bible_reference": "Mathews 17:20",
+      "bible_verse": " “I tell you the truth, if you had faith even as small as a mustard seed, you could say to this mountain, ‘Move from here to there,’ and it would move. Nothing would be impossible.”"
     }
   ]
 }
