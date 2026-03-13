@@ -542,7 +542,7 @@ export default {
         const originCandidates = getOriginCandidates(url, request);
         const normalizedOrigin = findAllowedOrigin(originCandidates, allowedOrigins);
         if (!normalizedOrigin) {
-          return new Response(`Invalid origin: ${originCandidates.join(', ') || '(missing)'}`, { status: 400 });
+          return new Response('Origin not allowed.', { status: 400 });
         }
 
         const state = randomState();
@@ -556,6 +556,7 @@ export default {
         const authUrlJson = JSON.stringify(githubAuthUrl.toString());
         const provider = url.searchParams.get('provider') || 'github';
         const providerJson = JSON.stringify(provider);
+        const handshakeOriginJson = JSON.stringify(normalizedOrigin);
         const handshakeHtml = `
 <!doctype html>
 <html>
@@ -564,6 +565,7 @@ export default {
       (function() {
         const provider = ${providerJson};
         const authUrl = ${authUrlJson};
+        const targetOrigin = ${handshakeOriginJson};
         const message = 'authorizing:' + provider;
         let redirected = false;
 
@@ -584,7 +586,7 @@ export default {
 
         if (window.opener) {
           try {
-            window.opener.postMessage(message, '*');
+            window.opener.postMessage(message, targetOrigin);
           } catch (error) {}
         }
 
@@ -651,10 +653,6 @@ export default {
             const message = 'authorization:github:success:' + JSON.stringify({ token: ${tokenLiteral}, provider: 'github' });
             try {
               window.opener.postMessage(message, ${originJson});
-              delivered = true;
-            } catch (error) {}
-            try {
-              window.opener.postMessage(message, '*');
               delivered = true;
             } catch (error) {}
             try {
