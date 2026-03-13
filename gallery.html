@@ -63,6 +63,38 @@
             border-radius: 0.5rem;
             box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
             object-fit: contain;
+            transition: transform 0.25s ease;
+        }
+
+        .lightbox-control {
+            position: absolute;
+            width: 3rem;
+            height: 3rem;
+            border-radius: 9999px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            background: rgba(0, 0, 0, 0.45);
+            color: #fff;
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: background 0.2s ease, transform 0.2s ease;
+            z-index: 2010;
+        }
+
+        .lightbox-control:hover {
+            background: rgba(16, 185, 129, 0.9);
+            transform: scale(1.06);
+        }
+
+        #lightbox-prev { left: 1.25rem; }
+        #lightbox-next { right: 1.25rem; }
+        @media (max-width: 640px) {
+            #lightbox { padding: 1rem; }
+            .lightbox-control { width: 2.75rem; height: 2.75rem; }
+            #lightbox-prev { left: 0.75rem; }
+            #lightbox-next { right: 0.75rem; }
         }
     </style>
 </head>
@@ -140,8 +172,17 @@
 
     <div id="lightbox" role="dialog" aria-modal="true">
         <span class="absolute top-5 right-10 text-white text-5xl cursor-pointer hover:text-emerald-400 transition" onclick="closeLightbox()">&times;</span>
+        <button id="lightbox-prev" class="lightbox-control" type="button" aria-label="Previous image">
+            <i class="fas fa-chevron-left"></i>
+        </button>
+        <button id="lightbox-next" class="lightbox-control" type="button" aria-label="Next image">
+            <i class="fas fa-chevron-right"></i>
+        </button>
         <img id="lightbox-img" src="" alt="Enlarged view">
         <p id="lightbox-caption" class="absolute bottom-10 text-white text-sm md:text-lg font-medium bg-black/60 backdrop-blur-md px-6 py-2 rounded-full"></p>
+        <p class="absolute top-5 left-1/2 -translate-x-1/2 text-white text-xs md:text-sm bg-black/60 backdrop-blur-md px-4 py-2 rounded-full">
+            Use ← and → to navigate. Last image loops to first.
+        </p>
     </div>
 
     <footer class="bg-gray-100 pt-16 pb-8 border-t border-gray-200">
