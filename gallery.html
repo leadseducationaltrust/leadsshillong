@@ -68,6 +68,7 @@
 
         .lightbox-control {
             position: absolute;
+            top: 50%;
             width: 3rem;
             height: 3rem;
             border-radius: 9999px;
@@ -79,20 +80,27 @@
             align-items: center;
             justify-content: center;
             cursor: pointer;
+            transform: translateY(-50%);
             transition: background 0.2s ease, transform 0.2s ease;
             z-index: 2010;
+            touch-action: manipulation;
+            -webkit-tap-highlight-color: transparent;
         }
 
         .lightbox-control:hover {
             background: rgba(16, 185, 129, 0.9);
-            transform: scale(1.06);
+            transform: translateY(-50%) scale(1.06);
         }
 
         #lightbox-prev { left: 1.25rem; }
         #lightbox-next { right: 1.25rem; }
         @media (max-width: 640px) {
             #lightbox { padding: 1rem; }
-            .lightbox-control { width: 2.75rem; height: 2.75rem; }
+            .lightbox-control {
+                width: 3rem;
+                height: 3rem;
+                background: rgba(0, 0, 0, 0.65);
+            }
             #lightbox-prev { left: 0.75rem; }
             #lightbox-next { right: 0.75rem; }
         }
