@@ -31,6 +31,31 @@
                 z-index: 100;
             }
         }
+
+        /* Reflection Image Lightbox */
+        #reflection-lightbox {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.95);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+        }
+        #reflection-lightbox img {
+            max-width: 95%;
+            max-height: 85vh;
+            border-radius: 0.5rem;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            object-fit: contain;
+        }
+        #daily-focus-image.has-lightbox {
+            cursor: zoom-in;
+        }
+        #daily-focus-image.has-lightbox:hover {
+            opacity: 0.92;
+        }
     </style>
 </head>
 <body class="bg-gray-50 text-slate-900">
@@ -150,14 +175,21 @@
                             <h3 class="text-lg font-black text-blue-900 mb-2">Thought of the Day</h3>
                             <p id="thought-text" class="text-gray-700 text-base leading-relaxed"></p>
                         </div>
-                        <div id="principal-message-card" class="bg-slate-50 rounded-xl p-5 border border-slate-200">
-                            <h3 class="text-lg font-black text-blue-900 mb-2">Principal's Message</h3>
-                            <p id="principal-message" class="text-gray-700 text-sm leading-relaxed"></p>
-                        </div>
                         <div id="bible-verse-card" class="bg-blue-50 rounded-xl p-5 border border-blue-200">
                             <h3 class="text-lg font-black text-blue-900 mb-2">Bible Verse</h3>
                             <p id="bible-verse" class="text-gray-700 text-sm leading-relaxed"></p>
                             <p id="bible-reference" class="text-xs text-blue-700 font-bold mt-2"></p>
+                        </div>
+                    </div>
+
+                    <div id="principal-message-card" class="mt-6 bg-gradient-to-r from-slate-800 to-blue-900 rounded-2xl px-6 py-5 md:px-8 md:py-6 border border-slate-700 shadow-md flex items-start gap-5">
+                        <div class="shrink-0 mt-1 w-10 h-10 rounded-full bg-emerald-500/20 border border-emerald-400/40 flex items-center justify-center overflow-hidden">
+                            <img id="principal-photo" src="" alt="Principal" class="w-full h-full object-cover rounded-full" style="display:none;">
+                            <i id="principal-icon" class="fas fa-user-tie text-emerald-300 text-base"></i>
+                        </div>
+                        <div class="min-w-0">
+                            <h3 class="text-sm font-black tracking-widest text-emerald-400 uppercase mb-1">Principal's Message</h3>
+                            <p id="principal-message" class="text-slate-100 text-sm md:text-base leading-relaxed"></p>
                         </div>
                     </div>
 
@@ -336,6 +368,12 @@
                 </p>
             </div>
         </div>
+    </div>
+
+    <div id="reflection-lightbox" role="dialog" aria-modal="true" aria-label="Reflection image enlarged view">
+        <button class="absolute top-5 right-10 text-white text-5xl leading-none cursor-pointer hover:text-emerald-400 transition bg-transparent border-0" onclick="closeReflectionLightbox()" aria-label="Close">&times;</button>
+        <img id="reflection-lightbox-img" src="" alt="Enlarged reflection image">
+        <p id="reflection-lightbox-caption" class="absolute bottom-10 text-white text-sm md:text-lg font-medium bg-black/60 backdrop-blur-md px-6 py-2 rounded-full"></p>
     </div>
 
     <script src="js/config.js"></script>

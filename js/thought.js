@@ -20,6 +20,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const orderNextButton = document.getElementById('order-next');
     const principalCard = document.getElementById('principal-message-card');
     const principalMessage = document.getElementById('principal-message');
+    const principalPhoto = document.getElementById('principal-photo');
+    const principalIcon = document.getElementById('principal-icon');
     const bibleCard = document.getElementById('bible-verse-card');
     const bibleVerse = document.getElementById('bible-verse');
     const bibleReference = document.getElementById('bible-reference');
@@ -291,6 +293,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 dailyFocusImage.src = mediaUrl;
                 dailyFocusImage.alt = alt || 'Daily focus image';
                 dailyFocusImage.style.display = '';
+                dailyFocusImage.classList.add('has-lightbox');
+                dailyFocusImage.onclick = () => openReflectionLightbox(mediaUrl, alt || description || 'Reflection image');
                 dailyFocusVideo.removeAttribute('src');
                 dailyFocusVideo.style.display = 'none';
                 dailyFocusEmbed.removeAttribute('src');
@@ -308,6 +312,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 dailyFocusImage.src = mediaUrl;
                 dailyFocusImage.alt = alt || 'Daily focus image';
                 dailyFocusImage.style.display = '';
+                dailyFocusImage.classList.add('has-lightbox');
+                dailyFocusImage.onclick = () => openReflectionLightbox(mediaUrl, alt || description || 'Reflection image');
             } else {
                 dailyFocusImage.removeAttribute('src');
                 dailyFocusImage.style.display = 'none';
@@ -492,6 +498,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 thought_of_the_day: findLatestNonEmptyText(eligible, 'thought_of_the_day'),
                 principal_message: principalContent.value,
                 principal_message_source_date: principalContent.date,
+                principal_photo: findLatestNonEmptyText(eligible, 'principal_photo'),
                 bible_verse: bibleContent.verse,
                 bible_reference: bibleContent.reference
             };
@@ -583,6 +590,18 @@ document.addEventListener('DOMContentLoaded', () => {
                 : principalText;
 
             hasContent = setTextOrHide(principalMessage, principalWithDate, principalCard) || hasContent;
+
+            const principalPhotoUrl = getSafeImageUrl(resolvedEntry.principal_photo);
+            if (principalPhoto && principalIcon) {
+                if (principalPhotoUrl) {
+                    principalPhoto.src = principalPhotoUrl;
+                    principalPhoto.style.display = '';
+                    principalIcon.style.display = 'none';
+                } else {
+                    principalPhoto.style.display = 'none';
+                    principalIcon.style.display = '';
+                }
+            }
             hasContent = setTextOrHide(bibleVerse, resolvedEntry.bible_verse, bibleCard) || hasContent;
 
             if (resolvedEntry.bible_reference && bibleReference) {
@@ -600,4 +619,40 @@ document.addEventListener('DOMContentLoaded', () => {
         .catch(() => {
             hideElement(section);
         });
+});
+
+function openReflectionLightbox(src, caption) {
+    const lightbox = document.getElementById('reflection-lightbox');
+    const img = document.getElementById('reflection-lightbox-img');
+    const cap = document.getElementById('reflection-lightbox-caption');
+    if (!lightbox || !img) {
+        return;
+    }
+    img.src = src;
+    img.alt = caption || 'Enlarged reflection image';
+    if (cap) {
+        cap.textContent = caption || '';
+    }
+    lightbox.style.display = 'flex';
+    document.body.style.overflow = 'hidden';
+
+    lightbox.onclick = (event) => {
+        if (event.target === lightbox || event.target === img) {
+            closeReflectionLightbox();
+        }
+    };
+}
+
+function closeReflectionLightbox() {
+    const lightbox = document.getElementById('reflection-lightbox');
+    if (lightbox) {
+        lightbox.style.display = 'none';
+    }
+    document.body.style.overflow = '';
+}
+
+document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape') {
+        closeReflectionLightbox();
+    }
 });
