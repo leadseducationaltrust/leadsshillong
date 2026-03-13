@@ -2,6 +2,15 @@
   "entries": [
     {
       "daily_focus": {
+        "media_type": "image",
+        "image": "/thought/media/parent_teacher_meeting.jpg",
+        "alt": "Parent-Teacher Meeting",
+        "description": "The Parent–Teacher Meeting for the First Terminal 2026 was successfully held, sharing key instructions for students’ welfare. A resource person from Faith Foundation, Shillong, conducted an awareness session on child protection and appropriate care. Parents also interacted with class teachers to discuss their children’s academic progress, behaviour, and co-curricular participation."
+      },
+      "date": "2026-03-13"
+    },
+    {
+      "daily_focus": {
         "media_type": "image"
       },
       "order_of_the_day": [
@@ -179,15 +188,6 @@
       "bible_verse": "Trust in the Lord with all your heart.",
       "bible_reference": "Proverbs 3:5",
       "additional_notes": "Uniform checks will be conducted this week."
-    },
-    {
-      "daily_focus": {
-        "media_type": "image",
-        "image": "/thought/media/parent_teacher_meeting.jpg",
-        "alt": "Parent-Teacher Meeting",
-        "description": "The Parent–Teacher Meeting for the First Terminal 2026 was successfully held, sharing key instructions for students’ welfare. A resource person from Faith Foundation, Shillong, conducted an awareness session on child protection and appropriate care. Parents also interacted with class teachers to discuss their children’s academic progress, behaviour, and co-curricular participation."
-      },
-      "date": "2026-03-13"
     }
   ]
 }
