@@ -15,6 +15,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const thoughtDate = document.getElementById('thought-date');
     const orderList = document.getElementById('order-list');
     const orderCard = document.getElementById('order-card');
+    const orderPrevButton = document.getElementById('order-prev');
+    const orderNextButton = document.getElementById('order-next');
     const principalCard = document.getElementById('principal-message-card');
     const principalMessage = document.getElementById('principal-message');
     const bibleCard = document.getElementById('bible-verse-card');
@@ -78,16 +80,6 @@ document.addEventListener('DOMContentLoaded', () => {
             return null;
         }
         return new Date(parts[0], parts[1] - 1, parts[2]);
-    };
-
-    const isTodayOrFuture = (value) => {
-        const contentDate = parseDateOnly(value);
-        if (!contentDate) {
-            return false;
-        }
-        const today = new Date();
-        today.setHours(0, 0, 0, 0);
-        return contentDate >= today;
     };
 
     const isTodayOrPast = (value) => {
@@ -509,22 +501,74 @@ document.addEventListener('DOMContentLoaded', () => {
             }
 
             let hasContent = false;
+            const orderEntries = eligible.filter((item) => hasRenderableList(item && item.order_of_the_day));
+            let activeOrderIndex = 0;
 
-            if (thoughtDate) {
-                thoughtDate.textContent = formatDisplayDate(new Date());
-            } else {
-                hideElement(thoughtDate);
+            const setOrderDateLabel = (value) => {
+                if (!thoughtDate) {
+                    return;
+                }
+                const formatted = formatDisplayDate(value);
+                thoughtDate.textContent = formatted || formatDisplayDate(new Date());
+            };
+
+            const renderActiveOrder = () => {
+                if (!orderEntries.length) {
+                    hideElement(orderCard);
+                    setOrderDateLabel(resolvedEntry.date || new Date());
+                    return false;
+                }
+
+                const activeEntry = orderEntries[activeOrderIndex] || {};
+                setOrderDateLabel(activeEntry.date || new Date());
+                return setListOrHide(orderList, activeEntry.order_of_the_day, orderCard);
+            };
+
+            const setOrderNavigationState = () => {
+                const hasMultipleEntries = orderEntries.length > 1;
+                const isAtLatest = activeOrderIndex === 0;
+                const isAtOldest = activeOrderIndex >= orderEntries.length - 1;
+                if (orderPrevButton) {
+                    orderPrevButton.disabled = !hasMultipleEntries || isAtOldest;
+                    orderPrevButton.classList.toggle('opacity-40', orderPrevButton.disabled);
+                    orderPrevButton.classList.toggle('cursor-not-allowed', orderPrevButton.disabled);
+                }
+                if (orderNextButton) {
+                    orderNextButton.disabled = !hasMultipleEntries || isAtLatest;
+                    orderNextButton.classList.toggle('opacity-40', orderNextButton.disabled);
+                    orderNextButton.classList.toggle('cursor-not-allowed', orderNextButton.disabled);
+                }
+            };
+
+            if (orderPrevButton) {
+                orderPrevButton.addEventListener('click', () => {
+                    if (orderEntries.length <= 1 || activeOrderIndex >= orderEntries.length - 1) {
+                        return;
+                    }
+                    activeOrderIndex += 1;
+                    renderActiveOrder();
+                    setOrderNavigationState();
+                });
             }
+
+            if (orderNextButton) {
+                orderNextButton.addEventListener('click', () => {
+                    if (orderEntries.length <= 1 || activeOrderIndex <= 0) {
+                        return;
+                    }
+                    activeOrderIndex -= 1;
+                    renderActiveOrder();
+                    setOrderNavigationState();
+                });
+            }
+
+            setOrderNavigationState();
 
             hasContent = setDailyFocusOrHide(resolvedEntry.daily_focus) || hasContent;
 
             hasContent = setTextOrHide(thoughtText, resolvedEntry.thought_of_the_day, thoughtCard) || hasContent;
 
-            if (isTodayOrFuture(resolvedEntry.date)) {
-                hasContent = setListOrHide(orderList, resolvedEntry.order_of_the_day, orderCard) || hasContent;
-            } else {
-                hideElement(orderCard);
-            }
+            hasContent = renderActiveOrder() || hasContent;
 
             const principalText = normalizeText(resolvedEntry.principal_message);
             const principalSourceDate = normalizeText(resolvedEntry.principal_message_source_date);
