@@ -15,6 +15,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const thoughtDate = document.getElementById('thought-date');
     const orderList = document.getElementById('order-list');
     const orderCard = document.getElementById('order-card');
+    const orderDateLabel = document.getElementById('order-date');
     const orderPrevButton = document.getElementById('order-prev');
     const orderNextButton = document.getElementById('order-next');
     const principalCard = document.getElementById('principal-message-card');
@@ -504,12 +505,16 @@ document.addEventListener('DOMContentLoaded', () => {
             const orderEntries = eligible.filter((item) => hasRenderableList(item && item.order_of_the_day));
             let activeOrderIndex = 0;
 
+            if (thoughtDate) {
+                thoughtDate.textContent = formatDisplayDate(new Date());
+            }
+
             const setOrderDateLabel = (value) => {
-                if (!thoughtDate) {
+                if (!orderDateLabel) {
                     return;
                 }
                 const formatted = formatDisplayDate(value);
-                thoughtDate.textContent = formatted || formatDisplayDate(new Date());
+                orderDateLabel.textContent = formatted || '';
             };
 
             const renderActiveOrder = () => {
