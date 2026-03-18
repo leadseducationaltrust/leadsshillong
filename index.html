@@ -57,6 +57,27 @@
         #daily-focus-image.has-lightbox:hover {
             opacity: 0.92;
         }
+        
+        /* News Marquee Animation */
+        @keyframes scroll-left {
+            0% { transform: translateX(100%); }
+            100% { transform: translateX(-100%); }
+        }
+        #news-marquee-container {
+            overflow: hidden;
+            display: flex;
+            width: 100%;
+        }
+        #news-marquee {
+            white-space: nowrap;
+            display: flex;
+            align-items: center;
+            animation: scroll-left 30s linear infinite;
+            padding-right: 50px;
+        }
+        #news-marquee:hover {
+            animation-play-state: paused;
+        }
     </style>
 </head>
 <body class="bg-gray-50 text-slate-900">
@@ -123,7 +144,9 @@
             <span class="hidden md:flex font-bold bg-emerald-600 px-3 py-1 text-xs rounded uppercase mr-4 shrink-0 items-center gap-1">
                 <i class="fas fa-bell"></i> Alert
             </span>
-            <marquee id="news-marquee" class="font-medium text-sm italic"></marquee>
+            <div id="news-marquee-container" class="flex-1">
+                <div id="news-marquee" class="font-medium text-sm italic"></div>
+            </div>
             <div class="ml-4 text-xs text-gray-300 animate-pulse shrink-0">
                 <i class="fas fa-hand-pointer"></i> Click to view
             </div>
