@@ -122,13 +122,192 @@ function ensureCusdisHeightOverride() {
     style.textContent = `
         #cusdis_thread {
             min-height: 720px;
+            border-radius: 0.75rem;
+            overflow: hidden;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.08);
+            border: 1px solid #e2e8f0;
         }
 
         #cusdis_thread iframe {
             min-height: 720px !important;
             height: 720px !important;
             width: 100% !important;
-            border: 0;
+            border: 0 !important;
+            border-radius: 0.75rem !important;
+        }
+
+        .cusdis-comments-container {
+            background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+            border-radius: 1rem;
+            padding: 3rem 2rem;
+            margin-top: 3rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cusdis-comments-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #059669 0%, #06b6d4 50%, #3b82f6 100%);
+            border-radius: 1rem 1rem 0 0;
+        }
+
+        .cusdis-comments-header {
+            margin-bottom: 2rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .cusdis-comments-header h3 {
+            background: linear-gradient(135deg, #1e3a8a 0%, #059669 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .cusdis-comments-info {
+            color: #475569;
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        .cusdis-thread-wrapper {
+            background: white;
+            border-radius: 0.75rem;
+            overflow: hidden;
+            box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.05);
+        }
+
+        /* Cusdis Form Improvements */
+        #cusdis_thread [data-cusdis-form-root] {
+            padding: 2rem 2rem !important;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem !important;
+        }
+
+        #cusdis_thread input[type="text"],
+        #cusdis_thread input[type="email"],
+        #cusdis_thread textarea {
+            padding: 0.875rem 1rem !important;
+            margin: 0.5rem 0 !important;
+            border-radius: 0.5rem !important;
+            border: 1.5px solid #e2e8f0 !important;
+            font-family: inherit !important;
+            font-size: 0.95rem !important;
+            transition: all 0.2s ease !important;
+        }
+
+        #cusdis_thread input[type="text"]:focus,
+        #cusdis_thread input[type="email"]:focus,
+        #cusdis_thread textarea:focus {
+            outline: none !important;
+            border-color: #059669 !important;
+            box-shadow: 0 0 0 3px rgba(5, 150, 105, 0.1) !important;
+        }
+
+        #cusdis_thread textarea {
+            min-height: 120px !important;
+            resize: vertical !important;
+            line-height: 1.6 !important;
+        }
+
+        #cusdis_thread label {
+            font-weight: 600 !important;
+            color: #1e293b !important;
+            display: block !important;
+            margin-bottom: 0.5rem !important;
+            font-size: 0.95rem !important;
+        }
+
+        #cusdis_thread [data-cusdis-form-field] {
+            display: flex !important;
+            flex-direction: column !important;
+            gap: 0.5rem !important;
+            margin-bottom: 0.5rem !important;
+        }
+
+        #cusdis_thread button,
+        #cusdis_thread [role="button"] {
+            padding: 0.875rem 2rem !important;
+            border-radius: 0.5rem !important;
+            background: linear-gradient(135deg, #059669 0%, #047857 100%) !important;
+            color: white !important;
+            font-weight: 600 !important;
+            border: none !important;
+            cursor: pointer !important;
+            transition: all 0.3s ease !important;
+            font-size: 0.95rem !important;
+            margin-top: 1rem !important;
+        }
+
+        #cusdis_thread button:hover,
+        #cusdis_thread [role="button"]:hover {
+            box-shadow: 0 4px 12px rgba(5, 150, 105, 0.3) !important;
+            transform: translateY(-2px) !important;
+        }
+
+        /* Comments List Improvements */
+        #cusdis_thread [data-cusdis-comments-root] {
+            display: flex !important;
+            flex-direction: column !important;
+            gap: 2rem !important;
+            padding-top: 1.5rem !important;
+        }
+
+        #cusdis_thread [data-cusdis-comment] {
+            padding: 1.5rem !important;
+            border-left: 4px solid #059669 !important;
+            background: #f8fafc !important;
+            border-radius: 0.5rem !important;
+            transition: all 0.2s ease !important;
+        }
+
+        #cusdis_thread [data-cusdis-comment]:hover {
+            background: #f1f5f9 !important;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05) !important;
+        }
+
+        #cusdis_thread [data-cusdis-comment-author] {
+            display: flex !important;
+            align-items: center !important;
+            gap: 0.75rem !important;
+            margin-bottom: 0.75rem !important;
+        }
+
+        #cusdis_thread [data-cusdis-comment-author-name] {
+            font-weight: 700 !important;
+            color: #1e3a8a !important;
+            font-size: 0.95rem !important;
+        }
+
+        #cusdis_thread [data-cusdis-comment-timestamp] {
+            color: #64748b !important;
+            font-size: 0.8rem !important;
+            font-weight: 500 !important;
+        }
+
+        #cusdis_thread [data-cusdis-comment-content] {
+            color: #334155 !important;
+            line-height: 1.7 !important;
+            font-size: 0.95rem !important;
+            word-break: break-word !important;
+        }
+
+        #cusdis_thread [data-cusdis-comment-footer] {
+            margin-top: 0.75rem !important;
+            display: flex !important;
+            gap: 1rem !important;
+            align-items: center !important;
+        }
+
+        /* Improved spacing for nested elements */
+        #cusdis_thread > div > div {
+            margin-bottom: 1rem !important;
         }
     `;
     document.head.appendChild(style);
@@ -181,14 +360,21 @@ function buildCusdisSection(createElement, createIcon, article, host, appId) {
         }
     })();
 
-    const commentsSection = createElement('section', 'mt-14');
-    const commentsHeading = createElement('h3', 'text-2xl md:text-3xl font-black text-blue-900 mb-4 flex items-center gap-3');
-    commentsHeading.appendChild(createIcon('far fa-comments text-emerald-600'));
-    commentsHeading.appendChild(document.createTextNode('Comments'));
+    const commentsSection = createElement('section', 'cusdis-comments-container');
 
-    const commentsInfo = createElement('p', 'text-sm text-gray-600 mb-6');
-    commentsInfo.textContent = 'Share your thoughts about this article.';
+    const headerDiv = createElement('div', 'cusdis-comments-header');
+    const commentsHeading = createElement('h3', 'text-3xl md:text-4xl font-black mb-3 flex items-center gap-3');
+    commentsHeading.appendChild(createIcon('far fa-comments text-emerald-600 text-3xl'));
+    commentsHeading.appendChild(document.createTextNode('Community Thoughts'));
+    
+    const commentsInfo = createElement('p', 'cusdis-comments-info');
+    commentsInfo.textContent = 'We\'d love to hear your perspective! Share your insights, questions, or feedback about this article below.';
+    
+    headerDiv.appendChild(commentsHeading);
+    headerDiv.appendChild(commentsInfo);
+    commentsSection.appendChild(headerDiv);
 
+    const threadWrapper = createElement('div', 'cusdis-thread-wrapper');
     const thread = createElement('div');
     thread.id = 'cusdis_thread';
     thread.setAttribute('data-host', host);
@@ -198,9 +384,8 @@ function buildCusdisSection(createElement, createIcon, article, host, appId) {
     thread.setAttribute('data-page-title', String(article.title || ''));
     thread.setAttribute('data-page-size', '5');
 
-    commentsSection.appendChild(commentsHeading);
-    commentsSection.appendChild(commentsInfo);
-    commentsSection.appendChild(thread);
+    threadWrapper.appendChild(thread);
+    commentsSection.appendChild(threadWrapper);
     return commentsSection;
 }
 
