@@ -256,7 +256,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 const mediaUrl = getFirstSafeMediaUrl([item.media_url, item.media_file]);
                 if (mediaUrl) {
                     const mediaType = normalizeMediaType(item.media_type) || inferMediaTypeFromUrl(mediaUrl);
-                    if (mediaType === 'image') {
+                    if (mediaType === 'image' || mediaType === 'video') {
                         items.push({
                             media_url: mediaUrl,
                             media_type: mediaType,
@@ -274,7 +274,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const mediaUrl = getFirstSafeMediaUrl([dailyFocus.media_url, dailyFocus.media_file, dailyFocus.image]);
             if (mediaUrl) {
                 const mediaType = normalizeMediaType(dailyFocus.media_type) || inferMediaTypeFromUrl(mediaUrl);
-                if (mediaType === 'image') {
+                if (mediaType === 'image' || mediaType === 'video') {
                     items.push({
                         media_url: mediaUrl,
                         media_type: mediaType,
@@ -839,12 +839,20 @@ function findMediaIndexByUrl(mediaUrl) {
     return -1;
 }
 
+function getLightboxMediaItems() {
+    if (!Array.isArray(allReflectionMedia)) {
+        return [];
+    }
+    return allReflectionMedia.filter((item) => item && item.media_type === 'image');
+}
+
 function displayLightboxMedia(index) {
-    if (!Array.isArray(allReflectionMedia) || index < 0 || index >= allReflectionMedia.length) {
+    const lightboxMedia = getLightboxMediaItems();
+    if (!Array.isArray(lightboxMedia) || index < 0 || index >= lightboxMedia.length) {
         return;
     }
 
-    const item = allReflectionMedia[index];
+    const item = lightboxMedia[index];
     const lightbox = document.getElementById('reflection-lightbox');
     const img = document.getElementById('reflection-lightbox-img');
     const cap = document.getElementById('reflection-lightbox-caption');
@@ -871,9 +879,10 @@ function updateLightboxNavigationState() {
         return;
     }
 
-    const hasMultiple = allReflectionMedia.length > 1;
+    const lightboxMedia = getLightboxMediaItems();
+    const hasMultiple = lightboxMedia.length > 1;
     const isAtFirst = reflectionLightboxIndex === 0;
-    const isAtLast = reflectionLightboxIndex >= allReflectionMedia.length - 1;
+    const isAtLast = reflectionLightboxIndex >= lightboxMedia.length - 1;
 
     prevBtn.disabled = !hasMultiple || isAtLast;
     prevBtn.classList.toggle('opacity-40', prevBtn.disabled);
@@ -893,17 +902,30 @@ function openReflectionLightbox(src, caption) {
         return;
     }
 
-    // Always display the current media in lightbox
-    if (Array.isArray(allReflectionMedia) && currentMediaIndex >= 0 && currentMediaIndex < allReflectionMedia.length) {
-        const item = allReflectionMedia[currentMediaIndex];
-        img.src = item.media_url;
-        img.alt = item.alt || 'Enlarged reflection image';
-        if (cap) {
-            cap.textContent = item.description || '';
-        }
-        reflectionLightboxIndex = currentMediaIndex;
-        updateLightboxNavigationState();
+    // Only image media is eligible for lightbox display.
+    const lightboxMedia = getLightboxMediaItems();
+    if (!lightboxMedia.length) {
+        return;
     }
+
+    // Open the matching image item when possible, else fall back to latest image.
+    let targetIndex = lightboxMedia.length - 1;
+    if (Array.isArray(allReflectionMedia) && currentMediaIndex >= 0 && currentMediaIndex < allReflectionMedia.length) {
+        const currentMedia = allReflectionMedia[currentMediaIndex];
+        const matchedIndex = lightboxMedia.findIndex((item) => item.media_url === currentMedia.media_url);
+        if (matchedIndex >= 0) {
+            targetIndex = matchedIndex;
+        }
+    }
+
+    const item = lightboxMedia[targetIndex];
+    img.src = item.media_url;
+    img.alt = item.alt || 'Enlarged reflection image';
+    if (cap) {
+        cap.textContent = item.description || '';
+    }
+    reflectionLightboxIndex = targetIndex;
+    updateLightboxNavigationState();
 
     // Show lightbox no matter what
     lightbox.style.display = 'flex';
@@ -934,10 +956,12 @@ document.addEventListener('keydown', (event) => {
         return;
     }
 
+    const lightboxMedia = getLightboxMediaItems();
+
     if (event.key === 'Escape') {
         closeReflectionLightbox();
     } else if (event.key === 'ArrowLeft') {
-        if (reflectionLightboxIndex < allReflectionMedia.length - 1) {
+        if (reflectionLightboxIndex < lightboxMedia.length - 1) {
             displayLightboxMedia(reflectionLightboxIndex + 1);
         }
     } else if (event.key === 'ArrowRight') {
