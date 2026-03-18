@@ -2,6 +2,15 @@
   "entries": [
     {
       "daily_focus": {
+        "media_type": "image"
+      },
+      "order_of_the_day": [
+        "Today is Day 2 (Day Two)"
+      ],
+      "date": "2026-03-19"
+    },
+    {
+      "daily_focus": {
         "media_type": "image",
         "alt": "Students sharing smiles, stories and lunch under the greenery of their school eco-park.",
         "description": "Students sharing smiles, stories and lunch under the greenery of their school eco-park.",
@@ -213,15 +222,6 @@
       "bible_verse": "Trust in the Lord with all your heart.",
       "bible_reference": "Proverbs 3:5",
       "additional_notes": "Uniform checks will be conducted this week."
-    },
-    {
-      "daily_focus": {
-        "media_type": "image"
-      },
-      "order_of_the_day": [
-        "Today is Day 2 (Day Two)"
-      ],
-      "date": "2026-03-19"
     }
   ]
 }
