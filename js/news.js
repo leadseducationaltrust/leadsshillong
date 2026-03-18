@@ -98,13 +98,13 @@ function createNewsCard(news) {
         card.appendChild(image);
     }
 
-    const content = createElement('div', 'p-6');
-    const header = createElement('div', 'flex justify-between items-start mb-3');
+    const content = createElement('div', 'p-4 sm:p-6');
+    const header = createElement('div', 'flex justify-between items-start gap-3 mb-3');
 
-    const title = createElement('h3', 'text-lg font-bold text-blue-900');
+    const title = createElement('h3', 'text-lg font-bold text-blue-900 flex-1 min-w-0');
     title.textContent = news.title || '';
 
-    const dateInfo = createElement('span', 'text-xs text-gray-400 font-semibold whitespace-nowrap');
+    const dateInfo = createElement('span', 'text-xs text-gray-400 font-semibold whitespace-nowrap flex-shrink-0');
     const dateObj = new Date(news.date);
     const formattedDate = Number.isNaN(dateObj.getTime())
         ? ''
