@@ -1,3 +1,8 @@
+// Shared reflection media state used by in-panel and lightbox navigation.
+let allReflectionMedia = [];
+let currentMediaIndex = 0;
+let reflectionLightboxIndex = -1;
+
 document.addEventListener('DOMContentLoaded', () => {
     const section = document.getElementById('thought-panel');
     if (!section) {
@@ -10,6 +15,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const dailyFocusEmbed = document.getElementById('daily-focus-embed');
     const dailyFocusMediaStatus = document.getElementById('daily-focus-media-status');
     const dailyFocusDescription = document.getElementById('daily-focus-description');
+    const dailyFocusDate = document.getElementById('daily-focus-date');
+    const focusPrevButton = document.getElementById('focus-prev');
+    const focusNextButton = document.getElementById('focus-next');
     const thoughtText = document.getElementById('thought-text');
     const thoughtCard = document.getElementById('thought-card');
     const thoughtDate = document.getElementById('thought-date');
@@ -220,8 +228,10 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         const dailyFocus = entry.daily_focus && typeof entry.daily_focus === 'object' ? entry.daily_focus : {};
         const mediaUrl = getFirstSafeMediaUrl([dailyFocus.media_url, dailyFocus.media_file, dailyFocus.image]);
+        const hasMediaItems = Array.isArray(dailyFocus.media_items) && dailyFocus.media_items.length > 0;
         return (
             hasRenderableText(mediaUrl) ||
+            hasMediaItems ||
             hasRenderableText(dailyFocus.description) ||
             hasRenderableText(entry.thought_of_the_day) ||
             hasRenderableList(entry.order_of_the_day) ||
@@ -232,27 +242,124 @@ document.addEventListener('DOMContentLoaded', () => {
         );
     };
 
-    const setDailyFocusOrHide = (dailyFocus) => {
-        const focus = dailyFocus && typeof dailyFocus === 'object' ? dailyFocus : {};
-        const mediaUrl = getFirstSafeMediaUrl([focus.media_url, focus.media_file, focus.image]);
-        const mediaType = normalizeMediaType(focus.media_type || focus.type) || inferMediaTypeFromUrl(mediaUrl);
-        const alt = normalizeText(focus.alt);
-        const description = normalizeText(focus.description);
+    // Extract media from a single daily focus entry
+    const extractMediaItemsFromEntry = (dailyFocus, entryDate) => {
+        if (!dailyFocus || typeof dailyFocus !== 'object') {
+            return [];
+        }
 
-        const hasMedia = Boolean(mediaUrl);
-        const hasDescription = Boolean(description);
+        const items = [];
+        
+        // Check if there's a media_items array with multiple items
+        if (Array.isArray(dailyFocus.media_items) && dailyFocus.media_items.length > 0) {
+            dailyFocus.media_items.forEach((item) => {
+                const mediaUrl = getFirstSafeMediaUrl([item.media_url, item.media_file]);
+                if (mediaUrl) {
+                    const mediaType = normalizeMediaType(item.media_type) || inferMediaTypeFromUrl(mediaUrl);
+                    if (mediaType === 'image') {
+                        items.push({
+                            media_url: mediaUrl,
+                            media_type: mediaType,
+                            alt: normalizeText(item.alt),
+                            description: normalizeText(item.description),
+                            timestamp: normalizeText(item.timestamp) || entryDate
+                        });
+                    }
+                }
+            });
+        }
 
-        if (!hasMedia && !hasDescription) {
-            hideElement(dailyFocusCard);
+        // Fallback to single media if no media_items array
+        if (items.length === 0) {
+            const mediaUrl = getFirstSafeMediaUrl([dailyFocus.media_url, dailyFocus.media_file, dailyFocus.image]);
+            if (mediaUrl) {
+                const mediaType = normalizeMediaType(dailyFocus.media_type) || inferMediaTypeFromUrl(mediaUrl);
+                if (mediaType === 'image') {
+                    items.push({
+                        media_url: mediaUrl,
+                        media_type: mediaType,
+                        alt: normalizeText(dailyFocus.alt),
+                        description: normalizeText(dailyFocus.description),
+                        timestamp: entryDate
+                    });
+                }
+            }
+        }
+
+        return items;
+    };
+
+    // Collect all media from all eligible entries
+    const collectAllReflectionMedia = (allEligibleEntries) => {
+        const allMedia = [];
+        
+        if (!Array.isArray(allEligibleEntries)) {
+            return allMedia;
+        }
+
+        allEligibleEntries.forEach((entry) => {
+            if (!entry || typeof entry !== 'object') {
+                return;
+            }
+            
+            const dailyFocus = entry.daily_focus && typeof entry.daily_focus === 'object' ? entry.daily_focus : {};
+            const mediaItems = extractMediaItemsFromEntry(dailyFocus, entry.date);
+            
+            mediaItems.forEach((item) => {
+                allMedia.push({
+                    ...item,
+                    entryDate: entry.date
+                });
+            });
+        });
+
+        // Sort by timestamp in descending order (newest first)
+        allMedia.sort((a, b) => {
+            const timeA = new Date(a.timestamp).getTime();
+            const timeB = new Date(b.timestamp).getTime();
+            return timeB - timeA;
+        });
+
+        return allMedia;
+    };
+
+    const displayMediaItem = (itemIndex) => {
+        if (!Array.isArray(allReflectionMedia) || allReflectionMedia.length === 0) {
             return false;
         }
 
-        if (dailyFocusMediaStatus) {
-            dailyFocusMediaStatus.textContent = '';
-            dailyFocusMediaStatus.classList.add('hidden');
+        if (itemIndex < 0 || itemIndex >= allReflectionMedia.length) {
+            return false;
         }
 
+        const item = allReflectionMedia[itemIndex];
+        const mediaUrl = item.media_url;
+        const mediaType = item.media_type;
+        const alt = item.alt || 'Reflection media';
+        const description = item.description;
+        const timestamp = item.timestamp;
+
+        currentMediaIndex = itemIndex;
+
         const showMediaFallback = () => {
+            if (mediaType === 'image' && Array.isArray(allReflectionMedia) && allReflectionMedia.length > 0) {
+                // Remove the broken image from navigation so missed/unavailable posts are skipped.
+                allReflectionMedia.splice(currentMediaIndex, 1);
+
+                if (allReflectionMedia.length > 0) {
+                    const nextIndex = Math.min(currentMediaIndex, allReflectionMedia.length - 1);
+                    displayMediaItem(nextIndex);
+                    updateMediaNavigationState();
+                    if (dailyFocusMediaStatus) {
+                        dailyFocusMediaStatus.textContent = 'Skipped one unavailable reflection image.';
+                        dailyFocusMediaStatus.classList.remove('hidden');
+                    }
+                } else {
+                    hideElement(dailyFocusCard);
+                }
+                return;
+            }
+
             const isGooglePhotosPage = /(^|\.)photos\.google\.com$/i.test((() => {
                 try {
                     return new URL(mediaUrl).hostname;
@@ -270,7 +377,7 @@ document.addEventListener('DOMContentLoaded', () => {
         };
 
         if (dailyFocusImage && dailyFocusVideo && dailyFocusEmbed) {
-            const youtubeEmbedUrl = hasMedia ? getYouTubeEmbedUrl(mediaUrl) : '';
+            const youtubeEmbedUrl = getYouTubeEmbedUrl(mediaUrl);
 
             if (youtubeEmbedUrl) {
                 dailyFocusEmbed.src = youtubeEmbedUrl;
@@ -280,7 +387,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 dailyFocusVideo.style.display = 'none';
                 dailyFocusImage.removeAttribute('src');
                 dailyFocusImage.style.display = 'none';
-            } else if (hasMedia && mediaType === 'video') {
+            } else if (mediaType === 'video') {
                 dailyFocusVideo.onerror = showMediaFallback;
                 dailyFocusVideo.src = mediaUrl;
                 dailyFocusVideo.style.display = '';
@@ -288,40 +395,27 @@ document.addEventListener('DOMContentLoaded', () => {
                 dailyFocusImage.style.display = 'none';
                 dailyFocusEmbed.removeAttribute('src');
                 dailyFocusEmbed.style.display = 'none';
-            } else if (hasMedia) {
+            } else {
                 dailyFocusImage.onerror = showMediaFallback;
                 dailyFocusImage.src = mediaUrl;
-                dailyFocusImage.alt = alt || 'Daily focus image';
+                dailyFocusImage.alt = alt;
                 dailyFocusImage.style.display = '';
                 dailyFocusImage.classList.add('has-lightbox');
-                dailyFocusImage.onclick = () => openReflectionLightbox(mediaUrl, alt || description || 'Reflection image');
-                dailyFocusVideo.removeAttribute('src');
-                dailyFocusVideo.style.display = 'none';
-                dailyFocusEmbed.removeAttribute('src');
-                dailyFocusEmbed.style.display = 'none';
-            } else {
-                dailyFocusImage.removeAttribute('src');
-                dailyFocusImage.style.display = 'none';
                 dailyFocusVideo.removeAttribute('src');
                 dailyFocusVideo.style.display = 'none';
                 dailyFocusEmbed.removeAttribute('src');
                 dailyFocusEmbed.style.display = 'none';
             }
         } else if (dailyFocusImage) {
-            if (hasMedia) {
-                dailyFocusImage.src = mediaUrl;
-                dailyFocusImage.alt = alt || 'Daily focus image';
-                dailyFocusImage.style.display = '';
-                dailyFocusImage.classList.add('has-lightbox');
-                dailyFocusImage.onclick = () => openReflectionLightbox(mediaUrl, alt || description || 'Reflection image');
-            } else {
-                dailyFocusImage.removeAttribute('src');
-                dailyFocusImage.style.display = 'none';
-            }
+            dailyFocusImage.onerror = showMediaFallback;
+            dailyFocusImage.src = mediaUrl;
+            dailyFocusImage.alt = alt;
+            dailyFocusImage.style.display = '';
+            dailyFocusImage.classList.add('has-lightbox');
         }
 
         if (dailyFocusDescription) {
-            if (hasDescription) {
+            if (description) {
                 dailyFocusDescription.textContent = description;
                 dailyFocusDescription.style.display = '';
             } else {
@@ -330,7 +424,90 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
 
+        if (dailyFocusDate) {
+            if (timestamp) {
+                dailyFocusDate.textContent = formatDisplayDate(timestamp);
+            } else {
+                dailyFocusDate.textContent = '';
+            }
+        }
+
+        if (dailyFocusMediaStatus) {
+            dailyFocusMediaStatus.textContent = '';
+            dailyFocusMediaStatus.classList.add('hidden');
+        }
+
         return true;
+    };
+
+    const updateMediaNavigationState = () => {
+        const hasMultipleItems = allReflectionMedia.length > 1;
+        const isAtFirst = currentMediaIndex === 0;
+        const isAtLast = currentMediaIndex >= allReflectionMedia.length - 1;
+
+        if (focusPrevButton) {
+            focusPrevButton.disabled = !hasMultipleItems || isAtLast;
+            focusPrevButton.classList.toggle('opacity-40', focusPrevButton.disabled);
+            focusPrevButton.classList.toggle('cursor-not-allowed', focusPrevButton.disabled);
+        }
+
+        if (focusNextButton) {
+            focusNextButton.disabled = !hasMultipleItems || isAtFirst;
+            focusNextButton.classList.toggle('opacity-40', focusNextButton.disabled);
+            focusNextButton.classList.toggle('cursor-not-allowed', focusNextButton.disabled);
+        }
+    };
+
+    // Set up media navigation click handlers outside function to prevent re-setup
+    if (focusPrevButton) {
+        focusPrevButton.addEventListener('click', (e) => {
+            e.preventDefault();
+            if (currentMediaIndex < allReflectionMedia.length - 1) {
+                displayMediaItem(currentMediaIndex + 1);
+                updateMediaNavigationState();
+            }
+        });
+    }
+
+    if (focusNextButton) {
+        focusNextButton.addEventListener('click', (e) => {
+            e.preventDefault();
+            if (currentMediaIndex > 0) {
+                displayMediaItem(currentMediaIndex - 1);
+                updateMediaNavigationState();
+            }
+        });
+    }
+
+    // Set up image click listener once at top level to open lightbox
+    if (dailyFocusImage) {
+        dailyFocusImage.addEventListener('click', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            // Use current media index to get the correct media
+            if (Array.isArray(allReflectionMedia) && currentMediaIndex >= 0 && currentMediaIndex < allReflectionMedia.length) {
+                const currentMedia = allReflectionMedia[currentMediaIndex];
+                const caption = currentMedia.alt || currentMedia.description || 'Reflection image';
+                openReflectionLightbox(currentMedia.media_url, caption);
+            }
+        });
+    }
+
+    const setDailyFocusOrHide = () => {
+        // Use the globally collected reflection media
+        if (!Array.isArray(allReflectionMedia) || allReflectionMedia.length === 0) {
+            hideElement(dailyFocusCard);
+            return false;
+        }
+
+        // Display the first (newest) media item
+        currentMediaIndex = 0;
+        const hasContent = displayMediaItem(0);
+        
+        // Update navigation button states
+        updateMediaNavigationState();
+
+        return hasContent;
     };
 
     const resolveDailyFocusFromHistory = (entries, baseIndex) => {
@@ -488,6 +665,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
             const sorted = entries.slice().sort((a, b) => getEntryTime(b) - getEntryTime(a));
             const eligible = sorted.filter((item) => isTodayOrPast(item && item.date));
+            
+            // Collect all reflection media from eligible entries for navigation
+            allReflectionMedia = collectAllReflectionMedia(eligible);
+            currentMediaIndex = 0;
+            
             const entry = eligible[0] || {};
             const resolvedDailyFocus = resolveDailyFocusFromHistory(eligible, 0);
             const bibleContent = findBibleContentFromHistory(eligible);
@@ -576,7 +758,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             setOrderNavigationState();
 
-            hasContent = setDailyFocusOrHide(resolvedEntry.daily_focus) || hasContent;
+            hasContent = setDailyFocusOrHide() || hasContent;
 
             hasContent = setTextOrHide(thoughtText, resolvedEntry.thought_of_the_day, thoughtCard) || hasContent;
 
@@ -615,29 +797,122 @@ document.addEventListener('DOMContentLoaded', () => {
             if (!hasContent) {
                 hideElement(section);
             }
+
+            // Set up lightbox navigation buttons
+            const prevBtn = document.getElementById('reflection-lightbox-prev');
+            const nextBtn = document.getElementById('reflection-lightbox-next');
+
+            if (prevBtn) {
+                prevBtn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    if (reflectionLightboxIndex < allReflectionMedia.length - 1) {
+                        displayLightboxMedia(reflectionLightboxIndex + 1);
+                    }
+                });
+            }
+
+            if (nextBtn) {
+                nextBtn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    if (reflectionLightboxIndex > 0) {
+                        displayLightboxMedia(reflectionLightboxIndex - 1);
+                    }
+                });
+            }
         })
         .catch(() => {
             hideElement(section);
         });
 });
 
+function findMediaIndexByUrl(mediaUrl) {
+    if (!Array.isArray(allReflectionMedia)) {
+        return -1;
+    }
+    for (let i = 0; i < allReflectionMedia.length; i += 1) {
+        if (allReflectionMedia[i].media_url === mediaUrl) {
+            return i;
+        }
+    }
+    return -1;
+}
+
+function displayLightboxMedia(index) {
+    if (!Array.isArray(allReflectionMedia) || index < 0 || index >= allReflectionMedia.length) {
+        return;
+    }
+
+    const item = allReflectionMedia[index];
+    const lightbox = document.getElementById('reflection-lightbox');
+    const img = document.getElementById('reflection-lightbox-img');
+    const cap = document.getElementById('reflection-lightbox-caption');
+
+    if (!lightbox || !img) {
+        return;
+    }
+
+    img.src = item.media_url;
+    img.alt = item.alt || 'Enlarged reflection image';
+    if (cap) {
+        cap.textContent = item.description || '';
+    }
+
+    reflectionLightboxIndex = index;
+    updateLightboxNavigationState();
+}
+
+function updateLightboxNavigationState() {
+    const prevBtn = document.getElementById('reflection-lightbox-prev');
+    const nextBtn = document.getElementById('reflection-lightbox-next');
+
+    if (!prevBtn || !nextBtn) {
+        return;
+    }
+
+    const hasMultiple = allReflectionMedia.length > 1;
+    const isAtFirst = reflectionLightboxIndex === 0;
+    const isAtLast = reflectionLightboxIndex >= allReflectionMedia.length - 1;
+
+    prevBtn.disabled = !hasMultiple || isAtLast;
+    prevBtn.classList.toggle('opacity-40', prevBtn.disabled);
+    prevBtn.classList.toggle('cursor-not-allowed', prevBtn.disabled);
+
+    nextBtn.disabled = !hasMultiple || isAtFirst;
+    nextBtn.classList.toggle('opacity-40', nextBtn.disabled);
+    nextBtn.classList.toggle('cursor-not-allowed', nextBtn.disabled);
+}
+
 function openReflectionLightbox(src, caption) {
     const lightbox = document.getElementById('reflection-lightbox');
     const img = document.getElementById('reflection-lightbox-img');
     const cap = document.getElementById('reflection-lightbox-caption');
+    
     if (!lightbox || !img) {
         return;
     }
-    img.src = src;
-    img.alt = caption || 'Enlarged reflection image';
-    if (cap) {
-        cap.textContent = caption || '';
+
+    // Always display the current media in lightbox
+    if (Array.isArray(allReflectionMedia) && currentMediaIndex >= 0 && currentMediaIndex < allReflectionMedia.length) {
+        const item = allReflectionMedia[currentMediaIndex];
+        img.src = item.media_url;
+        img.alt = item.alt || 'Enlarged reflection image';
+        if (cap) {
+            cap.textContent = item.description || '';
+        }
+        reflectionLightboxIndex = currentMediaIndex;
+        updateLightboxNavigationState();
     }
+
+    // Show lightbox no matter what
     lightbox.style.display = 'flex';
+    lightbox.style.visibility = 'visible';
+    lightbox.style.opacity = '1';
     document.body.style.overflow = 'hidden';
 
     lightbox.onclick = (event) => {
-        if (event.target === lightbox || event.target === img) {
+        if (event.target === lightbox || event.target.closest('img')) {
             closeReflectionLightbox();
         }
     };
@@ -649,10 +924,25 @@ function closeReflectionLightbox() {
         lightbox.style.display = 'none';
     }
     document.body.style.overflow = '';
+    reflectionLightboxIndex = -1;
 }
 
+// Keyboard navigation for arrow keys and escape
 document.addEventListener('keydown', (event) => {
+    const lightbox = document.getElementById('reflection-lightbox');
+    if (!lightbox || lightbox.style.display === 'none') {
+        return;
+    }
+
     if (event.key === 'Escape') {
         closeReflectionLightbox();
+    } else if (event.key === 'ArrowLeft') {
+        if (reflectionLightboxIndex < allReflectionMedia.length - 1) {
+            displayLightboxMedia(reflectionLightboxIndex + 1);
+        }
+    } else if (event.key === 'ArrowRight') {
+        if (reflectionLightboxIndex > 0) {
+            displayLightboxMedia(reflectionLightboxIndex - 1);
+        }
     }
 });

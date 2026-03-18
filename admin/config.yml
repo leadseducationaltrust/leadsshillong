@@ -374,6 +374,19 @@ collections:
                   - { label: "Legacy Image", name: "image", widget: "image", required: false, hint: "Older field kept for backward compatibility." }
                   - { label: "Alt", name: "alt", widget: "string", required: false }
                   - { label: "Description", name: "description", widget: "text", required: false }
+                  - label: "Reflection Media Gallery"
+                    name: "media_items"
+                    widget: "list"
+                    required: false
+                    collapsed: true
+                    hint: "Add multiple images or videos for navigation in the Reflection section. Leave empty to use the single media above."
+                    fields:
+                      - { label: "Upload Media File", name: "media_file", widget: "file", required: false, hint: "Upload an image or video from your device." }
+                      - { label: "Or Add Media Link", name: "media_url", widget: "string", required: false, hint: "Paste image/video link or YouTube URL. Examples: /thought/media/photo.jpg, https://www.youtube.com/watch?v=..." }
+                      - { label: "Media Type", name: "media_type", widget: "select", required: false, default: "image", options: ["image", "video"], hint: "Choose video for MP4/WebM or YouTube links." }
+                      - { label: "Alt Text", name: "alt", widget: "string", required: false, hint: "Accessibility text for the image." }
+                      - { label: "Description", name: "description", widget: "text", required: false, hint: "Caption or description shown with the media." }
+                      - { label: "Timestamp", name: "timestamp", widget: "datetime", required: false, format: "YYYY-MM-DD HH:mm", date_format: "YYYY-MM-DD", time_format: "HH:mm", hint: "When this media was posted. Defaults to entry date if left empty." }
               - { label: "Thought", name: "thought_of_the_day", widget: "text", required: false }
               - label: "Order of the Day"
                 name: "order_of_the_day"

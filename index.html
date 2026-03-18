@@ -51,6 +51,42 @@
             box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
             object-fit: contain;
         }
+        .reflection-lightbox-control {
+            position: absolute;
+            top: 50%;
+            width: 3rem;
+            height: 3rem;
+            border-radius: 9999px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            background: rgba(0, 0, 0, 0.45);
+            color: #fff;
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transform: translateY(-50%);
+            transition: background 0.2s ease, transform 0.2s ease;
+            z-index: 2010;
+            touch-action: manipulation;
+            -webkit-tap-highlight-color: transparent;
+        }
+        .reflection-lightbox-control:hover {
+            background: rgba(16, 185, 129, 0.9);
+            transform: translateY(-50%) scale(1.06);
+        }
+        #reflection-lightbox-prev { left: 1.25rem; }
+        #reflection-lightbox-next { right: 1.25rem; }
+        @media (max-width: 640px) {
+            #reflection-lightbox { padding: 1rem; }
+            .reflection-lightbox-control {
+                width: 3rem;
+                height: 3rem;
+                background: rgba(0, 0, 0, 0.65);
+            }
+            #reflection-lightbox-prev { left: 0.75rem; }
+            #reflection-lightbox-next { right: 0.75rem; }
+        }
         #daily-focus-image.has-lightbox {
             cursor: zoom-in;
         }
@@ -173,7 +209,18 @@
 
                     <div class="grid md:grid-cols-2 gap-6 mt-6">
                         <div id="daily-focus-card" class="bg-gradient-to-br from-amber-50 to-white rounded-xl p-5 border border-amber-200 shadow-sm">
-                            <h3 class="text-xl font-black text-blue-900 mb-3">Reflection</h3>
+                            <div class="flex items-center justify-between gap-3 mb-3">
+                                <h3 class="text-xl font-black text-blue-900">Reflection</h3>
+                                <div class="flex items-center gap-2">
+                                    <button id="focus-prev" class="w-8 h-8 rounded-full bg-white text-amber-700 border border-amber-200 hover:bg-amber-100 transition" aria-label="Previous reflection media">
+                                        <i class="fas fa-chevron-left text-xs"></i>
+                                    </button>
+                                    <button id="focus-next" class="w-8 h-8 rounded-full bg-white text-amber-700 border border-amber-200 hover:bg-amber-100 transition" aria-label="Next reflection media">
+                                        <i class="fas fa-chevron-right text-xs"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <p id="daily-focus-date" class="text-xs text-amber-700 font-semibold mb-3"></p>
                             <img id="daily-focus-image" src="" alt="" class="w-full h-64 md:h-80 object-cover rounded-xl border border-amber-200 shadow-sm mb-4">
                             <video id="daily-focus-video" class="w-full h-64 md:h-80 object-cover rounded-xl border border-amber-200 shadow-sm mb-4" controls playsinline preload="metadata" style="display: none;"></video>
                             <iframe id="daily-focus-embed" class="w-full h-64 md:h-80 rounded-xl border border-amber-200 shadow-sm mb-4" src="" title="Reflection video" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen style="display: none;"></iframe>
@@ -396,6 +443,12 @@
 
     <div id="reflection-lightbox" role="dialog" aria-modal="true" aria-label="Reflection image enlarged view">
         <button class="absolute top-5 right-10 text-white text-5xl leading-none cursor-pointer hover:text-emerald-400 transition bg-transparent border-0" onclick="closeReflectionLightbox()" aria-label="Close">&times;</button>
+        <button id="reflection-lightbox-prev" class="reflection-lightbox-control" type="button" aria-label="Previous reflection media">
+            <i class="fas fa-chevron-left"></i>
+        </button>
+        <button id="reflection-lightbox-next" class="reflection-lightbox-control" type="button" aria-label="Next reflection media">
+            <i class="fas fa-chevron-right"></i>
+        </button>
         <img id="reflection-lightbox-img" src="" alt="Enlarged reflection image">
         <p id="reflection-lightbox-caption" class="absolute bottom-10 text-white text-sm md:text-lg font-medium bg-black/60 backdrop-blur-md px-6 py-2 rounded-full"></p>
     </div>
