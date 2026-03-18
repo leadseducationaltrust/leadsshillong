@@ -8,13 +8,27 @@ function parseCookies(cookieHeader) {
   return cookies;
 }
 
+const DEFAULT_SECURITY_HEADERS = {
+  'x-content-type-options': 'nosniff',
+  'x-frame-options': 'DENY',
+  'referrer-policy': 'no-referrer',
+  'permissions-policy': 'camera=(), microphone=(), geolocation=()'
+};
+
+function withSecurityHeaders(headers = {}) {
+  return {
+    ...DEFAULT_SECURITY_HEADERS,
+    ...headers
+  };
+}
+
 function jsonResponse(payload, status = 200, extraHeaders = {}) {
   return new Response(JSON.stringify(payload), {
     status,
-    headers: {
+    headers: withSecurityHeaders({
       'content-type': 'application/json; charset=utf-8',
       ...extraHeaders
-    }
+    })
   });
 }
 
@@ -125,7 +139,10 @@ function getOriginCandidates(url, request) {
 function htmlResponse(html, status = 200) {
   return new Response(html, {
     status,
-    headers: { 'content-type': 'text/html; charset=utf-8' }
+    headers: withSecurityHeaders({
+      'content-type': 'text/html; charset=utf-8',
+      'cache-control': 'no-store'
+    })
   });
 }
 
@@ -434,11 +451,15 @@ async function enforceRateLimit(request, env) {
 
 async function handleCareerApplication(request, env) {
   const corsHeaders = getCorsHeaders(request, env);
+  const requestOrigin = request.headers.get('Origin');
+  if (requestOrigin && !resolveCorsOrigin(request, env)) {
+    return jsonResponse({ ok: false, error: 'Origin not allowed.' }, 403, corsHeaders);
+  }
 
   if (request.method === 'OPTIONS') {
     return new Response(null, {
       status: 204,
-      headers: corsHeaders
+      headers: withSecurityHeaders(corsHeaders)
     });
   }
 
@@ -523,8 +544,8 @@ async function handleCareerApplication(request, env) {
       application_id: payload.application_id
     }, 200, corsHeaders);
   } catch (error) {
-    const message = error instanceof Error ? error.message : 'Application processing failed.';
-    return jsonResponse({ ok: false, error: message }, 500, corsHeaders);
+    console.error('Career application processing failed:', error);
+    return jsonResponse({ ok: false, error: 'Application processing failed. Please try again later.' }, 500, corsHeaders);
   }
 }
 
@@ -681,8 +702,14 @@ export default {
 
       return new Response('Not Found', { status: 404 });
     } catch (error) {
-      const message = error instanceof Error ? error.message : String(error);
-      return new Response(`Worker runtime error: ${message}`, { status: 500 });
+      console.error('Worker runtime error:', error);
+      return new Response('Internal server error.', {
+        status: 500,
+        headers: withSecurityHeaders({
+          'content-type': 'text/plain; charset=utf-8',
+          'cache-control': 'no-store'
+        })
+      });
     }
   }
 };

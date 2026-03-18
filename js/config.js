@@ -291,6 +291,10 @@ function isPlainObject(value) {
     return value !== null && typeof value === "object" && !Array.isArray(value);
 }
 
+function isUnsafeMergeKey(key) {
+    return key === "__proto__" || key === "prototype" || key === "constructor";
+}
+
 function deepMerge(base, override) {
     if (!isPlainObject(base) || !isPlainObject(override)) {
         return override === undefined ? base : override;
@@ -298,6 +302,10 @@ function deepMerge(base, override) {
 
     const merged = { ...base };
     Object.keys(override).forEach((key) => {
+        if (isUnsafeMergeKey(key)) {
+            return;
+        }
+
         const baseValue = base[key];
         const overrideValue = override[key];
 
