@@ -854,6 +854,30 @@ document.addEventListener("DOMContentLoaded", async () => {
         window.Tawk_API = window.Tawk_API || {};
         window.Tawk_LoadStart = new Date();
 
+        const ensureChatWidgetVisible = () => {
+            if (!window.Tawk_API) {
+                return;
+            }
+
+            if (typeof window.Tawk_API.showWidget === "function") {
+                window.Tawk_API.showWidget();
+            }
+
+            // Some browsers/extensions can leave the launcher iframe hidden after load.
+            // If Tawk has rendered into DOM, force it to be visible without opening chat.
+            const tawkCandidates = document.querySelectorAll("iframe[src*='tawk.to'], iframe[id*='tawk'], div[id*='tawk']");
+            tawkCandidates.forEach((node) => {
+                if (!(node instanceof HTMLElement)) {
+                    return;
+                }
+                node.style.display = "";
+                node.style.visibility = "visible";
+                node.style.opacity = "1";
+                node.style.pointerEvents = "auto";
+                node.style.zIndex = "2147483000";
+            });
+        };
+
         const syncChatWidgetForConnectivity = () => {
             if (navigator.onLine || !window.Tawk_API) {
                 return;
@@ -873,11 +897,17 @@ document.addEventListener("DOMContentLoaded", async () => {
             if (typeof previousOnLoad === "function") {
                 previousOnLoad();
             }
+            ensureChatWidgetVisible();
             syncChatWidgetForConnectivity();
+
+            // Retry a few times because Tawk DOM nodes can be created slightly after onLoad.
+            [300, 1000, 2500].forEach((delayMs) => {
+                window.setTimeout(ensureChatWidgetVisible, delayMs);
+            });
         };
 
         window.addEventListener("offline", syncChatWidgetForConnectivity);
-        window.addEventListener("online", syncChatWidgetForConnectivity);
+        window.addEventListener("online", ensureChatWidgetVisible);
 
         (function () {
             var s1 = document.createElement("script"), s0 = document.getElementsByTagName("script")[0];
