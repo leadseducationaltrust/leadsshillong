@@ -4,6 +4,15 @@
       "daily_focus": {
         "media_type": "image"
       },
+      "date": "2026-03-20",
+      "order_of_the_day": [
+        "Today 20/3/26. Follow Day order 3"
+      ]
+    },
+    {
+      "daily_focus": {
+        "media_type": "image"
+      },
       "order_of_the_day": [
         "Today is Day 2 (Day Two)"
       ],
@@ -225,15 +234,6 @@
       "bible_verse": "Trust in the Lord with all your heart.",
       "bible_reference": "Proverbs 3:5",
       "additional_notes": "Uniform checks will be conducted this week."
-    },
-    {
-      "daily_focus": {
-        "media_type": "image"
-      },
-      "date": "2026-03-20",
-      "order_of_the_day": [
-        "Today 20/3/26. Follow Day order 3"
-      ]
     }
   ]
 }
