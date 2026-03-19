@@ -850,6 +850,8 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     applyFeatureToggles();
 
+    // Tawk maintenance notes live in docs/tawk-chat-maintenance.md.
+    // Review that file before changing CSP requirements, widget IDs, or fallback behavior.
     if (schoolData.featureToggles.showChatWidget) {
         window.Tawk_API = window.Tawk_API || {};
         window.Tawk_LoadStart = new Date();

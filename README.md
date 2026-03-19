@@ -170,6 +170,13 @@ Validates installability wiring and core offline/update primitives.
   - `js/pwa.js` service worker registration
   - manifest + PWA script inclusion across top-level HTML pages
 
+### 5) Tawk CSP Check
+
+Validates that top-level HTML pages keep the required Tawk CSP allowlist entries used by the live chat widget.
+
+- Workflow: `.github/workflows/check-tawk-csp.yml`
+- Script: `scripts/check-tawk-csp.mjs`
+
 ## Local quality commands
 
 Run before opening a PR:
@@ -178,6 +185,7 @@ Run before opening a PR:
 node scripts/validate-content.mjs
 node scripts/check-links.mjs
 node scripts/check-pwa.mjs
+node scripts/check-tawk-csp.mjs
 node scripts/generate-articles-index.mjs
 ```
 
@@ -191,6 +199,14 @@ NEWS_TITLE_SIMILARITY_THRESHOLD=0.70 node scripts/validate-content.mjs
 
 - Gallery broken image handling: on `gallery.html`, failed image loads are removed from the rendered gallery.
 - Frontend link safety and URL sanitization is enforced in JS renderers.
+
+## Tawk chat maintenance
+
+- Integration logic: `js/config.js`
+- Maintenance guide: `docs/tawk-chat-maintenance.md`
+- Verification script: `scripts/check-tawk-csp.mjs`
+
+Review `docs/tawk-chat-maintenance.md` before changing CSP, chat behavior, or fallback logic. The chat can appear connected while still being invisible if the Tawk-specific constraints are removed.
 
 ## Progressive Web App (PWA)
 
