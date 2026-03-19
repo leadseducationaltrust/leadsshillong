@@ -853,6 +853,110 @@ document.addEventListener("DOMContentLoaded", async () => {
     if (schoolData.featureToggles.showChatWidget) {
         window.Tawk_API = window.Tawk_API || {};
         window.Tawk_LoadStart = new Date();
+        const tawkDirectChatUrl = "https://tawk.to/chat/5e9d854435bcbb0c9ab2de75/1ji2d8ea8";
+
+        const openTawkDirectChat = () => {
+            // Avoid dead/blocked popup windows: same-tab navigation is the most reliable fallback.
+            window.location.assign(tawkDirectChatUrl);
+        };
+
+        const getFallbackChatButton = () => document.getElementById("global-chat-fallback-button");
+
+        const ensureFallbackChatButton = () => {
+            let button = getFallbackChatButton();
+            if (button) {
+                return button;
+            }
+
+            button = document.createElement("button");
+            button.id = "global-chat-fallback-button";
+            button.type = "button";
+            button.textContent = "Chat with us";
+            button.setAttribute("aria-label", "Open chat support");
+            button.style.position = "fixed";
+            button.style.right = "20px";
+            button.style.bottom = "20px";
+            button.style.padding = "12px 16px";
+            button.style.border = "0";
+            button.style.borderRadius = "9999px";
+            button.style.background = "#047857";
+            button.style.color = "#ffffff";
+            button.style.fontSize = "14px";
+            button.style.fontWeight = "700";
+            button.style.boxShadow = "0 10px 30px rgba(0, 0, 0, 0.25)";
+            button.style.zIndex = "2147483001";
+            button.style.cursor = "pointer";
+            button.style.display = "none";
+            button.addEventListener("click", () => {
+                ensureChatWidgetVisible();
+
+                // Prefer embedded widget. If API is unavailable, use direct hosted chat.
+                if (window.Tawk_API && typeof window.Tawk_API.popup === "function") {
+                    window.Tawk_API.popup();
+                    return;
+                }
+
+                if (window.Tawk_API && typeof window.Tawk_API.maximize === "function") {
+                    window.Tawk_API.maximize();
+                    return;
+                }
+
+                if (window.Tawk_API && typeof window.Tawk_API.toggle === "function") {
+                    window.Tawk_API.toggle();
+                    return;
+                }
+
+                openTawkDirectChat();
+            });
+
+            document.body.appendChild(button);
+            return button;
+        };
+
+        const isTawkLauncherVisible = () => {
+            const nodes = document.querySelectorAll("iframe[src*='tawk.to'], iframe[id*='tawk'], div[id*='tawk']");
+            for (const node of nodes) {
+                if (!(node instanceof HTMLElement)) {
+                    continue;
+                }
+                const style = window.getComputedStyle(node);
+                const rect = node.getBoundingClientRect();
+                const hasArea = rect.width > 0 && rect.height > 0;
+                const visible = style.display !== "none" && style.visibility !== "hidden" && style.opacity !== "0";
+                if (hasArea && visible) {
+                    return true;
+                }
+            }
+            return false;
+        };
+
+        const syncFallbackChatButton = () => {
+            const button = ensureFallbackChatButton();
+            button.style.display = isTawkLauncherVisible() ? "none" : "block";
+        };
+
+        const applyTawkPlacementStyles = (node) => {
+            if (!(node instanceof HTMLElement)) {
+                return;
+            }
+
+            const rect = node.getBoundingClientRect();
+            const isMobileViewport = window.innerWidth < 768;
+            const bottomOffset = isMobileViewport ? "16px" : "24px";
+            const sideOffset = isMobileViewport ? "16px" : "24px";
+            const isExpandedPanel = rect.width >= 140 || rect.height >= 140;
+
+            node.style.zIndex = isExpandedPanel ? "1200" : "1100";
+            node.style.bottom = bottomOffset;
+            node.style.right = sideOffset;
+            node.style.left = "auto";
+
+            if (isExpandedPanel) {
+                node.style.maxHeight = isMobileViewport ? "calc(100vh - 32px)" : "calc(100vh - 48px)";
+                node.style.maxWidth = isMobileViewport ? "calc(100vw - 32px)" : "min(380px, calc(100vw - 48px))";
+                node.style.borderRadius = "16px";
+            }
+        };
 
         const ensureChatWidgetVisible = () => {
             if (!window.Tawk_API) {
@@ -874,8 +978,10 @@ document.addEventListener("DOMContentLoaded", async () => {
                 node.style.visibility = "visible";
                 node.style.opacity = "1";
                 node.style.pointerEvents = "auto";
-                node.style.zIndex = "2147483000";
+                applyTawkPlacementStyles(node);
             });
+
+            syncFallbackChatButton();
         };
 
         const syncChatWidgetForConnectivity = () => {
@@ -904,10 +1010,18 @@ document.addEventListener("DOMContentLoaded", async () => {
             [300, 1000, 2500].forEach((delayMs) => {
                 window.setTimeout(ensureChatWidgetVisible, delayMs);
             });
+            [300, 1000, 2500, 5000].forEach((delayMs) => {
+                window.setTimeout(syncFallbackChatButton, delayMs);
+            });
         };
 
         window.addEventListener("offline", syncChatWidgetForConnectivity);
         window.addEventListener("online", ensureChatWidgetVisible);
+        window.addEventListener("resize", syncFallbackChatButton);
+
+        // Show fallback quickly in case launcher never paints.
+        window.setTimeout(syncFallbackChatButton, 1500);
+        window.setTimeout(syncFallbackChatButton, 5000);
 
         (function () {
             var s1 = document.createElement("script"), s0 = document.getElementsByTagName("script")[0];
