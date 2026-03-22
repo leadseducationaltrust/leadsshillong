@@ -59,11 +59,12 @@ If the launcher does not render visibly, a `Chat with us` button is shown.
 
 Click order is:
 
-1. `window.Tawk_API.maximize()`
-2. `window.Tawk_API.toggle()`
-3. `window.Tawk_API.showWidget()`
+1. `window.Tawk_API.popup()`
+2. `window.Tawk_API.maximize()`
+3. `window.Tawk_API.toggle()`
+4. same-tab navigation to the hosted chat URL
 
-This order is intentional to keep the chat window internal (embedded) on both desktop and mobile.
+The last step is intentional. `window.open(...)` was avoided because some browsers/privacy tools allow a popup shell but block the actual chat behavior.
 
 ## Do not change casually
 
@@ -71,7 +72,7 @@ Avoid removing these behaviors unless you test the full site afterward:
 
 - delayed `ensureChatWidgetVisible()` retries
 - fallback button logic
-- internal-only widget open fallback
+- same-tab hosted chat fallback
 - explicit placement styling applied to rendered Tawk nodes
 
 These were added because the widget continued receiving events while remaining invisible after security/UI changes.
