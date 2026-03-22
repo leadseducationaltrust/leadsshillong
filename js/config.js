@@ -856,10 +856,100 @@ document.addEventListener("DOMContentLoaded", async () => {
         window.Tawk_API = window.Tawk_API || {};
         window.Tawk_LoadStart = new Date();
         const tawkDirectChatUrl = "https://tawk.to/chat/5e9d854435bcbb0c9ab2de75/1ji2d8ea8";
+        const getInlineChatModal = () => document.getElementById("global-chat-inline-modal");
 
-        const openTawkDirectChat = () => {
-            // Avoid dead/blocked popup windows: same-tab navigation is the most reliable fallback.
-            window.location.assign(tawkDirectChatUrl);
+        const closeInlineChatModal = () => {
+            const modal = getInlineChatModal();
+            if (!modal) {
+                return;
+            }
+            modal.remove();
+            document.body.style.overflow = "";
+        };
+
+        const openInlineChatModal = () => {
+            const existingModal = getInlineChatModal();
+            if (existingModal) {
+                return;
+            }
+
+            const modal = document.createElement("div");
+            modal.id = "global-chat-inline-modal";
+            modal.setAttribute("role", "dialog");
+            modal.setAttribute("aria-modal", "true");
+            modal.setAttribute("aria-label", "Chat support");
+            modal.style.position = "fixed";
+            modal.style.inset = "0";
+            modal.style.zIndex = "2147483002";
+            modal.style.display = "flex";
+            modal.style.alignItems = "center";
+            modal.style.justifyContent = "center";
+            modal.style.background = "rgba(0, 0, 0, 0.5)";
+            modal.style.padding = "12px";
+
+            const panel = document.createElement("div");
+            panel.style.width = "min(460px, 100%)";
+            panel.style.height = "min(680px, calc(100vh - 24px))";
+            panel.style.background = "#ffffff";
+            panel.style.borderRadius = "16px";
+            panel.style.overflow = "hidden";
+            panel.style.boxShadow = "0 20px 60px rgba(0, 0, 0, 0.35)";
+            panel.style.display = "flex";
+            panel.style.flexDirection = "column";
+
+            const header = document.createElement("div");
+            header.style.display = "flex";
+            header.style.alignItems = "center";
+            header.style.justifyContent = "space-between";
+            header.style.padding = "10px 12px";
+            header.style.borderBottom = "1px solid #e2e8f0";
+            header.style.background = "#f8fafc";
+
+            const title = document.createElement("strong");
+            title.textContent = "Chat Support";
+            title.style.fontSize = "14px";
+            title.style.color = "#0f172a";
+
+            const closeButton = document.createElement("button");
+            closeButton.type = "button";
+            closeButton.textContent = "Close";
+            closeButton.style.border = "0";
+            closeButton.style.background = "transparent";
+            closeButton.style.color = "#0f172a";
+            closeButton.style.fontWeight = "600";
+            closeButton.style.cursor = "pointer";
+            closeButton.addEventListener("click", closeInlineChatModal);
+
+            header.appendChild(title);
+            header.appendChild(closeButton);
+
+            const iframe = document.createElement("iframe");
+            iframe.src = tawkDirectChatUrl;
+            iframe.title = "Chat window";
+            iframe.style.border = "0";
+            iframe.style.width = "100%";
+            iframe.style.height = "100%";
+            iframe.style.flex = "1";
+
+            panel.appendChild(header);
+            panel.appendChild(iframe);
+            modal.appendChild(panel);
+
+            modal.addEventListener("click", (event) => {
+                if (event.target === modal) {
+                    closeInlineChatModal();
+                }
+            });
+
+            document.addEventListener("keydown", function handleEscape(event) {
+                if (event.key === "Escape" && getInlineChatModal()) {
+                    closeInlineChatModal();
+                    document.removeEventListener("keydown", handleEscape);
+                }
+            });
+
+            document.body.appendChild(modal);
+            document.body.style.overflow = "hidden";
         };
 
         const getFallbackChatButton = () => document.getElementById("global-chat-fallback-button");
@@ -892,12 +982,7 @@ document.addEventListener("DOMContentLoaded", async () => {
             button.addEventListener("click", () => {
                 ensureChatWidgetVisible();
 
-                // Prefer embedded widget. If API is unavailable, use direct hosted chat.
-                if (window.Tawk_API && typeof window.Tawk_API.popup === "function") {
-                    window.Tawk_API.popup();
-                    return;
-                }
-
+                // Always keep chat in-page first, especially on mobile.
                 if (window.Tawk_API && typeof window.Tawk_API.maximize === "function") {
                     window.Tawk_API.maximize();
                     return;
@@ -908,7 +993,12 @@ document.addEventListener("DOMContentLoaded", async () => {
                     return;
                 }
 
-                openTawkDirectChat();
+                if (window.Tawk_API && typeof window.Tawk_API.popup === "function" && window.innerWidth >= 768) {
+                    window.Tawk_API.popup();
+                    return;
+                }
+
+                openInlineChatModal();
             });
 
             document.body.appendChild(button);
