@@ -13,6 +13,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const today = new Date();
     let currentMonthDate = new Date(today.getFullYear(), today.getMonth(), 1);
     let dateEntryMap = new Map();
+    let selectedDateKey = null;
 
     const holidayCategories = new Set(['state_holiday', 'national_holiday', 'school_holiday']);
     const eventCategories = new Set(['school_event', 'examination', 'other_event']);
@@ -260,11 +261,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
             const isWeekend = dayOfWeek === 0 || dayOfWeek === 6;
             const isToday = year === today.getFullYear() && monthIndex === today.getMonth() && day === today.getDate();
+            const isSelected = key === selectedDateKey;
 
             const cell = document.createElement('div');
             cell.className = 'h-9 rounded-md border text-xs font-bold flex items-center justify-center';
             cell.setAttribute('role', 'button');
             cell.setAttribute('tabindex', '0');
+            cell.setAttribute('aria-pressed', isSelected ? 'true' : 'false');
 
             if (hasHoliday) {
                 cell.className += ' bg-red-100 border-red-300 text-red-700';
@@ -282,9 +285,15 @@ document.addEventListener('DOMContentLoaded', () => {
                 cell.className += ' ring-2 ring-emerald-500';
             }
 
+            if (isSelected) {
+                cell.className += ' bg-emerald-50 border-emerald-300 text-emerald-800 ring-2 ring-emerald-200';
+            }
+
             cell.textContent = String(day);
 
             cell.addEventListener('click', () => {
+                selectedDateKey = key;
+                renderCalendar();
                 const toneClass = getDateTone(date, hasHoliday, hasEvent);
                 showDatePopup(date, entries, toneClass);
             });
@@ -292,6 +301,8 @@ document.addEventListener('DOMContentLoaded', () => {
             cell.addEventListener('keydown', (event) => {
                 if (event.key === 'Enter' || event.key === ' ') {
                     event.preventDefault();
+                    selectedDateKey = key;
+                    renderCalendar();
                     const toneClass = getDateTone(date, hasHoliday, hasEvent);
                     showDatePopup(date, entries, toneClass);
                 }
@@ -306,11 +317,17 @@ document.addEventListener('DOMContentLoaded', () => {
             const todayKey = formatKey(today.getFullYear(), today.getMonth(), today.getDate());
             const todayMeta = getDateMeta(todayKey);
             const todayDate = new Date(today.getFullYear(), today.getMonth(), today.getDate());
+            if (!selectedDateKey) {
+                selectedDateKey = todayKey;
+            }
             const toneClass = getDateTone(todayDate, todayMeta.hasHoliday, todayMeta.hasEvent);
             showDatePopup(todayDate, todayMeta.entries, toneClass);
         } else {
             const firstDate = new Date(year, monthIndex, 1);
             const firstMeta = getDateMeta(formatKey(year, monthIndex, 1));
+            if (!selectedDateKey) {
+                selectedDateKey = formatKey(year, monthIndex, 1);
+            }
             const toneClass = getDateTone(firstDate, firstMeta.hasHoliday, firstMeta.hasEvent);
             showDatePopup(firstDate, firstMeta.entries, toneClass);
         }
