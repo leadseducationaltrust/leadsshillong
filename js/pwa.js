@@ -1,7 +1,14 @@
 if ('serviceWorker' in navigator) {
   let hasControllerChanged = false;
-  const UPDATE_CHECK_INTERVAL_MS = 15 * 60 * 1000;
   let pendingServiceWorkerRegistration = null;
+  let shouldAutoReloadOnVisible = false;
+
+  const hideUpdateToast = () => {
+    const existingToast = document.getElementById('pwa-update-toast');
+    if (existingToast) {
+      existingToast.remove();
+    }
+  };
 
   const showUpdateToast = () => {
     const existingToast = document.getElementById('pwa-update-toast');
@@ -23,6 +30,7 @@ if ('serviceWorker' in navigator) {
     refreshButton.className = 'ml-3 rounded-full bg-white/20 px-3 py-1 text-[11px] font-bold uppercase tracking-wide';
     refreshButton.textContent = 'Refresh';
     refreshButton.addEventListener('click', () => {
+      shouldAutoReloadOnVisible = false;
       if (pendingServiceWorkerRegistration && pendingServiceWorkerRegistration.waiting) {
         pendingServiceWorkerRegistration.waiting.postMessage({ type: 'SKIP_WAITING' });
         setTimeout(() => {
@@ -47,7 +55,12 @@ if ('serviceWorker' in navigator) {
 
       pendingServiceWorkerRegistration = registration;
       if (registration.waiting) {
-        showUpdateToast();
+        if (document.visibilityState === 'hidden') {
+          shouldAutoReloadOnVisible = true;
+          registration.waiting.postMessage({ type: 'SKIP_WAITING' });
+        } else {
+          showUpdateToast();
+        }
       }
 
       registration.addEventListener('updatefound', () => {
@@ -60,6 +73,12 @@ if ('serviceWorker' in navigator) {
         newWorker.addEventListener('statechange', () => {
           if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
             pendingServiceWorkerRegistration = registration;
+            if (document.visibilityState === 'hidden' && registration.waiting) {
+              shouldAutoReloadOnVisible = true;
+              registration.waiting.postMessage({ type: 'SKIP_WAITING' });
+              return;
+            }
+
             showUpdateToast();
           }
         });
@@ -71,7 +90,14 @@ if ('serviceWorker' in navigator) {
         }
 
         hasControllerChanged = true;
-        // Keep updates user-driven to avoid disruptive mid-session reloads on mobile/PWA.
+        hideUpdateToast();
+
+        if (document.visibilityState === 'hidden') {
+          shouldAutoReloadOnVisible = true;
+          return;
+        }
+
+        window.location.reload();
       });
 
       const triggerUpdateCheck = () => {
@@ -84,13 +110,21 @@ if ('serviceWorker' in navigator) {
         });
       };
 
-      setInterval(triggerUpdateCheck, UPDATE_CHECK_INTERVAL_MS);
-
       document.addEventListener('visibilitychange', () => {
         if (document.visibilityState === 'visible') {
+          if (shouldAutoReloadOnVisible || hasControllerChanged) {
+            window.location.reload();
+            return;
+          }
+
           triggerUpdateCheck();
+          return;
         }
+
+        triggerUpdateCheck();
       });
+
+      window.addEventListener('online', triggerUpdateCheck);
     } catch (error) {
       console.warn('Service worker registration failed:', error);
     }
