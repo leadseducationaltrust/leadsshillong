@@ -50,7 +50,6 @@ self.addEventListener('install', (event) => {
   event.waitUntil(
     caches.open(APP_SHELL_CACHE).then((cache) => cache.addAll(APP_SHELL_ASSETS))
   );
-  self.skipWaiting();
 });
 
 self.addEventListener('message', (event) => {

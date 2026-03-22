@@ -1,6 +1,7 @@
 if ('serviceWorker' in navigator) {
   let hasControllerChanged = false;
-  const UPDATE_CHECK_INTERVAL_MS = 5 * 60 * 1000;
+  const UPDATE_CHECK_INTERVAL_MS = 15 * 60 * 1000;
+  let pendingServiceWorkerRegistration = null;
 
   const showUpdateToast = () => {
     const existingToast = document.getElementById('pwa-update-toast');
@@ -13,14 +14,29 @@ if ('serviceWorker' in navigator) {
     toast.className = 'fixed bottom-4 left-1/2 -translate-x-1/2 z-[1000] rounded-full bg-blue-900 text-white text-xs md:text-sm font-semibold px-4 py-2 shadow-lg';
     toast.setAttribute('role', 'status');
     toast.setAttribute('aria-live', 'polite');
-    toast.textContent = 'Website updated. Syncing latest content…';
-    document.body.appendChild(toast);
-  };
 
-  const promptServiceWorkerActivation = (registration) => {
-    if (registration && registration.waiting) {
-      registration.waiting.postMessage({ type: 'SKIP_WAITING' });
-    }
+    const message = document.createElement('span');
+    message.textContent = 'Update available';
+
+    const refreshButton = document.createElement('button');
+    refreshButton.type = 'button';
+    refreshButton.className = 'ml-3 rounded-full bg-white/20 px-3 py-1 text-[11px] font-bold uppercase tracking-wide';
+    refreshButton.textContent = 'Refresh';
+    refreshButton.addEventListener('click', () => {
+      if (pendingServiceWorkerRegistration && pendingServiceWorkerRegistration.waiting) {
+        pendingServiceWorkerRegistration.waiting.postMessage({ type: 'SKIP_WAITING' });
+        setTimeout(() => {
+          window.location.reload();
+        }, 350);
+        return;
+      }
+
+      window.location.reload();
+    });
+
+    toast.appendChild(message);
+    toast.appendChild(refreshButton);
+    document.body.appendChild(toast);
   };
 
   window.addEventListener('load', async () => {
@@ -29,7 +45,10 @@ if ('serviceWorker' in navigator) {
         updateViaCache: 'none'
       });
 
-      promptServiceWorkerActivation(registration);
+      pendingServiceWorkerRegistration = registration;
+      if (registration.waiting) {
+        showUpdateToast();
+      }
 
       registration.addEventListener('updatefound', () => {
         const newWorker = registration.installing;
@@ -40,7 +59,8 @@ if ('serviceWorker' in navigator) {
 
         newWorker.addEventListener('statechange', () => {
           if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
-            promptServiceWorkerActivation(registration);
+            pendingServiceWorkerRegistration = registration;
+            showUpdateToast();
           }
         });
       });
@@ -51,10 +71,7 @@ if ('serviceWorker' in navigator) {
         }
 
         hasControllerChanged = true;
-        showUpdateToast();
-        setTimeout(() => {
-          window.location.reload();
-        }, 900);
+        // Keep updates user-driven to avoid disruptive mid-session reloads on mobile/PWA.
       });
 
       const triggerUpdateCheck = () => {
