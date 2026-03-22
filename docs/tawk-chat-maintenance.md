@@ -61,10 +61,9 @@ Click order is:
 
 1. `window.Tawk_API.maximize()`
 2. `window.Tawk_API.toggle()`
-3. `window.Tawk_API.popup()` on desktop only
-4. in-page modal fallback that loads the hosted chat URL in an iframe
+3. `window.Tawk_API.showWidget()`
 
-This order is intentional to keep mobile users in the same page context and avoid disorienting independent windows/tabs.
+This order is intentional to keep the chat window internal (embedded) on both desktop and mobile.
 
 ## Do not change casually
 
@@ -72,7 +71,7 @@ Avoid removing these behaviors unless you test the full site afterward:
 
 - delayed `ensureChatWidgetVisible()` retries
 - fallback button logic
-- in-page hosted chat fallback modal
+- internal-only widget open fallback
 - explicit placement styling applied to rendered Tawk nodes
 
 These were added because the widget continued receiving events while remaining invisible after security/UI changes.
