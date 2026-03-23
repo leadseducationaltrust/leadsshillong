@@ -222,6 +222,12 @@
       "date": "2026-04-02"
     },
     {
+      "category": "school_event",
+      "dayType": "working_day",
+      "title": "Investiture",
+      "date": "2026-03-25"
+    },
+    {
       "category": "state_holiday",
       "dayType": "non_working_day",
       "title": "Eid-ul-Fitr",
@@ -238,12 +244,6 @@
       "dayType": "non_working_day",
       "title": "Holi Festival",
       "date": "2026-03-04"
-    },
-    {
-      "category": "school_event",
-      "dayType": "working_day",
-      "title": "Investiture",
-      "date": "2026-03-25"
     },
     {
       "category": "school_event",
