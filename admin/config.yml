@@ -6,15 +6,6 @@ backend:
   base_url: https://leadsshillong-cms-oauth.leadsshillong.workers.dev
   auth_endpoint: auth
 
-  # See who did what (optional)
-  commit_messages:
-    create: Create {{collection}} “{{slug}}” - {{author-name}} <{{author-login}}> via Decap CMS
-    update: Update {{collection}} “{{slug}}” - {{author-name}} <{{author-login}}> via Decap CMS
-    delete: Delete {{collection}} “{{slug}}” - {{author-name}} <{{author-login}}> via Decap CMS
-    uploadMedia: Upload media asset - {{author-name}} <{{author-login}}> via Decap CMS
-    deleteMedia: Delete media asset - {{author-name}} <{{author-login}}> via Decap CMS
-    openAuthoring: Message {{message}} - {{author-name}} <{{author-login}}> via Decap CMS
-
 # Decap CMS logo (optional)
 #logo_url: https://decapcms.org/img/decap-cms-logo.svg
 logo_url: "/school-logo.jpg"
