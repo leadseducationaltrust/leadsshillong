@@ -102,8 +102,39 @@
     </section>
   </div>
 
-  <script src="https://unpkg.com/decap-cms@3.8.3/dist/decap-cms.js"></script>
   <script>
+    async function loadPatchedDecapCms() {
+      const cmsUrl = 'https://unpkg.com/decap-cms@3.8.3/dist/decap-cms.js';
+
+      try {
+        const response = await fetch(cmsUrl, { cache: 'no-store' });
+        if (!response.ok) {
+          throw new Error(`Failed to fetch CMS bundle: ${response.status}`);
+        }
+
+        let source = await response.text();
+
+        source = source.replace(
+          'selectedFile:this.props.files[0]',
+          'selectedFile:this.props.files[0]||{}',
+        );
+        source = source.replace(
+          'path:g.path,name:g.name,draft:g.draft,t:e',
+          'path:(g||{}).path,name:(g||{}).name,draft:(g||{}).draft,t:e',
+        );
+
+        const script = document.createElement('script');
+        script.text = source;
+        document.head.appendChild(script);
+      } catch (error) {
+        const script = document.createElement('script');
+        script.src = cmsUrl;
+        document.head.appendChild(script);
+      }
+    }
+
+    loadPatchedDecapCms();
+
     function hideStandaloneMediaTab() {
       const links = document.querySelectorAll('a[href="#/media"]');
       links.forEach((link) => {
