@@ -103,38 +103,6 @@
   </div>
 
   <script>
-    function installGithubProxyFetchShim() {
-      if (window.__leadsGithubProxyFetchShimInstalled) {
-        return;
-      }
-
-      const workerProxyBase = 'https://leadsshillong-cms-oauth.leadsshillong.workers.dev/github';
-      const nativeFetch = window.fetch.bind(window);
-
-      window.fetch = (input, init) => {
-        try {
-          const requestUrl = typeof input === 'string' ? input : (input && input.url ? input.url : '');
-          if (requestUrl && requestUrl.startsWith('https://api.github.com/')) {
-            const rewrittenUrl = `${workerProxyBase}/${requestUrl.slice('https://api.github.com/'.length)}`;
-
-            if (typeof input === 'string') {
-              return nativeFetch(rewrittenUrl, init);
-            }
-
-            const proxyRequest = new Request(rewrittenUrl, input);
-            return nativeFetch(proxyRequest, init);
-          }
-        } catch (error) {
-        }
-
-        return nativeFetch(input, init);
-      };
-
-      window.__leadsGithubProxyFetchShimInstalled = true;
-    }
-
-    installGithubProxyFetchShim();
-
     async function loadPatchedDecapCms() {
       const cmsUrl = 'https://unpkg.com/decap-cms@3.8.3/dist/decap-cms.js';
 
@@ -166,6 +134,61 @@
     }
 
     loadPatchedDecapCms();
+
+    function reportCmsNetworkIssue(message) {
+      const id = 'cms-network-issue';
+      let panel = document.getElementById(id);
+      if (!panel) {
+        panel = document.createElement('div');
+        panel.id = id;
+        panel.style.position = 'fixed';
+        panel.style.left = '12px';
+        panel.style.bottom = '12px';
+        panel.style.zIndex = '10001';
+        panel.style.maxWidth = 'min(92vw, 720px)';
+        panel.style.background = '#7f1d1d';
+        panel.style.color = '#fff';
+        panel.style.padding = '10px 12px';
+        panel.style.borderRadius = '8px';
+        panel.style.fontSize = '12px';
+        panel.style.lineHeight = '1.35';
+        panel.style.boxShadow = '0 8px 24px rgba(0,0,0,0.25)';
+        document.body.appendChild(panel);
+      }
+      panel.textContent = `CMS network issue: ${message}`;
+      console.error('CMS network issue:', message);
+    }
+
+    (function installCmsFetchErrorLogger() {
+      if (window.__leadsCmsFetchLoggerInstalled) {
+        return;
+      }
+      const nativeFetch = window.fetch.bind(window);
+      window.fetch = async (...args) => {
+        const input = args[0];
+        const requestUrl = typeof input === 'string' ? input : (input && input.url ? input.url : '');
+        const isCmsApi = requestUrl.includes('/github/') || requestUrl.includes('api.github.com');
+
+        try {
+          const response = await nativeFetch(...args);
+          if (isCmsApi && !response.ok) {
+            let details = '';
+            try {
+              details = await response.clone().text();
+            } catch (error) {
+            }
+            reportCmsNetworkIssue(`${response.status} ${response.statusText} at ${requestUrl}${details ? ` | ${details.slice(0, 180)}` : ''}`);
+          }
+          return response;
+        } catch (error) {
+          if (isCmsApi) {
+            reportCmsNetworkIssue(`${requestUrl} | ${error && error.message ? error.message : String(error)}`);
+          }
+          throw error;
+        }
+      };
+      window.__leadsCmsFetchLoggerInstalled = true;
+    })();
 
     function hideStandaloneMediaTab() {
       const links = document.querySelectorAll('a[href="#/media"]');
