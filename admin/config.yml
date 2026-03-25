@@ -340,13 +340,13 @@ collections:
 
   - name: "thought"
     label: "Thought of the Day"
+    media_folder: "/thought/media"
+    public_folder: "/thought/media"
     files:
       - label: "Thought Entries"
         name: "thought_entries"
         file: "thought/content.json"
         format: "json"
-        media_folder: "thought/media"
-        public_folder: "/thought/media"
         fields:
           - label: "Entries"
             name: "entries"
@@ -594,13 +594,13 @@ collections:
 
   - name: "gallery"
     label: "Gallery"
+    media_folder: "/gallery/media"
+    public_folder: "/gallery/media"
     files:
       - label: "Gallery Images"
         name: "gallery_images"
         file: "gallery/content.json"
         format: "json"
-        media_folder: "gallery/media"
-        public_folder: "/gallery/media"
         fields:
           - label: "Images"
             name: "images"
