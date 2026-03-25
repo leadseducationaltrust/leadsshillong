@@ -3,7 +3,7 @@ backend:
   name: github
   repo: leadseducationaltrust/leadsshillong
   branch: main
-  api_root: https://api.github.com
+  api_root: https://leadsshillong-cms-oauth.leadsshillong.workers.dev/github
   use_graphql: false
   base_url: https://leadsshillong-cms-oauth.leadsshillong.workers.dev
   auth_endpoint: auth

@@ -185,6 +185,106 @@ function getCorsHeaders(request, env) {
   return headers;
 }
 
+function getProxyCorsHeaders(request, env) {
+  const allowedOrigin = resolveCorsOrigin(request, env);
+  const requestedHeaders = cleanText(request.headers.get('Access-Control-Request-Headers'));
+  const headers = {
+    'Access-Control-Allow-Methods': 'GET, POST, PUT, PATCH, DELETE, OPTIONS',
+    'Access-Control-Allow-Headers': requestedHeaders || 'Authorization, Content-Type, Accept, If-None-Match',
+    'Access-Control-Max-Age': '86400',
+    'Vary': 'Origin'
+  };
+
+  if (allowedOrigin) {
+    headers['Access-Control-Allow-Origin'] = allowedOrigin;
+  }
+
+  return headers;
+}
+
+function copyGithubResponseHeaders(sourceHeaders, corsHeaders = {}) {
+  const passthrough = [
+    'content-type',
+    'etag',
+    'link',
+    'location',
+    'x-ratelimit-limit',
+    'x-ratelimit-remaining',
+    'x-ratelimit-reset',
+    'x-ratelimit-used',
+    'x-ratelimit-resource'
+  ];
+
+  const headers = withSecurityHeaders({ ...corsHeaders });
+  for (const name of passthrough) {
+    const value = sourceHeaders.get(name);
+    if (value) {
+      headers[name] = value;
+    }
+  }
+
+  return headers;
+}
+
+function buildGithubProxyHeaders(request) {
+  const incoming = request.headers;
+  const outgoing = new Headers();
+  const allowed = ['authorization', 'accept', 'content-type', 'if-none-match', 'if-match'];
+
+  for (const name of allowed) {
+    const value = incoming.get(name);
+    if (value) {
+      outgoing.set(name, value);
+    }
+  }
+
+  if (!outgoing.get('accept')) {
+    outgoing.set('accept', 'application/vnd.github+json');
+  }
+
+  outgoing.set('user-agent', 'leadsshillong-cms-oauth-proxy');
+  return outgoing;
+}
+
+async function handleGithubProxy(request, env, url) {
+  const corsHeaders = getProxyCorsHeaders(request, env);
+  const requestOrigin = request.headers.get('Origin');
+  if (requestOrigin && !resolveCorsOrigin(request, env)) {
+    return jsonResponse({ ok: false, error: 'Origin not allowed.' }, 403, corsHeaders);
+  }
+
+  if (request.method === 'OPTIONS') {
+    return new Response(null, {
+      status: 204,
+      headers: withSecurityHeaders(corsHeaders)
+    });
+  }
+
+  const suffix = url.pathname.replace(/^\/github\/?/, '');
+  if (!suffix) {
+    return jsonResponse({ ok: false, error: 'GitHub API path missing.' }, 400, corsHeaders);
+  }
+
+  const targetUrl = `https://api.github.com/${suffix}${url.search}`;
+  const init = {
+    method: request.method,
+    headers: buildGithubProxyHeaders(request),
+    body: ['GET', 'HEAD'].includes(request.method) ? undefined : request.body
+  };
+
+  try {
+    const response = await fetch(targetUrl, init);
+    const headers = copyGithubResponseHeaders(response.headers, corsHeaders);
+    return new Response(response.body, {
+      status: response.status,
+      statusText: response.statusText,
+      headers
+    });
+  } catch (error) {
+    return jsonResponse({ ok: false, error: 'GitHub proxy request failed.' }, 502, corsHeaders);
+  }
+}
+
 function cleanText(value) {
   return String(value || '').trim();
 }
@@ -554,6 +654,10 @@ export default {
     try {
       const url = new URL(request.url);
       const allowedOrigins = getAllowedOrigins(env);
+
+      if (url.pathname === '/github' || url.pathname.startsWith('/github/')) {
+        return handleGithubProxy(request, env, url);
+      }
 
       if (url.pathname === '/api/career/apply') {
         return handleCareerApplication(request, env);
