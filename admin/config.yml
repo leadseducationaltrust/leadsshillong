@@ -6,6 +6,15 @@ backend:
   base_url: https://leadsshillong-cms-oauth.leadsshillong.workers.dev
   auth_endpoint: auth
 
+  # See who did what (optional)
+  commit_messages:
+    create: Create {{collection}} “{{slug}}” - {{author-name}} <{{author-login}}> via Decap CMS
+    update: Update {{collection}} “{{slug}}” - {{author-name}} <{{author-login}}> via Decap CMS
+    delete: Delete {{collection}} “{{slug}}” - {{author-name}} <{{author-login}}> via Decap CMS
+    uploadMedia: Upload “{{path}}” - {{author-name}} <{{author-login}}> via Decap CMS
+    deleteMedia: Delete “{{path}}” - {{author-name}} <{{author-login}}> via Decap CMS
+    openAuthoring: Message {{message}} - {{author-name}} <{{author-login}}> via Decap CMS
+
 # Decap CMS logo (optional)
 #logo_url: https://decapcms.org/img/decap-cms-logo.svg
 logo_url: "/school-logo.jpg"
@@ -324,7 +333,7 @@ collections:
         name: "news_items"
         file: "news/content.json"
         format: "json"
-        media_folder: "news/media"
+        media_folder: "/news/media"
         public_folder: "/news/media"
         fields:
           - label: "Items"
@@ -340,13 +349,13 @@ collections:
 
   - name: "thought"
     label: "Thought of the Day"
-    media_folder: "/thought/media"
-    public_folder: "/thought/media"
     files:
       - label: "Thought Entries"
         name: "thought_entries"
         file: "thought/content.json"
         format: "json"
+        media_folder: "/thought/media"
+        public_folder: "/thought/media"
         fields:
           - label: "Entries"
             name: "entries"
@@ -484,7 +493,7 @@ collections:
         name: "download_items"
         file: "downloads/content.json"
         format: "json"
-        media_folder: "downloads/media"
+        media_folder: "/downloads/media"
         public_folder: "/downloads/media"
         fields:
           - label: "Items"
@@ -568,7 +577,7 @@ collections:
         name: "faculty_members"
         file: "faculty/content.json"
         format: "json"
-        media_folder: "faculty/media"
+        media_folder: "/faculty/media"
         public_folder: "/faculty/media"
         fields:
           - label: "Members"
@@ -594,13 +603,13 @@ collections:
 
   - name: "gallery"
     label: "Gallery"
-    media_folder: "/gallery/media"
-    public_folder: "/gallery/media"
     files:
       - label: "Gallery Images"
         name: "gallery_images"
         file: "gallery/content.json"
         format: "json"
+        media_folder: "/gallery/media"
+        public_folder: "/gallery/media"
         fields:
           - label: "Images"
             name: "images"

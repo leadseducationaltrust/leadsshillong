@@ -102,7 +102,7 @@
     </section>
   </div>
 
-  <script src="https://unpkg.com/decap-cms@latest/dist/decap-cms.js"></script>
+  <script src="https://unpkg.com/decap-cms@3.8.3/dist/decap-cms.js"></script>
   <script>
     function hideStandaloneMediaTab() {
       const links = document.querySelectorAll('a[href="#/media"]');
@@ -110,6 +110,12 @@
         const navItem = link.closest('li') || link;
         navItem.style.display = 'none';
       });
+    }
+
+    function blockMediaRoute() {
+      if (window.location.hash.startsWith('#/media')) {
+        window.location.hash = '#/collections/news';
+      }
     }
 
     function hasCmsAuthSession() {
@@ -172,8 +178,15 @@
       });
     }
 
-    window.addEventListener('hashchange', () => {
+    const observer = new MutationObserver(() => {
       hideStandaloneMediaTab();
+      blockMediaRoute();
+      toggleLandingContent();
+    });
+
+    observer.observe(document.documentElement, { childList: true, subtree: true });
+    window.addEventListener('hashchange', () => {
+      blockMediaRoute();
       toggleLandingContent();
     });
 
@@ -231,8 +244,6 @@
 
     setConfigLastUpdated();
 
-    // Delay to let CMS mount before hiding the sidebar Media tab link.
-    window.setTimeout(hideStandaloneMediaTab, 400);
     toggleLandingContent();
   </script>
 </body>
