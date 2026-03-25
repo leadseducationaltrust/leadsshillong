@@ -112,12 +112,6 @@
       });
     }
 
-    function blockMediaRoute() {
-      if (window.location.hash.startsWith('#/media')) {
-        window.location.hash = '#/collections/news';
-      }
-    }
-
     function hasCmsAuthSession() {
       const storages = [window.localStorage, window.sessionStorage];
       const likelyAuthKeys = ['netlify-cms-user', 'decap-cms-user'];
@@ -180,13 +174,11 @@
 
     const observer = new MutationObserver(() => {
       hideStandaloneMediaTab();
-      blockMediaRoute();
       toggleLandingContent();
     });
 
     observer.observe(document.documentElement, { childList: true, subtree: true });
     window.addEventListener('hashchange', () => {
-      blockMediaRoute();
       toggleLandingContent();
     });
 
