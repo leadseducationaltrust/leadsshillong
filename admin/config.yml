@@ -11,8 +11,8 @@ backend:
     create: Create {{collection}} “{{slug}}” - {{author-name}} <{{author-login}}> via Decap CMS
     update: Update {{collection}} “{{slug}}” - {{author-name}} <{{author-login}}> via Decap CMS
     delete: Delete {{collection}} “{{slug}}” - {{author-name}} <{{author-login}}> via Decap CMS
-    uploadMedia: Upload “{{path}}” - {{author-name}} <{{author-login}}> via Decap CMS
-    deleteMedia: Delete “{{path}}” - {{author-name}} <{{author-login}}> via Decap CMS
+    uploadMedia: Upload media asset - {{author-name}} <{{author-login}}> via Decap CMS
+    deleteMedia: Delete media asset - {{author-name}} <{{author-login}}> via Decap CMS
     openAuthoring: Message {{message}} - {{author-name}} <{{author-login}}> via Decap CMS
 
 # Decap CMS logo (optional)
