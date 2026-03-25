@@ -103,6 +103,38 @@
   </div>
 
   <script>
+    function installGithubProxyFetchShim() {
+      if (window.__leadsGithubProxyFetchShimInstalled) {
+        return;
+      }
+
+      const workerProxyBase = 'https://leadsshillong-cms-oauth.leadsshillong.workers.dev/github';
+      const nativeFetch = window.fetch.bind(window);
+
+      window.fetch = (input, init) => {
+        try {
+          const requestUrl = typeof input === 'string' ? input : (input && input.url ? input.url : '');
+          if (requestUrl && requestUrl.startsWith('https://api.github.com/')) {
+            const rewrittenUrl = `${workerProxyBase}/${requestUrl.slice('https://api.github.com/'.length)}`;
+
+            if (typeof input === 'string') {
+              return nativeFetch(rewrittenUrl, init);
+            }
+
+            const proxyRequest = new Request(rewrittenUrl, input);
+            return nativeFetch(proxyRequest, init);
+          }
+        } catch (error) {
+        }
+
+        return nativeFetch(input, init);
+      };
+
+      window.__leadsGithubProxyFetchShimInstalled = true;
+    }
+
+    installGithubProxyFetchShim();
+
     async function loadPatchedDecapCms() {
       const cmsUrl = 'https://unpkg.com/decap-cms@3.8.3/dist/decap-cms.js';
 
