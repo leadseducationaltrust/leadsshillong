@@ -1,6 +1,11 @@
 {
   "images": [
     {
+      "date": "2026-03-26",
+      "url": "/gallery/media/group_photo.jpg",
+      "desc": "The future looks bright! Introducing our newly felicitated school prefects for 2026. Empowered to lead, inspired to serve."
+    },
+    {
       "url": "/gallery/media/captains_.jpg",
       "desc": "Newly appointed Captains and Assistant Captains proudly stand alongside the Principal of LEAD Higher Secondary School, marking the beginning of a new chapter of leadership, responsibility and inspiration.",
       "date": "2026-03-25"
@@ -94,11 +99,6 @@
       "url": "gallery/media/photo_11_investiture.jpg",
       "desc": "Newly appointed Captains and Vice-Captains with the guest of honour",
       "date": "2025-03-16"
-    },
-    {
-      "date": "2026-03-26",
-      "url": "/gallery/media/group_photo.jpg",
-      "desc": "The future looks bright! Introducing our newly felicitated school prefects for 2026. Empowered to lead, inspired to serve."
     }
   ]
 }
