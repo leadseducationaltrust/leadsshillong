@@ -7,7 +7,7 @@
         "description": "Newly appointed Captains and Assistant Captains proudly stand alongside the Principal of LEAD Higher Secondary School, marking the beginning of a new chapter of leadership, responsibility and inspiration.",
         "media_file": "/thought/media/captains_.jpg"
       },
-      "date": "2026-03-24",
+      "date": "2026-03-25",
       "order_of_the_day": [
         "Today 24/03/26, follow Day 5"
       ],
@@ -261,6 +261,14 @@
       "bible_verse": "Trust in the Lord with all your heart.",
       "bible_reference": "Proverbs 3:5",
       "additional_notes": "Uniform checks will be conducted this week."
+    },
+    {
+      "daily_focus": {
+        "media_type": "image"
+      },
+      "order_of_the_day": [
+        "Follow Day 1"
+      ]
     }
   ]
 }
