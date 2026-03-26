@@ -2,6 +2,15 @@
   "entries": [
     {
       "daily_focus": {
+        "media_type": "image"
+      },
+      "order_of_the_day": [
+        "Follow Day 1"
+      ],
+      "date": "2026-03-26"
+    },
+    {
+      "daily_focus": {
         "media_type": "image",
         "image": "",
         "description": "Newly appointed Captains and Assistant Captains proudly stand alongside the Principal of LEAD Higher Secondary School, marking the beginning of a new chapter of leadership, responsibility and inspiration.",
@@ -267,15 +276,6 @@
       "order_of_the_day": [
         "Follow Day 1"
       ]
-    },
-    {
-      "daily_focus": {
-        "media_type": "image"
-      },
-      "order_of_the_day": [
-        "Follow Day 1"
-      ],
-      "date": "2026-03-26"
     }
   ]
 }
