@@ -3,10 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta http-equiv="Cache-Control" content="no-store, no-cache, must-revalidate" />
-  <meta http-equiv="Pragma" content="no-cache" />
-  <meta http-equiv="Expires" content="0" />
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: blob: https:; base-uri 'self'; object-src 'none'; img-src 'self' data: https: blob:; font-src 'self' data: https:; style-src 'self' 'unsafe-inline' https:; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://unpkg.com; connect-src 'self' https:; frame-src 'self' https:; worker-src 'self' blob:; form-action 'self' https:">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; img-src 'self' data: https:; media-src 'self' https:; font-src 'self' data: https://cdnjs.cloudflare.com https://fonts.gstatic.com; style-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://fonts.googleapis.com; script-src 'self' 'unsafe-inline' https://cdn.tailwindcss.com https://www.googletagmanager.com https://embed.tawk.to https://unpkg.com; connect-src 'self' https://www.googletagmanager.com https://region1.google-analytics.com https://www.google-analytics.com https://embed.tawk.to https://va.tawk.to https://api.github.com https://cusdis.com; frame-src 'self' https://www.google.com https://www.youtube.com https://www.youtube-nocookie.com https://www.google.com/maps https://challenges.cloudflare.com https://cusdis.com; manifest-src 'self'; worker-src 'self'; form-action 'self'; upgrade-insecure-requests">
   <title>Content Management System</title>
   <style>
     body {
@@ -102,93 +99,8 @@
     </section>
   </div>
 
+  <script src="https://unpkg.com/decap-cms@3.8.3/dist/decap-cms.js"></script>
   <script>
-    async function loadPatchedDecapCms() {
-      const cmsUrl = 'https://unpkg.com/decap-cms@3.8.3/dist/decap-cms.js';
-
-      try {
-        const response = await fetch(cmsUrl, { cache: 'no-store' });
-        if (!response.ok) {
-          throw new Error(`Failed to fetch CMS bundle: ${response.status}`);
-        }
-
-        let source = await response.text();
-
-        source = source.replace(
-          'selectedFile:this.props.files[0]',
-          'selectedFile:this.props.files[0]||{}',
-        );
-        source = source.replace(
-          'path:g.path,name:g.name,draft:g.draft,t:e',
-          'path:(g||{}).path,name:(g||{}).name,draft:(g||{}).draft,t:e',
-        );
-
-        const script = document.createElement('script');
-        script.text = source;
-        document.head.appendChild(script);
-      } catch (error) {
-        const script = document.createElement('script');
-        script.src = cmsUrl;
-        document.head.appendChild(script);
-      }
-    }
-
-    loadPatchedDecapCms();
-
-    function reportCmsNetworkIssue(message) {
-      const id = 'cms-network-issue';
-      let panel = document.getElementById(id);
-      if (!panel) {
-        panel = document.createElement('div');
-        panel.id = id;
-        panel.style.position = 'fixed';
-        panel.style.left = '12px';
-        panel.style.bottom = '12px';
-        panel.style.zIndex = '10001';
-        panel.style.maxWidth = 'min(92vw, 720px)';
-        panel.style.background = '#7f1d1d';
-        panel.style.color = '#fff';
-        panel.style.padding = '10px 12px';
-        panel.style.borderRadius = '8px';
-        panel.style.fontSize = '12px';
-        panel.style.lineHeight = '1.35';
-        panel.style.boxShadow = '0 8px 24px rgba(0,0,0,0.25)';
-        document.body.appendChild(panel);
-      }
-      panel.textContent = `CMS network issue: ${message}`;
-      console.error('CMS network issue:', message);
-    }
-
-    (function installCmsFetchErrorLogger() {
-      if (window.__leadsCmsFetchLoggerInstalled) {
-        return;
-      }
-      const nativeFetch = window.fetch.bind(window);
-      window.fetch = async (...args) => {
-        const input = args[0];
-        const requestUrl = typeof input === 'string' ? input : (input && input.url ? input.url : '');
-        const isCmsApi = requestUrl.includes('/github/') || requestUrl.includes('api.github.com');
-
-        try {
-          const response = await nativeFetch(...args);
-          if (isCmsApi && !response.ok) {
-            let details = '';
-            try {
-              details = await response.clone().text();
-            } catch (error) {
-            }
-            reportCmsNetworkIssue(`${response.status} ${response.statusText} at ${requestUrl}${details ? ` | ${details.slice(0, 180)}` : ''}`);
-          }
-          return response;
-        } catch (error) {
-          if (isCmsApi) {
-            reportCmsNetworkIssue(`${requestUrl} | ${error && error.message ? error.message : String(error)}`);
-          }
-          throw error;
-        }
-      };
-      window.__leadsCmsFetchLoggerInstalled = true;
-    })();
 
     function hideStandaloneMediaTab() {
       const links = document.querySelectorAll('a[href="#/media"]');

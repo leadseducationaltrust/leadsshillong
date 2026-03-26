@@ -3,7 +3,6 @@ backend:
   name: github
   repo: leadseducationaltrust/leadsshillong
   branch: main
-  api_root: https://leadsshillong-cms-oauth.leadsshillong.workers.dev/github
   base_url: https://leadsshillong-cms-oauth.leadsshillong.workers.dev
   auth_endpoint: auth
 
@@ -334,7 +333,7 @@ collections:
         name: "news_items"
         file: "news/content.json"
         format: "json"
-        media_folder: "news/media"
+        media_folder: "/news/media"
         public_folder: "/news/media"
         fields:
           - label: "Items"
@@ -355,7 +354,7 @@ collections:
         name: "thought_entries"
         file: "thought/content.json"
         format: "json"
-        media_folder: "thought/media"
+        media_folder: "/thought/media"
         public_folder: "/thought/media"
         fields:
           - label: "Entries"
@@ -494,7 +493,7 @@ collections:
         name: "download_items"
         file: "downloads/content.json"
         format: "json"
-        media_folder: "downloads/media"
+        media_folder: "/downloads/media"
         public_folder: "/downloads/media"
         fields:
           - label: "Items"
@@ -578,7 +577,7 @@ collections:
         name: "faculty_members"
         file: "faculty/content.json"
         format: "json"
-        media_folder: "faculty/media"
+        media_folder: "/faculty/media"
         public_folder: "/faculty/media"
         fields:
           - label: "Members"
@@ -609,7 +608,7 @@ collections:
         name: "gallery_images"
         file: "gallery/content.json"
         format: "json"
-        media_folder: "gallery/media"
+        media_folder: "/gallery/media"
         public_folder: "/gallery/media"
         fields:
           - label: "Images"
