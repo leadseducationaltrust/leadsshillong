@@ -8,27 +8,13 @@ function parseCookies(cookieHeader) {
   return cookies;
 }
 
-const DEFAULT_SECURITY_HEADERS = {
-  'x-content-type-options': 'nosniff',
-  'x-frame-options': 'DENY',
-  'referrer-policy': 'no-referrer',
-  'permissions-policy': 'camera=(), microphone=(), geolocation=()'
-};
-
-function withSecurityHeaders(headers = {}) {
-  return {
-    ...DEFAULT_SECURITY_HEADERS,
-    ...headers
-  };
-}
-
 function jsonResponse(payload, status = 200, extraHeaders = {}) {
   return new Response(JSON.stringify(payload), {
     status,
-    headers: withSecurityHeaders({
+    headers: {
       'content-type': 'application/json; charset=utf-8',
       ...extraHeaders
-    })
+    }
   });
 }
 
@@ -139,10 +125,7 @@ function getOriginCandidates(url, request) {
 function htmlResponse(html, status = 200) {
   return new Response(html, {
     status,
-    headers: withSecurityHeaders({
-      'content-type': 'text/html; charset=utf-8',
-      'cache-control': 'no-store'
-    })
+    headers: { 'content-type': 'text/html; charset=utf-8' }
   });
 }
 
@@ -183,225 +166,6 @@ function getCorsHeaders(request, env) {
   }
 
   return headers;
-}
-
-function getProxyCorsHeaders(request, env) {
-  const allowedOrigin = resolveCorsOrigin(request, env);
-  const requestedHeaders = cleanText(request.headers.get('Access-Control-Request-Headers'));
-  const headers = {
-    'Access-Control-Allow-Methods': 'GET, POST, PUT, PATCH, DELETE, OPTIONS',
-    'Access-Control-Allow-Headers': requestedHeaders || 'Authorization, Content-Type, Accept, If-None-Match',
-    'Access-Control-Max-Age': '86400',
-    'Vary': 'Origin'
-  };
-
-  if (allowedOrigin) {
-    headers['Access-Control-Allow-Origin'] = allowedOrigin;
-  }
-
-  return headers;
-}
-
-function copyGithubResponseHeaders(sourceHeaders, corsHeaders = {}) {
-  const passthrough = [
-    'content-type',
-    'etag',
-    'link',
-    'location',
-    'x-ratelimit-limit',
-    'x-ratelimit-remaining',
-    'x-ratelimit-reset',
-    'x-ratelimit-used',
-    'x-ratelimit-resource'
-  ];
-
-  const headers = withSecurityHeaders({ ...corsHeaders });
-  for (const name of passthrough) {
-    const value = sourceHeaders.get(name);
-    if (value) {
-      headers[name] = value;
-    }
-  }
-
-  return headers;
-}
-
-function buildGithubProxyHeaders(request) {
-  const incoming = request.headers;
-  const outgoing = new Headers();
-  const allowed = ['authorization', 'accept', 'content-type', 'if-none-match', 'if-match'];
-
-  for (const name of allowed) {
-    const value = incoming.get(name);
-    if (value) {
-      outgoing.set(name, value);
-    }
-  }
-
-  if (!outgoing.get('accept')) {
-    outgoing.set('accept', 'application/vnd.github+json');
-  }
-
-  outgoing.set('user-agent', 'leadsshillong-cms-oauth-proxy');
-  return outgoing;
-}
-
-function buildGithubApiUrl(pathname, search = '') {
-  return `https://api.github.com/${pathname}${search}`;
-}
-
-function parseGithubTreeRequest(suffix) {
-  const match = suffix.match(/^repos\/([^/]+)\/([^/]+)\/git\/trees\/(.+)$/);
-  if (!match) {
-    return null;
-  }
-
-  const [, owner, repo, rawTreeSpec] = match;
-  const separatorIndex = rawTreeSpec.indexOf(':');
-  if (separatorIndex === -1) {
-    return null;
-  }
-
-  const rawRef = rawTreeSpec.slice(0, separatorIndex);
-  const rawPath = rawTreeSpec.slice(separatorIndex + 1);
-  const ref = decodeURIComponent(rawRef).trim();
-  const treePath = decodeURIComponent(rawPath).replace(/^\/+|\/+$/g, '');
-
-  if (!ref || !treePath) {
-    return null;
-  }
-
-  return {
-    owner,
-    repo,
-    ref,
-    treePath
-  };
-}
-
-function githubTreeNotFoundResponse(corsHeaders) {
-  return jsonResponse({
-    message: 'Not Found',
-    documentation_url: 'https://docs.github.com/rest/git/trees#get-a-tree',
-    status: '404'
-  }, 404, corsHeaders);
-}
-
-async function fetchGithubJson(url, headers) {
-  const response = await fetch(url, {
-    method: 'GET',
-    headers
-  });
-
-  let payload = null;
-  try {
-    payload = await response.clone().json();
-  } catch {
-    payload = null;
-  }
-
-  return { response, payload };
-}
-
-async function resolveGithubTreeTargetUrl(suffix, headers, corsHeaders, search) {
-  const parsed = parseGithubTreeRequest(suffix);
-  if (!parsed) {
-    return { targetUrl: buildGithubApiUrl(suffix, search) };
-  }
-
-  const { owner, repo, ref, treePath } = parsed;
-  const refLookupUrl = buildGithubApiUrl(`repos/${owner}/${repo}/git/ref/heads/${encodeURIComponent(ref)}`);
-  const refLookup = await fetchGithubJson(refLookupUrl, headers);
-  if (!refLookup.response.ok) {
-    return { response: refLookup.response };
-  }
-
-  const commitSha = refLookup.payload && refLookup.payload.object && refLookup.payload.object.sha;
-  if (!commitSha) {
-    return { response: githubTreeNotFoundResponse(corsHeaders) };
-  }
-
-  const commitLookupUrl = buildGithubApiUrl(`repos/${owner}/${repo}/git/commits/${commitSha}`);
-  const commitLookup = await fetchGithubJson(commitLookupUrl, headers);
-  if (!commitLookup.response.ok) {
-    return { response: commitLookup.response };
-  }
-
-  let treeSha = commitLookup.payload && commitLookup.payload.tree && commitLookup.payload.tree.sha;
-  if (!treeSha) {
-    return { response: githubTreeNotFoundResponse(corsHeaders) };
-  }
-
-  const segments = treePath.split('/').filter(Boolean);
-  for (const segment of segments) {
-    const treeLookupUrl = buildGithubApiUrl(`repos/${owner}/${repo}/git/trees/${treeSha}`);
-    const treeLookup = await fetchGithubJson(treeLookupUrl, headers);
-    if (!treeLookup.response.ok) {
-      return { response: treeLookup.response };
-    }
-
-    const entries = Array.isArray(treeLookup.payload && treeLookup.payload.tree) ? treeLookup.payload.tree : [];
-    const nextEntry = entries.find((entry) => entry && entry.path === segment);
-    if (!nextEntry || nextEntry.type !== 'tree' || !nextEntry.sha) {
-      return { response: githubTreeNotFoundResponse(corsHeaders) };
-    }
-
-    treeSha = nextEntry.sha;
-  }
-
-  return {
-    targetUrl: buildGithubApiUrl(`repos/${owner}/${repo}/git/trees/${treeSha}`, search)
-  };
-}
-
-async function handleGithubProxy(request, env, url) {
-  const corsHeaders = getProxyCorsHeaders(request, env);
-  const requestOrigin = request.headers.get('Origin');
-  if (requestOrigin && !resolveCorsOrigin(request, env)) {
-    return jsonResponse({ ok: false, error: 'Origin not allowed.' }, 403, corsHeaders);
-  }
-
-  if (request.method === 'OPTIONS') {
-    return new Response(null, {
-      status: 204,
-      headers: withSecurityHeaders(corsHeaders)
-    });
-  }
-
-  const suffix = url.pathname.replace(/^\/github\/?/, '');
-  if (!suffix) {
-    return jsonResponse({ ok: false, error: 'GitHub API path missing.' }, 400, corsHeaders);
-  }
-
-  const headers = buildGithubProxyHeaders(request);
-  const targetResolution = await resolveGithubTreeTargetUrl(suffix, headers, corsHeaders, url.search);
-  if (targetResolution.response) {
-    const proxiedHeaders = copyGithubResponseHeaders(targetResolution.response.headers, corsHeaders);
-    return new Response(targetResolution.response.body, {
-      status: targetResolution.response.status,
-      statusText: targetResolution.response.statusText,
-      headers: proxiedHeaders
-    });
-  }
-
-  const targetUrl = targetResolution.targetUrl;
-  const init = {
-    method: request.method,
-    headers,
-    body: ['GET', 'HEAD'].includes(request.method) ? undefined : request.body
-  };
-
-  try {
-    const response = await fetch(targetUrl, init);
-    const headers = copyGithubResponseHeaders(response.headers, corsHeaders);
-    return new Response(response.body, {
-      status: response.status,
-      statusText: response.statusText,
-      headers
-    });
-  } catch (error) {
-    return jsonResponse({ ok: false, error: 'GitHub proxy request failed.' }, 502, corsHeaders);
-  }
 }
 
 function cleanText(value) {
@@ -670,15 +434,11 @@ async function enforceRateLimit(request, env) {
 
 async function handleCareerApplication(request, env) {
   const corsHeaders = getCorsHeaders(request, env);
-  const requestOrigin = request.headers.get('Origin');
-  if (requestOrigin && !resolveCorsOrigin(request, env)) {
-    return jsonResponse({ ok: false, error: 'Origin not allowed.' }, 403, corsHeaders);
-  }
 
   if (request.method === 'OPTIONS') {
     return new Response(null, {
       status: 204,
-      headers: withSecurityHeaders(corsHeaders)
+      headers: corsHeaders
     });
   }
 
@@ -763,8 +523,8 @@ async function handleCareerApplication(request, env) {
       application_id: payload.application_id
     }, 200, corsHeaders);
   } catch (error) {
-    console.error('Career application processing failed:', error);
-    return jsonResponse({ ok: false, error: 'Application processing failed. Please try again later.' }, 500, corsHeaders);
+    const message = error instanceof Error ? error.message : 'Application processing failed.';
+    return jsonResponse({ ok: false, error: message }, 500, corsHeaders);
   }
 }
 
@@ -773,10 +533,6 @@ export default {
     try {
       const url = new URL(request.url);
       const allowedOrigins = getAllowedOrigins(env);
-
-      if (url.pathname === '/github' || url.pathname.startsWith('/github/')) {
-        return handleGithubProxy(request, env, url);
-      }
 
       if (url.pathname === '/api/career/apply') {
         return handleCareerApplication(request, env);
@@ -925,14 +681,8 @@ export default {
 
       return new Response('Not Found', { status: 404 });
     } catch (error) {
-      console.error('Worker runtime error:', error);
-      return new Response('Internal server error.', {
-        status: 500,
-        headers: withSecurityHeaders({
-          'content-type': 'text/plain; charset=utf-8',
-          'cache-control': 'no-store'
-        })
-      });
+      const message = error instanceof Error ? error.message : String(error);
+      return new Response(`Worker runtime error: ${message}`, { status: 500 });
     }
   }
 };
