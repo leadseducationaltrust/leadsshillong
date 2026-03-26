@@ -91,7 +91,7 @@
         <li><strong>Single source of truth:</strong> site-wide values come from <code>admin/config.json</code>.</li>
         <li><strong>Feature Toggles:</strong> use the Site Config → Feature Toggles switches to show/hide major sections.</li>
         <li><strong>Safe workflow:</strong> edit, save, then verify the affected page in the website preview.</li>
-        <li><strong>Media uploads:</strong> upload files inside each collection editor; standalone Media tab is intentionally hidden.</li>
+        <li><strong>Media uploads:</strong> use the collection editors or media library to upload and select files.</li>
         <li><strong>Need exact mapping?</strong> see the Feature Matrix in <code>README.md</code>.</li>
       </ul>
       <p class="tips-meta" id="tips-last-updated">Last updated: —</p>
@@ -100,20 +100,6 @@
 
   <script src="https://unpkg.com/decap-cms@3.8.3/dist/decap-cms.js"></script>
   <script>
-    function hideStandaloneMediaTab() {
-      const links = document.querySelectorAll('a[href="#/media"]');
-      links.forEach((link) => {
-        const navItem = link.closest('li') || link;
-        navItem.style.display = 'none';
-      });
-    }
-
-    function blockMediaRoute() {
-      if (window.location.hash.startsWith('#/media')) {
-        window.location.hash = '#/collections/news';
-      }
-    }
-
     function hasCmsAuthSession() {
       const storages = [window.localStorage, window.sessionStorage];
       const likelyAuthKeys = ['netlify-cms-user', 'decap-cms-user'];
@@ -175,14 +161,11 @@
     }
 
     const observer = new MutationObserver(() => {
-      hideStandaloneMediaTab();
-      blockMediaRoute();
       toggleLandingContent();
     });
 
     observer.observe(document.documentElement, { childList: true, subtree: true });
     window.addEventListener('hashchange', () => {
-      blockMediaRoute();
       toggleLandingContent();
     });
 
