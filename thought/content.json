@@ -8,9 +8,7 @@
         "media_file": "/thought/media/captains_.jpg"
       },
       "date": "2026-03-25",
-      "order_of_the_day": [
-        "Today 24/03/26, follow Day 5"
-      ],
+      "order_of_the_day": [],
       "thought_of_the_day": "Don't wait for opportunity, create it.",
       "bible_reference": "John 19:4",
       "bible_verse": "Look, I am bringing him out to you to let you know that I find no basis for a charge against him."
@@ -269,6 +267,15 @@
       "order_of_the_day": [
         "Follow Day 1"
       ]
+    },
+    {
+      "daily_focus": {
+        "media_type": "image"
+      },
+      "order_of_the_day": [
+        "Follow Day 1"
+      ],
+      "date": "2026-03-26"
     }
   ]
 }
