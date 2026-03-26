@@ -246,6 +246,114 @@ function buildGithubProxyHeaders(request) {
   return outgoing;
 }
 
+function buildGithubApiUrl(pathname, search = '') {
+  return `https://api.github.com/${pathname}${search}`;
+}
+
+function parseGithubTreeRequest(suffix) {
+  const match = suffix.match(/^repos\/([^/]+)\/([^/]+)\/git\/trees\/(.+)$/);
+  if (!match) {
+    return null;
+  }
+
+  const [, owner, repo, rawTreeSpec] = match;
+  const separatorIndex = rawTreeSpec.indexOf(':');
+  if (separatorIndex === -1) {
+    return null;
+  }
+
+  const rawRef = rawTreeSpec.slice(0, separatorIndex);
+  const rawPath = rawTreeSpec.slice(separatorIndex + 1);
+  const ref = decodeURIComponent(rawRef).trim();
+  const treePath = decodeURIComponent(rawPath).replace(/^\/+|\/+$/g, '');
+
+  if (!ref || !treePath) {
+    return null;
+  }
+
+  return {
+    owner,
+    repo,
+    ref,
+    treePath
+  };
+}
+
+function githubTreeNotFoundResponse(corsHeaders) {
+  return jsonResponse({
+    message: 'Not Found',
+    documentation_url: 'https://docs.github.com/rest/git/trees#get-a-tree',
+    status: '404'
+  }, 404, corsHeaders);
+}
+
+async function fetchGithubJson(url, headers) {
+  const response = await fetch(url, {
+    method: 'GET',
+    headers
+  });
+
+  let payload = null;
+  try {
+    payload = await response.clone().json();
+  } catch {
+    payload = null;
+  }
+
+  return { response, payload };
+}
+
+async function resolveGithubTreeTargetUrl(suffix, headers, corsHeaders, search) {
+  const parsed = parseGithubTreeRequest(suffix);
+  if (!parsed) {
+    return { targetUrl: buildGithubApiUrl(suffix, search) };
+  }
+
+  const { owner, repo, ref, treePath } = parsed;
+  const refLookupUrl = buildGithubApiUrl(`repos/${owner}/${repo}/git/ref/heads/${encodeURIComponent(ref)}`);
+  const refLookup = await fetchGithubJson(refLookupUrl, headers);
+  if (!refLookup.response.ok) {
+    return { response: refLookup.response };
+  }
+
+  const commitSha = refLookup.payload && refLookup.payload.object && refLookup.payload.object.sha;
+  if (!commitSha) {
+    return { response: githubTreeNotFoundResponse(corsHeaders) };
+  }
+
+  const commitLookupUrl = buildGithubApiUrl(`repos/${owner}/${repo}/git/commits/${commitSha}`);
+  const commitLookup = await fetchGithubJson(commitLookupUrl, headers);
+  if (!commitLookup.response.ok) {
+    return { response: commitLookup.response };
+  }
+
+  let treeSha = commitLookup.payload && commitLookup.payload.tree && commitLookup.payload.tree.sha;
+  if (!treeSha) {
+    return { response: githubTreeNotFoundResponse(corsHeaders) };
+  }
+
+  const segments = treePath.split('/').filter(Boolean);
+  for (const segment of segments) {
+    const treeLookupUrl = buildGithubApiUrl(`repos/${owner}/${repo}/git/trees/${treeSha}`);
+    const treeLookup = await fetchGithubJson(treeLookupUrl, headers);
+    if (!treeLookup.response.ok) {
+      return { response: treeLookup.response };
+    }
+
+    const entries = Array.isArray(treeLookup.payload && treeLookup.payload.tree) ? treeLookup.payload.tree : [];
+    const nextEntry = entries.find((entry) => entry && entry.path === segment);
+    if (!nextEntry || nextEntry.type !== 'tree' || !nextEntry.sha) {
+      return { response: githubTreeNotFoundResponse(corsHeaders) };
+    }
+
+    treeSha = nextEntry.sha;
+  }
+
+  return {
+    targetUrl: buildGithubApiUrl(`repos/${owner}/${repo}/git/trees/${treeSha}`, search)
+  };
+}
+
 async function handleGithubProxy(request, env, url) {
   const corsHeaders = getProxyCorsHeaders(request, env);
   const requestOrigin = request.headers.get('Origin');
@@ -265,10 +373,21 @@ async function handleGithubProxy(request, env, url) {
     return jsonResponse({ ok: false, error: 'GitHub API path missing.' }, 400, corsHeaders);
   }
 
-  const targetUrl = `https://api.github.com/${suffix}${url.search}`;
+  const headers = buildGithubProxyHeaders(request);
+  const targetResolution = await resolveGithubTreeTargetUrl(suffix, headers, corsHeaders, url.search);
+  if (targetResolution.response) {
+    const proxiedHeaders = copyGithubResponseHeaders(targetResolution.response.headers, corsHeaders);
+    return new Response(targetResolution.response.body, {
+      status: targetResolution.response.status,
+      statusText: targetResolution.response.statusText,
+      headers: proxiedHeaders
+    });
+  }
+
+  const targetUrl = targetResolution.targetUrl;
   const init = {
     method: request.method,
-    headers: buildGithubProxyHeaders(request),
+    headers,
     body: ['GET', 'HEAD'].includes(request.method) ? undefined : request.body
   };
 
