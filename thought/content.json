@@ -3,6 +3,30 @@
     {
       "daily_focus": {
         "media_type": "image",
+        "media_items": [
+          {
+            "media_type": "image"
+          }
+        ]
+      },
+      "order_of_the_day": [
+        "Follow Day 1",
+        "Follow Day 2"
+      ],
+      "date": "2026-03-27"
+    },
+    {
+      "daily_focus": {
+        "media_type": "image"
+      },
+      "order_of_the_day": [
+        "Follow Day 1"
+      ],
+      "date": "2026-03-26"
+    },
+    {
+      "daily_focus": {
+        "media_type": "image",
         "image": "",
         "description": "Newly appointed Captains and Assistant Captains proudly stand alongside the Principal of LEAD Higher Secondary School, marking the beginning of a new chapter of leadership, responsibility and inspiration.",
         "media_file": "/thought/media/captains_.jpg"
@@ -259,30 +283,6 @@
       "bible_verse": "Trust in the Lord with all your heart.",
       "bible_reference": "Proverbs 3:5",
       "additional_notes": "Uniform checks will be conducted this week."
-    },
-    {
-      "daily_focus": {
-        "media_type": "image",
-        "media_items": [
-          {
-            "media_type": "image"
-          }
-        ]
-      },
-      "order_of_the_day": [
-        "Follow Day 1",
-        "Follow Day 2"
-      ],
-      "date": "2026-03-27"
-    },
-    {
-      "daily_focus": {
-        "media_type": "image"
-      },
-      "order_of_the_day": [
-        "Follow Day 1"
-      ],
-      "date": "2026-03-26"
     }
   ]
 }
