@@ -297,13 +297,23 @@
     },
     {
       "daily_focus": {
-        "media_type": "image"
-      }
+        "media_type": "image",
+        "media_items": [
+          {
+            "media_type": "video",
+            "media_url": "https://youtu.be/iNgdZw_87Uc",
+            "alt": "",
+            "description": "There was a profound sense of reverence at LEADS School today during our Advanced Good Friday Service. It was a moving experience to witness our dedicated teachers lead the way, not just in education, but in spirit.\n\nAs their voices rose in harmony, singing \"Walking in the Light,\" the atmosphere shifted into one of deep reflection and hope. It served as a powerful reminder that even in the shadows of the cross, there is a path illuminated by grace.",
+            "timestamp": "2026-04-02 11:54"
+          }
+        ]
+      },
+      "order_of_the_day": [
+        "Follow Day One "
+      ]
     },
     {
-      "daily_focus": {
-        "media_type": "image"
-      }
+      "date": "2026-04-02"
     }
   ]
 }
