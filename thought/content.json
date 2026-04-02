@@ -1,6 +1,9 @@
 {
   "entries": [
     {
+      "date": "2026-04-02"
+    },
+    {
       "daily_focus": {
         "media_type": "image"
       },
@@ -311,9 +314,6 @@
       "order_of_the_day": [
         "Follow Day One "
       ]
-    },
-    {
-      "date": "2026-04-02"
     }
   ]
 }
