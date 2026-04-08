@@ -1,6 +1,32 @@
 {
   "entries": [
     {
+      "daily_focus": {
+        "media_type": "image",
+        "media_items": []
+      },
+      "order_of_the_day": [
+        "Follow Day One ",
+        "Follow Day 3"
+      ],
+      "date": "2026-04-08",
+      "bible_verse": "We love him because he first loves us.",
+      "thought_of_the_day": "Take small step today, shape the strength that you will carry tomorrow.",
+      "bible_reference": "John 4:19"
+    },
+    {
+      "daily_focus": {
+        "media_type": "image"
+      },
+      "date": "2026-04-08",
+      "thought_of_the_day": "Take small step today, shape the strength that you will carry tomorrow.",
+      "bible_verse": "We love him because he first love us.",
+      "bible_reference": "John 4:19",
+      "order_of_the_day": [
+        "Follow Day 3"
+      ]
+    },
+    {
       "date": "2026-04-02",
       "daily_focus": {
         "media_type": "video",
@@ -304,32 +330,6 @@
       "bible_verse": "Trust in the Lord with all your heart.",
       "bible_reference": "Proverbs 3:5",
       "additional_notes": "Uniform checks will be conducted this week."
-    },
-    {
-      "daily_focus": {
-        "media_type": "image",
-        "media_items": []
-      },
-      "order_of_the_day": [
-        "Follow Day One ",
-        "Follow Day 3"
-      ],
-      "date": "2026-04-08",
-      "bible_verse": "We love him because he first loves us.",
-      "thought_of_the_day": "Take small step today, shape the strength that you will carry tomorrow.",
-      "bible_reference": "John 4:19"
-    },
-    {
-      "daily_focus": {
-        "media_type": "image"
-      },
-      "date": "2026-04-08",
-      "thought_of_the_day": "Take small step today, shape the strength that you will carry tomorrow.",
-      "bible_verse": "We love him because he first love us.",
-      "bible_reference": "John 4:19",
-      "order_of_the_day": [
-        "Follow Day 3"
-      ]
     }
   ]
 }
