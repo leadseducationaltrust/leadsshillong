@@ -1,16 +1,17 @@
 {
-  "title": "The Art of Action: Overcoming Procrastination",
-  "image": "/articles/the-art-of-action-overcoming-procrastination/procrastination-pic.jpg",
-  "description": "A student guide to turning intention into momentum and beating procrastination one step at a time.",
-  "author": "LEADS Insights",
-  "category": "Student Life",
+  "author": "Jezreel Jyrwa",
   "date": "2026-05-07T12:00:00",
-  "authorBio": "A motivational insights piece from the LEADS Higher Secondary School community.",
-  "coreArgument": "Taking action is the best antidote to procrastination; small, consistent steps build progress and confidence.",
+  "authorImage": "/articles/the-art-of-action-overcoming-procrastination/jezreel-jyrwa.png",
+  "title": "The Art of Action: Overcoming Procrastination",
   "content": [
     {
       "type": "paragraph",
       "text": "Procrastination is one of the biggest obstacles students face when trying to reach their academic and personal goals. This article explains how small, intentional actions can help break the cycle of delay."
     }
-  ]
+  ],
+  "image": "/articles/the-art-of-action-overcoming-procrastination/procrastination-pic.jpg",
+  "coreArgument": "Taking action is the best antidote to procrastination; small, consistent steps build progress and confidence.",
+  "description": "Procrastination is more than just a delay; it is a cycle of putting off essential tasks that inevitably leads to mounting stress and subpar results. When we allow work to pile up, we trade our future peace of mind for temporary comfort.\n\nTo break this habit, we must commit to completing our tasks on time. The most effective approach is to start small: break a daunting project into manageable pieces, then maintain steady progress until the job is done.\n\nRemember, our daily choices are the architects of our destiny. What we accomplish today defines the success of our tomorrow.",
+  "authorBio": "Jezreel Jyrwa is a focused and high-achieving student currently in Class VII for the 2026",
+  "category": "Student Life"
 }
