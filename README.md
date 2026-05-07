@@ -50,11 +50,15 @@ Frontend discovery order on `insights.html`:
 1. `articles/content.json` (if present)
 2. Built-in fallback IDs (existing starter articles)
 
-Rebuild the index locally after adding/removing article folders:
+If you add a new Insights article through Decap, the frontend still needs the `articles/content.json` manifest to know about it. That manifest is generated automatically by the repo workflow on push, but if it is not yet updated, the new article will not appear on the page.
+
+Rebuild or regenerate the index locally after adding/removing article folders:
 
 ```bash
 node scripts/generate-articles-index.mjs
 ```
+
+You can also edit `articles/content.json` directly through the new `Articles Index` editor in `/admin` if the manifest is stale.
 
 ## Programs in Decap CMS
 

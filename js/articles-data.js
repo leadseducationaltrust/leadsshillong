@@ -56,8 +56,13 @@ async function loadArticleIndexFromManifest() {
             return '';
         });
 
-        return uniqueArticleIds(ids);
+        const safeIds = uniqueArticleIds(ids);
+        if (response.ok && safeIds.length === 0) {
+            console.warn('articles/content.json loaded but contained no article IDs. New Insights articles may require regenerating the manifest with scripts/generate-articles-index.mjs.');
+        }
+        return safeIds;
     } catch {
+        console.warn('Unable to load articles/content.json manifest; falling back to starter articles.');
         return [];
     }
 }

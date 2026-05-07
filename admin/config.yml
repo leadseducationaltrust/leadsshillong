@@ -665,3 +665,24 @@ collections:
           - { label: "Text", name: "text", widget: "text", required: false }
           - { label: "Image", name: "src", widget: "image", required: false }
           - { label: "Alt Text", name: "alt", widget: "string", required: false }
+  - name: "article_index"
+    label: "Articles Index"
+    files:
+      - label: "Articles Manifest"
+        name: "articles_manifest"
+        file: "articles/content.json"
+        format: "json"
+        fields:
+          - label: "Articles"
+            name: "items"
+            widget: "list"
+            summary: "{{fields.title}}"
+            fields:
+              - { label: "ID", name: "id", widget: "string", hint: "Folder name under articles/." }
+              - { label: "Title", name: "title", widget: "string" }
+              - label: "Date"
+                name: "date"
+                widget: "datetime"
+                format: "YYYY-MM-DDTHH:mm:ss"
+                date_format: "YYYY-MM-DD"
+                time_format: "HH:mm:ss"
