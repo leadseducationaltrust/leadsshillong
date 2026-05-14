@@ -3,6 +3,28 @@
     {
       "daily_focus": {
         "media_type": "image",
+        "media_items": [
+          {
+            "media_type": "image",
+            "media_file": "/thought/media/img_20260514_095049.jpg",
+            "description": "Check out these stunning masterpieces by our Class IX students, created during their Creative Expressions co-curricular sessions. From bold strokes to intricate details, these young artists are turning blank canvases into vibrant expressions of their unique vision. 🎨🖌️",
+            "alt": "Creative Expression works done by Class IX students.",
+            "timestamp": "2026-05-14 10:18"
+          }
+        ]
+      },
+      "order_of_the_day": [
+        "Follow Day 4"
+      ],
+      "bible_verse": "Love the Lord your God with all your heart and with all your soul and with all your mind.",
+      "bible_reference": "Matthew 22:37",
+      "additional_notes": "Class I students led the School Assembly today.",
+      "thought_of_the_day": "Whether you win or lose, the real magic is that you never give up!",
+      "date": "2026-05-14"
+    },
+    {
+      "daily_focus": {
+        "media_type": "image",
         "image": "/thought/media/img20260507103746.jpg",
         "description": "From May 4th to 7th, LEADS Higher Secondary School ignited with competitive spirit and athletic excellence. Our Annual Sports Day 2026 showcased incredible teamwork, resilience, and talent. Congratulations to all participants for making this year’s event truly unforgettable!",
         "alt": "From May 4th to 7th, LEADS Higher Secondary School ignited with competitive spirit and athletic excellence. Our Annual Sports Day 2026 showcased incredible teamwork, resilience, and talent. Congratulations to all participants for making this year’s event truly unforgettable!"
@@ -373,28 +395,6 @@
       "bible_verse": "Trust in the Lord with all your heart.",
       "bible_reference": "Proverbs 3:5",
       "additional_notes": "Uniform checks will be conducted this week."
-    },
-    {
-      "daily_focus": {
-        "media_type": "image",
-        "media_items": [
-          {
-            "media_type": "image",
-            "media_file": "/thought/media/img_20260514_095049.jpg",
-            "description": "Check out these stunning masterpieces by our Class IX students, created during their Creative Expressions co-curricular sessions. From bold strokes to intricate details, these young artists are turning blank canvases into vibrant expressions of their unique vision. 🎨🖌️",
-            "alt": "Creative Expression works done by Class IX students.",
-            "timestamp": "2026-05-14 10:18"
-          }
-        ]
-      },
-      "order_of_the_day": [
-        "Follow Day 4"
-      ],
-      "bible_verse": "Love the Lord your God with all your heart and with all your soul and with all your mind.",
-      "bible_reference": "Matthew 22:37",
-      "additional_notes": "Class I students led the School Assembly today.",
-      "thought_of_the_day": "Whether you win or lose, the real magic is that you never give up!",
-      "date": "2026-05-14"
     }
   ]
 }
