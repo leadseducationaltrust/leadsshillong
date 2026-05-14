@@ -1,6 +1,16 @@
 {
   "images": [
     {
+      "desc": "Check out these stunning masterpieces by our Class IX students, created during their Creative Expressions co-curricular sessions. From bold strokes to intricate details, these young artists are turning blank canvases into vibrant expressions of their unique vision. 🎨🖌️",
+      "url": "/gallery/media/img_20260514_095049.jpg",
+      "date": "2026-05-14"
+    },
+    {
+      "url": "/gallery/media/img20260514095142.jpg",
+      "desc": "Miss Narolla Sangma poses with one of her signature pieces, showcasing the talent behind our Creative Expressions program. Her mentorship continues to inspire our Class IX students to explore their own artistic boundaries and create beauty. 🎨🖌️",
+      "date": "2026-05-14"
+    },
+    {
       "date": "2026-03-26",
       "url": "/gallery/media/group_photo.jpg",
       "desc": "The future looks bright! Introducing our newly felicitated school prefects for 2026. Empowered to lead, inspired to serve."
@@ -99,16 +109,6 @@
       "url": "gallery/media/photo_11_investiture.jpg",
       "desc": "Newly appointed Captains and Vice-Captains with the guest of honour",
       "date": "2025-03-16"
-    },
-    {
-      "desc": "Check out these stunning masterpieces by our Class IX students, created during their Creative Expressions co-curricular sessions. From bold strokes to intricate details, these young artists are turning blank canvases into vibrant expressions of their unique vision. 🎨🖌️",
-      "url": "/gallery/media/img_20260514_095049.jpg",
-      "date": "2026-05-14"
-    },
-    {
-      "url": "/gallery/media/img20260514095142.jpg",
-      "desc": "Miss Narolla Sangma poses with one of her signature pieces, showcasing the talent behind our Creative Expressions program. Her mentorship continues to inspire our Class IX students to explore their own artistic boundaries and create beauty. 🎨🖌️",
-      "date": "2026-05-14"
     }
   ]
 }
