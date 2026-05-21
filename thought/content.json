@@ -4,6 +4,27 @@
       "daily_focus": {
         "media_type": "image"
       },
+      "date": "2026-05-21",
+      "bible_reference": "Proverb 14:2",
+      "bible_verse": "He who fears the Lord walketh in his uprightness.",
+      "thought_of_the_day": "The only impossible journey is the one you never start."
+    },
+    {
+      "daily_focus": {
+        "media_type": "image"
+      },
+      "date": "2026-05-21",
+      "thought_of_the_day": "The only impossible journey is the one you never start.",
+      "order_of_the_day": [
+        "Follow Day order 4"
+      ],
+      "bible_verse": "He who fears the Lord walketh in his uprightness.",
+      "bible_reference": "Proverb 14:2"
+    },
+    {
+      "daily_focus": {
+        "media_type": "image"
+      },
       "date": "2026-05-19",
       "bible_reference": "Proverb 11:5",
       "bible_verse": "The righteousness of the blameless makes their paths straight, but the wicked are brought down by their own wickedness.\n",
@@ -407,27 +428,6 @@
       "bible_verse": "Trust in the Lord with all your heart.",
       "bible_reference": "Proverbs 3:5",
       "additional_notes": "Uniform checks will be conducted this week."
-    },
-    {
-      "daily_focus": {
-        "media_type": "image"
-      },
-      "date": "2026-05-21",
-      "bible_reference": "Proverb 14:2",
-      "bible_verse": "He who fears the Lord walketh in his uprightness.",
-      "thought_of_the_day": "The only impossible journey is the one you never start."
-    },
-    {
-      "daily_focus": {
-        "media_type": "image"
-      },
-      "date": "2026-05-21",
-      "thought_of_the_day": "The only impossible journey is the one you never start.",
-      "order_of_the_day": [
-        "Follow Day order 4"
-      ],
-      "bible_verse": "He who fears the Lord walketh in his uprightness.",
-      "bible_reference": "Proverb 14:2"
     }
   ]
 }
