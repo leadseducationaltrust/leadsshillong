@@ -428,6 +428,23 @@
       "bible_verse": "Trust in the Lord with all your heart.",
       "bible_reference": "Proverbs 3:5",
       "additional_notes": "Uniform checks will be conducted this week."
+    },
+    {
+      "daily_focus": {
+        "media_type": "image"
+      }
+    },
+    {
+      "daily_focus": {
+        "media_type": "image"
+      },
+      "date": "2026-06-02",
+      "bible_reference": "Colossians 3:23",
+      "bible_verse": "Whatever you do, work at it with all your heart, as working for the Lord, not for human masters.",
+      "thought_of_the_day": "The beauty of learning is that no one can take it from you.",
+      "order_of_the_day": [
+        "Day order 1"
+      ]
     }
   ]
 }
