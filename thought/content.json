@@ -4,6 +4,18 @@
       "daily_focus": {
         "media_type": "image"
       },
+      "date": "2026-06-02",
+      "bible_reference": "Colossians 3:23",
+      "bible_verse": "Whatever you do, work at it with all your heart, as working for the Lord, not for human masters.",
+      "thought_of_the_day": "The beauty of learning is that no one can take it from you.",
+      "order_of_the_day": [
+        "Day order 1"
+      ]
+    },
+    {
+      "daily_focus": {
+        "media_type": "image"
+      },
       "date": "2026-05-21",
       "bible_reference": "Proverb 14:2",
       "bible_verse": "He who fears the Lord walketh in his uprightness.",
@@ -433,18 +445,6 @@
       "daily_focus": {
         "media_type": "image"
       }
-    },
-    {
-      "daily_focus": {
-        "media_type": "image"
-      },
-      "date": "2026-06-02",
-      "bible_reference": "Colossians 3:23",
-      "bible_verse": "Whatever you do, work at it with all your heart, as working for the Lord, not for human masters.",
-      "thought_of_the_day": "The beauty of learning is that no one can take it from you.",
-      "order_of_the_day": [
-        "Day order 1"
-      ]
     }
   ]
 }
