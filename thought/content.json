@@ -444,7 +444,14 @@
     {
       "daily_focus": {
         "media_type": "image"
-      }
+      },
+      "date": "2026-06-03",
+      "thought_of_the_day": "Something inside all of us is thepower to change the world",
+      "bible_reference": "1Testolonial 5:11",
+      "bible_verse": "God has given us eternal life, and this life is in his Son.",
+      "order_of_the_day": [
+        "Follow Day order 2"
+      ]
     }
   ]
 }
