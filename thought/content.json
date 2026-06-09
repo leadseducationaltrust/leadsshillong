@@ -2,6 +2,18 @@
   "entries": [
     {
       "daily_focus": {
+        "media_type": "image"
+      },
+      "date": "2026-06-09",
+      "bible_reference": "Hebrews 13:8",
+      "bible_verse": " \"Jesus Christ is the same yesterday and today and forever.\"",
+      "order_of_the_day": [
+        "Follow Day order 5"
+      ],
+      "thought_of_the_day": "Today thought is great buildings start with small bricks and great day start with small smiles."
+    },
+    {
+      "daily_focus": {
         "media_type": "image",
         "image": "/thought/media/world-environment-day.jpeg"
       },
@@ -466,18 +478,6 @@
       "bible_verse": "Trust in the Lord with all your heart.",
       "bible_reference": "Proverbs 3:5",
       "additional_notes": "Uniform checks will be conducted this week."
-    },
-    {
-      "daily_focus": {
-        "media_type": "image"
-      },
-      "date": "2026-06-09",
-      "bible_reference": "Hebrews 13:8",
-      "bible_verse": " \"Jesus Christ is the same yesterday and today and forever.\"",
-      "order_of_the_day": [
-        "Follow Day order 5"
-      ],
-      "thought_of_the_day": "Today thought is great buildings start with small bricks and great day start with small smiles."
     }
   ]
 }
