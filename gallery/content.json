@@ -1,6 +1,11 @@
 {
   "images": [
     {
+      "url": "/gallery/media/champion_2026.jpeg",
+      "desc": "LEADS secured first place at the Green-Preneurship 2026 competition, held at BDW International School, the event was sponsored by Meghalaya Prime Startup, competing against 10 participants from premier institutes across Shillong. This achievement has significantly increased LEADS’ visibility in schools across the city.",
+      "date": "2026-06-10"
+    },
+    {
       "desc": "Check out these stunning masterpieces by our Class IX students, created during their Creative Expressions co-curricular sessions. From bold strokes to intricate details, these young artists are turning blank canvases into vibrant expressions of their unique vision. 🎨🖌️",
       "url": "/gallery/media/img_20260514_095049.jpg",
       "date": "2026-05-14"
@@ -109,11 +114,6 @@
       "url": "gallery/media/photo_11_investiture.jpg",
       "desc": "Newly appointed Captains and Vice-Captains with the guest of honour",
       "date": "2025-03-16"
-    },
-    {
-      "url": "/gallery/media/champion_2026.jpeg",
-      "desc": "LEADS secured first place at the Green-Preneurship 2026 competition, held at BDW International School, the event was sponsored by Meghalaya Prime Startup, competing against 10 participants from premier institutes across Shillong. This achievement has significantly increased LEADS’ visibility in schools across the city.",
-      "date": "2026-06-10"
     }
   ]
 }
