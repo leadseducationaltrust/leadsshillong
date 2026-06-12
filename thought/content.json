@@ -2,6 +2,18 @@
   "entries": [
     {
       "daily_focus": {
+        "media_type": "image"
+      },
+      "date": "2026-06-12",
+      "bible_reference": "James 1:19",
+      "bible_verse": " Be quick to listen, slow to speak and slow to anger.",
+      "thought_of_the_day": "small steps lead to big achievement.",
+      "order_of_the_day": [
+        "Follow Day order  3"
+      ]
+    },
+    {
+      "daily_focus": {
         "media_type": "image",
         "image": "/thought/media/champion_2026.jpeg",
         "description": "LEADS secured first place at the Green-Preneurship 2026 competition, held at BDW International School, the event was sponsored by Meghalaya Prime Startup, competing against 10 participants from premier institutes across Shillong. This achievement has significantly increased LEADS’ visibility in schools across the city."
@@ -486,18 +498,6 @@
       "bible_verse": "Trust in the Lord with all your heart.",
       "bible_reference": "Proverbs 3:5",
       "additional_notes": "Uniform checks will be conducted this week."
-    },
-    {
-      "daily_focus": {
-        "media_type": "image"
-      },
-      "date": "2026-06-12",
-      "bible_reference": "James 1:19",
-      "bible_verse": " Be quick to listen, slow to speak and slow to anger.",
-      "thought_of_the_day": "small steps lead to big achievement.",
-      "order_of_the_day": [
-        "Follow Day order  3"
-      ]
     }
   ]
 }
