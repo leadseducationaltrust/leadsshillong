@@ -4,6 +4,18 @@
       "daily_focus": {
         "media_type": "image"
       },
+      "date": "2026-06-16",
+      "bible_reference": "Mathew 19:19",
+      "thought_of_the_day": "No one is perfect that why pencil have eraser.",
+      "bible_verse": "Honor your father and mother, and love your neighbor as yourself.",
+      "order_of_the_day": [
+        "Follow Daay order 5"
+      ]
+    },
+    {
+      "daily_focus": {
+        "media_type": "image"
+      },
       "date": "2026-06-12",
       "bible_reference": "James 1:19",
       "bible_verse": " Be quick to listen, slow to speak and slow to anger.",
@@ -498,18 +510,6 @@
       "bible_verse": "Trust in the Lord with all your heart.",
       "bible_reference": "Proverbs 3:5",
       "additional_notes": "Uniform checks will be conducted this week."
-    },
-    {
-      "daily_focus": {
-        "media_type": "image"
-      },
-      "date": "2026-06-16",
-      "bible_reference": "Mathew 19:19",
-      "thought_of_the_day": "No one is perfect that why pencil have eraser.",
-      "bible_verse": "Honor your father and mother, and love your neighbor as yourself.",
-      "order_of_the_day": [
-        "Follow Daay order 5"
-      ]
     }
   ]
 }
