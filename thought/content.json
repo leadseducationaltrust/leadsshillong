@@ -2,6 +2,15 @@
   "entries": [
     {
       "daily_focus": {
+        "media_type": "image",
+        "image": "/thought/media/certificate_of_appreciation_sslc_mbose.jpg",
+        "description": "LEADS Higher Secondary School, Langkerding, is honoured to receive a letter of appreciation from Shri Vijay Kumar Mantri, IAS, Commissioner & Secretary, Education Department, Government of Meghalaya, congratulating the school for achieving a remarkable 100% pass result in the SSLC Examinations. The recognition highlights the dedication of our students, teachers and leadership in fostering academic excellence and a strong learning environment. This achievement marks a proud milestone in our journey of excellence.",
+        "alt": "LEADS Higher Secondary School, Langkerding, is honoured to receive a letter of appreciation from Shri Vijay Kumar Mantri, IAS, Commissioner & Secretary, Education Department, Government of Meghalaya, congratulating the school for achieving a remarkable 100% pass result in the SSLC Examinations. The recognition highlights the dedication of our students, teachers and leadership in fostering academic excellence and a strong learning environment. This achievement marks a proud milestone in our journey of excellence."
+      },
+      "date": "2026-06-19"
+    },
+    {
+      "daily_focus": {
         "media_type": "image"
       },
       "date": "2026-06-16",
@@ -510,15 +519,6 @@
       "bible_verse": "Trust in the Lord with all your heart.",
       "bible_reference": "Proverbs 3:5",
       "additional_notes": "Uniform checks will be conducted this week."
-    },
-    {
-      "daily_focus": {
-        "media_type": "image",
-        "image": "/thought/media/certificate_of_appreciation_sslc_mbose.jpg",
-        "description": "LEADS Higher Secondary School, Langkerding, is honoured to receive a letter of appreciation from Shri Vijay Kumar Mantri, IAS, Commissioner & Secretary, Education Department, Government of Meghalaya, congratulating the school for achieving a remarkable 100% pass result in the SSLC Examinations. The recognition highlights the dedication of our students, teachers and leadership in fostering academic excellence and a strong learning environment. This achievement marks a proud milestone in our journey of excellence.",
-        "alt": "LEADS Higher Secondary School, Langkerding, is honoured to receive a letter of appreciation from Shri Vijay Kumar Mantri, IAS, Commissioner & Secretary, Education Department, Government of Meghalaya, congratulating the school for achieving a remarkable 100% pass result in the SSLC Examinations. The recognition highlights the dedication of our students, teachers and leadership in fostering academic excellence and a strong learning environment. This achievement marks a proud milestone in our journey of excellence."
-      },
-      "date": "2026-06-19"
     }
   ]
 }
