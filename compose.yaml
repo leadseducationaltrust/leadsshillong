@@ -1,0 +1,6 @@
+services:
+  leadsshillong:
+    image: leadsshillong
+    build:
+      context: .
+      dockerfile: ./Dockerfile
