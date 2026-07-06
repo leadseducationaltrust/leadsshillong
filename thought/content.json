@@ -2,6 +2,17 @@
   "entries": [
     {
       "daily_focus": {
+        "media_type": "video",
+        "media_url": "https://youtu.be/kMXgd6LJfRE",
+        "description": "Welcome to the LEADS Higher Secondary School Annual Sports Meet 2026! 🏅✨\n\nAfter long weeks of rigorous academic work this term, it was time for our school community to step out of the classrooms and onto the field! Watch as our students and teachers trade their books for sports gear, coming together for a much-needed day of energy, teamwork, and friendly competition.\n\nA special thank you to our respected Principal and Coordinators for gracing the event, cheering on the participants, and keeping the LEADS community spirit high throughout the day. Whether you were running on the track or cheering from the sidelines, this year's meet was truly one for the books!\n\n🎥 Special Credits:\nA massive shoutout to Baniaisan Kharkongor (Class IX) for the brilliant camera and media work on this video. Thank you for beautifully capturing the memories of this event!\n\nIf you enjoyed the video, please don't forget to LIKE, COMMENT, and SUBSCRIBE to stay updated on all the exciting events happening at LEADS Higher Secondary School! 🔔👇\n\n#LEADSHigherSecondary #AnnualSportsMeet2026 #SchoolSports #StudentLife #TeachersVsStudents #Athletics #SchoolMemories"
+      },
+      "date": "2026-07-06",
+      "order_of_the_day": [
+        "Today, 6 July 2026, is Day 1"
+      ]
+    },
+    {
+      "daily_focus": {
         "media_type": "image",
         "image": "/thought/media/certificate_of_appreciation_sslc_mbose.jpg",
         "description": "LEADS Higher Secondary School, Langkerding, is honoured to receive a letter of appreciation from Shri Vijay Kumar Mantri, IAS, Commissioner & Secretary, Education Department, Government of Meghalaya, congratulating the school for achieving a remarkable 100% pass result in the SSLC Examinations. The recognition highlights the dedication of our students, teachers and leadership in fostering academic excellence and a strong learning environment. This achievement marks a proud milestone in our journey of excellence.",
@@ -519,17 +530,6 @@
       "bible_verse": "Trust in the Lord with all your heart.",
       "bible_reference": "Proverbs 3:5",
       "additional_notes": "Uniform checks will be conducted this week."
-    },
-    {
-      "daily_focus": {
-        "media_type": "video",
-        "media_url": "https://youtu.be/kMXgd6LJfRE",
-        "description": "Welcome to the LEADS Higher Secondary School Annual Sports Meet 2026! 🏅✨\n\nAfter long weeks of rigorous academic work this term, it was time for our school community to step out of the classrooms and onto the field! Watch as our students and teachers trade their books for sports gear, coming together for a much-needed day of energy, teamwork, and friendly competition.\n\nA special thank you to our respected Principal and Coordinators for gracing the event, cheering on the participants, and keeping the LEADS community spirit high throughout the day. Whether you were running on the track or cheering from the sidelines, this year's meet was truly one for the books!\n\n🎥 Special Credits:\nA massive shoutout to Baniaisan Kharkongor (Class IX) for the brilliant camera and media work on this video. Thank you for beautifully capturing the memories of this event!\n\nIf you enjoyed the video, please don't forget to LIKE, COMMENT, and SUBSCRIBE to stay updated on all the exciting events happening at LEADS Higher Secondary School! 🔔👇\n\n#LEADSHigherSecondary #AnnualSportsMeet2026 #SchoolSports #StudentLife #TeachersVsStudents #Athletics #SchoolMemories"
-      },
-      "date": "2026-07-06",
-      "order_of_the_day": [
-        "Today, 6 July 2026, is Day 1"
-      ]
     }
   ]
 }
