@@ -564,6 +564,21 @@
       "daily_focus": {
         "media_type": "image"
       }
+    },
+    {
+      "daily_focus": {
+        "media_type": "image",
+        "media_file": "/thought/media/fancy-dress.jpeg",
+        "alt": "Activity Week 2026 — Learning Beyond the Classroom!",
+        "description": "LEADS School celebrated a vibrant week of storytelling, singing, recitation, quizzes and a colourful Fancy Dress Competition** for our Kindergarten to Primary Sections.\nIt was truly fulfilling to see our children participate with enthusiasm, confidence and full spirit. Their joyful involvement reminded us that education is not only about academics, but also about nurturing creativity, expression, confidence and a love for learning. \nProud of our little learners for learning, participating and shining every step of the way! \n"
+      },
+      "date": "2026-08-28",
+      "thought_of_the_day": "Don't just dream big, take actions to make those dreams come true.",
+      "bible_verse": "Above all else, guard your heart for everything you do flows from it.",
+      "bible_reference": "Proverbs 4:23",
+      "order_of_the_day": [
+        "Follow day order 4"
+      ]
     }
   ]
 }
