@@ -207,6 +207,14 @@
       "qualifications": "B.P.Ed., M.Ed. Physical Education, Sports Coaching Certification",
       "img": "faculty/media/mannaki_sohliya.jpg",
       "category": "secondary"
+    },
+    {
+      "name": "Mrs.Jolisha Thongney",
+      "role": "Computer Teacher",
+      "bio": "Specializing in  Computer Science",
+      "qualifications": "BCA, MCA, De.el.ed",
+      "img": "/faculty/media/jolisha.png",
+      "category": "secondary"
     }
   ]
 }
