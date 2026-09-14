@@ -20,7 +20,7 @@
       "name": "Mr. Makarious Sohlang",
       "role": "Chief-Coordinator",
       "bio": "Overseeing school coordination and students' welfare.",
-      "qualifications": "B.Sc., Diploma in Electronics, Diploma in Music",
+      "qualifications": "B.A, Diploma in Electronics, Diploma in Music",
       "img": "faculty/media/makarious_sohlang.jpg",
       "category": "admin"
     },
@@ -44,7 +44,7 @@
       "name": "Ms. Phriemtilin Wahlang",
       "role": "Nursery Educator",
       "bio": "Creating a joyful learning environment for our youngest learners.",
-      "qualifications": "Diploma in Early Childhood Education, Montessori Certification",
+      "qualifications": "B.A,M.A ,Diploma in Early Childhood Education, Montessori Certification",
       "img": "faculty/media/phriemtilin.jpg",
       "category": "preprimary"
     },
@@ -206,14 +206,6 @@
       "bio": "Specializing in Physical Education.",
       "qualifications": "B.P.Ed., M.Ed. Physical Education, Sports Coaching Certification",
       "img": "faculty/media/mannaki_sohliya.jpg",
-      "category": "secondary"
-    },
-    {
-      "name": "Mrs.Jolisha Thongney",
-      "role": "Computer Teacher",
-      "bio": "Specializing in  Computer Science",
-      "qualifications": "BCA, MCA, De.el.ed",
-      "img": "/faculty/media/jolisha.png",
       "category": "secondary"
     }
   ]
