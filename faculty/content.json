@@ -207,6 +207,14 @@
       "qualifications": "B.P.Ed., M.Ed. Physical Education, Sports Coaching Certification",
       "img": "faculty/media/mannaki_sohliya.jpg",
       "category": "secondary"
+    },
+    {
+      "name": "Mrs. Miracle Syiem",
+      "role": "English literature",
+      "bio": "Specializing in English language and literature.",
+      "qualifications": "B.A, Master of Arts Linguistics, Master of arts English",
+      "img": "/faculty/media/miracle.png",
+      "category": "secondary"
     }
   ]
 }
