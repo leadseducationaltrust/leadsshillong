@@ -207,6 +207,14 @@
       "qualifications": "B.A, Master of arts History, B.Ed",
       "img": "/faculty/media/tara-2.png",
       "category": "higher"
+    },
+    {
+      "name": "Mrs. Tengchi D. Momin",
+      "role": "Garo Lecturer",
+      "bio": "Specializing in  Garo and MBOSE board prep.",
+      "qualifications": "Bachelor of Arts, B.Ed",
+      "img": "/faculty/media/tengchi.png",
+      "category": "secondary"
     }
   ]
 }
