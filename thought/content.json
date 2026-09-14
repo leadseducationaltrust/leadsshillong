@@ -2,6 +2,18 @@
   "entries": [
     {
       "daily_focus": {
+        "media_type": "image"
+      },
+      "date": "2026-09-14",
+      "thought_of_the_day": "Every small effort contributes to success.",
+      "bible_verse": "Therefore I tell you, whatever you ask for in prayer, believe that you have received it, and it will be yours",
+      "bible_reference": "Mark 11:24",
+      "order_of_the_day": [
+        "Follow Day order 2"
+      ]
+    },
+    {
+      "daily_focus": {
         "media_type": "image",
         "media_file": "/thought/media/fancy-dress-2.jpeg",
         "alt": "Keep Fancy dress in the homepage.",
@@ -556,18 +568,6 @@
       "bible_verse": "Let all that you do be done in love.",
       "bible_reference": "1 Corinthians 16:14",
       "additional_notes": "Inter-house quiz registrations close today."
-    },
-    {
-      "daily_focus": {
-        "media_type": "image"
-      },
-      "date": "2026-09-14",
-      "thought_of_the_day": "Every small effort contributes to success.",
-      "bible_verse": "Therefore I tell you, whatever you ask for in prayer, believe that you have received it, and it will be yours",
-      "bible_reference": "Mark 11:24",
-      "order_of_the_day": [
-        "Follow Day order 2"
-      ]
     }
   ]
 }
