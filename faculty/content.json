@@ -219,7 +219,7 @@
     {
       "name": "Ibarisha Marwein",
       "role": "Primary Teacher",
-      "bio": "A dedicated teacher passionate about nurturing young minds and inspiring a love for learning.",
+      "bio": "A dedicated teacher passionate about nurturing young minds.",
       "qualifications": "B.A (English), D.El.Ed",
       "img": "/faculty/media/ibarisha.png",
       "category": "primary"
@@ -231,6 +231,14 @@
       "qualifications": "B.A, D.El.Ed. B.Ed",
       "img": "/faculty/media/lanosha.png",
       "category": "preprimary"
+    },
+    {
+      "name": "Mr. Banjellystar Lyngkhoi",
+      "role": "Geography Teacher",
+      "bio": "Specializing in Geography",
+      "qualifications": "B.A, Master of Arts Geography , B.Ed",
+      "img": "/faculty/media/banjelly.jpg",
+      "category": "higher"
     }
   ]
 }
