@@ -215,6 +215,14 @@
       "qualifications": "Bachelor of Arts, B.Ed",
       "img": "/faculty/media/tengchi.png",
       "category": "secondary"
+    },
+    {
+      "name": "Ibarisha Marwein",
+      "role": "Primary Teacher",
+      "bio": "Building strong foundations in English and Environment Studies.",
+      "qualifications": "B.A (English), D.El.Ed",
+      "img": "/faculty/media/ibarisha.png",
+      "category": "primary"
     }
   ]
 }
