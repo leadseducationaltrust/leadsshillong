@@ -239,6 +239,14 @@
       "qualifications": "B.A, Master of Arts Geography , B.Ed",
       "img": "/faculty/media/banjelly.jpg",
       "category": "higher"
+    },
+    {
+      "name": "Iadabha Suting",
+      "role": "Kindergarden  Educator",
+      "bio": "Nurturing young minds through joyful learning, creativity, and care.",
+      "qualifications": "BSc",
+      "img": "/faculty/media/iadabha.png",
+      "category": "preprimary"
     }
   ]
 }
