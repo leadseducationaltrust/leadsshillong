@@ -247,6 +247,14 @@
       "qualifications": "BSc",
       "img": "/faculty/media/iadabha.png",
       "category": "preprimary"
+    },
+    {
+      "name": "Jasmine Dkhar",
+      "role": "Science Lecturer",
+      "bio": "Building strong foundations through playful and purposeful learning",
+      "qualifications": "BSc, B.Ed",
+      "category": "primary",
+      "img": "/faculty/media/jasmin.jpg"
     }
   ]
 }
