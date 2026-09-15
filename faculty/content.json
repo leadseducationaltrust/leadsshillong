@@ -255,6 +255,14 @@
       "qualifications": "BSc, B.Ed",
       "category": "primary",
       "img": "/faculty/media/jasmin.jpg"
+    },
+    {
+      "name": "Rafter Lymba",
+      "role": "Primary teacher",
+      "bio": "Dedicated educator committed to inspiring learning and nurturing student growth.\n",
+      "qualifications": "B.Sc, D.El.Ed",
+      "img": "/faculty/media/rafter.jpg",
+      "category": "primary"
     }
   ]
 }
