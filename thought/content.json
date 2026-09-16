@@ -4,6 +4,18 @@
       "daily_focus": {
         "media_type": "image"
       },
+      "date": "2026-09-16",
+      "thought_of_the_day": "Mistakes are proof that you are trying.",
+      "bible_verse": "For I am the Lord your God who takes hold of your right hand and says to you, Do not fear; I will help you.",
+      "bible_reference": "Isaiah 41:13",
+      "order_of_the_day": [
+        "Follow Day order 4"
+      ]
+    },
+    {
+      "daily_focus": {
+        "media_type": "image"
+      },
       "date": "2026-09-15",
       "thought_of_the_day": "Start your day with a positive mind and a grateful heart.",
       "bible_verse": "Commit to the Lord what were you do and he will establish your plans.",
@@ -580,18 +592,6 @@
       "bible_verse": "Let all that you do be done in love.",
       "bible_reference": "1 Corinthians 16:14",
       "additional_notes": "Inter-house quiz registrations close today."
-    },
-    {
-      "daily_focus": {
-        "media_type": "image"
-      },
-      "date": "2026-09-16",
-      "thought_of_the_day": "Mistakes are proof that you are trying.",
-      "bible_verse": "For I am the Lord your God who takes hold of your right hand and says to you, Do not fear; I will help you.",
-      "bible_reference": "Isaiah 41:13",
-      "order_of_the_day": [
-        "Follow Day order 4"
-      ]
     }
   ]
 }
