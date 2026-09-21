@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="referrer" content="strict-origin-when-cross-origin">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; img-src 'self' data: https:; media-src 'self' https:; font-src 'self' data: https://cdnjs.cloudflare.com https://fonts.gstatic.com; style-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://fonts.googleapis.com; script-src 'self' 'unsafe-inline' https://cdn.tailwindcss.com https://www.googletagmanager.com https://embed.tawk.to https://*.tawk.to https://unpkg.com; connect-src 'self' https://www.googletagmanager.com https://region1.google-analytics.com https://www.google-analytics.com https://embed.tawk.to https://*.tawk.to wss://*.tawk.to https://va.tawk.to https://api.github.com https://cusdis.com; frame-src 'self' https://*.tawk.to https://www.google.com https://www.youtube.com https://www.youtube-nocookie.com https://www.google.com/maps https://challenges.cloudflare.com https://cusdis.com; manifest-src 'self'; worker-src 'self'; form-action 'self'; upgrade-insecure-requests">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; img-src 'self' data: https:; media-src 'self' https:; font-src 'self' data: https://cdnjs.cloudflare.com https://fonts.gstatic.com; style-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://fonts.googleapis.com; script-src 'self' 'unsafe-inline' https://cdn.tailwindcss.com https://www.googletagmanager.com https://embed.tawk.to https://*.tawk.to https://unpkg.com; connect-src 'self' https://script.google.com https://script.googleusercontent.com https://accounts.google.com https://www.googletagmanager.com https://region1.google-analytics.com https://www.google-analytics.com https://embed.tawk.to https://*.tawk.to wss://*.tawk.to https://va.tawk.to https://api.github.com https://cusdis.com; frame-src 'self' https://*.tawk.to https://www.google.com https://www.youtube.com https://www.youtube-nocookie.com https://www.google.com/maps https://challenges.cloudflare.com https://cusdis.com; manifest-src 'self'; worker-src 'self'; form-action 'self'; upgrade-insecure-requests">
     <title>Admission Portal | LEADS Higher Secondary School</title>
     <link rel="icon" type="image/jpeg" href="school-logo.jpg">
     <link rel="manifest" href="manifest.webmanifest">
@@ -586,7 +586,7 @@
         }
 
         // REPLACE WITH YOUR ACTUAL WEB APP URL
-        const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwY9IIgrSZVzII9VEqW-SO4nUNWMex0BLkPYkCgTCngO8MKI4vy1rOdaSM6N_l8ug-RcA/exec";
+        const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbx8POIMBwC9Tf1AfvR55Zh7bfWxO8Ub-hWNP0IBzvspoQjsrslHbn2Frhhj9jeCshPJKg/exec";
 
         function getBase64(file, customBaseName) {
             return new Promise((resolve, reject) => {
@@ -638,20 +638,48 @@
                 if(formData.get('file_aadhaar').size > 0) files.aadhaar = await getBase64(formData.get('file_aadhaar'), `${safeStudentName}_Aadhaar`);
 
                 const payload = { ...data, files: files };
-                
-                const response = await fetch(SCRIPT_URL, {
+                const requestBody = JSON.stringify(payload);
+
+                let formSubmitted = false;
+                let submissionError = null;
+
+                try {
+                  const response = await fetch(SCRIPT_URL, {
                     method: "POST",
-                    body: JSON.stringify(payload)
-                });
+                    mode: "cors",
+                    credentials: "omit",
+                    body: requestBody,
+                    signal: AbortSignal.timeout(30000)
+                  });
 
-                const result = await response.json();
+                  const result = await response.json().catch(() => ({}));
 
-                if (result.status === "success") {
+                  if (result.status === "success" || result.ok === true) {
+                    formSubmitted = true;
+                  } else {
+                    submissionError = result.message || result.error || "Database error occurred on the server.";
+                  }
+                } catch (corsError) {
+                  console.warn("CORS submission failed, retrying without CORS:", corsError.message);
+                  try {
+                    await fetch(SCRIPT_URL, {
+                      method: "POST",
+                      mode: "no-cors",
+                      credentials: "omit",
+                      body: requestBody
+                    });
+                    formSubmitted = true;
+                  } catch (noCorsError) {
+                    submissionError = noCorsError.message || "Network request failed.";
+                  }
+                }
+
+                if (formSubmitted) {
                     form.classList.add('hidden');
                     successMsg.classList.remove('hidden');
                     window.scrollTo({ top: 0, behavior: 'smooth' });
                 } else {
-                    throw new Error(result.message || "Database error occurred on the server.");
+                    throw new Error(submissionError || "Database error occurred on the server.");
                 }
 
             } catch (error) {
