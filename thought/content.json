@@ -4,6 +4,18 @@
       "daily_focus": {
         "media_type": "image"
       },
+      "date": "2026-09-21",
+      "thought_of_the_day": "Be the change you wish to see in the world.",
+      "order_of_the_day": [
+        "Follow Day order 1"
+      ],
+      "bible_verse": "See how i love your percepts; preserve them in your hearts.",
+      "bible_reference": "Psalm 159:39"
+    },
+    {
+      "daily_focus": {
+        "media_type": "image"
+      },
       "date": "2026-09-17",
       "order_of_the_day": [
         "Follow day order 5"
@@ -601,18 +613,6 @@
       "bible_verse": "Let all that you do be done in love.",
       "bible_reference": "1 Corinthians 16:14",
       "additional_notes": "Inter-house quiz registrations close today."
-    },
-    {
-      "daily_focus": {
-        "media_type": "image"
-      },
-      "date": "2026-09-21",
-      "thought_of_the_day": "Be the change you wish to see in the world.",
-      "order_of_the_day": [
-        "Follow Day order 1"
-      ],
-      "bible_verse": "See how i love your percepts; preserve them in your hearts.",
-      "bible_reference": "Psalm 159:39"
     }
   ]
 }
