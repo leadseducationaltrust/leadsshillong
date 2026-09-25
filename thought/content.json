@@ -4,6 +4,18 @@
       "daily_focus": {
         "media_type": "image"
       },
+      "date": "2026-09-25",
+      "thought_of_the_day": "One kind word can change someone's  entire day.",
+      "order_of_the_day": [
+        "Follow day order 5"
+      ],
+      "bible_verse": "Do to others what you would have them do to you.",
+      "bible_reference": "Matthew 7:12"
+    },
+    {
+      "daily_focus": {
+        "media_type": "image"
+      },
       "date": "2026-09-24",
       "thought_of_the_day": "small helps leads to big changes",
       "order_of_the_day": [
@@ -646,18 +658,6 @@
       "bible_verse": "Let all that you do be done in love.",
       "bible_reference": "1 Corinthians 16:14",
       "additional_notes": "Inter-house quiz registrations close today."
-    },
-    {
-      "daily_focus": {
-        "media_type": "image"
-      },
-      "date": "2026-09-25",
-      "thought_of_the_day": "One kind word can change someone's  entire day.",
-      "order_of_the_day": [
-        "Follow day order 5"
-      ],
-      "bible_verse": "Do to others what you would have them do to you.",
-      "bible_reference": "Matthew 7:12"
     }
   ]
 }
