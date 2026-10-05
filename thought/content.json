@@ -4,6 +4,18 @@
       "daily_focus": {
         "media_type": "image"
       },
+      "date": "2026-10-05",
+      "thought_of_the_day": "Great thought bring great responsibility.",
+      "order_of_the_day": [
+        "Follow  Day order  5"
+      ],
+      "bible_verse": "But if your eyes are unhealthy, your whole body will be full of darkness. If then the light within you is darkness, how great is that darkness.",
+      "bible_reference": "Mathew 6:23"
+    },
+    {
+      "daily_focus": {
+        "media_type": "image"
+      },
       "date": "2026-10-01",
       "bible_verse": "Behold, I am doing a new thing; now it springs forth; do you not perceive it? I will make a way in the wilderness and rivers in the desert.",
       "bible_reference": "Isaiah 43:19",
@@ -670,18 +682,6 @@
       "bible_verse": "Let all that you do be done in love.",
       "bible_reference": "1 Corinthians 16:14",
       "additional_notes": "Inter-house quiz registrations close today."
-    },
-    {
-      "daily_focus": {
-        "media_type": "image"
-      },
-      "date": "2026-10-05",
-      "thought_of_the_day": "Great thought bring great responsibility.",
-      "order_of_the_day": [
-        "Follow  Day order  5"
-      ],
-      "bible_verse": "But if your eyes are unhealthy, your whole body will be full of darkness. If then the light within you is darkness, how great is that darkness.",
-      "bible_reference": "Mathew 6:23"
     }
   ]
 }
