@@ -4,6 +4,15 @@
       "daily_focus": {
         "media_type": "image"
       },
+      "date": "2026-10-06",
+      "order_of_the_day": [
+        "Follow day order 1"
+      ]
+    },
+    {
+      "daily_focus": {
+        "media_type": "image"
+      },
       "date": "2026-10-05",
       "thought_of_the_day": "Great thought bring great responsibility.",
       "order_of_the_day": [
@@ -682,15 +691,6 @@
       "bible_verse": "Let all that you do be done in love.",
       "bible_reference": "1 Corinthians 16:14",
       "additional_notes": "Inter-house quiz registrations close today."
-    },
-    {
-      "daily_focus": {
-        "media_type": "image"
-      },
-      "date": "2026-10-06",
-      "order_of_the_day": [
-        "Follow day order 1"
-      ]
     }
   ]
 }
