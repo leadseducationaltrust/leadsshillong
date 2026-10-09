@@ -4,6 +4,18 @@
       "daily_focus": {
         "media_type": "image"
       },
+      "thought_of_the_day": "Be the change if you want to see in the world.",
+      "date": "2026-10-09",
+      "order_of_the_day": [
+        "Follow day order 4"
+      ],
+      "bible_verse": "Then he said to Thomas, “Put your finger here; see my hands. Reach out your hand and put it into my side. Stop doubting and believe.”\n",
+      "bible_reference": "John  20:27"
+    },
+    {
+      "daily_focus": {
+        "media_type": "image"
+      },
       "date": "2026-10-08",
       "thought_of_the_day": "When we learn we never forget.",
       "order_of_the_day": [
@@ -712,18 +724,6 @@
       "bible_verse": "Let all that you do be done in love.",
       "bible_reference": "1 Corinthians 16:14",
       "additional_notes": "Inter-house quiz registrations close today."
-    },
-    {
-      "daily_focus": {
-        "media_type": "image"
-      },
-      "thought_of_the_day": "Be the change if you want to see in the world.",
-      "date": "2026-10-09",
-      "order_of_the_day": [
-        "Follow day order 4"
-      ],
-      "bible_verse": "Then he said to Thomas, “Put your finger here; see my hands. Reach out your hand and put it into my side. Stop doubting and believe.”\n",
-      "bible_reference": "John  20:27"
     }
   ]
 }
