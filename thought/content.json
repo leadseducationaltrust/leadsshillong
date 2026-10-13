@@ -4,6 +4,18 @@
       "daily_focus": {
         "media_type": "image"
       },
+      "date": "2026-10-13",
+      "order_of_the_day": [
+        "Follow day order 1"
+      ],
+      "bible_reference": "Luke 1:37",
+      "bible_verse": "“For with God nothing shall be impossible.”",
+      "thought_of_the_day": "Small steps lead to big success."
+    },
+    {
+      "daily_focus": {
+        "media_type": "image"
+      },
       "date": "2026-10-12",
       "order_of_the_day": [
         "Follow day order 5"
@@ -733,18 +745,6 @@
       "bible_verse": "Let all that you do be done in love.",
       "bible_reference": "1 Corinthians 16:14",
       "additional_notes": "Inter-house quiz registrations close today."
-    },
-    {
-      "daily_focus": {
-        "media_type": "image"
-      },
-      "date": "2026-10-13",
-      "order_of_the_day": [
-        "Follow day order 1"
-      ],
-      "bible_reference": "Luke 1:37",
-      "bible_verse": "“For with God nothing shall be impossible.”",
-      "thought_of_the_day": "Small steps lead to big success."
     }
   ]
 }
