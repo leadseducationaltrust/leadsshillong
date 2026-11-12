@@ -1,6 +1,16 @@
 {
   "images": [
     {
+      "url": "/gallery/media/children-day-12-4.jpeg",
+      "desc": "Children's Day ",
+      "date": "2026-11-12"
+    },
+    {
+      "url": "/gallery/media/childrenday-12.jpeg",
+      "desc": "Distibution of medals",
+      "date": "2026-11-12"
+    },
+    {
       "url": "/gallery/media/hall-images.jpeg",
       "desc": "A hall full of young hearts, bright smiles and boundless enthusiasm—together making Activity Week 2026 truly memorable!",
       "date": "2026-08-28"
@@ -134,16 +144,6 @@
       "url": "gallery/media/photo_11_investiture.jpg",
       "desc": "Newly appointed Captains and Vice-Captains with the guest of honour",
       "date": "2025-03-16"
-    },
-    {
-      "url": "/gallery/media/children-day-12-4.jpeg",
-      "desc": "Children's Day ",
-      "date": "2026-11-12"
-    },
-    {
-      "url": "/gallery/media/childrenday-12.jpeg",
-      "desc": "Distibution of medals",
-      "date": "2026-11-12"
     }
   ]
 }
