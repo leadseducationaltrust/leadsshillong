@@ -4,6 +4,20 @@
       "daily_focus": {
         "media_type": "image"
       },
+      "date": "2026-11-12"
+    },
+    {
+      "daily_focus": {
+        "media_type": "image",
+        "image": "/thought/media/children-day-2026.jpeg",
+        "description": "🎉 *Happy Children’s Day from all of us at LEADS School!* 🎈✨\n\nToday, we celebrated the joy, innocence, and boundless energy of our students with incredible fanfare! 🎊 It was a day full of proud moments as we awarded prizes to our talented students—from the pre-primary level onwards—for their amazing achievements in co-curricular activities like recitation, storytelling, fancy dress, quizzes, and singing. 🏆🎭🎤\n\nTo make the day even more special, our amazing teachers took the stage! They put on a surprise performance, entertaining the kids with special singing and dancing routines that had everyone cheering and smiling. 👩‍🏫💃🎶\n\nThe celebration ended on a spectacular high note with an electrifying set by DJ Massar! 🎧 The children had an absolute blast letting loose and dancing to the rhythm and beats, making memories that will last a lifetime. 💃🕺\n\nHere’s to the bright futures of all our little champions. Keep smiling, keep dancing, and keep shining! 🌟"
+      },
+      "date": "2026-11-12"
+    },
+    {
+      "daily_focus": {
+        "media_type": "image"
+      },
       "date": "2026-10-14",
       "order_of_the_day": [
         "Follow day Order 2"
@@ -757,20 +771,6 @@
       "bible_verse": "Let all that you do be done in love.",
       "bible_reference": "1 Corinthians 16:14",
       "additional_notes": "Inter-house quiz registrations close today."
-    },
-    {
-      "daily_focus": {
-        "media_type": "image"
-      },
-      "date": "2026-11-12"
-    },
-    {
-      "daily_focus": {
-        "media_type": "image",
-        "image": "/thought/media/children-day-2026.jpeg",
-        "description": "🎉 *Happy Children’s Day from all of us at LEADS School!* 🎈✨\n\nToday, we celebrated the joy, innocence, and boundless energy of our students with incredible fanfare! 🎊 It was a day full of proud moments as we awarded prizes to our talented students—from the pre-primary level onwards—for their amazing achievements in co-curricular activities like recitation, storytelling, fancy dress, quizzes, and singing. 🏆🎭🎤\n\nTo make the day even more special, our amazing teachers took the stage! They put on a surprise performance, entertaining the kids with special singing and dancing routines that had everyone cheering and smiling. 👩‍🏫💃🎶\n\nThe celebration ended on a spectacular high note with an electrifying set by DJ Massar! 🎧 The children had an absolute blast letting loose and dancing to the rhythm and beats, making memories that will last a lifetime. 💃🕺\n\nHere’s to the bright futures of all our little champions. Keep smiling, keep dancing, and keep shining! 🌟"
-      },
-      "date": "2026-11-12"
     }
   ]
 }
