@@ -3,17 +3,6 @@
     {
       "daily_focus": {
         "media_type": "image",
-        "media_url": ""
-      },
-      "date": "2026-11-20",
-      "order_of_the_day": [],
-      "bible_verse": "Whatever you do, work at it with all your heart, as working for the Lord, not for human masters.",
-      "bible_reference": "Colossians 3:23",
-      "thought_of_the_day": "Difficult roads often lead to beautiful destinations."
-    },
-    {
-      "daily_focus": {
-        "media_type": "image",
         "media_items": [
           {
             "media_type": "image",
@@ -781,6 +770,19 @@
       "bible_verse": "Let all that you do be done in love.",
       "bible_reference": "1 Corinthians 16:14",
       "additional_notes": "Inter-house quiz registrations close today."
+    },
+    {
+      "daily_focus": {
+        "media_type": "image",
+        "media_url": ""
+      },
+      "date": "2026-11-20",
+      "order_of_the_day": [
+        "Follow day order 1"
+      ],
+      "bible_verse": "Whatever you do, work at it with all your heart, as working for the Lord, not for human masters.",
+      "bible_reference": "Colossians 3:23",
+      "thought_of_the_day": "Difficult roads often lead to beautiful destinations."
     }
   ]
 }
