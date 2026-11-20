@@ -2,6 +2,13 @@
   "entries": [
     {
       "daily_focus": {
+        "media_type": "image"
+      },
+      "date": "2026-11-20",
+      "order_of_the_day": []
+    },
+    {
+      "daily_focus": {
         "media_type": "image",
         "media_items": [
           {
@@ -770,13 +777,6 @@
       "bible_verse": "Let all that you do be done in love.",
       "bible_reference": "1 Corinthians 16:14",
       "additional_notes": "Inter-house quiz registrations close today."
-    },
-    {
-      "daily_focus": {
-        "media_type": "image"
-      },
-      "date": "2026-11-20",
-      "order_of_the_day": []
     }
   ]
 }
